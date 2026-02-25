@@ -46,25 +46,38 @@ jobs:
           SEED_TX_L20: "0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb"
         run: npm run update:all
 
-      # ✅ KEY FIX: copy the outputs into repo root, because GitHub Pages is serving /(root)
       - name: Copy public outputs to repo root (Pages root hosting)
         run: |
+          set -e
           cp -f public/leaderboard.json leaderboard.json
           cp -f public/profiles.json profiles.json
-          cp -f public/tournamentRanges.json tournamentRanges.json
+
+          # tournamentRanges should exist now (stubbed if build fails),
+          # but keep this guard anyway so the workflow never dies here.
+          if [ -f public/tournamentRanges.json ]; then
+            cp -f public/tournamentRanges.json tournamentRanges.json
+          else
+            echo "WARNING: public/tournamentRanges.json missing; skipping root copy"
+          fi
 
       - name: Show summary of outputs
         run: |
-          echo "---- leaderboard.json (ROOT) ----"
-          node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('leaderboard.json','utf8')); console.log('updatedAtUtc=', j.updatedAtUtc||j.updatedAt||'(none)'); console.log('wins=', (j.wins||[]).length); console.log('last=', j.wins?.[j.wins.length-1]);"
           echo "---- public/leaderboard.json ----"
           node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('public/leaderboard.json','utf8')); console.log('updatedAtUtc=', j.updatedAtUtc||j.updatedAt||'(none)'); console.log('wins=', (j.wins||[]).length); console.log('last=', j.wins?.[j.wins.length-1]);"
+          echo "---- public/profiles.json ----"
+          node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('public/profiles.json','utf8')); const m=j.namesByAddress||{}; console.log('profiles=', Object.keys(m).length);"
+          echo "---- public/tournamentRanges.json ----"
+          node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('public/tournamentRanges.json','utf8')); const m=j.rangesByTournamentId||{}; console.log('ranges=', Object.keys(m).length);"
+
+          echo "---- root jsons ----"
+          ls -la leaderboard.json profiles.json || true
+          ls -la tournamentRanges.json || true
 
       - name: Commit updated data
         run: |
           git status --porcelain
-          git add leaderboard.json profiles.json tournamentRanges.json || true
           git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
+          git add leaderboard.json profiles.json tournamentRanges.json || true
           git commit -m "chore: update leaderboard data" || echo "No changes to commit"
 
       - name: Push (pull --rebase, retry up to 3 times)
