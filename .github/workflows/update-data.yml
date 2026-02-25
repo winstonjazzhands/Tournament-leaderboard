@@ -3,18 +3,19 @@ name: Update leaderboard data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */3 * * *"
+    - cron: "0 */3 * * *" # every 3 hours (UTC)
 
 permissions:
   contents: write
 
 concurrency:
-  group: update-data
+  group: leaderboard-update
   cancel-in-progress: true
 
 jobs:
   update:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,28 +25,26 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: 20
+          cache: npm
 
       - name: Install dependencies
         run: npm ci
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
         env:
-          # Provide BOTH names so any script works.
-          RPC: "https://andromeda.metis.io/?owner=1088"
-          RPC_URL: "https://andromeda.metis.io/?owner=1088"
-
-          SUBGRAPH_ENDPOINT: "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7"
-          TOURNAMENT_DIAMOND: "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B"
+          RPC_URL: ${{ secrets.RPC_URL }}
+          RPC: ${{ secrets.RPC_URL }} # back-compat if any script reads RPC
+          SUBGRAPH_ENDPOINT: ${{ secrets.SUBGRAPH_ENDPOINT }}
+          TOURNAMENT_DIAMOND: ${{ secrets.TOURNAMENT_DIAMOND }}
 
           START_BLOCK: "22000000"
           LOOKBACK_BLOCKS: "3000000"
           LOG_CHUNK_BLOCKS: "60000"
           USE_CACHE: "1"
 
-          SEED_TX_L10: "0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820"
-          SEED_TX_L20: "0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb"
+          SEED_TX_L10: ${{ secrets.SEED_TX_L10 }}
+          SEED_TX_L20: ${{ secrets.SEED_TX_L20 }}
         run: npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
@@ -57,20 +56,40 @@ jobs:
             cp -f public/tournamentRanges.json tournamentRanges.json
           fi
 
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       - name: Commit updated data
         run: |
-          git status --porcelain
-          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
-          git add leaderboard.json profiles.json tournamentRanges.json || true
-          git commit -m "chore: update leaderboard data" || echo "No changes to commit"
+          set -e
 
-      - name: Push (pull --rebase, retry up to 3 times)
+          # Stage generated public files
+          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
+
+          # Stage Pages-root copies
+          git add leaderboard.json profiles.json tournamentRanges.json || true
+
+          # Stage caches (optional but recommended since they change every run)
+          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
+
+          # If nothing staged, stop cleanly
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          git commit -m "chore: update leaderboard data"
+
+      - name: Push (retry up to 3 times)
         run: |
           set -e
           for i in 1 2 3; do
             echo "Push attempt $i..."
+            # Workspace should be clean now; if remote moved, rebase our commit(s)
             git pull --rebase origin main || true
-            if git push; then
+            if git push origin HEAD:main; then
               echo "Push succeeded."
               exit 0
             fi
