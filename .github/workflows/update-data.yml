@@ -3,13 +3,14 @@ name: Update leaderboard data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */3 * * *" # every 3 hours (UTC)
+    - cron: "0 */3 * * *" # every 3 hours
 
 permissions:
   contents: write
 
+# Avoid overlapping scheduled runs fighting each other (and breaking git pull/rebase)
 concurrency:
-  group: leaderboard-update
+  group: update-leaderboard-data
   cancel-in-progress: true
 
 jobs:
@@ -33,18 +34,23 @@ jobs:
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
         env:
+          # Required (store these in repo Settings -> Secrets and variables -> Actions)
           RPC_URL: ${{ secrets.RPC_URL }}
-          RPC: ${{ secrets.RPC_URL }} # back-compat if any script reads RPC
           SUBGRAPH_ENDPOINT: ${{ secrets.SUBGRAPH_ENDPOINT }}
           TOURNAMENT_DIAMOND: ${{ secrets.TOURNAMENT_DIAMOND }}
 
+          # Optional tuning (constants are fine here; move to secrets later if you want)
           START_BLOCK: "22000000"
           LOOKBACK_BLOCKS: "3000000"
           LOG_CHUNK_BLOCKS: "60000"
           USE_CACHE: "1"
 
+          # Seed transactions used by tournamentRanges builder (secrets)
           SEED_TX_L10: ${{ secrets.SEED_TX_L10 }}
           SEED_TX_L20: ${{ secrets.SEED_TX_L20 }}
+
+          # Back-compat if any script reads RPC instead of RPC_URL
+          RPC: ${{ secrets.RPC_URL }}
         run: npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
@@ -61,34 +67,42 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit updated data
+      - name: Commit updated data (if changed)
+        id: commit
         run: |
           set -e
 
-          # Stage generated public files
+          # Add generated public files
           git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
 
-          # Stage Pages-root copies
+          # Add Pages-root copies
           git add leaderboard.json profiles.json tournamentRanges.json || true
 
-          # Stage caches (optional but recommended since they change every run)
+          # Add caches (helps speed/stability between runs)
           git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
 
-          # If nothing staged, stop cleanly
+          # Only commit if something changed
           if git diff --cached --quiet; then
             echo "No changes to commit"
+            echo "committed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           git commit -m "chore: update leaderboard data"
+          echo "committed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Push (retry up to 3 times)
+      - name: Push changes
+        if: steps.commit.outputs.committed == 'true'
         run: |
           set -e
+
+          # Rebase onto the latest main to avoid non-fast-forward pushes
+          git fetch origin main
+          git rebase origin/main
+
+          # Push with a couple retries for transient network hiccups
           for i in 1 2 3; do
             echo "Push attempt $i..."
-            # Workspace should be clean now; if remote moved, rebase our commit(s)
-            git pull --rebase origin main || true
             if git push origin HEAD:main; then
               echo "Push succeeded."
               exit 0
@@ -96,5 +110,6 @@ jobs:
             echo "Push failed, retrying..."
             sleep 2
           done
+
           echo "Push failed after 3 attempts."
           exit 1
