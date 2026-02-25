@@ -1051,6 +1051,7 @@
       <div class="modalNote" id="tourneyStatus" style="margin-top:10px"></div>
     </div>
   </div>
+</div>
 
 <div class="modalBackdrop" id="tourneyLinksBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourneyLinksTitle">
@@ -1716,10 +1717,8 @@
       const place = idx + 1;
       const name = displayName(r.wallet);
 
-      const ids10 = (r.ids10 || []).join("
-");
-      const ids20 = (r.ids20 || []).join("
-");
+      const ids10 = (r.ids10 || []).join("\n");
+      const ids20 = (r.ids20 || []).join("\n");
       const enc10 = encodeURIComponent(ids10);
       const enc20 = encodeURIComponent(ids20);
 
