@@ -53,7 +53,10 @@
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
     header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-    h1{font-size:18px;margin:0}
+    h1{margin:0}
+    .siteTitle{font-size:22px;letter-spacing:.2px}
+    .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
+    .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
     /* ✅ TOP ROW: 4 items on one line */
@@ -351,7 +354,7 @@
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
     .topRight{text-align:right;white-space:nowrap;flex:0 0 auto;}
-    .topReward{color: var(--gold);font-weight:900;font-size:14px;line-height:1.1;}
+    .topReward{color: var(--gold);font-weight:900;font-size:19px;line-height:1.1;}
     .topRewardLabel{color: var(--muted);font-size:11px;line-height:1.1;margin-top:2px;}
     .topEmpty{color: var(--muted);font-size:12px;padding:4px 2px;}
 
@@ -362,7 +365,7 @@
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:13px; }
-    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:15px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:20px; }
 
     .card{
       background: rgba(255,255,255,.03);
@@ -375,6 +378,9 @@
       padding:12px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .lbLeft{flex:0 0 auto;}
+    .lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
       overflow:auto;
@@ -491,6 +497,9 @@
       box-shadow: 0 0 0 3px rgba(78,161,255,.14);
       border-radius: 10px;
     }
+
+    .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
+    .clickBreakdown:hover{text-decoration:underline;}
 
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
@@ -689,7 +698,10 @@
         gap:10px;
       }
 
-      .topRow{grid-template-columns: 1fr;}
+      .topRow{grid-template-columns: 1fr; display:flex; flex-direction:column;}
+      #lastWeekTile{order:1;}
+      #lifetimeTile{order:2;}
+      #filtersCard{order:3;}
       .tile{height:auto;}
       table{ table-layout:auto; }
       th.walletCol{width:auto}
@@ -724,8 +736,10 @@
   <div class="headerInner">
     <header>
       <div>
-        <h1>DFK Tournament Leaderboard</h1>
+        <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
+        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
         <div class="sub" id="subline"></div>
+        <div class="sub" id="updateLine"></div>
 
         <div class="topHeaderRow" title="All weekly presets and date ranges are interpreted in UTC">
           <div class="miniTile">
@@ -752,14 +766,16 @@
           </button>
         </div>
       </div>
-      <div></div>
+      <div class="headerRight">
+        <a class="btn primary playNowBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">PLAY NOW</a>
+      </div>
     </header>
   </div>
 
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd"></span></div>
+        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote">Info before Jan 16, 2026 not available</span></div>
         <div class="bd">
           <div class="filterGrid">
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date (UTC)">
@@ -772,8 +788,8 @@
               <span class="val" id="toLabel">—</span>
             </button>
 
-            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="false">This week</button>
-            <button class="btn" id="lastWeekBtn" type="button" aria-pressed="true">Last week</button>
+            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
+            <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
 
             <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
@@ -805,7 +821,10 @@
 
       <aside class="tile" id="lifetimeTile" aria-label="Lifetime top winners">
         <div class="hd">
-          <span>Lifetime top 3</span>
+          <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
+            <span>Lifetime top 3</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime counting starts Jan 16, 2026</span>
+          </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
           </div>
@@ -820,12 +839,17 @@
 
     <section class="card">
       <div class="hd">
-        <div>
+        <div class="lbLeft">
           <div style="font-size:12px;color:var(--muted)">Leaderboard</div>
           <div style="font-weight:700">Lvl 10 vs Lvl 20 wins</div>
         </div>
 
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+        <div class="lbCenter" id="rangeIndicator" aria-live="polite">
+          <span id="rangeText">—</span>
+          <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
+        </div>
+
+        <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
           <button class="btn" id="walletsBtn" type="button" title="Show wallets">
             <span id="walletsBtnText">— wallets</span>
@@ -915,8 +939,7 @@
 
         <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
         <ul style="margin:0 0 14px 20px;">
-          <li><strong>2 wins</strong> = <strong>120 JEWEL</strong></li>
-          <li><strong>Each additional win</strong> = <strong>+60 JEWEL</strong></li>
+          <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
         </ul>
 
         <p>
@@ -938,6 +961,11 @@
                https://discord.gg/M8pqR34W
              </a>
         </p>
+        <div style="display:flex;justify-content:center;margin-top:12px;margin-bottom:6px;">
+          <a href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer" class="dfk-button dfk-playNowBtn">
+            PLAY DEFI KINGDOMS NOW
+          </a>
+        </div>
 
         <p style="margin-top:18px; margin-bottom:10px; font-weight:900; color:rgba(233,240,255,.92); text-align:center;">
           Check out these great DFK 3rd party tools from community developers
@@ -967,6 +995,8 @@
             font-family: Arial, sans-serif;
           }
 
+          .dfk-playNowBtn{padding:15px 26px;font-size:18px;font-weight:900;}
+
           .dfk-button:hover {
             background: #c9a227;
             color: #000000;
@@ -991,6 +1021,14 @@
           <a class="dfk-button" href="https://www.adfk.app/" target="_blank" rel="noopener noreferrer">
             Adventures in DFK
           </a>
+
+          <a class="dfk-button" href="https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide" target="_blank" rel="noopener noreferrer">
+            Renpen&#39;s QuickStart Guide
+          </a>
+
+          <a class="dfk-button" href="https://mellowdfk.com/" target="_blank" rel="noopener noreferrer">
+            Mellow&#39;s Tools
+          </a>
         </div>
       </div>
     </div>
@@ -1013,6 +1051,24 @@
       <div class="modalNote" id="tourneyStatus" style="margin-top:10px"></div>
     </div>
   </div>
+
+<div class="modalBackdrop" id="tourneyLinksBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourneyLinksTitle">
+    <div class="modalHd">
+      <div class="modalTitle" id="tourneyLinksTitle">Tournament links</div>
+      <button class="modalBtn" id="tourneyLinksCloseBtn" type="button">Close</button>
+    </div>
+    <div class="modalBd">
+      <p class="modalNote" id="tourneyLinksMeta">—</p>
+      <div id="tourneyLinksList" style="max-height:50vh;overflow:auto;padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.18);text-align:left;"></div>
+      <div class="modalBtns">
+        <button class="modalBtn" id="tourneyLinksCopyBtn" type="button">Copy links</button>
+      </div>
+      <div class="modalNote" id="tourneyLinksStatus" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
 </div>
 
 <div class="pcOverlay" id="pcOverlay" aria-hidden="true">
@@ -1052,11 +1108,15 @@
     searchTimer: null,
     sortMode: "10s",
     lifetimeSorted: [],
-    weekPreset: "last",
+    weekPreset: "this",
     namesByAddress: {},
     tournamentTierById: {},
     tournamentRangeById: {},
   };
+
+  // Data availability start (UTC)
+  const DATA_START_MS = Date.UTC(2026, 0, 16, 0,0,0,0);
+  const DATA_START_ISO = "2026-01-16";
 
   function pad(n){ return String(n).padStart(2,"0"); }
   function pluralWins(n){ return n === 1 ? "win" : "wins"; }
@@ -1096,13 +1156,57 @@
     $("toLabel").textContent = formatPrettyUtc(state.range.toMs);
   }
 
-  function setRange(fromMs, toMs){
-    state.range.fromMs = fromMs;
-    state.range.toMs = toMs;
+  function formatPrettyUtcInclusiveEnd(toMs){
+    if (toMs == null) return "—";
+    // show inclusive end date for ranges (toMs is exclusive midnight UTC)
+    const end = toMs - 1;
+    return formatPrettyUtc(end);
+  }
 
-    $("fromDate").value = fromMs != null ? toIsoDateUtc(fromMs) : "";
-    $("toDate").value = toMs != null ? toIsoDateUtc(toMs) : "";
+  function updateRangeIndicator(){
+    const el = $("rangeText");
+    const clearBtn = $("clearRangeBtn");
+    if (!el || !clearBtn) return;
+
+    const preset = state.weekPreset;
+    if (preset === "this"){
+      el.textContent = "Showing this week";
+      clearBtn.style.display = "none";
+      return;
+    }
+
+    const f = formatPrettyUtc(state.range.fromMs);
+    const t = formatPrettyUtcInclusiveEnd(state.range.toMs);
+    el.textContent = `Showing ${f} to ${t}`;
+    clearBtn.style.display = "inline-flex";
+  }
+
+  
+  function clampRange(fromMs, toMs){
+    let f = fromMs;
+    let t = toMs;
+
+    if (f != null && f < DATA_START_MS) f = DATA_START_MS;
+    if (f == null) f = DATA_START_MS; // always keep range within available data
+    if (t != null && t < DATA_START_MS) t = DATA_START_MS;
+
+    if (t != null && f != null && t < f) t = f;
+
+    return { fromMs: f, toMs: t };
+  }
+
+  function setRange(fromMs, toMs){
+    const clamped = clampRange(fromMs, toMs);
+    state.range.fromMs = clamped.fromMs;
+    state.range.toMs = clamped.toMs;
+
+    $("fromDate").min = DATA_START_ISO;
+    $("toDate").min = DATA_START_ISO;
+
+    $("fromDate").value = state.range.fromMs != null ? toIsoDateUtc(state.range.fromMs) : "";
+    $("toDate").value = state.range.toMs != null ? toIsoDateUtc(state.range.toMs) : "";
     updateDateLabels();
+    updateRangeIndicator();
   }
 
   function updateWeekPresetUI(){
@@ -1170,7 +1274,7 @@
     return 0;
   }
   function jewel20(w20){
-    if (w20 < 2) return 0;
+    if (w20 < 1) return 0;
     return 60 * w20;
   }
   function formatJewel(n){ return `${n.toLocaleString()} JEWEL`; }
@@ -1448,8 +1552,23 @@
     return `${hh}:${mm}:${ss}`;
   }
 
+  
+  function nextUpdateUtcMs(nowMs){
+    const d = new Date(nowMs);
+    const y = d.getUTCFullYear();
+    const m = d.getUTCMonth();
+    const day = d.getUTCDate();
+    const h = d.getUTCHours();
+    const nextH = (Math.floor(h / 3) * 3) + 3; // next 3-hour boundary
+    if (nextH >= 24){
+      return Date.UTC(y, m, day + 1, 0, 0, 0, 0);
+    }
+    return Date.UTC(y, m, day, nextH, 0, 0, 0);
+  }
+
   function setUtcWidgets(){
     const now = new Date();
+    const nowMs = now.getTime();
     const clock = now.toISOString().replace("T"," ").slice(0,19) + "Z";
     $("utcNow").textContent = clock;
 
@@ -1459,7 +1578,11 @@
       now.getUTCDate() + 1,
       0,0,0,0
     );
-    $("utcCountdown").textContent = fmtCountdown(nextMidnightUtcMs - now.getTime());
+    $("utcCountdown").textContent = fmtCountdown(nextMidnightUtcMs - nowMs);
+
+    const nextUpMs = nextUpdateUtcMs(nowMs);
+    const nextUpIso = new Date(nextUpMs).toISOString().replace("T"," ").slice(0,19) + "Z";
+    $("updateLine").textContent = `Next leaderboard update: ${nextUpIso} (in ${fmtCountdown(nextUpMs - nowMs)})`;
   }
 
   function openModal(backdropId){
@@ -1503,6 +1626,37 @@
     $("tourneyStatus").textContent = "";
     openModal("tourneyBackdrop");
     setTimeout(() => $("tourneyText").focus(), 0);
+  }
+
+  function tourneyUrl(id){
+    const tid = normalizeTournamentId(id);
+    if (!tid) return "";
+    return `https://game.defikingdoms.com/registry/tournaments/${tid}`;
+  }
+
+  function openTourneyLinksModal(wallet, tier, idsText){
+    const ids = (idsText || "").split(/\s+/).map(s=>s.trim()).filter(Boolean);
+    const label = tier === 20 ? "Lvl 20" : "Lvl 10";
+    $("tourneyLinksTitle").textContent = `${label} tournament links`;
+    $("tourneyLinksMeta").textContent = `${displayName(wallet)} • Last week • ${ids.length.toLocaleString()} ${ids.length === 1 ? "tournament" : "tournaments"}`;
+    $("tourneyLinksStatus").textContent = "";
+
+    if (!ids.length){
+      $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No tournaments found.</div>`;
+    } else {
+      $("tourneyLinksList").innerHTML = `<ul style="margin:0;padding-left:18px;line-height:1.6;">${
+        ids.map(tid => {
+          const url = tourneyUrl(tid);
+          return `<li><a href="${url}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:800;text-decoration:none;">${url}</a></li>`;
+        }).join("")
+      }</ul>`;
+    }
+
+    // store for copy
+    $("tourneyLinksList").setAttribute("data-copy", ids.map(tid => tourneyUrl(tid)).join("\n"));
+
+    openModal("tourneyLinksBackdrop");
+    setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
   }
 
   function sizeTilesToFilters(){
@@ -1550,6 +1704,7 @@
 
   function renderTopList(containerId, rows, takeN){
     const host = $(containerId);
+    const isLastWeek = containerId === "top3LastWeek";
     const top = rows.filter(x => x.jT > 0).slice(0, takeN);
 
     if (!top.length){
@@ -1560,7 +1715,18 @@
     host.innerHTML = top.map((r, idx) => {
       const place = idx + 1;
       const name = displayName(r.wallet);
-      const winsLine = `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
+
+      const ids10 = (r.ids10 || []).join("
+");
+      const ids20 = (r.ids20 || []).join("
+");
+      const enc10 = encodeURIComponent(ids10);
+      const enc20 = encodeURIComponent(ids20);
+
+      const winsLine = isLastWeek
+        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="10" data-ids="${enc10}" title="Click to view Level 10 tournaments">10s: ${r.lvl10Wins}</span> • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="20" data-ids="${enc20}" title="Click to view Level 20 tournaments">20s: ${r.lvl20Wins}</span>`
+        : `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
+
       return `
         <div class="topItem">
           <div class="topLeft">
@@ -1572,15 +1738,29 @@
           </div>
           <div class="topRight">
             <div class="topReward">${r.jT.toLocaleString()} JEWEL</div>
-            <div class="topRewardLabel">Jewel reward</div>
           </div>
         </div>
       `;
     }).join("");
+
+    if (isLastWeek){
+      host.querySelectorAll(".clickBreakdown").forEach(el => {
+        const open = () => {
+          const wallet = el.getAttribute("data-wallet") || "";
+          const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
+          const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+          openTourneyLinksModal(wallet, tier, idsText);
+        };
+        el.addEventListener("click", open);
+        el.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+        });
+      });
+    }
   }
 
   function computeLifetimeTop(){
-    const rows = aggregateWins(state.wins, null, null).rows;
+    const rows = aggregateWins(state.wins, DATA_START_MS, null).rows;
     const enriched = enrichWithJewel(rows);
 
     enriched.sort((a,b)=>
@@ -1617,7 +1797,7 @@
             </div>
             <div class="top10Right">
               <div class="top10Reward">${r.jT.toLocaleString()} JEWEL</div>
-              <div class="top10RewardLabel">Jewel reward</div>
+              
             </div>
           </div>
         `;
@@ -1798,7 +1978,7 @@
         $("subline").textContent = "";
       }
 
-      setLastWeek();
+      setThisWeek();
       setToggleUI();
       setColumnHighlight();
       apply();
@@ -1843,6 +2023,15 @@
     $("tourneyStatus").textContent = ok ? "Copied tournament IDs to clipboard." : "Copy failed (browser blocked clipboard).";
   });
 
+
+  $("tourneyLinksCloseBtn").addEventListener("click", () => closeModal("tourneyLinksBackdrop"));
+  $("tourneyLinksBackdrop").addEventListener("click", (e) => { if (e.target === $("tourneyLinksBackdrop")) closeModal("tourneyLinksBackdrop"); });
+  $("tourneyLinksCopyBtn").addEventListener("click", async () => {
+    const text = $("tourneyLinksList").getAttribute("data-copy") || "";
+    const ok = await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false);
+    $("tourneyLinksStatus").textContent = ok ? "Copied tournament links to clipboard." : "Copy failed (browser blocked clipboard).";
+  });
+
   $("thisWeekBtn").addEventListener("click", () => {
     setThisWeek(); apply();
     const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
@@ -1850,6 +2039,12 @@
   });
   $("lastWeekBtn").addEventListener("click", () => {
     setLastWeek(); apply();
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+  $("clearRangeBtn").addEventListener("click", () => {
+    setThisWeek(); apply();
     const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
     requestAnimationFrame(() => sizeTilesToFilters());
   });
@@ -1912,6 +2107,7 @@
     if ($("top10Backdrop").classList.contains("show")) closeModal("top10Backdrop");
     if ($("modalBackdrop").classList.contains("show")) closeModal("modalBackdrop");
     if ($("tourneyBackdrop").classList.contains("show")) closeModal("tourneyBackdrop");
+    if ($("tourneyLinksBackdrop").classList.contains("show")) closeModal("tourneyLinksBackdrop");
   });
 
   window.addEventListener("resize", () => {
