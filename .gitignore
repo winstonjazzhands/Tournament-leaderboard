@@ -1,0 +1,8 @@
+node_modules/
+logs/
+.DS_Store
+Thumbs.db
+.env
+.env.*
+# backups / old copies
+public/index backup/

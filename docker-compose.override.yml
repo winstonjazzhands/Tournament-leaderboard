@@ -1,0 +1,5 @@
+version: "3"
+services:
+  graph-node:
+    environment:
+      ethereum: "${ETHEREUM_RPC:-mainnet:http://host.docker.internal:8545}"

@@ -1,0 +1,11 @@
+{
+  "name": "dfk-tournament-leaderboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "update:profiles": "node scripts/resolve-profiles-community-api.js",
+    "update:ranges": "node scripts/build-tournamentRanges-subgraph.js",
+    "validate": "node scripts/validate-public-data.js",
+    "update:all": "npm run update:profiles && npm run update:ranges && npm run validate"
+  }
+}

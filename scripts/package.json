@@ -1,0 +1,13 @@
+{
+  "name": "dfk-tournament-leaderboard",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:leaderboard": "node scripts/pull-wins-tier-from-logs-post22m-lookback.js",
+    "build:profiles": "node scripts/resolve-profiles-metis.js"
+  },
+  "dependencies": {
+    "ethers": "^6.16.0"
+  }
+}

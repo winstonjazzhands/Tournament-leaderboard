@@ -1,0 +1,14 @@
+type Player @entity(immutable: false) {
+  id: ID!                 # wallet address (lowercased)
+  name: String            # on-chain profile name
+  tournamentWins: BigInt! # total wins counted by subgraph
+}
+
+type TournamentWin @entity(immutable: true) {
+  id: ID!                 # txHash-logIndex
+  tournamentId: BigInt!
+  player: Player!
+  value: BigInt!
+  timestamp: BigInt!
+  blockNumber: BigInt!
+}

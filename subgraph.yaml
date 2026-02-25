@@ -1,0 +1,50 @@
+specVersion: 0.0.4
+
+schema:
+  file: ./schema.graphql
+
+dataSources:
+  - kind: ethereum
+    name: TournamentDiamond
+    network: metis
+    source:
+      address: "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B"
+      abi: TournamentDiamond
+      startBlock: 20500000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Player
+        - TournamentWin
+      abis:
+        - name: TournamentDiamond
+          file: ./abis/TournamentDiamond.json
+      eventHandlers:
+        - event: PlayerWonTournament(indexed uint256,indexed address,uint256)
+          handler: handlePlayerWonTournament
+      file: ./src/mapping.ts
+
+  - kind: ethereum
+    name: Profiles
+    network: metis
+    source:
+      address: "0x5477D7f1539aDC67787AEA54306700196B81E7c4"
+      abi: Profiles
+      startBlock: 12000000
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.6
+      language: wasm/assemblyscript
+      entities:
+        - Player
+      abis:
+        - name: Profiles
+          file: ./abis/Profiles.json
+      eventHandlers:
+        - event: ProfileCreated(address,string,uint64,uint256,uint256)
+          handler: handleProfileCreated
+        - event: ProfileUpdated(address,string,uint256,uint256)
+          handler: handleProfileUpdated
+      file: ./src/profiles.ts

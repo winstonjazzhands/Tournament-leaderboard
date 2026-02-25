@@ -1,0 +1,564 @@
+{
+  "byTournamentId": {
+    "1700": {
+      "tier": 10,
+      "matchedBlock": 22000280,
+      "anchorWinBlock": 22000280,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:16:46.511Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1701": {
+      "tier": 10,
+      "matchedBlock": 22000803,
+      "anchorWinBlock": 22000803,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:16:57.226Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1702": {
+      "tier": 10,
+      "matchedBlock": 22002376,
+      "anchorWinBlock": 22002376,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:08.169Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1703": {
+      "tier": 10,
+      "matchedBlock": 22005505,
+      "anchorWinBlock": 22005505,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:18.853Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1704": {
+      "tier": 10,
+      "matchedBlock": 22006584,
+      "anchorWinBlock": 22006584,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:28.961Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1705": {
+      "tier": 10,
+      "matchedBlock": 22007086,
+      "anchorWinBlock": 22007086,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:39.192Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1707": {
+      "tier": 10,
+      "matchedBlock": 22011584,
+      "anchorWinBlock": 22011584,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:49.209Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1708": {
+      "tier": 10,
+      "matchedBlock": 22012545,
+      "anchorWinBlock": 22012545,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:17:58.925Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1709": {
+      "tier": 10,
+      "matchedBlock": 22013114,
+      "anchorWinBlock": 22013114,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:08.893Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1734": {
+      "tier": 10,
+      "matchedBlock": 22007570,
+      "anchorWinBlock": 22007838,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:18.806Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1735": {
+      "tier": 10,
+      "matchedBlock": 22012829,
+      "anchorWinBlock": 22012874,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:28.492Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1736": {
+      "tier": 10,
+      "matchedBlock": 22017625,
+      "anchorWinBlock": 22017625,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:37.868Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1740": {
+      "tier": 10,
+      "matchedBlock": 22024628,
+      "anchorWinBlock": 22024628,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:47.680Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1742": {
+      "tier": 10,
+      "matchedBlock": 22026406,
+      "anchorWinBlock": 22026406,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:18:56.770Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1744": {
+      "tier": 10,
+      "matchedBlock": 22031767,
+      "anchorWinBlock": 22031767,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:06.138Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1745": {
+      "tier": 10,
+      "matchedBlock": 22033067,
+      "anchorWinBlock": 22033067,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:15.362Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1747": {
+      "tier": 10,
+      "matchedBlock": 22035747,
+      "anchorWinBlock": 22035747,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:24.300Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1748": {
+      "tier": 10,
+      "matchedBlock": 22038933,
+      "anchorWinBlock": 22038933,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:33.379Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1749": {
+      "tier": 10,
+      "matchedBlock": 22040133,
+      "anchorWinBlock": 22040133,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:42.835Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1750": {
+      "tier": 10,
+      "matchedBlock": 22040797,
+      "anchorWinBlock": 22040797,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:19:52.552Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1751": {
+      "tier": 10,
+      "matchedBlock": 22042776,
+      "anchorWinBlock": 22042776,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:02.636Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1752": {
+      "tier": 10,
+      "matchedBlock": 22046004,
+      "anchorWinBlock": 22046004,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:11.841Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1753": {
+      "tier": 10,
+      "matchedBlock": 22047208,
+      "anchorWinBlock": 22047208,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:21.289Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1754": {
+      "tier": 10,
+      "matchedBlock": 22047750,
+      "anchorWinBlock": 22047750,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:30.277Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1755": {
+      "tier": 10,
+      "matchedBlock": 22049759,
+      "anchorWinBlock": 22049759,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:40.085Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1756": {
+      "tier": 10,
+      "matchedBlock": 22053069,
+      "anchorWinBlock": 22053069,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:49.081Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1757": {
+      "tier": 10,
+      "matchedBlock": 22054295,
+      "anchorWinBlock": 22054295,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:20:58.722Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1758": {
+      "tier": 10,
+      "matchedBlock": 22054976,
+      "anchorWinBlock": 22054976,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:08.090Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1759": {
+      "tier": 10,
+      "matchedBlock": 22057007,
+      "anchorWinBlock": 22057007,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:17.222Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1760": {
+      "tier": 10,
+      "matchedBlock": 22060319,
+      "anchorWinBlock": 22060319,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:26.391Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1761": {
+      "tier": 10,
+      "matchedBlock": 22061518,
+      "anchorWinBlock": 22061518,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:35.423Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1762": {
+      "tier": 10,
+      "matchedBlock": 22062016,
+      "anchorWinBlock": 22062016,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:44.735Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1763": {
+      "tier": 10,
+      "matchedBlock": 22064261,
+      "anchorWinBlock": 22064261,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:21:54.060Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1764": {
+      "tier": 10,
+      "matchedBlock": 22067453,
+      "anchorWinBlock": 22067453,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:03.316Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1765": {
+      "tier": 10,
+      "matchedBlock": 22068553,
+      "anchorWinBlock": 22068553,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:12.704Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1766": {
+      "tier": 10,
+      "matchedBlock": 22069181,
+      "anchorWinBlock": 22069181,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:21.854Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1767": {
+      "tier": 10,
+      "matchedBlock": 22070910,
+      "anchorWinBlock": 22070910,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:31.168Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1768": {
+      "tier": 10,
+      "matchedBlock": 22074308,
+      "anchorWinBlock": 22074308,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:40.054Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1769": {
+      "tier": 10,
+      "matchedBlock": 22075483,
+      "anchorWinBlock": 22075483,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:49.288Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1770": {
+      "tier": 10,
+      "matchedBlock": 22076085,
+      "anchorWinBlock": 22076085,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:22:58.602Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1771": {
+      "tier": 10,
+      "matchedBlock": 22078067,
+      "anchorWinBlock": 22078067,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:07.469Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1772": {
+      "tier": 10,
+      "matchedBlock": 22081098,
+      "anchorWinBlock": 22081098,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:16.133Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1773": {
+      "tier": 10,
+      "matchedBlock": 22082430,
+      "anchorWinBlock": 22082430,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:24.711Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1774": {
+      "tier": 10,
+      "matchedBlock": 22082999,
+      "anchorWinBlock": 22082999,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:33.658Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1776": {
+      "tier": 10,
+      "matchedBlock": 22088393,
+      "anchorWinBlock": 22088393,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:42.088Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1777": {
+      "tier": 10,
+      "matchedBlock": 22089577,
+      "anchorWinBlock": 22089577,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:23:51.277Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1778": {
+      "tier": 10,
+      "matchedBlock": 22090186,
+      "anchorWinBlock": 22090186,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:00.186Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1779": {
+      "tier": 10,
+      "matchedBlock": 22092266,
+      "anchorWinBlock": 22092266,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:09.476Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1780": {
+      "tier": 10,
+      "matchedBlock": 22095448,
+      "anchorWinBlock": 22095448,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:18.998Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1781": {
+      "tier": 10,
+      "matchedBlock": 22096632,
+      "anchorWinBlock": 22096632,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:28.434Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1782": {
+      "tier": 10,
+      "matchedBlock": 22097257,
+      "anchorWinBlock": 22097257,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:38.093Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1783": {
+      "tier": 10,
+      "matchedBlock": 22099327,
+      "anchorWinBlock": 22099327,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:48.259Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1784": {
+      "tier": 10,
+      "matchedBlock": 22102551,
+      "anchorWinBlock": 22102551,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:24:58.538Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1785": {
+      "tier": 10,
+      "matchedBlock": 22103732,
+      "anchorWinBlock": 22103732,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:08.745Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1786": {
+      "tier": 10,
+      "matchedBlock": 22104303,
+      "anchorWinBlock": 22104303,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:19.356Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1787": {
+      "tier": 10,
+      "matchedBlock": 22106395,
+      "anchorWinBlock": 22106395,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:29.626Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1788": {
+      "tier": 10,
+      "matchedBlock": 22109644,
+      "anchorWinBlock": 22109644,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:39.214Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1789": {
+      "tier": 10,
+      "matchedBlock": 22111035,
+      "anchorWinBlock": 22111035,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:48.931Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1790": {
+      "tier": 10,
+      "matchedBlock": 22111538,
+      "anchorWinBlock": 22111538,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:25:59.150Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1791": {
+      "tier": 10,
+      "matchedBlock": 22113779,
+      "anchorWinBlock": 22113779,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:08.987Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1792": {
+      "tier": 10,
+      "matchedBlock": 22013537,
+      "anchorWinBlock": 22013580,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:19.010Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1793": {
+      "tier": 10,
+      "matchedBlock": 22017797,
+      "anchorWinBlock": 22017986,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:28.577Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1794": {
+      "tier": 10,
+      "matchedBlock": 22018279,
+      "anchorWinBlock": 22018436,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:38.773Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1795": {
+      "tier": 10,
+      "matchedBlock": 22018932,
+      "anchorWinBlock": 22019120,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:48.907Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1796": {
+      "tier": 10,
+      "matchedBlock": 22019562,
+      "anchorWinBlock": 22019765,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:26:58.800Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1798": {
+      "tier": 10,
+      "matchedBlock": 22024823,
+      "anchorWinBlock": 22025149,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:27:08.935Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1800": {
+      "tier": 10,
+      "matchedBlock": 22027524,
+      "anchorWinBlock": 22027524,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:27:18.872Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1801": {
+      "tier": 10,
+      "matchedBlock": 22026477,
+      "anchorWinBlock": 22026682,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:27:28.140Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1802": {
+      "tier": 10,
+      "matchedBlock": 22032158,
+      "anchorWinBlock": 22032351,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:27:37.437Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    },
+    "1803": {
+      "tier": 10,
+      "matchedBlock": 22032358,
+      "anchorWinBlock": 22032676,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-23T14:27:46.815Z",
+      "decodeVersion": "sample70-v1-flexpair"
+    }
+  }
+}
