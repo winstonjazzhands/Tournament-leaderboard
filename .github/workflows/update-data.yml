@@ -1,21 +1,21 @@
 name: Update leaderboard data
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
   schedule:
+    # Every 3 hours
     - cron: "0 */3 * * *"
-
-concurrency:
-  group: update-leaderboard-data
-  cancel-in-progress: true
 
 permissions:
   contents: write
 
+concurrency:
+  group: update-data
+  cancel-in-progress: true
+
 jobs:
   update:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,61 +28,57 @@ jobs:
           node-version: "20"
           cache: "npm"
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm ci
 
-      - name: Update wins (leaderboard.json)
+      - name: Update ALL data (wins + profiles + tournamentRanges + validate)
         env:
-          RPC_URL: "https://andromeda.metis.io/?owner=1088"
-          START_BLOCK: "20000000"
+          RPC: "https://andromeda.metis.io/?owner=1088"
+          SUBGRAPH_ENDPOINT: "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7"
+          TOURNAMENT_DIAMOND: "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B"
+
+          START_BLOCK: "22000000"
           LOOKBACK_BLOCKS: "3000000"
-        run: node scripts/pull-wins-tier-from-logs-post22m-lookback.js
+          LOG_CHUNK_BLOCKS: "60000"
+          USE_CACHE: "1"
 
-      - name: Update profiles (names)
-        run: node scripts/resolve-profiles-community-api.js
-
-      - name: Update tournament ranges (tier overrides)
-        env:
-          RPC_URL: "https://andromeda.metis.io/?owner=1088"
           SEED_TX_L10: "0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820"
           SEED_TX_L20: "0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb"
-        run: node scripts/build-tournamentRanges-subgraph.js
+        run: npm run update:all
 
-      - name: Apply tier overrides onto leaderboard.json
-        run: node scripts/apply-tournament-ranges-to-leaderboard.js
+      # ✅ KEY FIX: copy the outputs into repo root, because GitHub Pages is serving /(root)
+      - name: Copy public outputs to repo root (Pages root hosting)
+        run: |
+          cp -f public/leaderboard.json leaderboard.json
+          cp -f public/profiles.json profiles.json
+          cp -f public/tournamentRanges.json tournamentRanges.json
 
-      - name: Validate output files
-        run: node scripts/validate-public-data.js
+      - name: Show summary of outputs
+        run: |
+          echo "---- leaderboard.json (ROOT) ----"
+          node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('leaderboard.json','utf8')); console.log('updatedAtUtc=', j.updatedAtUtc||j.updatedAt||'(none)'); console.log('wins=', (j.wins||[]).length); console.log('last=', j.wins?.[j.wins.length-1]);"
+          echo "---- public/leaderboard.json ----"
+          node -e "import fs from 'fs'; const j=JSON.parse(fs.readFileSync('public/leaderboard.json','utf8')); console.log('updatedAtUtc=', j.updatedAtUtc||j.updatedAt||'(none)'); console.log('wins=', (j.wins||[]).length); console.log('last=', j.wins?.[j.wins.length-1]);"
 
-      - name: Commit & push changes (if any)
-        shell: bash
+      - name: Commit updated data
+        run: |
+          git status --porcelain
+          git add leaderboard.json profiles.json tournamentRanges.json || true
+          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
+          git commit -m "chore: update leaderboard data" || echo "No changes to commit"
+
+      - name: Push (pull --rebase, retry up to 3 times)
         run: |
           set -e
-
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          if [ -z "$(git status --porcelain)" ]; then
-            echo "No changes to commit."
-            exit 0
-          fi
-
-          git add public/*.json
-          git commit -m "chore: update leaderboard data" || true
-
           for i in 1 2 3; do
             echo "Push attempt $i..."
-            git fetch origin main
             git pull --rebase origin main || true
-
-            if git push origin HEAD:main; then
+            if git push; then
               echo "Push succeeded."
               exit 0
             fi
-
-            echo "Push failed, retrying in 5 seconds..."
-            sleep 5
+            echo "Push failed, retrying..."
+            sleep 2
           done
-
-          echo "Failed to push after 3 attempts."
+          echo "Push failed after 3 attempts."
           exit 1
