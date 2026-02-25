@@ -1,3 +1,32 @@
 {
-  "namesByAddress": {}
+  "namesByAddress": {
+    "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c": "Superbowl",
+    "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344": "Defi Purgatory",
+    "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6": "xbla",
+    "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22": "Level.up",
+    "0x491ea4b304515c693deb31f5969f18a9fe782a63": "Seyam Sarker",
+    "0x56c25876dc1cadff67e633740f47be39552b8073": "Darius the One",
+    "0x6d997ffc6d127b53d0cecdcf4468cfee23656007": "Dragnipur",
+    "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb": "tunefed",
+    "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601": "BboyNomad",
+    "0x83f0fbbc2ccb84e38c32ac9d39aa130c7e1ed47c": "91karmas",
+    "0x90979e494f1450c6010b82ecf89e6b26caf53980": "just have fun",
+    "0x951a89ed8c133684ba63d0932ebcb39d4692900c": "Slick_Bruss2",
+    "0x97ca0881daa46c4028b9231e3a10ba9acd84d9b9": "little sparrow",
+    "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab": "King | ZMA",
+    "0xa13030b990d244243924d8223df60df06d0fbec8": "Krakokass",
+    "0xa26b8ea40add0610d2744c815519c0d45126f86e": "jermcurry",
+    "0xb0b3c842d26c255252ef0993094ba0f73c33231a": "obamastolemykfc",
+    "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185": "DarthWarpath",
+    "0xb851aab224602b802d0706208a31be5807605c7f": "BriontheLion",
+    "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e": "WinstonHunts",
+    "0xc088e033a5db0f1b2fef24726f78fbaa428d8238": "maxGerin",
+    "0xc95f7c102f61b70594c37c7165ac63eefc149ac2": "Seinandres",
+    "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63": "ShockVelo",
+    "0xdb33d4b4775396d5b40db9365638e337b4533d9f": "Dragonfly Tales",
+    "0xefba6f4352a4c8162dd789ab3788d5e287ca80cb": "just have fun",
+    "0xf0a1b29453f025460c9827435949271547ca93ab": "Liumeb",
+    "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408": "Nick",
+    "0xfd43d164d1bf5e69bd7e7b487d8237b393039f77": "HighDef88"
+  }
 }
