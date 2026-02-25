@@ -38,9 +38,9 @@ jobs:
 
       - name: Run updater scripts
         env:
-          RPC_URL: https://andromeda.metis.io/?owner=1088
-          SEED_TX_L10: 0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820
-          SEED_TX_L20: 0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb
+          RPC_URL: "https://andromeda.metis.io/?owner=1088"
+          SEED_TX_L10: "0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820"
+          SEED_TX_L20: "0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb"
         run: |
           npm run update:all
 
