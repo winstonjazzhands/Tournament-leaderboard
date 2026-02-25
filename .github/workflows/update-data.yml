@@ -34,7 +34,7 @@ jobs:
       - name: Update wins (leaderboard.json)
         env:
           RPC_URL: "https://andromeda.metis.io/?owner=1088"
-          # If your wins script supports a lookback, set it bigger so it never misses a day.
+          START_BLOCK: "0"
           LOOKBACK_BLOCKS: "3000000"
         run: node scripts/pull-wins-tier-from-logs-post22m-lookback.js
 
