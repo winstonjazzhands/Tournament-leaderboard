@@ -2,7 +2,6 @@
   "name": "dfk-tournament-leaderboard",
   "private": true,
   "type": "module",
-{
   "scripts": {
     "update:wins": "node scripts/pull-wins-tier-from-logs-post22m-lookback.js",
     "update:profiles": "node scripts/resolve-profiles-community-api.js",
@@ -10,8 +9,7 @@
     "update:override-tiers": "node scripts/apply-tournament-ranges-to-leaderboard.js",
     "validate": "node scripts/validate-public-data.js",
     "update:all": "npm run update:wins && npm run update:profiles && npm run update:ranges && npm run update:override-tiers && npm run validate"
-  }
-}
+  },
   "dependencies": {
     "ethers": "^6.16.0"
   }
