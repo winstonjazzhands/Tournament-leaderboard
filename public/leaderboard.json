@@ -1,0 +1,2121 @@
+{
+  "updatedAtUtc": "2026-02-25T18:44:19.566Z",
+  "source": "subgraph+logs/lookback",
+  "decodeVersion": "post22m-v1-flexpair",
+  "rpc": "https://andromeda.metis.io/?owner=1088",
+  "tournamentDiamond": "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B",
+  "startBlock": 22000000,
+  "lookbackBlocks": 3000000,
+  "logChunkBlocks": 60000,
+  "totalWins": 235,
+  "uniqueTournaments": 235,
+  "unknownTierWins": 0,
+  "wins": [
+    {
+      "id": "0x28c075ddadf8363ebca4f3f752cedfc3e37a9561385d630754405fe1c377638b-1",
+      "tournamentId": 1700,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1768935445,
+      "blockNumber": 22000280,
+      "tier": 10
+    },
+    {
+      "id": "0x730e43f525f7b2d6308d8ab48a6f4677e907389903ca3f99dc37a2a6efbddb24-1",
+      "tournamentId": 1701,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1768942629,
+      "blockNumber": 22000803,
+      "tier": 10
+    },
+    {
+      "id": "0xc53a7eba4a9d69567e40111601593d98a84f9ad008d2d4d50e9672df2bcacd86-1",
+      "tournamentId": 1702,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1768963984,
+      "blockNumber": 22002376,
+      "tier": 10
+    },
+    {
+      "id": "0xef48793a162ecdbf9e61346e300341a48068c146f473131001708d545cf94ffd-12",
+      "tournamentId": 1703,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769007499,
+      "blockNumber": 22005505,
+      "tier": 10
+    },
+    {
+      "id": "0xb41fd04bb56d173cda3b1aa3ceef1f7894e3d7f9faee2e4d3d6f53afdac3d0a8-1",
+      "tournamentId": 1704,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1769022258,
+      "blockNumber": 22006584,
+      "tier": 10
+    },
+    {
+      "id": "0xe2fa5857a5a7d8c7f1dab1f6c74e2392146ef64f629e2b5cd3e9f077ecfa323a-10",
+      "tournamentId": 1705,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769028950,
+      "blockNumber": 22007086,
+      "tier": 10
+    },
+    {
+      "id": "0x9ee6b218f10a46d35fa969b49044df28f886a9ed976bacb830ec3a35a3447556-17",
+      "tournamentId": 1734,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769039605,
+      "blockNumber": 22007838,
+      "tier": 10
+    },
+    {
+      "id": "0xa49dbeafac23e41d830d1349f31f4d50183a763791904905b056f7ebc3919d26-1",
+      "tournamentId": 1707,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769093749,
+      "blockNumber": 22011584,
+      "tier": 10
+    },
+    {
+      "id": "0x84bcc306086367e90b8b6c2d16b030e9e8455926a8cbbe3028904474a83b1f1c-16",
+      "tournamentId": 1708,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1769108003,
+      "blockNumber": 22012545,
+      "tier": 10
+    },
+    {
+      "id": "0x2e2df57302ec090404a695112f5bad07dd9596b43503f39ce45013537d6c1774-1",
+      "tournamentId": 1735,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "timestamp": 1769112257,
+      "blockNumber": 22012874,
+      "tier": 10
+    },
+    {
+      "id": "0x88a310775b97b2e3b0171626c14fe742cb14d540ff245f9a497cf9ea63c5b258-5",
+      "tournamentId": 1709,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769115502,
+      "blockNumber": 22013114,
+      "tier": 10
+    },
+    {
+      "id": "0xd2ac9a346ff1c69be674bfe2fb595f90c8b66f5255e55f7f03d457c7da6856e8-6",
+      "tournamentId": 1792,
+      "wallet": "0x56c25876dc1cadff67e633740f47be39552b8073",
+      "timestamp": 1769122086,
+      "blockNumber": 22013580,
+      "tier": 10
+    },
+    {
+      "id": "0xbf6bf583a2c9e0a3ef5de925497937096a19cecbee3636c83b98a4aefb432018-5",
+      "tournamentId": 1736,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769180353,
+      "blockNumber": 22017625,
+      "tier": 10
+    },
+    {
+      "id": "0xd6f3aa5340efb35f4f6aca2762f2d0e889623dc795958dc10ff478910b790245-1",
+      "tournamentId": 1793,
+      "wallet": "0xfd43d164d1bf5e69bd7e7b487d8237b393039f77",
+      "timestamp": 1769185289,
+      "blockNumber": 22017986,
+      "tier": 10
+    },
+    {
+      "id": "0x52d95838dc926a800759998c00575b4cf58c55146c3f3dd85cfe61a317dbb167-6",
+      "tournamentId": 1794,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1769191342,
+      "blockNumber": 22018436,
+      "tier": 10
+    },
+    {
+      "id": "0x2e821140500c954d67dd012795be3217d65d480e7e3e84772d78a96735049247-1",
+      "tournamentId": 1795,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769199584,
+      "blockNumber": 22019120,
+      "tier": 10
+    },
+    {
+      "id": "0x9db7e66c5a84972ab7631bec822a9e5523986a0f306d79e6ae4bc072ec67da10-1",
+      "tournamentId": 1796,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769207455,
+      "blockNumber": 22019765,
+      "tier": 10
+    },
+    {
+      "id": "0x53d78cd93b07bc4c82570821352edace377a78b19552f3041eef792befe29abd-14",
+      "tournamentId": 1740,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769267222,
+      "blockNumber": 22024628,
+      "tier": 10
+    },
+    {
+      "id": "0xb5c0ea3bb31e406c9be2ad788eab8c9f6de67e5a775caee6e9bae235e1885c03-1",
+      "tournamentId": 1798,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1769273719,
+      "blockNumber": 22025149,
+      "tier": 10
+    },
+    {
+      "id": "0xb2bb2444ba7d76d247da06df2b407ca778f15a5d5b2e19c1a10fb865c0ecca21-6",
+      "tournamentId": 1742,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769288734,
+      "blockNumber": 22026406,
+      "tier": 10
+    },
+    {
+      "id": "0xbe66f65b1d10ca160a9464c0f515f062bc5e912c60285088437a1323b65c4963-10",
+      "tournamentId": 1801,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769292047,
+      "blockNumber": 22026682,
+      "tier": 10
+    },
+    {
+      "id": "0x9c5b745c1b1dce35dbfc4be56f6b3750bb271ed45f3aa546ab3d0772cbc3f94b-10",
+      "tournamentId": 1800,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769302082,
+      "blockNumber": 22027524,
+      "tier": 10
+    },
+    {
+      "id": "0xb4c49ac119e99af0a877ae32fe038a02299188c0d77c9c0cad03d83c43299593-10",
+      "tournamentId": 1744,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769352978,
+      "blockNumber": 22031767,
+      "tier": 10
+    },
+    {
+      "id": "0xe1c12df37d68d0103f2ae012b88706ca385f4b6228b3280d0c46b46aa7a65066-6",
+      "tournamentId": 1802,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769359729,
+      "blockNumber": 22032351,
+      "tier": 10
+    },
+    {
+      "id": "0x12e0c0ec8d767bc08bc2867bd6858f427be98acf7856c86b950b6ae89be1aab6-1",
+      "tournamentId": 1803,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1769363552,
+      "blockNumber": 22032676,
+      "tier": 10
+    },
+    {
+      "id": "0x4effa597807da4fc0918f2595cfb70480e8fb30e8a0a6b8ff333bf6fb74b6a1e-12",
+      "tournamentId": 1745,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1769368098,
+      "blockNumber": 22033067,
+      "tier": 10
+    },
+    {
+      "id": "0xa29c03f25536660ce971dcb7f7de0af3e942265e02e44e417e732f39a1e4fd84-7",
+      "tournamentId": 1804,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769370260,
+      "blockNumber": 22033249,
+      "tier": 10
+    },
+    {
+      "id": "0xab09b55ac578c2953c59f55fea3a1a6b3a8cc8028cfb29e7955f8cea8a819bdd-5",
+      "tournamentId": 1806,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769386255,
+      "blockNumber": 22034571,
+      "tier": 10
+    },
+    {
+      "id": "0x7b94b7fbc1cb6269d30941cf6dcaaf94446ef428e75fe8f85a7d782207a7f30b-1",
+      "tournamentId": 1747,
+      "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
+      "timestamp": 1769400467,
+      "blockNumber": 22035747,
+      "tier": 10
+    },
+    {
+      "id": "0xd4b3ee9dddcc618ad183d706a60c861bdb319b99a4ede8d9496f15752640cc30-1",
+      "tournamentId": 1748,
+      "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "timestamp": 1769439573,
+      "blockNumber": 22038933,
+      "tier": 10
+    },
+    {
+      "id": "0x3d6e9ca649b039553d2192d138e08ccb765a25e75b3261e4a3cef30cfa8a37c4-14",
+      "tournamentId": 1807,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769449806,
+      "blockNumber": 22039783,
+      "tier": 10
+    },
+    {
+      "id": "0x425d5390e78f4f54ac89d8b9171f5d8922c317ef6b037444937e12719d95e9e7-8",
+      "tournamentId": 1749,
+      "wallet": "0xa13030b990d244243924d8223df60df06d0fbec8",
+      "timestamp": 1769453942,
+      "blockNumber": 22040133,
+      "tier": 10
+    },
+    {
+      "id": "0x2981cc03820bd83c2c1c4a7768b01422d0f2505eed470fdf3e09b0a0e08782ff-10",
+      "tournamentId": 1750,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769461862,
+      "blockNumber": 22040797,
+      "tier": 10
+    },
+    {
+      "id": "0x772ee0d111082d843ecaeaa207a79f2ae2f4241cdf031111ef9411f7433071a5-21",
+      "tournamentId": 1809,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769473804,
+      "blockNumber": 22041770,
+      "tier": 10
+    },
+    {
+      "id": "0x550b90be3d043c6ad1fa5f500f8bb316cfc7a7dcbe4ee63adfe0372e52632dc5-1",
+      "tournamentId": 1751,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769486265,
+      "blockNumber": 22042776,
+      "tier": 10
+    },
+    {
+      "id": "0x7ff180d45631e70a67dc3792b0f6dc4a828e771bf1319656e1b14fc499049137-7",
+      "tournamentId": 1752,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "timestamp": 1769526166,
+      "blockNumber": 22046004,
+      "tier": 10
+    },
+    {
+      "id": "0x36d08efdff2308bbdec58f8e7eb9a204fc975087edccd7a57b679190129ef684-1",
+      "tournamentId": 1810,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769529707,
+      "blockNumber": 22046296,
+      "tier": 10
+    },
+    {
+      "id": "0x66b089399db218d0ff8744bee62d6cfff15e17c7c40faa8cc142ae71dc868242-2",
+      "tournamentId": 1753,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769540597,
+      "blockNumber": 22047208,
+      "tier": 10
+    },
+    {
+      "id": "0x5e3ec02a728770292e732c6601b727644994ee5e1232347a50dd81788465269a-6",
+      "tournamentId": 1754,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769547175,
+      "blockNumber": 22047750,
+      "tier": 10
+    },
+    {
+      "id": "0xd9c7f072810b178473505c2fb931ed64e7331343d25155dc616be65415090cc8-1",
+      "tournamentId": 1811,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769552309,
+      "blockNumber": 22048167,
+      "tier": 10
+    },
+    {
+      "id": "0x85169560186352a67589a78333e8a4bfeec764cce60b4fefe74746443681a178-19",
+      "tournamentId": 1755,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769571565,
+      "blockNumber": 22049759,
+      "tier": 10
+    },
+    {
+      "id": "0xee6d410e6b8b5193926f4d59095bd81477b79a8beb4a925fcb4cd972cabcf343-9",
+      "tournamentId": 1756,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769612387,
+      "blockNumber": 22053069,
+      "tier": 10
+    },
+    {
+      "id": "0x460a978bacd7b03ba7601f540aa6e5431a587acc7a76b14cd051ead017ec1b8d-10",
+      "tournamentId": 1757,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1769626736,
+      "blockNumber": 22054295,
+      "tier": 10
+    },
+    {
+      "id": "0x185fbfe4584be026f547114e316297485d56d67a1d1747dce9f29ee24495513d-36",
+      "tournamentId": 1758,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769634379,
+      "blockNumber": 22054976,
+      "tier": 10
+    },
+    {
+      "id": "0x04a3a88dd7e4b7dc824f0355c6072cc7f1cd3b003a1c2af30b54c19caf9816cb-1",
+      "tournamentId": 1812,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769638944,
+      "blockNumber": 22055383,
+      "tier": 10
+    },
+    {
+      "id": "0xcbbb7947be9694e4f9f7469e863d660488244460c8a32ff8042b910d32fd1e5f-6",
+      "tournamentId": 1814,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769643520,
+      "blockNumber": 22055752,
+      "tier": 10
+    },
+    {
+      "id": "0xf998d36d2115a8b6a35f1a53ef6332afe31b123ec24dce5bd102601b1e8d98ce-1",
+      "tournamentId": 1759,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "timestamp": 1769658371,
+      "blockNumber": 22057007,
+      "tier": 10
+    },
+    {
+      "id": "0x9afbc4ecf42edf6c9dc11b783308cc4227f3484cf1907a72a8a2c6f5c195d1f3-57",
+      "tournamentId": 1760,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769698737,
+      "blockNumber": 22060319,
+      "tier": 10
+    },
+    {
+      "id": "0xee5bb0010679eaab7092a91ba366067848fe8791d487de57a3389eac28563248-10",
+      "tournamentId": 1815,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769703601,
+      "blockNumber": 22060733,
+      "tier": 10
+    },
+    {
+      "id": "0xa66259a9d476f0b5f25ff22d02c42f8538f97fae1119c5dee53fe1d835f66875-7",
+      "tournamentId": 1761,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769712625,
+      "blockNumber": 22061518,
+      "tier": 10
+    },
+    {
+      "id": "0x9fbd6f1424373c5d93ba1b96c82a28c8f44ca72ba83b9b13b3524b16f131ba53-5",
+      "tournamentId": 1813,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769716715,
+      "blockNumber": 22061864,
+      "tier": 10
+    },
+    {
+      "id": "0xee0ef8594665cc6336c33e94d713f3f1366a2d7a8a93f3f7b57281e9f8f0f98c-13",
+      "tournamentId": 1762,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769718477,
+      "blockNumber": 22062016,
+      "tier": 10
+    },
+    {
+      "id": "0xd1ef871d8e882a96ea4a8207ff48f22118487b31ae4bc9b45cb990e000a3fecd-5",
+      "tournamentId": 1818,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769728724,
+      "blockNumber": 22062875,
+      "tier": 10
+    },
+    {
+      "id": "0xd1ae18642627b99178bc696cd7a8f57207ebacff2bdd23e00209d425760f0f28-1",
+      "tournamentId": 1763,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769745558,
+      "blockNumber": 22064261,
+      "tier": 10
+    },
+    {
+      "id": "0x9be460134712f35f60175e46a1310b1929df36e536aae6426df6ebe0f0dbeaee-2",
+      "tournamentId": 1817,
+      "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+      "timestamp": 1769755375,
+      "blockNumber": 22065039,
+      "tier": 20
+    },
+    {
+      "id": "0x0ca3ee61b991de17d9d771b97ba3ecb5cb26366c38fef21543311c85b299f907-1",
+      "tournamentId": 1764,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769785583,
+      "blockNumber": 22067453,
+      "tier": 10
+    },
+    {
+      "id": "0x1ba16081601c0400d08af3c608c5ab0c946a715b154508ba117183d0ab9881d0-6",
+      "tournamentId": 1765,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769799692,
+      "blockNumber": 22068553,
+      "tier": 10
+    },
+    {
+      "id": "0xb1b4042c8950b30802b2749131e3d1c4c598fd041faba9ef3b0ce90f60c01abb-6",
+      "tournamentId": 1766,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1769807532,
+      "blockNumber": 22069181,
+      "tier": 10
+    },
+    {
+      "id": "0xb43d0f5b002501d7260fe2e4a4520c76eaaa05b06cc90636600a6df36d1f245d-1",
+      "tournamentId": 1819,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769808372,
+      "blockNumber": 22069238,
+      "tier": 10
+    },
+    {
+      "id": "0xf8416e5fc3af96f36901532379955e4b085e874955bbb0203c7c06e1a5dc6034-1",
+      "tournamentId": 1820,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "timestamp": 1769817041,
+      "blockNumber": 22069876,
+      "tier": 20
+    },
+    {
+      "id": "0x488236eb99893e7e9f5a4b2fcd4baa3202c030f0404040acc8409881b2d4be88-6",
+      "tournamentId": 1821,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "timestamp": 1769824642,
+      "blockNumber": 22070438,
+      "tier": 20
+    },
+    {
+      "id": "0x7899a88587844e3e6ac248f6cc2cc2267e375019c2016ae5e97d33b31a55ef8a-5",
+      "tournamentId": 1767,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769830484,
+      "blockNumber": 22070910,
+      "tier": 10
+    },
+    {
+      "id": "0xe31fd5a375cbc85db7f3c83a6dd227216c54f40292dedf09c6acfd6b0a0a7bc9-5",
+      "tournamentId": 1768,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1769872022,
+      "blockNumber": 22074308,
+      "tier": 10
+    },
+    {
+      "id": "0x242ebda6b08d18f92eb546b342604fc7941b71d0923daac9f696e306d30a8dab-1",
+      "tournamentId": 1822,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769875759,
+      "blockNumber": 22074613,
+      "tier": 10
+    },
+    {
+      "id": "0x94fc3d22b7107718962f182ca604a2cf46162724e1249ab9827b06747ee95c79-1",
+      "tournamentId": 1823,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1769885613,
+      "blockNumber": 22075418,
+      "tier": 10
+    },
+    {
+      "id": "0x9516dade4e98f83ca7709aae0daa1058a7716fbf2b0fdf0f2215c4a91187a3f7-12",
+      "tournamentId": 1769,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769886395,
+      "blockNumber": 22075483,
+      "tier": 10
+    },
+    {
+      "id": "0xaca2713c295a7723956bca661b15bea2a0d58e2122534a236914eeb0142750b4-2",
+      "tournamentId": 1770,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769893779,
+      "blockNumber": 22076085,
+      "tier": 10
+    },
+    {
+      "id": "0xb74095a22c4f2e76d2124122b7127211330367e84daee801421b73e011e6cd8c-6",
+      "tournamentId": 1824,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1769907603,
+      "blockNumber": 22077219,
+      "tier": 20
+    },
+    {
+      "id": "0x5af6e9b6f2a6116f1dfaaca8aac7f801bf1f654bafb2c9136b6bceb5c9cecebc-6",
+      "tournamentId": 1771,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769918110,
+      "blockNumber": 22078067,
+      "tier": 10
+    },
+    {
+      "id": "0x2f0cd207e8bc7961ad46ff5b4d237f3edd608afcd8b3294c59e50258b1685ecd-12",
+      "tournamentId": 1825,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769924878,
+      "blockNumber": 22078603,
+      "tier": 10
+    },
+    {
+      "id": "0xc5daa68ef6d2f925420bddc5fd343f8e4f2d9b63f46d3f480733c38f1e5ae1e4-56",
+      "tournamentId": 1772,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769956998,
+      "blockNumber": 22081098,
+      "tier": 10
+    },
+    {
+      "id": "0xc63461dc0a9841cd58168587e21ba9627cd6625608e225d344ff77abf5169aa7-15",
+      "tournamentId": 1826,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "timestamp": 1769965605,
+      "blockNumber": 22081795,
+      "tier": 20
+    },
+    {
+      "id": "0x7638aea129ca8988e7dc380d36fa197cb613ac1a138e47cef1cd5aed36faab8e-43",
+      "tournamentId": 1773,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1769973005,
+      "blockNumber": 22082430,
+      "tier": 10
+    },
+    {
+      "id": "0xb38d8cff85fb6a7f8b3adf1eb46cdb1b379183136df58942c3a8ccafcb3ef088-6",
+      "tournamentId": 1827,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769974204,
+      "blockNumber": 22082533,
+      "tier": 10
+    },
+    {
+      "id": "0x50ddcf8abff3d5914eb42ea11d90c71f9821f9992527e358cfeefca99b911bf7-16",
+      "tournamentId": 1774,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1769979936,
+      "blockNumber": 22082999,
+      "tier": 10
+    },
+    {
+      "id": "0xfec67e656ac47448b096d514f37a68b6394c1b8efdef55a93e5db6d9b12ac539-8",
+      "tournamentId": 1828,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1769989819,
+      "blockNumber": 22083831,
+      "tier": 10
+    },
+    {
+      "id": "0x51c6730ed19fb5de7e57619535e5c05c78d277ff8cba86a531f3a9e3aa533cd7-1",
+      "tournamentId": 1776,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "timestamp": 1770044785,
+      "blockNumber": 22088393,
+      "tier": 10
+    },
+    {
+      "id": "0xdb53c22712c51665d085cb8e44758f7ee024c15f4677c5d8039deaf17cc08827-9",
+      "tournamentId": 1831,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1770050558,
+      "blockNumber": 22088874,
+      "tier": 10
+    },
+    {
+      "id": "0xb0965bfb508f7fc3f2a1d1101b71f7485722dc63693799aca7286706151ba916-6",
+      "tournamentId": 1777,
+      "wallet": "0xfd43d164d1bf5e69bd7e7b487d8237b393039f77",
+      "timestamp": 1770058967,
+      "blockNumber": 22089577,
+      "tier": 10
+    },
+    {
+      "id": "0xa0920844b3269862941436dd958b23f35f6575450324c9adbc4f7ca9f2411fc2-24",
+      "tournamentId": 1832,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770061814,
+      "blockNumber": 22089823,
+      "tier": 10
+    },
+    {
+      "id": "0x723793f269112d9a5a13cc16a4a8ff2e4cf4a5eaec9319a9e81e3ede681eb938-11",
+      "tournamentId": 1778,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770066215,
+      "blockNumber": 22090186,
+      "tier": 10
+    },
+    {
+      "id": "0xc773cfef8dc62179914ac75cc5a013eaf46b36e4b0cb272cef37d9e9e7f8286f-11",
+      "tournamentId": 1833,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770073129,
+      "blockNumber": 22090764,
+      "tier": 20
+    },
+    {
+      "id": "0x0caba348b8319664decd1438bf233fb84d5f3829607e2e90e849a1df29bb51c1-1",
+      "tournamentId": 1779,
+      "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
+      "timestamp": 1770091536,
+      "blockNumber": 22092266,
+      "tier": 10
+    },
+    {
+      "id": "0x430c7fc7d61e36467f10d8115ceab3bdead7925aacb0efc35935b2942fddc33d-5",
+      "tournamentId": 1780,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770130559,
+      "blockNumber": 22095448,
+      "tier": 10
+    },
+    {
+      "id": "0xd554fcb36af01fe0fcfcd5ab6c41e0029c9f2e16069ac6479de4e453adc7cb35-24",
+      "tournamentId": 1834,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1770135380,
+      "blockNumber": 22095841,
+      "tier": 10
+    },
+    {
+      "id": "0x30b0e8c44471b16933e4da0eaa320f651233f0d60b3742d0cc279ddde56f2c6b-22",
+      "tournamentId": 1781,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770145030,
+      "blockNumber": 22096632,
+      "tier": 10
+    },
+    {
+      "id": "0xeeee3f067fea95fef7a7dad143cdffff9a03848addeafe085c80e540c8f0aee7-23",
+      "tournamentId": 1782,
+      "wallet": "0x97ca0881daa46c4028b9231e3a10ba9acd84d9b9",
+      "timestamp": 1770152447,
+      "blockNumber": 22097257,
+      "tier": 10
+    },
+    {
+      "id": "0xbe1188c4a781609c4c9a4943c65bc99cf0397a6e673781c4980e4f9fec2edf55-14",
+      "tournamentId": 1837,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770160850,
+      "blockNumber": 22097959,
+      "tier": 10
+    },
+    {
+      "id": "0x3e2ee6c3360237e7626345fd244ce5414d067db5f8efa3f343454d5e4c008811-1",
+      "tournamentId": 1783,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1770177423,
+      "blockNumber": 22099327,
+      "tier": 10
+    },
+    {
+      "id": "0xbec3c9fc0ad940d6d792e5f128112e54012463c28332ed15ecba7b4860d78e6d-8",
+      "tournamentId": 1784,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770217262,
+      "blockNumber": 22102551,
+      "tier": 10
+    },
+    {
+      "id": "0xcc53a86e07ede270bee759826ece141b6a168084c4a29b27668ef26e885928c5-1",
+      "tournamentId": 1838,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1770229957,
+      "blockNumber": 22103601,
+      "tier": 10
+    },
+    {
+      "id": "0xa30f3cf844bfe3aa41020ee17bb4c4d8c7b0d1d96fe41aecb8eef92188a96387-1",
+      "tournamentId": 1785,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770231544,
+      "blockNumber": 22103732,
+      "tier": 10
+    },
+    {
+      "id": "0xc319dd760ac7e49aae586a02b2c7530e788008d4bbb3c316c55c1f04e8b779f5-6",
+      "tournamentId": 1786,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770238548,
+      "blockNumber": 22104303,
+      "tier": 10
+    },
+    {
+      "id": "0x550de0fa7c2efe2d035da24b7112bb20da4b04995c22ec0ea1e403d1b46acf60-53",
+      "tournamentId": 1839,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770249277,
+      "blockNumber": 22105185,
+      "tier": 10
+    },
+    {
+      "id": "0xea580a4c853773f44d082de6a4428f636f717ac94fdc8fafed9bb1aabeb158fd-7",
+      "tournamentId": 1787,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "timestamp": 1770263970,
+      "blockNumber": 22106395,
+      "tier": 10
+    },
+    {
+      "id": "0x40830aa81f7f180c862bf8d9dfc2a493528b3f69e14f8502d4feccb6602102ac-61",
+      "tournamentId": 1788,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770303525,
+      "blockNumber": 22109644,
+      "tier": 10
+    },
+    {
+      "id": "0x69a2afe300509937bb348e4a0aff76d426d95dd8c00235dc9709d08180698c54-6",
+      "tournamentId": 1841,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770308212,
+      "blockNumber": 22110216,
+      "tier": 10
+    },
+    {
+      "id": "0x2cae713ffc065683ef02b405ac5c35187b7818b0eddf6fc693462b986ddd1cfb-145",
+      "tournamentId": 1789,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770317605,
+      "blockNumber": 22111035,
+      "tier": 10
+    },
+    {
+      "id": "0xd2808a052657a52b1b516e2b88d7c2bb9f722bc3e18e348862d89b70e837ce96-14",
+      "tournamentId": 1840,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770321668,
+      "blockNumber": 22111383,
+      "tier": 10
+    },
+    {
+      "id": "0x2ca9aee38fb3a716f8b1821ffabf4f152504f29f4fe099c350cfc43dabdb14cb-19",
+      "tournamentId": 1790,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770323467,
+      "blockNumber": 22111538,
+      "tier": 10
+    },
+    {
+      "id": "0x52b46eb300dc66ded79682dffad054806d35d8765540c5609edcf34edffad3ff-6",
+      "tournamentId": 1843,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1770333915,
+      "blockNumber": 22112435,
+      "tier": 10
+    },
+    {
+      "id": "0x1708f133228ca81ece4f7245ee3eccae3031624bad82ef37d2ac61574be287e8-1",
+      "tournamentId": 1791,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1770350056,
+      "blockNumber": 22113779,
+      "tier": 10
+    },
+    {
+      "id": "0x2d8fc649a4bed4f8d03cd8e68d178d1a66e2975048b1e96a97e5c0452bc56c17-1",
+      "tournamentId": 1844,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1770390133,
+      "blockNumber": 22117060,
+      "tier": 10
+    },
+    {
+      "id": "0x8edb9ca8db6e0705aa5d770c934da05c64cf81cf1f28726bb6aa2a2820536409-6",
+      "tournamentId": 1868,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1770392674,
+      "blockNumber": 22117241,
+      "tier": 10
+    },
+    {
+      "id": "0x5afff259f32d50aa7e0166901a6b4a1e33513827669c791ce42c23165c3e676e-36",
+      "tournamentId": 1869,
+      "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "timestamp": 1770398776,
+      "blockNumber": 22117753,
+      "tier": 10
+    },
+    {
+      "id": "0xdf05a144946800f1646166c0d32310658baaa460872938c2f8c47cdedda5e90d-1",
+      "tournamentId": 1845,
+      "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "timestamp": 1770402552,
+      "blockNumber": 22118063,
+      "tier": 10
+    },
+    {
+      "id": "0x1f3a33ecb1aac178f9c075622bd4f0424f6d9ea794427b44f3d52fe0788e34d6-4",
+      "tournamentId": 1846,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770411519,
+      "blockNumber": 22118812,
+      "tier": 10
+    },
+    {
+      "id": "0x9338a5abae32b837c9d3eadf7e2743c2c1cfad0c278e6734e18f4f24adf22132-1",
+      "tournamentId": 1847,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1770431879,
+      "blockNumber": 22120442,
+      "tier": 10
+    },
+    {
+      "id": "0x1dd29ed0ba43a59e3f784f93aadc965e663118ca8182d9c611e4454d5a6f23f6-1",
+      "tournamentId": 1848,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1770476810,
+      "blockNumber": 22124083,
+      "tier": 10
+    },
+    {
+      "id": "0x5c214620bb294e1b8bac8cfe099dd8e62bb49186107773615760da5928b50aa2-7",
+      "tournamentId": 1849,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1770491185,
+      "blockNumber": 22125257,
+      "tier": 10
+    },
+    {
+      "id": "0x2fc4f5d5ca5dab08be7e9488f134d71de215b5d188a591d1a1bb92bbdb8c09f9-16",
+      "tournamentId": 1850,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770498495,
+      "blockNumber": 22125854,
+      "tier": 10
+    },
+    {
+      "id": "0xecc5f56e795a0781e2037625c8c97a545c7cbbd79cf1b2bb0b469b78a7155a4e-11",
+      "tournamentId": 1876,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770502569,
+      "blockNumber": 22126186,
+      "tier": 20
+    },
+    {
+      "id": "0x7411a582524702b28df95db77bb1ec64dae65d06e7a6bae0f238832e9b501276-6",
+      "tournamentId": 1852,
+      "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
+      "timestamp": 1770562969,
+      "blockNumber": 22130984,
+      "tier": 10
+    },
+    {
+      "id": "0xac891bed65cf5e5310109a925b16eb03d9b88f99152cc8565d1054e2e6713e96-15",
+      "tournamentId": 1853,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770576911,
+      "blockNumber": 22132111,
+      "tier": 10
+    },
+    {
+      "id": "0x7c91a72f3d2c30159b86b84a4137f1b247127b28fa043f15f9d24d34211e6c5c-5",
+      "tournamentId": 1854,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "timestamp": 1770584223,
+      "blockNumber": 22132696,
+      "tier": 10
+    },
+    {
+      "id": "0x0150693ab741f72229789553c1d4566ed9b22cd3451f5d5e0b9967a4ffb65f1b-10",
+      "tournamentId": 1879,
+      "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
+      "timestamp": 1770589194,
+      "blockNumber": 22133094,
+      "tier": 10
+    },
+    {
+      "id": "0xdeba2ba82bcc23fb98266a888921c72dc7fd3a672f7b0166f5c65ab9bd576ce8-6",
+      "tournamentId": 1878,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1770594796,
+      "blockNumber": 22133538,
+      "tier": 10
+    },
+    {
+      "id": "0xa13dca897e825e757c994eb5dbd60df0b6fcf7b64962f4a56d3326380aee99bf-27",
+      "tournamentId": 1856,
+      "wallet": "0x6d997ffc6d127b53d0cecdcf4468cfee23656007",
+      "timestamp": 1770649505,
+      "blockNumber": 22137991,
+      "tier": 10
+    },
+    {
+      "id": "0xc0ab2fb347116d257cd1fae6e9a8d5e8e4330ddf1d7efca9e57f698ffb9ea24d-6",
+      "tournamentId": 1880,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1770652856,
+      "blockNumber": 22138273,
+      "tier": 10
+    },
+    {
+      "id": "0x4f5f073a82d5469028b07725c2fe48dd23731aafb5f99325fe0d29ebf8f898e2-4",
+      "tournamentId": 1857,
+      "wallet": "0x6d997ffc6d127b53d0cecdcf4468cfee23656007",
+      "timestamp": 1770663921,
+      "blockNumber": 22139173,
+      "tier": 10
+    },
+    {
+      "id": "0x104ce13de1cb249606ff614aa5666c90616adb00302b4f229d7638b57d2be11a-1",
+      "tournamentId": 1858,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1770670886,
+      "blockNumber": 22139727,
+      "tier": 10
+    },
+    {
+      "id": "0x955b00793dd04d5afb0bd724e68a4d6065472a4937f0fc0f68845db4bfa0b3f0-10",
+      "tournamentId": 1882,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770677246,
+      "blockNumber": 22140234,
+      "tier": 10
+    },
+    {
+      "id": "0xb207b171b9f740e375a4ea96b1a33e5686330c6767ad9832d690d20a91f138b8-5",
+      "tournamentId": 1883,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770683170,
+      "blockNumber": 22140706,
+      "tier": 10
+    },
+    {
+      "id": "0xa8caefcdf09a237a4c6c8e6c7dcf8fe3835b130f86581f89bb9d05b3de899afb-6",
+      "tournamentId": 1859,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "timestamp": 1770691193,
+      "blockNumber": 22141350,
+      "tier": 10
+    },
+    {
+      "id": "0x454afc304e71ace58b61ac97d0a88f8e1ebc1103359983a60df56adebe70e4d7-4",
+      "tournamentId": 1860,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1770735661,
+      "blockNumber": 22144866,
+      "tier": 10
+    },
+    {
+      "id": "0x93b80b1059ee13bfa1b1c5b53f4fe6d9ada1d572bc9ad1758cf0981c44de4001-27",
+      "tournamentId": 1881,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770738993,
+      "blockNumber": 22145149,
+      "tier": 10
+    },
+    {
+      "id": "0xca5841e04c8f45377ec7b56e22ca2ddd6508644b0b813bd74ca43737a4452962-9",
+      "tournamentId": 1861,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770749755,
+      "blockNumber": 22146007,
+      "tier": 10
+    },
+    {
+      "id": "0xa2eb4c33fb13a7a792d6959e0637be1ef586dee8f26db0460cd3cd997a28cb7a-14",
+      "tournamentId": 1862,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770757444,
+      "blockNumber": 22146631,
+      "tier": 10
+    },
+    {
+      "id": "0xf30d20d71c1c2ad61dbd67b7aae82ba2733435cb16e5a6319d6bbf0c2394e782-1",
+      "tournamentId": 1884,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770763505,
+      "blockNumber": 22147128,
+      "tier": 10
+    },
+    {
+      "id": "0xb9d1b251c5b8ba9524f528416d641a54e26ede7a8c27266145819778335529a9-5",
+      "tournamentId": 1887,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "timestamp": 1770770114,
+      "blockNumber": 22147638,
+      "tier": 10
+    },
+    {
+      "id": "0x64f6cf2ccd264c6973e74f66ac40b9c62f48f14a2429eac06a2a7160255c85f1-1",
+      "tournamentId": 1863,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1770778506,
+      "blockNumber": 22148295,
+      "tier": 10
+    },
+    {
+      "id": "0xa0af3fad4385aaa7da3ede4c29512dc873a7fb69e1a679089b9d3a1c4c52c486-47",
+      "tournamentId": 1864,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1770822052,
+      "blockNumber": 22151733,
+      "tier": 10
+    },
+    {
+      "id": "0x2159117289a9660d903f5893b2f33b9de618a8f23334fff84aa8666f669b2418-17",
+      "tournamentId": 1889,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1770826830,
+      "blockNumber": 22152117,
+      "tier": 10
+    },
+    {
+      "id": "0xaf5aa87b4ec6b0b62d5782e6792526046dec8a60efb017bc0a0ec6642e78973a-2",
+      "tournamentId": 1865,
+      "wallet": "0x83f0fbbc2ccb84e38c32ac9d39aa130c7e1ed47c",
+      "timestamp": 1770836847,
+      "blockNumber": 22152921,
+      "tier": 10
+    },
+    {
+      "id": "0x000bd37f15bc440271f28a4a068f82f8749b8fe090567d0a3eefdea4d1fdd76f-2",
+      "tournamentId": 1866,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1770844049,
+      "blockNumber": 22153510,
+      "tier": 10
+    },
+    {
+      "id": "0x17c1e7e76247e254ba97dbe75a254ae6a5828bdb754b0cea130ce1d48c748483-5",
+      "tournamentId": 1893,
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "timestamp": 1770846748,
+      "blockNumber": 22153737,
+      "tier": 10
+    },
+    {
+      "id": "0x53dd6c0e7c3d4814d2e7f79278012158f65c91f8890cf3c5d80bcded60b6b32c-18",
+      "tournamentId": 1895,
+      "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+      "timestamp": 1770852936,
+      "blockNumber": 22154246,
+      "tier": 10
+    },
+    {
+      "id": "0x452399a5686a5128f63a9dcafeed24d64b87b0904f67fbd6dc130e94b95035d1-1",
+      "tournamentId": 1894,
+      "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
+      "timestamp": 1770855995,
+      "blockNumber": 22154492,
+      "tier": 10
+    },
+    {
+      "id": "0x09ab03c3804782259b16b1c05b61513b71091d231c998def8e5719af0958b97d-9",
+      "tournamentId": 1896,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770857826,
+      "blockNumber": 22154632,
+      "tier": 10
+    },
+    {
+      "id": "0x9214e0a4e5b452b766132b9e4eb7ef87ba1e65715210eeee057278a92879a0b4-15",
+      "tournamentId": 1867,
+      "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+      "timestamp": 1770865479,
+      "blockNumber": 22155230,
+      "tier": 10
+    },
+    {
+      "id": "0x1303dc58a58f16774cde39b3f4437b1498d9520b9fc6351ec9a979a50cd30029-6",
+      "tournamentId": 1905,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1770907443,
+      "blockNumber": 22158552,
+      "tier": 10
+    },
+    {
+      "id": "0x31dc7aa58f7ad2a23ebcfb55d9fb1b4cc663e08831604024678b6174f7508306-18",
+      "tournamentId": 1904,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770907523,
+      "blockNumber": 22158559,
+      "tier": 10
+    },
+    {
+      "id": "0x0724a2d0732620f65273125ca87bd10068758d8aef03e8fe658232d93ae42e90-7",
+      "tournamentId": 1890,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1770914568,
+      "blockNumber": 22159147,
+      "tier": 10
+    },
+    {
+      "id": "0x0aba9ee3e250602b831741656eff751e072637e55544d8868994a49b88621907-5",
+      "tournamentId": 1898,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1770918885,
+      "blockNumber": 22159489,
+      "tier": 10
+    },
+    {
+      "id": "0x7a8a05bc34afb41fc15fa7f1bdaca3c629fa217ce40f3d95315803e826f14a04-2",
+      "tournamentId": 1906,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1770922604,
+      "blockNumber": 22159785,
+      "tier": 10
+    },
+    {
+      "id": "0x84616c3d7fe5061a2889713946d1c6cdea4602e05a16e0027f3ebf34091444a9-1",
+      "tournamentId": 1907,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770929911,
+      "blockNumber": 22160381,
+      "tier": 10
+    },
+    {
+      "id": "0x1645e7de640abc5f580d383a719046bba1ba1a8765de11680dd42a7dde9664b7-6",
+      "tournamentId": 1908,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1770937192,
+      "blockNumber": 22160958,
+      "tier": 10
+    },
+    {
+      "id": "0x0c5cffccee4ca158cba1449a2da365763834ba021a84cf9b89411d65086636d9-5",
+      "tournamentId": 1901,
+      "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
+      "timestamp": 1770940803,
+      "blockNumber": 22161234,
+      "tier": 10
+    },
+    {
+      "id": "0x28fc030aa1641297b83ff98125c56277915f034be1326cefa20903b29f550a77-5",
+      "tournamentId": 2022,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1770947681,
+      "blockNumber": 22161689,
+      "tier": 10
+    },
+    {
+      "id": "0x56b91eb0c80823d9ef02f8299e16b6f403bf16dbdb6af0c02cbc9dcfbb1f52c0-2",
+      "tournamentId": 1909,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1770995184,
+      "blockNumber": 22165314,
+      "tier": 10
+    },
+    {
+      "id": "0xe136d1f38cf24911513afe370fb630ba1c60f2ad392e2244ccc6a6345358aa97-26",
+      "tournamentId": 2025,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771003753,
+      "blockNumber": 22165986,
+      "tier": 10
+    },
+    {
+      "id": "0xbe9a04a6816716be593cdd9e155cc884f68296e28bd130858fbcc45dc08e5f11-1",
+      "tournamentId": 1910,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1771009187,
+      "blockNumber": 22166426,
+      "tier": 10
+    },
+    {
+      "id": "0x263f57da238de694709a61a905cd85818cd8c52eed52a475d95171400d5935d4-1",
+      "tournamentId": 2026,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771012393,
+      "blockNumber": 22166686,
+      "tier": 10
+    },
+    {
+      "id": "0x384f1f1bbcb35006ca1436abc7ef96235c2e13cbe6866330f5c5cc8109cf5997-9",
+      "tournamentId": 1912,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771024309,
+      "blockNumber": 22167628,
+      "tier": 10
+    },
+    {
+      "id": "0xf9be79ae0d8d5d61bc1005d9e7b2f07898ed2d0ec55ccf87f263996783e47eef-11",
+      "tournamentId": 2027,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771034023,
+      "blockNumber": 22168396,
+      "tier": 10
+    },
+    {
+      "id": "0x04325e17d5cc8e961c59041904eee71d92bb781f92b248768ef4e05640d36012-1",
+      "tournamentId": 2028,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "timestamp": 1771039177,
+      "blockNumber": 22168794,
+      "tier": 10
+    },
+    {
+      "id": "0x2ab9220ef20eb7cf301ab952b86cea91a81755a00666fd719a4d2afb1ecd8280-5",
+      "tournamentId": 1913,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771080947,
+      "blockNumber": 22172007,
+      "tier": 10
+    },
+    {
+      "id": "0xeb1b2204ddfc7caad0135516e66b96e8610036019c1e40fbc652fb971e81bb82-7",
+      "tournamentId": 2029,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771084432,
+      "blockNumber": 22172285,
+      "tier": 10
+    },
+    {
+      "id": "0x27cec631955854bde889cdee4f8e264d44702a6efc3c081164e28b9eba37f079-10",
+      "tournamentId": 2034,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771089789,
+      "blockNumber": 22172702,
+      "tier": 10
+    },
+    {
+      "id": "0xbcb5761bd60b07da507753189844bbb647a4267098b2b8f72b9ba06a341d0c01-2",
+      "tournamentId": 1914,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771095797,
+      "blockNumber": 22173177,
+      "tier": 10
+    },
+    {
+      "id": "0xfe4ec49bd2064dc687458c487f3ca8fa130bed1385ff81a175537f5b641c0248-6",
+      "tournamentId": 1915,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771101711,
+      "blockNumber": 22173630,
+      "tier": 10
+    },
+    {
+      "id": "0x003bedd2736136f7b2f73d96053b75791a482d90795d92d75dddd2cf861fc350-1",
+      "tournamentId": 1916,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771110531,
+      "blockNumber": 22174319,
+      "tier": 10
+    },
+    {
+      "id": "0x80d3c4beb6c7254b020cb123bd6ebbdf6d9d10da24dee4727d6577df1006e6e1-6",
+      "tournamentId": 2032,
+      "wallet": "0xefba6f4352a4c8162dd789ab3788d5e287ca80cb",
+      "timestamp": 1771113498,
+      "blockNumber": 22174557,
+      "tier": 10
+    },
+    {
+      "id": "0x1e1ba24a50cdc08ce591a402520715bec3f4c31251a2fdf5ccc1415283e0635e-17",
+      "tournamentId": 2033,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771119406,
+      "blockNumber": 22175025,
+      "tier": 10
+    },
+    {
+      "id": "0x21988a5afbb7be3ed42beaf98d225f8fc56afb710572d2d2bb3c03b07e905305-2",
+      "tournamentId": 1917,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771167899,
+      "blockNumber": 22178734,
+      "tier": 10
+    },
+    {
+      "id": "0xd668c944250b50ed9f283f2b10c84449c65cf7c56f5dce63644090978f77622f-5",
+      "tournamentId": 2035,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1771171570,
+      "blockNumber": 22179021,
+      "tier": 10
+    },
+    {
+      "id": "0x49d0c80514d95430ee58c88e4b396a1642185a0b3db5d90963f7df9cc9cb2079-7",
+      "tournamentId": 2036,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771177492,
+      "blockNumber": 22179491,
+      "tier": 10
+    },
+    {
+      "id": "0x8e56e8035365101c3af2cc30b5f661ce8a38260f56ce4f1cefd3baac2cf06da7-1",
+      "tournamentId": 1918,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771182109,
+      "blockNumber": 22179861,
+      "tier": 10
+    },
+    {
+      "id": "0x22987bcd73b3256365d6dd0d64d5d1332fc8020686533cd0bc0d897633ab1c3c-6",
+      "tournamentId": 2037,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1771184066,
+      "blockNumber": 22180018,
+      "tier": 10
+    },
+    {
+      "id": "0xb9269b4a07965db94c93cbc9de1f7b189b720f253801c3ea57ad9721e4bd3ecc-9",
+      "tournamentId": 1919,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1771188043,
+      "blockNumber": 22180330,
+      "tier": 10
+    },
+    {
+      "id": "0xa3a1afcda3a1d332a931d3f07d4079c516918fa364a8abd429b9cbf251b81d26-7",
+      "tournamentId": 1920,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771195209,
+      "blockNumber": 22180901,
+      "tier": 10
+    },
+    {
+      "id": "0xd211caa1a3b87c46d8fbf23900b094767e860226e5a585260cc4f48ef9e7fe92-17",
+      "tournamentId": 2039,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "timestamp": 1771200091,
+      "blockNumber": 22181273,
+      "tier": 10
+    },
+    {
+      "id": "0x7770bb5dfece8a3fcdd0d7848970920fbae5cfd8e5d2fd27b1375bd5d4c34f9a-1",
+      "tournamentId": 2040,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771206756,
+      "blockNumber": 22181776,
+      "tier": 10
+    },
+    {
+      "id": "0x7c918cda38b525a5442639d3c32d14644023a41566009917f9b827744a97a24e-1",
+      "tournamentId": 1921,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1771254786,
+      "blockNumber": 22185449,
+      "tier": 10
+    },
+    {
+      "id": "0xb8912c823731c1d079e5da960bebbea62a9258f8a7bcdc7a45c51e25a601210c-1",
+      "tournamentId": 2041,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771261798,
+      "blockNumber": 22185966,
+      "tier": 10
+    },
+    {
+      "id": "0xfd74883d48864849e203ec943056f825aecfb5b26b79004f0cfc4afaaea693d0-1",
+      "tournamentId": 1922,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1771268589,
+      "blockNumber": 22186492,
+      "tier": 10
+    },
+    {
+      "id": "0x18a90d4ff1fb1292df6546bcc1c3f4eee2862ee0e2e8a87a5545aad848abdacc-6",
+      "tournamentId": 1923,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771275529,
+      "blockNumber": 22187023,
+      "tier": 10
+    },
+    {
+      "id": "0xd873332f3afcdcc9e62b8c5d2922ead9bc09b75cfaa8f60f3fa33b759b2c2852-1",
+      "tournamentId": 1924,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771282741,
+      "blockNumber": 22187586,
+      "tier": 10
+    },
+    {
+      "id": "0x953466d37ecf2f74741179cbba53dd43700eba8b1ec24ab0514fd326e32c69a5-8",
+      "tournamentId": 2044,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771286488,
+      "blockNumber": 22187869,
+      "tier": 10
+    },
+    {
+      "id": "0x33cb0d6245c502d452f37bf141f56a8f36dedd3706943ec74a6ba540c10c4c4d-6",
+      "tournamentId": 1925,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771340767,
+      "blockNumber": 22191939,
+      "tier": 10
+    },
+    {
+      "id": "0x22ef6c44469df72e46773f56bce439d0480e95240961603369f044627b6fa3f8-5",
+      "tournamentId": 1926,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771354934,
+      "blockNumber": 22193053,
+      "tier": 10
+    },
+    {
+      "id": "0xbd579d3de61433d24cd49bfa9909aba48ee50c32d2eb0b92dd860a3c8479227e-12",
+      "tournamentId": 2046,
+      "wallet": "0x6d997ffc6d127b53d0cecdcf4468cfee23656007",
+      "timestamp": 1771357959,
+      "blockNumber": 22193292,
+      "tier": 10
+    },
+    {
+      "id": "0x517a6c92cbc5eeb85266fded155b5f3952f0b882b47fb4cdf99e84974984133c-2",
+      "tournamentId": 1927,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771362160,
+      "blockNumber": 22193618,
+      "tier": 10
+    },
+    {
+      "id": "0x7e2d56fec7b78366cbddad511c6d6c9ef2455e7544eace372dbb02e856d5ebf4-11",
+      "tournamentId": 1928,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "timestamp": 1771369420,
+      "blockNumber": 22194167,
+      "tier": 10
+    },
+    {
+      "id": "0xeb42e09ccf70e851be1fbaea08c08ebe8ffb1a616d663177ba67559b85835531-5",
+      "tournamentId": 2047,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771372967,
+      "blockNumber": 22194429,
+      "tier": 10
+    },
+    {
+      "id": "0x6a847af7befd0752f434cb0ded0e63dee8be3d6a811cd1a20f267aaa64393ad1-42",
+      "tournamentId": 2048,
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "timestamp": 1771378109,
+      "blockNumber": 22194828,
+      "tier": 10
+    },
+    {
+      "id": "0x5fc6d01808731ffc90483e4f5f425fdde2b26e6bdabb55afddc9dcdf6064e6fe-15",
+      "tournamentId": 2049,
+      "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
+      "timestamp": 1771386857,
+      "blockNumber": 22195491,
+      "tier": 10
+    },
+    {
+      "id": "0xbd6e2aece9ee4b913abff34135e49f4839300341b3efc867d4e3fd9019ae1802-12",
+      "tournamentId": 2055,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771421286,
+      "blockNumber": 22198090,
+      "tier": 10
+    },
+    {
+      "id": "0xc6cfd3d1fd51c12b6f7f6761c63b06a611e11206e44f116a0708f3fa8e44b0ff-12",
+      "tournamentId": 1929,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771426826,
+      "blockNumber": 22198510,
+      "tier": 10
+    },
+    {
+      "id": "0xb77b0e954d07dbe2f066119c6302dbadf3683bc79f61cff40b575645f232b4c5-9",
+      "tournamentId": 2050,
+      "wallet": "0x6d997ffc6d127b53d0cecdcf4468cfee23656007",
+      "timestamp": 1771431968,
+      "blockNumber": 22198889,
+      "tier": 10
+    },
+    {
+      "id": "0x888760c4dbbfe62cb9576bcb99e2bbb4d712b05d17d9cdb6c1eb41b7585c29d7-1",
+      "tournamentId": 1930,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771440803,
+      "blockNumber": 22199573,
+      "tier": 10
+    },
+    {
+      "id": "0xb5fd9274dc4185de1b78092fb0e6ababe418e4bc99b33e5851a9fa8ec735549f-1",
+      "tournamentId": 1931,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1771448786,
+      "blockNumber": 22200208,
+      "tier": 10
+    },
+    {
+      "id": "0xefba8ead3cc706a5db360ec73d3b2d93ecf482aef419f2643482ca7ab8df0523-1",
+      "tournamentId": 2052,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771450250,
+      "blockNumber": 22200315,
+      "tier": 10
+    },
+    {
+      "id": "0xca858a3bd71727a03413e7423a125c7a8509d277234d9bf490247f00a14c060f-5",
+      "tournamentId": 1932,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771456229,
+      "blockNumber": 22200770,
+      "tier": 10
+    },
+    {
+      "id": "0xf53c75a18e76f61e4cf403147a12e9ee23c4fb5e432ace8aa468c7a3d41a8647-5",
+      "tournamentId": 2053,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1771460398,
+      "blockNumber": 22201063,
+      "tier": 10
+    },
+    {
+      "id": "0x98a6db02ad2e32c86e15a72d1ca3a59984e93b64d4387b2a8573ff846357649c-6",
+      "tournamentId": 2054,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771465616,
+      "blockNumber": 22201452,
+      "tier": 10
+    },
+    {
+      "id": "0x4d23597e32ca439af8743f46a2e1d966c5e388b0477d58f24cdb6831bafde45e-6",
+      "tournamentId": 1933,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771511541,
+      "blockNumber": 22204848,
+      "tier": 10
+    },
+    {
+      "id": "0x24304df568884093f0345e0255677de606585f229359fba50af10afa6cfdbfd4-14",
+      "tournamentId": 2059,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771516737,
+      "blockNumber": 22205238,
+      "tier": 10
+    },
+    {
+      "id": "0x65f9e58321cb0050bd9b0d922eafd7e95d9608d74ff299b3665abbe03cd53d1f-11",
+      "tournamentId": 2057,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771522978,
+      "blockNumber": 22205704,
+      "tier": 10
+    },
+    {
+      "id": "0xd771985c3c2e01f6ff8a52b6b2bb2dc421256f7873dadc01dfead65b1823571a-10",
+      "tournamentId": 1934,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "timestamp": 1771527896,
+      "blockNumber": 22206081,
+      "tier": 10
+    },
+    {
+      "id": "0x51b0011af4a2a6cd10fb5c2100e78b55055ec894d82d309e0c69699a0e9bbf91-19",
+      "tournamentId": 2060,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771531335,
+      "blockNumber": 22206360,
+      "tier": 10
+    },
+    {
+      "id": "0x5acab010bae885ea0eae0d87572fe97ba380d493a0a74dc7bd9195af02141147-4",
+      "tournamentId": 1936,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771542497,
+      "blockNumber": 22207206,
+      "tier": 10
+    },
+    {
+      "id": "0x38096bd3959ea5d6f2b86cec1e72d9fe73b29abd0f069b828773c9f306087ef4-6",
+      "tournamentId": 2063,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771546952,
+      "blockNumber": 22207531,
+      "tier": 10
+    },
+    {
+      "id": "0x2107dcda9252fda1c5d512d7efb00309fc180893d0709f3582e5d180293f21af-4",
+      "tournamentId": 1937,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771600101,
+      "blockNumber": 22211497,
+      "tier": 10
+    },
+    {
+      "id": "0xfef89bf16ea214afd88643392e83760b3d7c61e4ea9939d166dfd06594705a44-5",
+      "tournamentId": 2066,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1771609090,
+      "blockNumber": 22212196,
+      "tier": 10
+    },
+    {
+      "id": "0x7b401b0588926e4a5c2ea685c0163450d0bb3e65df2a69f5d236f9a5e85faa7a-1",
+      "tournamentId": 1938,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771613030,
+      "blockNumber": 22212503,
+      "tier": 10
+    },
+    {
+      "id": "0xb6da1f7866e1d4b95a5eed2d20a2df80f6e56f6a92af49cb86c9e32bd8c44ae2-9",
+      "tournamentId": 1939,
+      "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
+      "timestamp": 1771621448,
+      "blockNumber": 22213140,
+      "tier": 10
+    },
+    {
+      "id": "0x63aa7e121b5818abf8b152519e13c50dddf3f993d9f9010d1dc39713438e3f41-1",
+      "tournamentId": 2069,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771632945,
+      "blockNumber": 22213995,
+      "tier": 10
+    },
+    {
+      "id": "0x805b5d70df2c7248629640d5fece0553e4fb785def5ce8b9d586ce9cdef03802-5",
+      "tournamentId": 2070,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "timestamp": 1771637585,
+      "blockNumber": 22214345,
+      "tier": 10
+    },
+    {
+      "id": "0xfe61f86977490f8b7260b71aae0ac4610610da5c0f2f38e793fb58bf4580c3d2-1",
+      "tournamentId": 1941,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771684509,
+      "blockNumber": 22217734,
+      "tier": 10
+    },
+    {
+      "id": "0xf0f68df173e3a904861cd9538283daaebcb28053ec14a163230c70f85fd112c4-7",
+      "tournamentId": 2072,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771694766,
+      "blockNumber": 22218490,
+      "tier": 10
+    },
+    {
+      "id": "0xd2672ac73e5b14c6ee869f9defaef32e62740da90a3eb13c3c9646b8ea232b14-13",
+      "tournamentId": 1942,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "timestamp": 1771700468,
+      "blockNumber": 22218933,
+      "tier": 10
+    },
+    {
+      "id": "0x71b785adfdc40365613816c43f44db355e1366fd8217a7310ff852499a5be937-4",
+      "tournamentId": 1943,
+      "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "timestamp": 1771708007,
+      "blockNumber": 22219512,
+      "tier": 10
+    },
+    {
+      "id": "0x23e9a7bba3bbd30938a86f0588955ae33b7f81f06a2096f247a2945c84cbe864-1",
+      "tournamentId": 1944,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771713605,
+      "blockNumber": 22219914,
+      "tier": 10
+    },
+    {
+      "id": "0xb1fd43e8e76b4865ce0c6e7277de6f1dd82cb467c1ed1ff14db9beb9d2e3a3f6-1",
+      "tournamentId": 2084,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771745229,
+      "blockNumber": 22222210,
+      "tier": 20
+    },
+    {
+      "id": "0x8ec954cff24191af8d854db70ee7abee7c361314c023ece6b186724f5fe10950-6",
+      "tournamentId": 1945,
+      "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "timestamp": 1771770707,
+      "blockNumber": 22224086,
+      "tier": 10
+    },
+    {
+      "id": "0xb562173745e0ec40fcfd27d83ecfea621178a02192229c2d86b16c9f6c8a11ae-6",
+      "tournamentId": 2076,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "timestamp": 1771776457,
+      "blockNumber": 22224518,
+      "tier": 10
+    },
+    {
+      "id": "0xb92270877731575619c519e958e02e2823e36f71a259b608137ff6f2a2365b3a-2",
+      "tournamentId": 1946,
+      "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "timestamp": 1771787012,
+      "blockNumber": 22225283,
+      "tier": 10
+    },
+    {
+      "id": "0xbf154278e8fa02639ca50e79f3f8358969b6183de22ad85f847c560c8bba46f4-1",
+      "tournamentId": 1947,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771794301,
+      "blockNumber": 22225826,
+      "tier": 10
+    },
+    {
+      "id": "0x0fb528881355c5ed46e37be10e9af08901a9ef8d3210239b2bbf45ac53aeb506-1",
+      "tournamentId": 1948,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771801623,
+      "blockNumber": 22226355,
+      "tier": 10
+    },
+    {
+      "id": "0x35ebde36ab3a92b31dbecad0f133181ad0891c31359891d4d2294db2fc6b60e6-2",
+      "tournamentId": 2078,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "timestamp": 1771810169,
+      "blockNumber": 22226994,
+      "tier": 10
+    },
+    {
+      "id": "0xa926509e649829dfdf2f78d2bf047e1548c7a8f0e3ebbb1f84fc40510d323da2-1",
+      "tournamentId": 1949,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771859433,
+      "blockNumber": 22230497,
+      "tier": 10
+    },
+    {
+      "id": "0x8c032ca0dc325d31ffcf96931823868bee852db1635c73caf964c05ece69f688-1",
+      "tournamentId": 2079,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771862362,
+      "blockNumber": 22230705,
+      "tier": 10
+    },
+    {
+      "id": "0x1a1008aa0d04ff5e76afd9e8e4d3452fdb0f07292d2c43abbf94cb0e47a39c0c-1",
+      "tournamentId": 1950,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "timestamp": 1771874047,
+      "blockNumber": 22231612,
+      "tier": 10
+    },
+    {
+      "id": "0x07ca1cb4abeefd0883dff83b3daec206d9cf610f9b6dd881324635f33c2f1d07-1",
+      "tournamentId": 1951,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771880347,
+      "blockNumber": 22232066,
+      "tier": 10
+    },
+    {
+      "id": "0x9e2c20715c7fa6ca0f0fc7ab5c701ecb44c16aa8e11d607df53ce0a443a30d86-1",
+      "tournamentId": 1952,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "timestamp": 1771887848,
+      "blockNumber": 22232629,
+      "tier": 10
+    },
+    {
+      "id": "0x340792b2a973dc4cc19defc01c4ca6e653f5cb282d718fa657f978a319328f15-13",
+      "tournamentId": 2080,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771892306,
+      "blockNumber": 22232937,
+      "tier": 10
+    },
+    {
+      "id": "0x9a1629570687b43472a3885ef48d5e4b17724cf2fd9cadae4be5ebeab81bce29-25",
+      "tournamentId": 1953,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771945359,
+      "blockNumber": 22236747,
+      "tier": 10
+    },
+    {
+      "id": "0xa7b5a5e1d14f53229197fc49cb95b4fe94a7de11ea107916bd12a85e9ddf28bc-7",
+      "tournamentId": 2082,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771948080,
+      "blockNumber": 22236963,
+      "tier": 10
+    },
+    {
+      "id": "0x5491e2bc2217c3d6794d470768a9ec83b6e7be755096c4550ab726780712936f-5",
+      "tournamentId": 1954,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1771959898,
+      "blockNumber": 22237865,
+      "tier": 10
+    },
+    {
+      "id": "0x02efda21d8d2336aabbe815274b407c7448ea759768301d7614ab9dae8cea86b-36",
+      "tournamentId": 1955,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "timestamp": 1771966973,
+      "blockNumber": 22238393,
+      "tier": 10
+    },
+    {
+      "id": "0xa93c85a7be97fb2c42249a3b369e7a0503b4d442cc213f87065592a782d2f643-1",
+      "tournamentId": 1956,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771973777,
+      "blockNumber": 22238872,
+      "tier": 10
+    },
+    {
+      "id": "0xa340e3dcb25c71d448e132b086229ae20025b1f59a73b650ca28ef49727449a6-1",
+      "tournamentId": 2085,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1771979205,
+      "blockNumber": 22239262,
+      "tier": 10
+    },
+    {
+      "id": "0x269da318ff8895af1adf4bbfa941cde8b8501e87e1b4066c3256edc53c7fbfce-7",
+      "tournamentId": 1957,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1772031930,
+      "blockNumber": 22243030,
+      "tier": 10
+    },
+    {
+      "id": "0xfbf4f87ec3ca5afd9adbe84564e08ed7f782f6cf0d67cb89638bfe221adf29fb-6",
+      "tournamentId": 2086,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1772036842,
+      "blockNumber": 22243420,
+      "tier": 10
+    }
+  ],
+  "leaderboard": [
+    {
+      "rank": 1,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "lvl10Wins": 48,
+      "lvl20Wins": 0,
+      "totalWins": 48,
+      "lastWin": 1771979205
+    },
+    {
+      "rank": 2,
+      "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "lvl10Wins": 23,
+      "lvl20Wins": 0,
+      "totalWins": 23,
+      "lastWin": 1771776457
+    },
+    {
+      "rank": 3,
+      "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "lvl10Wins": 21,
+      "lvl20Wins": 2,
+      "totalWins": 23,
+      "lastWin": 1771637585
+    },
+    {
+      "rank": 4,
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "lvl10Wins": 21,
+      "lvl20Wins": 0,
+      "totalWins": 21,
+      "lastWin": 1771874047
+    },
+    {
+      "rank": 5,
+      "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
+      "lvl10Wins": 15,
+      "lvl20Wins": 1,
+      "totalWins": 16,
+      "lastWin": 1770584223
+    },
+    {
+      "rank": 6,
+      "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "lvl10Wins": 14,
+      "lvl20Wins": 0,
+      "totalWins": 14,
+      "lastWin": 1771527896
+    },
+    {
+      "rank": 7,
+      "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
+      "lvl10Wins": 12,
+      "lvl20Wins": 0,
+      "totalWins": 12,
+      "lastWin": 1771700468
+    },
+    {
+      "rank": 8,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "lvl10Wins": 11,
+      "lvl20Wins": 0,
+      "totalWins": 11,
+      "lastWin": 1772036842
+    },
+    {
+      "rank": 9,
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "lvl10Wins": 10,
+      "lvl20Wins": 1,
+      "totalWins": 11,
+      "lastWin": 1771887848
+    },
+    {
+      "rank": 10,
+      "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
+      "lvl10Wins": 7,
+      "lvl20Wins": 0,
+      "totalWins": 7,
+      "lastWin": 1771810169
+    },
+    {
+      "rank": 11,
+      "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "lvl10Wins": 6,
+      "lvl20Wins": 0,
+      "totalWins": 6,
+      "lastWin": 1771966973
+    },
+    {
+      "rank": 12,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "lvl10Wins": 4,
+      "lvl20Wins": 1,
+      "totalWins": 5,
+      "lastWin": 1771200091
+    },
+    {
+      "rank": 13,
+      "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
+      "lvl10Wins": 4,
+      "lvl20Wins": 1,
+      "totalWins": 5,
+      "lastWin": 1770263970
+    },
+    {
+      "rank": 14,
+      "wallet": "0x6d997ffc6d127b53d0cecdcf4468cfee23656007",
+      "lvl10Wins": 4,
+      "lvl20Wins": 0,
+      "totalWins": 4,
+      "lastWin": 1771431968
+    },
+    {
+      "rank": 15,
+      "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
+      "lvl10Wins": 4,
+      "lvl20Wins": 0,
+      "totalWins": 4,
+      "lastWin": 1770589194
+    },
+    {
+      "rank": 16,
+      "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "lvl10Wins": 3,
+      "lvl20Wins": 0,
+      "totalWins": 3,
+      "lastWin": 1771787012
+    },
+    {
+      "rank": 17,
+      "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "lvl10Wins": 3,
+      "lvl20Wins": 0,
+      "totalWins": 3,
+      "lastWin": 1771770707
+    },
+    {
+      "rank": 18,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "lvl10Wins": 2,
+      "lvl20Wins": 1,
+      "totalWins": 3,
+      "lastWin": 1771369420
+    },
+    {
+      "rank": 19,
+      "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+      "lvl10Wins": 2,
+      "lvl20Wins": 1,
+      "totalWins": 3,
+      "lastWin": 1770865479
+    },
+    {
+      "rank": 20,
+      "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
+      "lvl10Wins": 2,
+      "lvl20Wins": 0,
+      "totalWins": 2,
+      "lastWin": 1771621448
+    },
+    {
+      "rank": 21,
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "lvl10Wins": 2,
+      "lvl20Wins": 0,
+      "totalWins": 2,
+      "lastWin": 1771378109
+    },
+    {
+      "rank": 22,
+      "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
+      "lvl10Wins": 2,
+      "lvl20Wins": 0,
+      "totalWins": 2,
+      "lastWin": 1770940803
+    },
+    {
+      "rank": 23,
+      "wallet": "0xfd43d164d1bf5e69bd7e7b487d8237b393039f77",
+      "lvl10Wins": 2,
+      "lvl20Wins": 0,
+      "totalWins": 2,
+      "lastWin": 1770058967
+    },
+    {
+      "rank": 24,
+      "wallet": "0xefba6f4352a4c8162dd789ab3788d5e287ca80cb",
+      "lvl10Wins": 1,
+      "lvl20Wins": 0,
+      "totalWins": 1,
+      "lastWin": 1771113498
+    },
+    {
+      "rank": 25,
+      "wallet": "0x83f0fbbc2ccb84e38c32ac9d39aa130c7e1ed47c",
+      "lvl10Wins": 1,
+      "lvl20Wins": 0,
+      "totalWins": 1,
+      "lastWin": 1770836847
+    },
+    {
+      "rank": 26,
+      "wallet": "0x97ca0881daa46c4028b9231e3a10ba9acd84d9b9",
+      "lvl10Wins": 1,
+      "lvl20Wins": 0,
+      "totalWins": 1,
+      "lastWin": 1770152447
+    },
+    {
+      "rank": 27,
+      "wallet": "0xa13030b990d244243924d8223df60df06d0fbec8",
+      "lvl10Wins": 1,
+      "lvl20Wins": 0,
+      "totalWins": 1,
+      "lastWin": 1769453942
+    },
+    {
+      "rank": 28,
+      "wallet": "0x56c25876dc1cadff67e633740f47be39552b8073",
+      "lvl10Wins": 1,
+      "lvl20Wins": 0,
+      "totalWins": 1,
+      "lastWin": 1769122086
+    }
+  ]
+}

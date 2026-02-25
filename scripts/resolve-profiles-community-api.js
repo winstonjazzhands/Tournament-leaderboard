@@ -1,129 +1,244 @@
-import fs from "node:fs";
-import path from "node:path";
+// scripts/resolve-profiles-community-api.js
+// Resolve wallet -> display name using a DFK community GraphQL API.
+// Robust wallet extraction from leaderboard.json (handles multiple field names).
 
-const GRAPHQL = process.env.DFK_PROFILE_GRAPHQL || "https://api.defikingdoms.com/graphql";
+import fs from "fs";
+import path from "path";
 
-function readJson(p) {
+const ROOT = process.cwd();
+
+const PUBLIC_DIR = path.join(ROOT, "public");
+const SCRIPTS_DIR = path.join(ROOT, "scripts");
+const CACHE_DIR = path.join(SCRIPTS_DIR, ".cache");
+
+const LEADERBOARD_PATH = path.join(PUBLIC_DIR, "leaderboard.json");
+const PROFILES_PATH = path.join(PUBLIC_DIR, "profiles.json");
+const CACHE_PATH = path.join(CACHE_DIR, "profiles-name-cache.json");
+
+// Override via env if you want
+const API_URLS = [
+  process.env.COMMUNITY_API_URL,
+  "https://api.defikingdoms.com/graphql",
+  "https://community-api.defikingdoms.com/graphql",
+].filter(Boolean);
+
+function ensureDir(dir) {
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+}
+
+function readJson(p, fallback = null) {
   try {
     return JSON.parse(fs.readFileSync(p, "utf8"));
   } catch {
-    return null;
+    return fallback;
   }
 }
 
 function writeJson(p, obj) {
-  fs.mkdirSync(path.dirname(p), { recursive: true });
-  fs.writeFileSync(p, JSON.stringify(obj, null, 2), "utf8");
+  fs.writeFileSync(p, JSON.stringify(obj, null, 2));
 }
 
 function uniq(arr) {
   return [...new Set(arr)];
 }
 
-async function gql(query, variables) {
-  const res = await fetch(GRAPHQL, {
+function normalizeAddr(a) {
+  const s = String(a || "").trim();
+  if (!s) return "";
+  // Keep lowercase 0x... addresses
+  return s.toLowerCase();
+}
+
+// Tries many likely wallet field names in a win row.
+// (Your wins script may output different shapes over time.)
+function extractWalletFromWinRow(w) {
+  if (!w || typeof w !== "object") return "";
+
+  // common direct fields
+  const candidates = [
+    w.player,
+    w.wallet,
+    w.address,
+    w.winner,
+    w.winnerAddress,
+    w.playerAddress,
+    w.walletAddress,
+  ];
+
+  for (const c of candidates) {
+    const addr = normalizeAddr(c);
+    if (addr.startsWith("0x") && addr.length === 42) return addr;
+  }
+
+  // sometimes nested objects like { player: { id: "0x..." } }
+  const nested = [
+    w.player?.id,
+    w.player?.address,
+    w.wallet?.id,
+    w.wallet?.address,
+    w.winner?.id,
+    w.winner?.address,
+  ];
+  for (const c of nested) {
+    const addr = normalizeAddr(c);
+    if (addr.startsWith("0x") && addr.length === 42) return addr;
+  }
+
+  return "";
+}
+
+function loadWalletsFromLeaderboard() {
+  const lb = readJson(LEADERBOARD_PATH, null);
+  if (!lb) return [];
+
+  // expected: { wins: [...] }
+  const wins = Array.isArray(lb.wins) ? lb.wins : [];
+  const wallets = wins
+    .map(extractWalletFromWinRow)
+    .filter((a) => a.startsWith("0x") && a.length === 42);
+
+  return uniq(wallets);
+}
+
+async function gql(url, query, variables) {
+  const res = await fetch(url, {
     method: "POST",
     headers: { "content-type": "application/json" },
     body: JSON.stringify({ query, variables }),
   });
-  const json = await res.json().catch(() => ({}));
-  if (!res.ok || json.errors) {
-    const msg =
-      json?.errors?.[0]?.message ||
-      `HTTP ${res.status} ${res.statusText}`;
+
+  const text = await res.text();
+  let json;
+  try {
+    json = JSON.parse(text);
+  } catch {
+    throw new Error(`Non-JSON response from ${url}: ${text.slice(0, 200)}`);
+  }
+
+  if (json.errors?.length) {
+    const msg = json.errors.map((e) => e.message).join(" | ");
     throw new Error(msg);
   }
+
   return json.data;
 }
 
-function pickLeaderboardPath() {
-  const cwd = process.cwd();
-  const c1 = path.join(cwd, "public", "leaderboard.json");
-  const c2 = path.join(cwd, "leaderboard.json");
-  if (fs.existsSync(c1)) return c1;
-  return c2;
-}
+// IMPORTANT: ids must be typed as GraphQL ID, not String
+const CANDIDATE_QUERIES = [
+  {
+    name: "profiles(where: { id_in })",
+    query: `
+      query($ids: [ID!]!) {
+        profiles(where: { id_in: $ids }) {
+          id
+          name
+        }
+      }
+    `,
+    pick: (data) => data?.profiles,
+  },
+  {
+    name: "players(where: { id_in })",
+    query: `
+      query($ids: [ID!]!) {
+        players(where: { id_in: $ids }) {
+          id
+          name
+        }
+      }
+    `,
+    pick: (data) => data?.players,
+  },
+];
 
-function loadWalletsFromLeaderboard(leaderboardPath) {
-  const data = readJson(leaderboardPath);
-  const wins = Array.isArray(data?.wins) ? data.wins : [];
-  const wallets = wins
-    .map((w) => (w.wallet || "").toLowerCase())
-    .filter((w) => w && w.startsWith("0x") && w.length === 42);
-  return uniq(wallets);
+async function resolveBatch(ids) {
+  let lastErr = null;
+
+  for (const apiUrl of API_URLS) {
+    for (const cand of CANDIDATE_QUERIES) {
+      try {
+        const data = await gql(apiUrl, cand.query, { ids });
+        const rows = cand.pick(data);
+        if (!rows) continue;
+
+        const list = Array.isArray(rows) ? rows : [rows];
+        const out = {};
+        for (const r of list) {
+          const id = normalizeAddr(r?.id);
+          const name = String(r?.name || "").trim();
+          if (id && name) out[id] = name;
+        }
+
+        return out;
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+  }
+
+  throw lastErr || new Error("Unable to resolve profiles: no query shape matched.");
 }
 
 async function main() {
-  const leaderboardPath = pickLeaderboardPath();
-  const publicDir = path.join(process.cwd(), "public");
-  const profilesPath = path.join(publicDir, "profiles.json");
+  ensureDir(CACHE_DIR);
 
-  const wallets = loadWalletsFromLeaderboard(leaderboardPath);
+  const wallets = loadWalletsFromLeaderboard();
   console.log(`Loaded wallets: ${wallets.length}`);
 
-  const cache = readJson(profilesPath) || {};
-  const namesByAddress = (cache.namesByAddress && typeof cache.namesByAddress === "object")
-    ? { ...cache.namesByAddress }
-    : {};
+  const cache = readJson(CACHE_PATH, { namesByAddress: {} });
+  cache.namesByAddress = cache.namesByAddress || {};
+
+  const existing = readJson(PROFILES_PATH, { namesByAddress: {} });
+  existing.namesByAddress = existing.namesByAddress || {};
+
+  const namesByAddress = { ...existing.namesByAddress, ...cache.namesByAddress };
 
   const missing = wallets.filter((w) => !namesByAddress[w]);
-  console.log(`Cache has ${Object.keys(namesByAddress).length} entries.`);
+  console.log(`Cache has ${Object.keys(cache.namesByAddress).length} entries.`);
   console.log(`Missing names to resolve: ${missing.length}`);
 
-  if (!missing.length) {
-    const out = {
-      updatedAtUtc: new Date().toISOString(),
-      source: "dfk-graphql-profiles",
-      graphql: GRAPHQL,
-      namesByAddress,
-    };
-    writeJson(profilesPath, out);
-    console.log(`Wrote ${profilesPath}`);
-    console.log("Done. Resolved 0 new.");
+  if (wallets.length === 0) {
+    console.log(
+      "⚠️ No wallets detected in public/leaderboard.json. " +
+        "That usually means the wins file format changed (or is empty)."
+    );
+  }
+
+  if (missing.length === 0) {
+    writeJson(PROFILES_PATH, { namesByAddress });
+    console.log(`Wrote ${PROFILES_PATH}`);
     return;
   }
 
-  const query = `
-    query Profiles($ids: [String!]!) {
-      profiles(where: { id_in: $ids }) {
-        id
-        name
-      }
-    }
-  `;
+  const BATCH_SIZE = Number(process.env.PROFILE_BATCH_SIZE || 50);
+  const batches = [];
+  for (let i = 0; i < missing.length; i += BATCH_SIZE) {
+    batches.push(missing.slice(i, i + BATCH_SIZE));
+  }
 
-  const BATCH = 150;
-  let newly = 0;
+  let resolvedCount = 0;
+  for (let i = 0; i < batches.length; i++) {
+    const batch = batches[i];
+    console.log(`Batch ${i + 1}/${batches.length} | requested=${batch.length}`);
 
-  for (let i = 0; i < missing.length; i += BATCH) {
-    const batch = missing.slice(i, i + BATCH);
-    console.log(`Batch ${Math.floor(i / BATCH) + 1}/${Math.ceil(missing.length / BATCH)} | requested=${batch.length}`);
+    const resolved = await resolveBatch(batch);
 
-    const data = await gql(query, { ids: batch });
-    const rows = Array.isArray(data?.profiles) ? data.profiles : [];
-
-    for (const r of rows) {
-      const id = (r?.id || "").toLowerCase();
-      const name = (r?.name || "").trim();
-      if (!id || !name) continue;
-      if (!namesByAddress[id]) newly++;
-      namesByAddress[id] = name;
+    for (const [addr, name] of Object.entries(resolved)) {
+      if (!namesByAddress[addr]) resolvedCount++;
+      namesByAddress[addr] = name;
     }
   }
 
-  const out = {
-    updatedAtUtc: new Date().toISOString(),
-    source: "dfk-graphql-profiles",
-    graphql: GRAPHQL,
-    namesByAddress,
-  };
+  cache.namesByAddress = namesByAddress;
+  writeJson(CACHE_PATH, cache);
+  writeJson(PROFILES_PATH, { namesByAddress });
 
-  writeJson(profilesPath, out);
-  console.log(`Wrote ${profilesPath}`);
-  console.log(`Done. Resolved ${Object.keys(namesByAddress).length}/${wallets.length} (new this run: ${newly}).`);
+  console.log(`Resolved ${resolvedCount} new.`);
+  console.log(`Wrote ${PROFILES_PATH}`);
+  console.log(`Cache saved: ${CACHE_PATH}`);
 }
 
 main().catch((e) => {
   console.error("ERROR:", e?.message || e);
-  process.exitCode = 1;
+  process.exit(1);
 });

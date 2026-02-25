@@ -1,14 +1,17 @@
 {
   "name": "dfk-tournament-leaderboard",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
+  "description": "DFK Tournament Leaderboard updater + static site",
   "scripts": {
     "update:wins": "node scripts/pull-wins-tier-from-logs-post22m-lookback.js",
     "update:profiles": "node scripts/resolve-profiles-community-api.js",
     "update:ranges": "node scripts/build-tournamentRanges-subgraph.js",
-    "update:override-tiers": "node scripts/apply-tournament-ranges-to-leaderboard.js",
+    "apply:tiers": "node scripts/apply-tournament-ranges-to-leaderboard.js",
     "validate": "node scripts/validate-public-data.js",
-    "update:all": "npm run update:wins && npm run update:profiles && npm run update:ranges && npm run update:override-tiers && npm run validate"
+    "update:all": "node scripts/update-all.js",
+    "serve": "npx http-server public -p 8080 -c-1"
   },
   "dependencies": {
     "ethers": "^6.16.0"
