@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.0" />
+  <meta name="app-version" content="v1.0.1" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -262,7 +262,7 @@
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
 
     /* Last week range subtitle color */
-    #lastWeekRangeLabel{color:rgba(78,161,255,.85);}
+    #lastWeekRangeLabel{color:var(--muted);font-size:10px;font-weight:800;}
     .tile .bd{
       padding: 10px;
       color: var(--muted);
@@ -340,7 +340,7 @@
 
     .top3{display:flex;flex-direction:column;gap:10px;}
     .topItem{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
       padding:10px 10px;border:1px solid rgba(255,255,255,.10);
       border-radius:14px;background: rgba(255,255,255,.03);
     }
@@ -372,10 +372,10 @@
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:12px 14px;
+      padding:10px 12px;
       border-radius:16px;
     }
-    #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:13px; }
+    #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
     #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
 
     .card{
@@ -557,7 +557,7 @@
     }
     .modalHd{
       padding:12px 14px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
     }
@@ -677,7 +677,7 @@
       backdrop-filter: blur(10px);
     }
     .pcHd{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
       padding:10px 10px 8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
@@ -762,11 +762,19 @@
 
       .pcBox{width: 92vw; height: 54vh;}
     }
+  
+    #tipBackdrop .modalTitle{
+      text-align:center;
+      width:100%;
+      font-size:24px;
+      font-weight:1000;
+    }
+    
   </style>
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.0 -->
+<!-- DFK Tournament Leaderboard • version v1.0.1 -->
 <div class="wrap" id="app">
   <div class="headerInner">
     <header>
@@ -1041,7 +1049,15 @@
             box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
             transform: translateY(-2px);
           }
-        </style>
+        
+    #tipBackdrop .modalTitle{
+      text-align:center;
+      width:100%;
+      font-size:24px;
+      font-weight:1000;
+    }
+    
+  </style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
@@ -1170,7 +1186,7 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
-  const APP_VERSION = "v1.0.0";
+  const APP_VERSION = "v1.0.1";
 
   const state = {
     wins: [],
