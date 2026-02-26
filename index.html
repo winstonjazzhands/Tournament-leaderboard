@@ -49,12 +49,12 @@
       color:var(--text);
     }
     a{color:inherit}
-    .wrap{max-width:1240px;margin:0 auto;padding:18px}
+    .wrap{max-width:1240px;margin:0 auto;padding:10px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
     header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
     h1{margin:0}
-    .siteTitle{font-size:clamp(34px,6.5vw,92px);letter-spacing:-.6px;font-weight:1000;line-height:1.0}
+    .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
@@ -62,15 +62,15 @@
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap:10px;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
       align-items:stretch;
       margin:10px 0 14px;
     }
 
     .miniTile,
     .topMiniBtn{
-      height:56px;
+      height:50px;
       border-radius: var(--radius);
       border:1px solid var(--border);
       background: rgba(255,255,255,.03);
@@ -81,8 +81,9 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:8px 10px;
+      padding:6px 8px;
       text-align:center;
+          text-decoration:none;
     }
     .miniTile.secondary{ background: rgba(255,255,255,.02); }
 
@@ -91,7 +92,7 @@
       display:flex;
       align-items:baseline;
       justify-content:center;
-      gap:8px;
+      gap:6px;
       flex-wrap:wrap;
       min-width:0;
     }
@@ -179,7 +180,15 @@
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      4%   { background: rgba(255,255,255,.062); }
+      
+    @keyframes learnPulse {
+      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+    }
+4%   { background: rgba(255,255,255,.062); }
       8%   { background: rgba(255,255,255,.04); }
       100% { background: rgba(255,255,255,.04); }
     }
@@ -189,10 +198,11 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color:#ffffff;
-      animation: subtlePulse 3s infinite;
+      animation: none;
     }
     .learnMini.noPulse{ animation:none !important; }
-    .learnMini:hover{
+        .learnMini.pulseOnce{ animation: learnPulse 1.6s ease-in-out 0s 1; }
+.learnMini:hover{
       background: rgba(255,255,255,.07);
       border-color: rgba(255,255,255,.20);
     }
@@ -232,7 +242,7 @@
       min-width:0;
     }
     .tile .hd{
-      padding:12px 14px;
+      padding: 10px 12px;
       border-bottom:1px dashed rgba(255,255,255,.16);
       color: var(--muted);
       font-weight:900;
@@ -241,13 +251,13 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      min-height:44px;
+      min-height: 38px;
     }
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
     .tile .bd{
-      padding:14px;
+      padding: 10px;
       color: var(--muted);
       font-size:12px;
     }
@@ -255,12 +265,12 @@
     .filterGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
+      gap: 8px;
     }
 
         .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
 /* Filters fit + tighter controls */
-    #filtersCard .btn{ width:100%; }
+    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
     #filtersCard input{ min-width:0; }
     #filtersCard .dateBtn{
       min-width:0;
@@ -269,7 +279,7 @@
       gap:6px;
       justify-content:space-between;
     }
-    #filtersCard .dateBtn .lab{ font-size:10px; }
+    #filtersCard .dateBtn .lab{ font-size:9px; }
     #filtersCard .dateBtn .val{ font-size:11px; }
     .fullRow{grid-column: 1 / -1;}
 
@@ -348,7 +358,7 @@
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
     .topRight{text-align:right;white-space:nowrap;flex:0 0 auto;}
-    .topReward{color:var(--gold);font-weight:1000;font-size:26px;line-height:1.05;}
+    .topReward{color:var(--gold);font-weight:1000;font-size:23px;line-height:1.05;}
     .topRewardLabel{color: var(--muted);font-size:11px;line-height:1.1;margin-top:2px;}
     .topEmpty{color: var(--muted);font-size:12px;padding:4px 2px;}
 
@@ -359,7 +369,7 @@
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:13px; }
-    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:20px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
 
     .card{
       background: rgba(255,255,255,.03);
@@ -372,9 +382,9 @@
       padding:12px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .lbLeft{flex:0 0 auto;}
-    .lbRight{flex:0 0 auto;}
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:18px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
+.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap;}
+.lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
       overflow:auto;
@@ -492,7 +502,7 @@
       border-radius: 10px;
     }
 
-    .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;position:relative;z-index:2;}
+    .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
     .clickBreakdown:hover{text-decoration:underline;}
 
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
@@ -563,10 +573,13 @@
     /* Back to top button (shown after scroll) */
     #backToTopBtn{ display:none; }
     #backToTopBtn.show{ display:inline-flex; }
+    #walletsBtn, #csvBtn{ padding:6px 8px; font-size:10px; border-radius:10px; }
+    #csvBtn span{ font-size:10px; }
+
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
         .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
     .tourneyLinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px;}
-    .tourneyLinks .tourneyLinks a{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:12px;padding:8px 10px;text-decoration:none;font-weight:900;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .tourneyLinks a{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:12px;padding:8px 10px;text-decoration:none;font-weight:900;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
     .tourneyLinks a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);}
 .modalBtns{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
     .modalBtn{
@@ -735,33 +748,32 @@
     <header>
       <div>
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
+        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
-        <div class="sub" id="updateLine"></div>
+        
 
         <div class="topHeaderRow">
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
-            PLAY NOW
+            PLAY DFK NOW
           </a>
-
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
           <div class="miniTile">
             <div class="miniInner">
-              <span class="k">Time:</span>
               <span class="v" id="utcNow">—</span>
             </div>
           </div>
 
           <div class="miniTile secondary">
             <div class="miniInner">
-              <span class="k">Daily rollover:</span>
+              <span class="k">Daily rollover in:</span>
               <span class="v" id="utcCountdown">—</span>
-              <span class="hint">(00:00)</span>
+              
             </div>
           </div>
+
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
     </header>
   </div>
@@ -769,7 +781,7 @@
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote">Info before Jan 16, 2026 not available</span></div>
+        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span></div>
         <div class="bd">
           <div class="filterGrid">
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
@@ -782,12 +794,9 @@
               <span class="val" id="toLabel">—</span>
             </button>
 
-            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
-
-            <div class="winsLabel fullRow"># Wins</div>
-
-            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
+<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
@@ -796,6 +805,8 @@
             <div class="fullRow">
               <input id="search" placeholder="Search by wallet or name…" />
             </div>
+
+            <div class="fullRow" id="updateLine" style="margin-top:8px;color:var(--muted);font-size:11px;font-weight:800;"></div>
           </div>
 
           <input class="dateHidden" id="fromDate" type="date" />
@@ -819,7 +830,7 @@
         <div class="hd">
           <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
             <span>Lifetime top 3</span>
-            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime tracking started Jan 16, 2026 (wins before then not tracked)</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:800;">Tracking since Jan 16, 2026</span>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
@@ -835,15 +846,12 @@
 
     <section class="card">
       <div class="hd">
-        <div class="lbLeft">
-          <div style="font-size:12px;color:var(--muted)">Leaderboard</div>
-          <div style="font-weight:700">Lvl 10 vs Lvl 20 wins</div>
-        </div>
-
-        <div class="lbCenter" id="rangeIndicator" aria-live="polite">
+        <div class="lbLeft" id="rangeIndicator" aria-live="polite">
           <span id="rangeText">—</span>
           <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
         </div>
+
+        <div class="lbCenter" id="lbTitle">Leaderboard</div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
@@ -1888,12 +1896,24 @@
     const stopped = localStorage.getItem("learn_pulse_stopped") === "1";
     if (stopped) btn.classList.add("noPulse");
 
+    // One-time attention pulse after the page has been open for a bit.
+    if (!stopped){
+      setTimeout(() => {
+        // If they already opened Learn More, don't pulse.
+        if (localStorage.getItem("learn_pulse_stopped") === "1") return;
+        btn.classList.remove("noPulse");
+        btn.classList.add("pulseOnce");
+        setTimeout(() => btn.classList.remove("pulseOnce"), 1800);
+      }, 15000);
+    }
+
     btn.addEventListener("click", () => {
       openModal("learnBackdrop");
       btn.classList.add("noPulse");
       localStorage.setItem("learn_pulse_stopped", "1");
     });
   }
+
 
   async function fetchJsonMaybe(url){
     try{
@@ -2025,7 +2045,46 @@
   });
 
 
-  $("tourneyLinksCloseBtn").addEventListener("click", () => closeModal("tourneyLinksBackdrop"));
+  
+  // --- Robust delegated handlers for tournament-link triggers (survive rerenders / layout overlays)
+  // Use capture phase so it still works even if other handlers stop propagation.
+  document.addEventListener("click", (e) => {
+    const t = e.target && (e.target.closest ? e.target.closest(".clickBreakdown, .clickWins") : null);
+    if (!t) return;
+
+    // Prevent accidental text-selection clicks from doing nothing
+    e.preventDefault();
+    e.stopPropagation();
+
+    const wallet = t.getAttribute("data-wallet") || "";
+    const tierAttr = t.getAttribute("data-tier") || t.getAttribute("data-col") || "10";
+    const tier = String(tierAttr) === "20" ? 20 : 10;
+    const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
+
+    // For table cells, ignore empty id sets (keeps old behavior)
+    if (t.classList.contains("clickWins") && !idsText.trim()) return;
+
+    openTourneyLinksModal(wallet, tier, idsText);
+  }, true);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const t = e.target && (e.target.closest ? e.target.closest(".clickBreakdown, .clickWins") : null);
+    if (!t) return;
+
+    e.preventDefault();
+
+    const wallet = t.getAttribute("data-wallet") || "";
+    const tierAttr = t.getAttribute("data-tier") || t.getAttribute("data-col") || "10";
+    const tier = String(tierAttr) === "20" ? 20 : 10;
+    const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
+
+    if (t.classList.contains("clickWins") && !idsText.trim()) return;
+
+    openTourneyLinksModal(wallet, tier, idsText);
+  }, true);
+
+$("tourneyLinksCloseBtn").addEventListener("click", () => closeModal("tourneyLinksBackdrop"));
   $("tourneyLinksBackdrop").addEventListener("click", (e) => { if (e.target === $("tourneyLinksBackdrop")) closeModal("tourneyLinksBackdrop"); });
   $("tourneyLinksCopyBtn").addEventListener("click", async () => {
     const text = $("tourneyLinksList").getAttribute("data-copy") || "";
@@ -2099,6 +2158,29 @@
   $("pcOverlay").addEventListener("click", (e)=>{ if (e.target === $("pcOverlay")) closePhil(); });
   document.querySelectorAll("[data-pc-size]").forEach(btn => {
     btn.addEventListener("click", () => setPhilSize(btn.dataset.pcSize));
+  });
+
+
+  // Ensure Last-week Top 3 breakdown links always work (10s/20s)
+  document.addEventListener("click", (e) => {
+    const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
+    if (!el) return;
+    const wallet = el.getAttribute("data-wallet") || "";
+    const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
+    const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+    openTourneyLinksModal(wallet, tier, idsText);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const t = e.target;
+    if (!t || !t.classList || !t.classList.contains("clickBreakdown")) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const wallet = t.getAttribute("data-wallet") || "";
+      const tier = t.getAttribute("data-tier") === "20" ? 20 : 10;
+      const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
+    openTourneyLinksModal(wallet, tier, idsText);
+    }
   });
 
   document.addEventListener("keydown", (e) => {
