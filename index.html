@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.1" />
+  <meta name="app-version" content="v1.0.2" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -260,10 +260,10 @@
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
+    .top3Sub{color:var(--accent); font-weight:900;}
 
     /* Last week range subtitle color */
-    #lastWeekRangeLabel{color:var(--muted);font-size:10px;font-weight:800;}
-    .tile .bd{
+.tile .bd{
       padding: 10px;
       color: var(--muted);
       font-size:12px;
@@ -774,7 +774,7 @@
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.1 -->
+<!-- DFK Tournament Leaderboard • version v1.0.2 -->
 <div class="wrap" id="app">
   <div class="headerInner">
     <header>
@@ -785,18 +785,20 @@
         
 
         <div class="topHeaderRow">
+
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
             PLAY DFK NOW
           </a>
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
+
           <div class="miniTile" id="utcTile">
             <div class="miniInner">
               <span class="k">Current UTC time:</span>
               <span class="v" id="utcNow">—</span>
             </div>
-          </div>
 
           <div class="miniTile secondary">
             <div class="miniInner">
@@ -807,10 +809,7 @@
           </div>
 
           <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
-        
-
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
-</div>
+        </div>
     </header>
   </div>
 
@@ -854,7 +853,7 @@
         <div class="hd">
           <div class="hdCol">
             <span>Last week top 3</span>
-            <span class="subhd lastWeekSub" id="lastWeekRangeLabel">—</span>
+            <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
           <div class="hdRightSpacer" aria-hidden="true"></div>
         </div>
@@ -867,13 +866,13 @@
 
       <aside class="tile" id="lifetimeTile" aria-label="Lifetime top winners">
         <div class="hd">
-          <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
-            <span>Lifetime top 3</span>
-            <span style="font-size:10px;color:var(--muted);font-weight:800;">Tracking since Jan 16, 2026</span>
-          </div>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
-          </div>
+<div class="hdCol">
+  <span>Lifetime top 3</span>
+  <span class="subhd top3Sub" id="lifetimeSinceLabel">Tracking since Jan 16, 2026</span>
+</div>
+<div style="display:flex;gap:8px;align-items:center;">
+  <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
+</div>
         </div>
         <div class="bd">
           <div id="top3Lifetime" class="top3">
@@ -1186,7 +1185,7 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
-  const APP_VERSION = "v1.0.1";
+  const APP_VERSION = "v1.0.2";
 
   const state = {
     wins: [],
