@@ -437,6 +437,10 @@
 
     .walletCell{display:flex;align-items:center;gap:10px;min-width:0}
     .walletCell a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+    .walletStack{display:flex;flex-direction:column;min-width:0;}
+    .discordTag{font-size:10px;color:var(--muted);font-weight:800;line-height:1.1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
     .copyBtn{
       flex:0 0 auto;
       border:1px solid var(--border);
@@ -1052,13 +1056,11 @@
 <div class="modalBackdrop" id="tipBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tipTitle">
     <div class="modalHd">
-      <div class="modalTitle" id="tipTitle">Tip Jermcurry</div>
+      \1Tip\3
       <button class="modalBtn" id="tipCloseBtn" type="button">Close</button>
     </div>
     <div class="modalBd" style="text-align:center;">
-      <p style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;">
-        Jermcurry is a community dev that gets a lot done, help him out with a donation and maybe he'll unblock me
-      </p>
+      <p id="tipMessage" style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;">—</p>
 
       <div style="display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:10px;">
         <div class="mono" id="tipAddress" style="padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.22);font-weight:900;">
@@ -1152,6 +1154,43 @@
     tournamentTierById: {},
     tournamentRangeById: {},
   };
+
+  // Discord handles (shown next to in-game names when available)
+  const DISCORD_BY_INGAME = {
+  "superbowl": "okulperilousscamfrog",
+  "winstonhunts": "winstonjazzhands",
+  "liumeb": "maifriendo",
+  "defi purgatory": "kurthokage",
+  "seyam sarker": "seyam123 Broken💔Heart",
+  "darthwarpath": "darthwarpath",
+  "maxgerin": "maxgerin",
+  "dragnipur": "malotru3849",
+  "tunefed": "Tunefed",
+  "level.up": "level_uppp",
+  "bboynomad": "bboynomad",
+  "slick_bruss2": "dreadpiraterob1",
+  "king | zma": "kingelovolution2.0",
+  "obamastolemykfc": "swagswag696937",
+  "brionthelion": "zion3noiz",
+  "just have fun": "clash.hope"
+};
+
+  function escHtml(s){
+    return String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+
+  function discordForWallet(wallet){
+    const w = (wallet || "").toLowerCase();
+    const ingame = (state.namesByAddress[w] || "").trim();
+    if (!ingame) return "";
+    return DISCORD_BY_INGAME[ingame.toLowerCase()] || "";
+  }
+
 
   // Data availability start 
   const DATA_START_MS = Date.UTC(2026, 0, 16, 0,0,0,0);
@@ -1482,13 +1521,16 @@
           <td class="rank">${r.rank}</td>
           <td class="mono">
             <div class="walletCell">
-              <a class="link"
-                 href="https://andromeda-explorer.metis.io/address/${r.wallet}"
-                 target="_blank"
-                 rel="noreferrer"
-                 title="${wShort}">
-                 ${name}
-              </a>
+              <div class="walletStack">
+                <a class="link"
+                   href="https://andromeda-explorer.metis.io/address/${r.wallet}"
+                   target="_blank"
+                   rel="noreferrer"
+                   title="${wShort}">
+                   ${name}
+                </a>
+                ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
+              </div>
               <button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy</button>
             </div>
           </td>
@@ -1636,17 +1678,67 @@
   }
 
   
-  const TIP_ADDRESS = "0xa26b8ea40add0610d2744c815519c0d45126f86e";
+  
+  // Rotating tip button (changes every 36 hours)
+  const TIP_ROTATE_MS = 36 * 60 * 60 * 1000;
+
+  const TIP_OPTIONS = [
+    {
+      button: "TIP RENPEN",
+      title: "Tip Renpen",
+      message: "Renpen's guide has been extremely helpful to new players, send her some love",
+      address: "0x841be53e880B4E65F1D63416aDDf881FCfe51B2E",
+    },
+    {
+      button: "TIP ZELYS",
+      title: "Tip Zelys",
+      message: "Zelys is an OG community developer and deserves a shout out here, send him a donation!",
+      address: "0x6495328F27fc53D344d3953b0a037Ae0f363db47",
+    },
+    {
+      button: "TIP MELLOW",
+      title: "Tip Mellow",
+      message: "Mellow has been around forever and release a toolset recently that is SERIOUS, hook him up.",
+      address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
+    },
+  ];
+
+  function currentTipIndex(nowMs){
+    return Math.floor(nowMs / TIP_ROTATE_MS) % TIP_OPTIONS.length;
+  }
+
+  function getCurrentTip(){
+    return TIP_OPTIONS[currentTipIndex(Date.now())];
+  }
+
+  function syncTipUI(){
+    const t = getCurrentTip();
+    const btn = $("tipBtn");
+    if (btn) btn.textContent = t.button;
+
+    const title = $("tipTitle");
+    if (title) title.textContent = t.title;
+
+    const msg = $("tipMessage");
+    if (msg) msg.textContent = t.message;
+
+    const addr = $("tipAddress");
+    if (addr) addr.textContent = t.address;
+
+    const status = $("tipStatus");
+    if (status) status.textContent = "";
+  }
 
   function openTipModal(){
-    $("tipStatus").textContent = "";
+    syncTipUI();
     openModal("tipBackdrop");
   }
   function closeTipModal(){
     closeModal("tipBackdrop");
   }
   async function copyTipAddress(){
-    const ok = await copyToClipboard(TIP_ADDRESS);
+    const t = getCurrentTip();
+    const ok = await copyToClipboard(t.address);
     $("tipStatus").textContent = ok ? "Copied address to clipboard." : "Copy failed (browser blocked clipboard).";
     if (ok){
       const btn = $("tipCopyBtn");
@@ -1656,6 +1748,8 @@
     }
   }
 
+  // Keep button label fresh if the page stays open across a rotation boundary
+  setInterval(syncTipUI, 60 * 1000);
 function openWalletsModal(){
     const wallets = state.filtered.map(r => r.wallet);
     $("walletsText").value = wallets.join("\n");
@@ -1791,6 +1885,7 @@ function openWalletsModal(){
             <span class="place">${place}</span>
             <div class="topWallet">
               <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
+              ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               <div class="topMeta">${winsLine}</div>
             </div>
           </div>
