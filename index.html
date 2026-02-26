@@ -83,6 +83,7 @@
       justify-content:center;
       padding:6px 8px;
       text-align:center;
+          text-decoration:none;
     }
     .miniTile.secondary{ background: rgba(255,255,255,.02); }
 
@@ -269,7 +270,7 @@
       gap:6px;
       justify-content:space-between;
     }
-    #filtersCard .dateBtn .lab{ font-size:10px; }
+    #filtersCard .dateBtn .lab{ font-size:9px; }
     #filtersCard .dateBtn .val{ font-size:11px; }
     .fullRow{grid-column: 1 / -1;}
 
@@ -737,7 +738,7 @@
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
         <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
         <div class="sub" id="subline"></div>
-        <div class="sub" id="updateLine"></div>
+        
 
         <div class="topHeaderRow">
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
@@ -748,16 +749,15 @@
 
           <div class="miniTile">
             <div class="miniInner">
-              <span class="k">Time:</span>
               <span class="v" id="utcNow">—</span>
             </div>
           </div>
 
           <div class="miniTile secondary">
             <div class="miniInner">
-              <span class="k">Daily rollover:</span>
+              <span class="k">Daily rollover in:</span>
               <span class="v" id="utcCountdown">—</span>
-              <span class="hint">(00:00)</span>
+              
             </div>
           </div>
 
@@ -769,7 +769,7 @@
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span</div>
+        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span></div>
         <div class="bd">
           <div class="filterGrid">
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
@@ -796,6 +796,8 @@
             <div class="fullRow">
               <input id="search" placeholder="Search by wallet or name…" />
             </div>
+
+            <div class="fullRow" id="updateLine" style="margin-top:8px;color:var(--muted);font-size:11px;font-weight:800;"></div>
           </div>
 
           <input class="dateHidden" id="fromDate" type="date" />
@@ -819,7 +821,7 @@
         <div class="hd">
           <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
             <span>Lifetime top 3</span>
-            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime tracking began Jan 16, 2026</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:800;">Tracking since Jan 16, 2026</span>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
