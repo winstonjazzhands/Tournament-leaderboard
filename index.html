@@ -736,7 +736,7 @@
     <header>
       <div>
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
+        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
         
 
@@ -784,10 +784,7 @@
 
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
             <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
-
-            <div class="winsLabel fullRow"># Wins</div>
-
-            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
@@ -1174,8 +1171,14 @@
     if (!el || !clearBtn) return;
 
     const preset = state.weekPreset;
+
     if (preset === "this"){
       el.textContent = "Showing this week";
+      clearBtn.style.display = "none";
+      return;
+    }
+    if (preset === "last"){
+      el.textContent = "Showing last week";
       clearBtn.style.display = "none";
       return;
     }
@@ -1227,23 +1230,28 @@
     const now = Date.now();
     const mon = startOfUtcWeekMonday(now);
     const nextMon = mon + 7*86400000;
-    setRange(mon, nextMon);
+
     state.weekPreset = "this";
+    setRange(mon, nextMon);
     updateWeekPresetUI();
+    updateRangeIndicator();
   }
 
   function setLastWeek(){
     const now = Date.now();
     const thisMon = startOfUtcWeekMonday(now);
     const lastMon = thisMon - 7*86400000;
-    setRange(lastMon, thisMon);
+
     state.weekPreset = "last";
+    setRange(lastMon, thisMon);
     updateWeekPresetUI();
+    updateRangeIndicator();
   }
 
   function setCustomRange(){
     state.weekPreset = "custom";
     updateWeekPresetUI();
+    updateRangeIndicator();
   }
 
   function shortWallet(addr){
@@ -2111,7 +2119,6 @@
     const wallet = el.getAttribute("data-wallet") || "";
     const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
     const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-    if (!idsText.trim()) return;
     openTourneyLinksModal(wallet, tier, idsText);
   });
 
