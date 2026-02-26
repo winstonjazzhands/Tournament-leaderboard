@@ -3,7 +3,6 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.3" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -50,12 +49,12 @@
       color:var(--text);
     }
     a{color:inherit}
-    .wrap{max-width:1240px;margin:0 auto;padding:10px}
+    .wrap{max-width:1240px;margin:0 auto;padding:18px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
     header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
     h1{margin:0}
-    .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
+    .siteTitle{font-size:clamp(34px,6.5vw,92px);letter-spacing:-.6px;font-weight:1000;line-height:1.0}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
@@ -63,15 +62,15 @@
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap:10px;
       align-items:stretch;
       margin:10px 0 14px;
     }
 
     .miniTile,
     .topMiniBtn{
-      height:50px;
+      height:56px;
       border-radius: var(--radius);
       border:1px solid var(--border);
       background: rgba(255,255,255,.03);
@@ -82,9 +81,8 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:6px 8px;
+      padding:8px 10px;
       text-align:center;
-          text-decoration:none;
     }
     .miniTile.secondary{ background: rgba(255,255,255,.02); }
 
@@ -93,12 +91,11 @@
       display:flex;
       align-items:baseline;
       justify-content:center;
-      gap:6px;
+      gap:8px;
       flex-wrap:wrap;
       min-width:0;
     }
     .miniInner .k{color:var(--muted);font-size:11px;white-space:nowrap}
-    #utcTile .miniInner .k{white-space:normal;}
     .miniInner .v{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-weight:900;
@@ -182,15 +179,7 @@
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      
-    @keyframes learnPulse {
-      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-    }
-4%   { background: rgba(255,255,255,.062); }
+      4%   { background: rgba(255,255,255,.062); }
       8%   { background: rgba(255,255,255,.04); }
       100% { background: rgba(255,255,255,.04); }
     }
@@ -200,11 +189,10 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color:#ffffff;
-      animation: none;
+      animation: subtlePulse 3s infinite;
     }
     .learnMini.noPulse{ animation:none !important; }
-        .learnMini.pulseOnce{ animation: learnPulse 1.6s ease-in-out 0s 1; }
-.learnMini:hover{
+    .learnMini:hover{
       background: rgba(255,255,255,.07);
       border-color: rgba(255,255,255,.20);
     }
@@ -244,27 +232,22 @@
       min-width:0;
     }
     .tile .hd{
-      padding: 10px 12px;
+      padding:12px 14px;
       border-bottom:1px dashed rgba(255,255,255,.16);
-      color: var(--text);
+      color: var(--muted);
       font-weight:900;
       font-size:12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      min-height: 38px;
+      min-height:44px;
     }
-    .hdRightSpacer{flex:0 0 auto; width:92px; height:28px;}
-
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
-    .top3Sub{color:var(--accent); font-weight:900;}
-
-    /* Last week range subtitle color */
-.tile .bd{
-      padding: 10px;
+    .tile .bd{
+      padding:14px;
       color: var(--muted);
       font-size:12px;
     }
@@ -272,12 +255,12 @@
     .filterGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
+      gap:10px;
     }
 
         .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
 /* Filters fit + tighter controls */
-    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
+    #filtersCard .btn{ width:100%; }
     #filtersCard input{ min-width:0; }
     #filtersCard .dateBtn{
       min-width:0;
@@ -286,7 +269,7 @@
       gap:6px;
       justify-content:space-between;
     }
-    #filtersCard .dateBtn .lab{ font-size:9px; }
+    #filtersCard .dateBtn .lab{ font-size:10px; }
     #filtersCard .dateBtn .val{ font-size:11px; }
     .fullRow{grid-column: 1 / -1;}
 
@@ -340,7 +323,7 @@
 
     .top3{display:flex;flex-direction:column;gap:10px;}
     .topItem{
-      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
       padding:10px 10px;border:1px solid rgba(255,255,255,.10);
       border-radius:14px;background: rgba(255,255,255,.03);
     }
@@ -365,18 +348,18 @@
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
     .topRight{text-align:right;white-space:nowrap;flex:0 0 auto;}
-    .topReward{color:var(--gold);font-weight:1000;font-size:23px;line-height:1.05;}
+    .topReward{color:var(--gold);font-weight:1000;font-size:26px;line-height:1.05;}
     .topRewardLabel{color: var(--muted);font-size:11px;line-height:1.1;margin-top:2px;}
     .topEmpty{color: var(--muted);font-size:12px;padding:4px 2px;}
 
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:10px 12px;
+      padding:12px 14px;
       border-radius:16px;
     }
-    #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
-    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
+    #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:13px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:20px; }
 
     .card{
       background: rgba(255,255,255,.03);
@@ -386,13 +369,12 @@
       overflow:hidden;
     }
     .card .hd{
-      padding:11px 14px;border-bottom:1px solid var(--border);
+      padding:12px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
-.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; align-self:flex-end;}
-
-.lbRight{flex:0 0 auto;}
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .lbLeft{flex:0 0 auto;}
+    .lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
       overflow:auto;
@@ -412,7 +394,7 @@
       text-align:left;
       color:var(--muted);
       font-weight:700;
-      padding:11px 12px;
+      padding:12px 12px;
       border-bottom:1px solid var(--border);
       background: rgba(255,255,255,.02);
       position:sticky; top:0;
@@ -445,10 +427,6 @@
 
     .walletCell{display:flex;align-items:center;gap:10px;min-width:0}
     .walletCell a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-
-    .walletStack{display:flex;flex-direction:column;min-width:0;}
-    .discordTag{font-size:10px;color:var(--muted);font-weight:800;line-height:1.1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-
     .copyBtn{
       flex:0 0 auto;
       border:1px solid var(--border);
@@ -471,12 +449,12 @@
       justify-content:flex-end;
       gap:8px;
       white-space:nowrap;
-      font-size:17px;
+      font-size:12px;
       font-weight:900;
       color: var(--text);
     }
     .winsInline .winsWord{
-      font-size:17px;
+      font-size:12px;
       font-weight:900;
       color: var(--text);
     }
@@ -489,7 +467,7 @@
       line-height:1.05;
     }
     .rewardWins{
-      font-size:17px;
+      font-size:12px;
       font-weight:900;
       color: var(--text);
       white-space:nowrap;
@@ -543,21 +521,10 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
-
-    /* Tip (community dev) modal: ~70% width and capped */
-    #tipBackdrop .modal{
-      width: min(546px, 70vw);
-      max-width: 546px;
-    }
-    #tipBackdrop #tipMessage a{
-      color: var(--accent);
-      text-decoration: underline;
-      font-weight: 900;
-    }
     }
     .modalHd{
       padding:12px 14px;
-      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
     }
@@ -596,9 +563,6 @@
     /* Back to top button (shown after scroll) */
     #backToTopBtn{ display:none; }
     #backToTopBtn.show{ display:inline-flex; }
-    #walletsBtn, #csvBtn{ padding:5px 7px; font-size:9px; border-radius:10px; }
-    #csvBtn span{ font-size:9px; }
-
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
         .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
     .tourneyLinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px;}
@@ -677,7 +641,7 @@
       backdrop-filter: blur(10px);
     }
     .pcHd{
-      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
       padding:10px 10px 8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
@@ -757,59 +721,47 @@
       .filterGrid{gap:8px;}
       .dateBtn{min-height:38px;padding:8px 10px}
 
-      .winsInline,.winsInline .winsWord,.rewardWins{font-size:16px;}
+      .winsInline,.winsInline .winsWord,.rewardWins{font-size:12px;}
       .rewardJewel{font-size:9px;}
 
       .pcBox{width: 92vw; height: 54vh;}
     }
-  
-    #tipBackdrop .modalTitle{
-      text-align:center;
-      width:100%;
-      font-size:24px;
-      font-weight:1000;
-    }
-    
   </style>
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.3 -->
 <div class="wrap" id="app">
   <div class="headerInner">
     <header>
       <div>
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
+        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
         <div class="sub" id="subline"></div>
-        
+        <div class="sub" id="updateLine"></div>
 
         <div class="topHeaderRow">
-
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
-            PLAY DFK NOW
+            PLAY NOW
           </a>
+
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
-
-          <div class="miniTile" id="utcTile">
-  <div class="miniInner">
-    <span class="k">Current UTC time:</span>
-    <span class="v" id="utcNow">—</span>
-  </div>
-</div>
-
-          <div class="miniTile secondary" id="rolloverTile">
+          <div class="miniTile">
             <div class="miniInner">
-              <span class="k">Daily rollover in:</span>
-              <span class="v" id="utcCountdown">—</span>
-              
+              <span class="k">Time:</span>
+              <span class="v" id="utcNow">—</span>
             </div>
           </div>
 
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+          <div class="miniTile secondary">
+            <div class="miniInner">
+              <span class="k">Daily rollover:</span>
+              <span class="v" id="utcCountdown">—</span>
+              <span class="hint">(00:00)</span>
+            </div>
+          </div>
         </div>
     </header>
   </div>
@@ -817,7 +769,7 @@
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span></div>
+        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote">Info before Jan 16, 2026 not available</span></div>
         <div class="bd">
           <div class="filterGrid">
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
@@ -830,9 +782,12 @@
               <span class="val" id="toLabel">—</span>
             </button>
 
-            <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
             <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
-<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+            <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
+
+            <div class="winsLabel fullRow"># Wins</div>
+
+            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
@@ -841,8 +796,6 @@
             <div class="fullRow">
               <input id="search" placeholder="Search by wallet or name…" />
             </div>
-
-            <div class="fullRow" id="updateLine" style="margin-top:8px;color:var(--muted);font-size:11px;font-weight:800;"></div>
           </div>
 
           <input class="dateHidden" id="fromDate" type="date" />
@@ -852,11 +805,8 @@
 
       <aside class="tile" id="lastWeekTile" aria-label="Last week's top winners">
         <div class="hd">
-          <div class="hdCol">
-            <span>Last week top 3</span>
-            <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
-          </div>
-          <div class="hdRightSpacer" aria-hidden="true"></div>
+          <span>Last week top 3</span>
+          <span class="subhd" id="lastWeekRangeLabel">—</span>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -867,13 +817,13 @@
 
       <aside class="tile" id="lifetimeTile" aria-label="Lifetime top winners">
         <div class="hd">
-<div class="hdCol">
-  <span>Lifetime top 3</span>
-  <span class="subhd top3Sub" id="lifetimeSinceLabel">Tracking since Jan 16, 2026</span>
-</div>
-<div style="display:flex;gap:8px;align-items:center;">
-  <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
-</div>
+          <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
+            <span>Lifetime top 3</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime tracking started Jan 16, 2026 (wins before then not tracked)</span>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
+          </div>
         </div>
         <div class="bd">
           <div id="top3Lifetime" class="top3">
@@ -885,12 +835,15 @@
 
     <section class="card">
       <div class="hd">
-        <div class="lbLeft" id="rangeIndicator" aria-live="polite">
+        <div class="lbLeft">
+          <div style="font-size:12px;color:var(--muted)">Leaderboard</div>
+          <div style="font-weight:700">Lvl 10 vs Lvl 20 wins</div>
+        </div>
+
+        <div class="lbCenter" id="rangeIndicator" aria-live="polite">
           <span id="rangeText">—</span>
           <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
         </div>
-
-        <div class="lbCenter" id="lbTitle">Leaderboard</div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
@@ -1049,15 +1002,7 @@
             box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
             transform: translateY(-2px);
           }
-        
-    #tipBackdrop .modalTitle{
-      text-align:center;
-      width:100%;
-      font-size:24px;
-      font-weight:1000;
-    }
-    
-  </style>
+        </style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
@@ -1088,33 +1033,6 @@
     </div>
   </div>
 </div>
-  </div>
-</div>
-
-
-
-<div class="modalBackdrop" id="tipBackdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tipTitle">
-    <div class="modalHd">
-      <div class="modalTitle" id="tipTitle">Tip</div>
-      <button class="modalBtn" id="tipCloseBtn" type="button">Close</button>
-    </div>
-    <div class="modalBd" style="text-align:center;">
-      <div id="tipMessage" style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;line-height:1.55;">—</div>
-
-      <div style="display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:10px;">
-        <div class="mono" id="tipAddress" style="padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.22);font-weight:900;">
-          —
-        </div>
-        <button class="modalBtn primary" id="tipCopyBtn" type="button">Copy</button>
-      </div>
-
-      <div style="display:flex;justify-content:center;margin-top:12px;">
-        <button class="modalBtn" id="tipNextBtn" type="button">See next community dev</button>
-      </div>
-
-      <div class="modalNote" id="tipStatus" style="margin-top:10px"></div>
-    </div>
   </div>
 </div>
 
@@ -1186,8 +1104,6 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
-  const APP_VERSION = "v1.0.3";
-
   const state = {
     wins: [],
     filtered: [],
@@ -1200,44 +1116,6 @@
     tournamentTierById: {},
     tournamentRangeById: {},
   };
-
-  // Discord handles (shown next to in-game names when available)
-  const DISCORD_BY_INGAME = {
-  "superbowl": "okulperilousscamfrog",
-  "winstonhunts": "winstonjazzhands",
-  "liumeb": "maifriendo",
-  "defi purgatory": "kurthokage",
-  "seyam sarker": "seyam123 Broken💔Heart",
-  "darthwarpath": "darthwarpath",
-  "maxgerin": "maxgerin",
-  "dragnipur": "malotru3849",
-    "dragonfly tales": "dragonflytales",
-"tunefed": "Tunefed",
-  "level.up": "level_uppp",
-  "bboynomad": "bboynomad",
-  "slick_bruss2": "dreadpiraterob1",
-  "king | zma": "kingelovolution2.0",
-  "obamastolemykfc": "swagswag696937",
-  "brionthelion": "zion3noiz",
-  "just have fun": "clash.hope"
-};
-
-  function escHtml(s){
-    return String(s)
-      .replaceAll('&','&amp;')
-      .replaceAll('<','&lt;')
-      .replaceAll('>','&gt;')
-      .replaceAll('"','&quot;')
-      .replaceAll("'",'&#39;');
-  }
-
-  function discordForWallet(wallet){
-    const w = (wallet || "").toLowerCase();
-    const ingame = (state.namesByAddress[w] || "").trim();
-    if (!ingame) return "";
-    return DISCORD_BY_INGAME[ingame.toLowerCase()] || "";
-  }
-
 
   // Data availability start 
   const DATA_START_MS = Date.UTC(2026, 0, 16, 0,0,0,0);
@@ -1568,16 +1446,13 @@
           <td class="rank">${r.rank}</td>
           <td class="mono">
             <div class="walletCell">
-              <div class="walletStack">
-                <a class="link"
-                   href="https://andromeda-explorer.metis.io/address/${r.wallet}"
-                   target="_blank"
-                   rel="noreferrer"
-                   title="${wShort}">
-                   ${name}
-                </a>
-                ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
-              </div>
+              <a class="link"
+                 href="https://andromeda-explorer.metis.io/address/${r.wallet}"
+                 target="_blank"
+                 rel="noreferrer"
+                 title="${wShort}">
+                 ${name}
+              </a>
               <button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy</button>
             </div>
           </td>
@@ -1687,11 +1562,8 @@
     const m = d.getUTCMonth();
     const day = d.getUTCDate();
     const h = d.getUTCHours();
-    const nextH = (Math.floor(h / 3) * 3) + 3; // next 3-hour boundary
-    if (nextH >= 24){
-      return Date.UTC(y, m, day + 1, 0, 0, 0, 0);
-    }
-    return Date.UTC(y, m, day, nextH, 0, 0, 0);
+    // Next hourly boundary (top of the next UTC hour)
+    return Date.UTC(y, m, day, h + 1, 0, 0, 0);
   }
 
   function setUtcWidgets(){
@@ -1724,109 +1596,7 @@
     b.setAttribute("aria-hidden","true");
   }
 
-  
-  
-  // Rotating tip button (changes every 36 hours)
-  const TIP_ROTATE_MS = 36 * 60 * 60 * 1000;
-
-  const TIP_OPTIONS = [
-    {
-      button: "TIP RENPEN",
-      title: "TIP RENPEN",
-      messageHtml: `Renpen's guide has been extremely helpful to new players <a href="https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide" target="_blank" rel="noopener noreferrer">https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide</a>, send her some love`,
-      address: "0x841be53e880B4E65F1D63416aDDf881FCfe51B2E",
-    },
-    {
-      button: "TIP ZELYS",
-      title: "TIP ZELYS",
-      messageHtml: `Zelys is an OG community developer and deserves a shoutout. If you've used DFK Helper tools and saved hours, Zelys made that happen. <a href="https://dfkhelper.com/" target="_blank" rel="noopener noreferrer">https://dfkhelper.com/</a>`,
-      address: "0x6495328F27fc53D344d3953b0a037Ae0f363db47",
-    },
-    {
-      button: "TIP MELLOW",
-      title: "TIP MELLOW",
-      messageHtml: `Mellow has been around forever and released a toolset recently that is SERIOUS, check it out <a href="https://mellowdfk.com/resources" target="_blank" rel="noopener noreferrer">https://mellowdfk.com/resources</a>`,
-      address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
-    },
-    {
-      button: "TIP JERMCURRY",
-      title: "TIP JERMCURRY",
-      messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
-      address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
-    },
-    {
-      button: "TIP TUNEFED",
-      title: "TIP TUNEFED",
-      messageHtml: `Creator or co-creator or “was in the room when it happened” of HONK and the Goose guild. Long time DFK supporter/enjoyer/vengeful discord entity. He’s worked with Bolon to get HONK into Hunt raffles and gives away weekly stuff in the Goose discord to name a few achievements. I will not utter it’s URL here, but you can find the HONK Discord info in the official DFK discord`,
-      address: "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
-    },
-  ];
-
-  function currentTipIndex(nowMs){
-    return Math.floor(nowMs / TIP_ROTATE_MS) % TIP_OPTIONS.length;
-  }
-
-  function syncTipButtonUI(){
-    const t = TIP_OPTIONS[currentTipIndex(Date.now())];
-    const btn = $("tipBtn");
-    if (btn) btn.textContent = t.button;
-  }
-
-  let tipModalIndex = null;
-
-  function renderTipModalByIndex(idx){
-    const t = TIP_OPTIONS[idx];
-    const title = $("tipTitle");
-    if (title) title.textContent = t.title;
-
-    const msg = $("tipMessage");
-    if (msg) msg.innerHTML = t.messageHtml;
-
-    const addr = $("tipAddress");
-    if (addr) addr.textContent = t.address;
-
-    const status = $("tipStatus");
-    if (status) status.textContent = "";
-  }
-
-  function getActiveTip(){
-    if (tipModalIndex == null) return TIP_OPTIONS[currentTipIndex(Date.now())];
-    return TIP_OPTIONS[tipModalIndex];
-  }
-
-  function openTipModal(){
-    tipModalIndex = currentTipIndex(Date.now());
-    renderTipModalByIndex(tipModalIndex);
-    openModal("tipBackdrop");
-  }
-
-  function closeTipModal(){
-    tipModalIndex = null;
-    closeModal("tipBackdrop");
-  }
-
-  function nextTipInModal(){
-    if (tipModalIndex == null) tipModalIndex = currentTipIndex(Date.now());
-    tipModalIndex = (tipModalIndex + 1) % TIP_OPTIONS.length;
-    renderTipModalByIndex(tipModalIndex);
-  }
-
-  async function copyTipAddress(){
-    const t = getActiveTip();
-    const ok = await copyToClipboard(t.address);
-    $("tipStatus").textContent = ok ? "Copied address to clipboard." : "Copy failed (browser blocked clipboard).";
-    if (ok){
-      const btn = $("tipCopyBtn");
-      const prev = btn.textContent;
-      btn.textContent = "Copied!";
-      setTimeout(()=> btn.textContent = prev, 1100);
-    }
-  }
-
-  // Keep the rotating button label fresh if the page stays open
-  syncTipButtonUI();
-  setInterval(syncTipButtonUI, 60 * 1000);
-function openWalletsModal(){
+  function openWalletsModal(){
     const wallets = state.filtered.map(r => r.wallet);
     $("walletsText").value = wallets.join("\n");
     $("modalStatus").textContent = "";
@@ -1952,7 +1722,7 @@ function openWalletsModal(){
       const enc20 = encodeURIComponent(ids20);
 
       const winsLine = isLastWeek
-        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`
+        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="10" data-ids="${enc10}" title="Click to view Level 10 tournaments">10s: ${r.lvl10Wins}</span> • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="20" data-ids="${enc20}" title="Click to view Level 20 tournaments">20s: ${r.lvl20Wins}</span>`
         : `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
 
       return `
@@ -1961,7 +1731,6 @@ function openWalletsModal(){
             <span class="place">${place}</span>
             <div class="topWallet">
               <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
-              ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               <div class="topMeta">${winsLine}</div>
             </div>
           </div>
@@ -2116,24 +1885,12 @@ function openWalletsModal(){
     const stopped = localStorage.getItem("learn_pulse_stopped") === "1";
     if (stopped) btn.classList.add("noPulse");
 
-    // One-time attention pulse after the page has been open for a bit.
-    if (!stopped){
-      setTimeout(() => {
-        // If they already opened Learn More, don't pulse.
-        if (localStorage.getItem("learn_pulse_stopped") === "1") return;
-        btn.classList.remove("noPulse");
-        btn.classList.add("pulseOnce");
-        setTimeout(() => btn.classList.remove("pulseOnce"), 1800);
-      }, 15000);
-    }
-
     btn.addEventListener("click", () => {
       openModal("learnBackdrop");
       btn.classList.add("noPulse");
       localStorage.setItem("learn_pulse_stopped", "1");
     });
   }
-
 
   async function fetchJsonMaybe(url){
     try{
@@ -2334,41 +2091,11 @@ function openWalletsModal(){
   window.addEventListener("resize", () => sizeTilesToFilters());
 
   $("philBtn").addEventListener("click", playPhil);
-
-  $("tipBtn").addEventListener("click", openTipModal);
-  $("tipCloseBtn").addEventListener("click", closeTipModal);
-  $("tipCopyBtn").addEventListener("click", copyTipAddress);
-  $("tipNextBtn").addEventListener("click", nextTipInModal);
-  $("tipBackdrop").addEventListener("click", (e)=>{ if (e.target === $("tipBackdrop")) closeTipModal(); });
-
   $("pcTryAgain").addEventListener("click", tryAgainPhil);
   $("pcClose").addEventListener("click", closePhil);
   $("pcOverlay").addEventListener("click", (e)=>{ if (e.target === $("pcOverlay")) closePhil(); });
   document.querySelectorAll("[data-pc-size]").forEach(btn => {
     btn.addEventListener("click", () => setPhilSize(btn.dataset.pcSize));
-  });
-
-
-  // Ensure Last-week Top 3 breakdown links always work (10s/20s)
-  document.addEventListener("click", (e) => {
-    const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
-    if (!el) return;
-    const wallet = el.getAttribute("data-wallet") || "";
-    const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
-    const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-    openTourneyLinksModal(wallet, tier, idsText);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    const t = e.target;
-    if (!t || !t.classList || !t.classList.contains("clickBreakdown")) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      const wallet = t.getAttribute("data-wallet") || "";
-      const tier = t.getAttribute("data-tier") === "20" ? 20 : 10;
-      const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
-    openTourneyLinksModal(wallet, tier, idsText);
-    }
   });
 
   document.addEventListener("keydown", (e) => {
@@ -2395,20 +2122,19 @@ function openWalletsModal(){
   // Back to top (appears in the Leaderboard header after you scroll down)
   (function initBackToTop(){
     const btn = $("backToTopBtn");
-    const wrap = $("tableWrap");
-    if (!btn || !wrap) return;
+    if (!btn) return;
 
     const refresh = () => {
-      const show = wrap.scrollTop > 220;
+      const show = window.scrollY > 300;
       btn.classList.toggle("show", show);
       btn.setAttribute("aria-hidden", String(!show));
     };
 
     btn.addEventListener("click", () => {
-      wrap.scrollTo({ top: 0, behavior: "smooth" });
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    wrap.addEventListener("scroll", refresh, { passive: true });
+    window.addEventListener("scroll", refresh, { passive: true });
     refresh();
   })();
 
