@@ -244,7 +244,7 @@
     .tile .hd{
       padding: 10px 12px;
       border-bottom:1px dashed rgba(255,255,255,.16);
-      color: var(--muted);
+      color: var(--text);
       font-weight:900;
       font-size:12px;
       display:flex;
@@ -256,6 +256,9 @@
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
+
+    /* Last week range subtitle color */
+    #lastWeekRangeLabel{color:var(--muted);}
     .tile .bd{
       padding: 10px;
       color: var(--muted);
@@ -379,11 +382,12 @@
       overflow:hidden;
     }
     .card .hd{
-      padding:12px 14px;border-bottom:1px solid var(--border);
+      padding:11px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:18px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
-.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap;}
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
+.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; align-self:flex-end;}
+
 .lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
@@ -404,7 +408,7 @@
       text-align:left;
       color:var(--muted);
       font-weight:700;
-      padding:12px 12px;
+      padding:11px 12px;
       border-bottom:1px solid var(--border);
       background: rgba(255,255,255,.02);
       position:sticky; top:0;
@@ -463,12 +467,12 @@
       justify-content:flex-end;
       gap:8px;
       white-space:nowrap;
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
     }
     .winsInline .winsWord{
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
     }
@@ -481,7 +485,7 @@
       line-height:1.05;
     }
     .rewardWins{
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
       white-space:nowrap;
@@ -588,8 +592,8 @@
     /* Back to top button (shown after scroll) */
     #backToTopBtn{ display:none; }
     #backToTopBtn.show{ display:inline-flex; }
-    #walletsBtn, #csvBtn{ padding:6px 8px; font-size:10px; border-radius:10px; }
-    #csvBtn span{ font-size:10px; }
+    #walletsBtn, #csvBtn{ padding:5px 7px; font-size:9px; border-radius:10px; }
+    #csvBtn span{ font-size:9px; }
 
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
         .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
@@ -749,7 +753,7 @@
       .filterGrid{gap:8px;}
       .dateBtn{min-height:38px;padding:8px 10px}
 
-      .winsInline,.winsInline .winsWord,.rewardWins{font-size:12px;}
+      .winsInline,.winsInline .winsWord,.rewardWins{font-size:16px;}
       .rewardJewel{font-size:9px;}
 
       .pcBox{width: 92vw; height: 54vh;}
@@ -834,8 +838,10 @@
 
       <aside class="tile" id="lastWeekTile" aria-label="Last week's top winners">
         <div class="hd">
-          <span>Last week top 3</span>
-          <span class="subhd" id="lastWeekRangeLabel">—</span>
+          <div class="hdCol">
+            <span>Last week top 3</span>
+            <span class="subhd lastWeekSub" id="lastWeekRangeLabel">—</span>
+          </div>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -1707,7 +1713,7 @@
     {
       button: "TIP ZELYS",
       title: "TIP ZELYS",
-      messageHtml: `Zelys is an OG community developer and deserves a shout out here. For quick automation DFK Helper is top notch <a href="https://dfkhelper.com" target="_blank" rel="noopener noreferrer">https://dfkhelper.com</a>`,
+      messageHtml: `Zelys is an OG community developer and deserves a shoutout. If you've used DFK Helper tools and saved hours, Zelys made that happen. <a href="https://dfkhelper.com/" target="_blank" rel="noopener noreferrer">https://dfkhelper.com/</a>`,
       address: "0x6495328F27fc53D344d3953b0a037Ae0f363db47",
     },
     {
@@ -1721,6 +1727,12 @@
       title: "TIP JERMCURRY",
       messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
       address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+    },
+    {
+      button: "TIP TUNEFED",
+      title: "TIP TUNEFED",
+      messageHtml: `Creator or co-creator or “was in the room when it happened” of HONK and the Goose guild. Long time DFK supporter/enjoyer/vengeful discord entity. He’s worked with Bolon to get HONK into Hunt raffles and gives away weekly stuff in the Goose discord to name a few achievements. I will not utter it’s URL here, but you can find the HONK Discord info in the official DFK discord`,
+      address: "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
     },
   ];
 
@@ -2357,19 +2369,20 @@ function openWalletsModal(){
   // Back to top (appears in the Leaderboard header after you scroll down)
   (function initBackToTop(){
     const btn = $("backToTopBtn");
-    if (!btn) return;
+    const wrap = $("tableWrap");
+    if (!btn || !wrap) return;
 
     const refresh = () => {
-      const show = window.scrollY > 300;
+      const show = wrap.scrollTop > 220;
       btn.classList.toggle("show", show);
       btn.setAttribute("aria-hidden", String(!show));
     };
 
     btn.addEventListener("click", () => {
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      wrap.scrollTo({ top: 0, behavior: "smooth" });
     });
 
-    window.addEventListener("scroll", refresh, { passive: true });
+    wrap.addEventListener("scroll", refresh, { passive: true });
     refresh();
   })();
 
