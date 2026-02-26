@@ -535,6 +535,17 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
+
+    /* Tip (community dev) modal: ~70% width and capped */
+    #tipBackdrop .modal{
+      width: min(546px, 70vw);
+      max-width: 546px;
+    }
+    #tipBackdrop #tipMessage a{
+      color: var(--accent);
+      text-decoration: underline;
+      font-weight: 900;
+    }
     }
     .modalHd{
       padding:12px 14px;
@@ -1056,17 +1067,21 @@
 <div class="modalBackdrop" id="tipBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tipTitle">
     <div class="modalHd">
-      \1Tip\3
+      <div class="modalTitle" id="tipTitle">Tip</div>
       <button class="modalBtn" id="tipCloseBtn" type="button">Close</button>
     </div>
     <div class="modalBd" style="text-align:center;">
-      <p id="tipMessage" style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;">—</p>
+      <div id="tipMessage" style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;line-height:1.55;">—</div>
 
       <div style="display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:10px;">
         <div class="mono" id="tipAddress" style="padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.22);font-weight:900;">
-          0xa26b8ea40add0610d2744c815519c0d45126f86e
+          —
         </div>
         <button class="modalBtn primary" id="tipCopyBtn" type="button">Copy</button>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-top:12px;">
+        <button class="modalBtn" id="tipNextBtn" type="button">See next community dev</button>
       </div>
 
       <div class="modalNote" id="tipStatus" style="margin-top:10px"></div>
@@ -1685,21 +1700,27 @@
   const TIP_OPTIONS = [
     {
       button: "TIP RENPEN",
-      title: "Tip Renpen",
-      message: "Renpen's guide has been extremely helpful to new players, send her some love",
+      title: "TIP RENPEN",
+      messageHtml: `Renpen's guide has been extremely helpful to new players <a href="https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide" target="_blank" rel="noopener noreferrer">https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide</a>, send her some love`,
       address: "0x841be53e880B4E65F1D63416aDDf881FCfe51B2E",
     },
     {
       button: "TIP ZELYS",
-      title: "Tip Zelys",
-      message: "Zelys is an OG community developer and deserves a shout out here, send him a donation!",
+      title: "TIP ZELYS",
+      messageHtml: `Zelys is an OG community developer and deserves a shout out here. For quick automation DFK Helper is top notch <a href="https://dfkhelper.com" target="_blank" rel="noopener noreferrer">https://dfkhelper.com</a>`,
       address: "0x6495328F27fc53D344d3953b0a037Ae0f363db47",
     },
     {
       button: "TIP MELLOW",
-      title: "Tip Mellow",
-      message: "Mellow has been around forever and release a toolset recently that is SERIOUS, hook him up.",
+      title: "TIP MELLOW",
+      messageHtml: `Mellow has been around forever and release a toolset recently that is SERIOUS, check it out <a href="https://mellowdfk.com/resources" target="_blank" rel="noopener noreferrer">https://mellowdfk.com/resources</a>`,
       address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
+    },
+    {
+      button: "TIP JERMCURRY",
+      title: "TIP JERMCURRY",
+      messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
+      address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
     },
   ];
 
@@ -1707,20 +1728,21 @@
     return Math.floor(nowMs / TIP_ROTATE_MS) % TIP_OPTIONS.length;
   }
 
-  function getCurrentTip(){
-    return TIP_OPTIONS[currentTipIndex(Date.now())];
-  }
-
-  function syncTipUI(){
-    const t = getCurrentTip();
+  function syncTipButtonUI(){
+    const t = TIP_OPTIONS[currentTipIndex(Date.now())];
     const btn = $("tipBtn");
     if (btn) btn.textContent = t.button;
+  }
 
+  let tipModalIndex = null;
+
+  function renderTipModalByIndex(idx){
+    const t = TIP_OPTIONS[idx];
     const title = $("tipTitle");
     if (title) title.textContent = t.title;
 
     const msg = $("tipMessage");
-    if (msg) msg.textContent = t.message;
+    if (msg) msg.innerHTML = t.messageHtml;
 
     const addr = $("tipAddress");
     if (addr) addr.textContent = t.address;
@@ -1729,15 +1751,30 @@
     if (status) status.textContent = "";
   }
 
+  function getActiveTip(){
+    if (tipModalIndex == null) return TIP_OPTIONS[currentTipIndex(Date.now())];
+    return TIP_OPTIONS[tipModalIndex];
+  }
+
   function openTipModal(){
-    syncTipUI();
+    tipModalIndex = currentTipIndex(Date.now());
+    renderTipModalByIndex(tipModalIndex);
     openModal("tipBackdrop");
   }
+
   function closeTipModal(){
+    tipModalIndex = null;
     closeModal("tipBackdrop");
   }
+
+  function nextTipInModal(){
+    if (tipModalIndex == null) tipModalIndex = currentTipIndex(Date.now());
+    tipModalIndex = (tipModalIndex + 1) % TIP_OPTIONS.length;
+    renderTipModalByIndex(tipModalIndex);
+  }
+
   async function copyTipAddress(){
-    const t = getCurrentTip();
+    const t = getActiveTip();
     const ok = await copyToClipboard(t.address);
     $("tipStatus").textContent = ok ? "Copied address to clipboard." : "Copy failed (browser blocked clipboard).";
     if (ok){
@@ -1748,8 +1785,9 @@
     }
   }
 
-  // Keep button label fresh if the page stays open across a rotation boundary
-  setInterval(syncTipUI, 60 * 1000);
+  // Keep the rotating button label fresh if the page stays open
+  syncTipButtonUI();
+  setInterval(syncTipButtonUI, 60 * 1000);
 function openWalletsModal(){
     const wallets = state.filtered.map(r => r.wallet);
     $("walletsText").value = wallets.join("\n");
@@ -2262,6 +2300,7 @@ function openWalletsModal(){
   $("tipBtn").addEventListener("click", openTipModal);
   $("tipCloseBtn").addEventListener("click", closeTipModal);
   $("tipCopyBtn").addEventListener("click", copyTipAddress);
+  $("tipNextBtn").addEventListener("click", nextTipInModal);
   $("tipBackdrop").addEventListener("click", (e)=>{ if (e.target === $("tipBackdrop")) closeTipModal(); });
 
   $("pcTryAgain").addEventListener("click", tryAgainPhil);
