@@ -49,12 +49,12 @@
       color:var(--text);
     }
     a{color:inherit}
-    .wrap{max-width:1240px;margin:0 auto;padding:18px}
+    .wrap{max-width:1240px;margin:0 auto;padding:10px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
     header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
     h1{margin:0}
-    .siteTitle{font-size:clamp(34px,6.5vw,92px);letter-spacing:-.6px;font-weight:1000;line-height:1.0}
+    .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
@@ -62,7 +62,7 @@
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(5, minmax(0, 1fr));
       gap:10px;
       align-items:stretch;
       margin:10px 0 14px;
@@ -70,7 +70,7 @@
 
     .miniTile,
     .topMiniBtn{
-      height:56px;
+      height:50px;
       border-radius: var(--radius);
       border:1px solid var(--border);
       background: rgba(255,255,255,.03);
@@ -81,7 +81,7 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:8px 10px;
+      padding:6px 8px;
       text-align:center;
     }
     .miniTile.secondary{ background: rgba(255,255,255,.02); }
@@ -91,7 +91,7 @@
       display:flex;
       align-items:baseline;
       justify-content:center;
-      gap:8px;
+      gap:6px;
       flex-wrap:wrap;
       min-width:0;
     }
@@ -189,7 +189,7 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color:#ffffff;
-      animation: subtlePulse 3s infinite;
+      animation:none;
     }
     .learnMini.noPulse{ animation:none !important; }
     .learnMini:hover{
@@ -348,7 +348,7 @@
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
     .topRight{text-align:right;white-space:nowrap;flex:0 0 auto;}
-    .topReward{color:var(--gold);font-weight:1000;font-size:26px;line-height:1.05;}
+    .topReward{color:var(--gold);font-weight:1000;font-size:23px;line-height:1.05;}
     .topRewardLabel{color: var(--muted);font-size:11px;line-height:1.1;margin-top:2px;}
     .topEmpty{color: var(--muted);font-size:12px;padding:4px 2px;}
 
@@ -741,10 +741,8 @@
 
         <div class="topHeaderRow">
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
-            PLAY NOW
+            PLAY DFK NOW
           </a>
-
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
@@ -762,6 +760,8 @@
               <span class="hint">(00:00)</span>
             </div>
           </div>
+
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
     </header>
   </div>
@@ -769,7 +769,7 @@
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote">Info before Jan 16, 2026 not available</span></div>
+        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span</div>
         <div class="bd">
           <div class="filterGrid">
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
@@ -782,8 +782,8 @@
               <span class="val" id="toLabel">—</span>
             </button>
 
-            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
+            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
 
             <div class="winsLabel fullRow"># Wins</div>
 
@@ -819,7 +819,7 @@
         <div class="hd">
           <div style="display:flex;flex-direction:column;gap:2px;line-height:1.1;">
             <span>Lifetime top 3</span>
-            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime tracking started Jan 16, 2026 (wins before then not tracked)</span>
+            <span style="font-size:10px;color:var(--muted);font-weight:800;">Lifetime tracking began Jan 16, 2026</span>
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
@@ -2099,6 +2099,31 @@
   $("pcOverlay").addEventListener("click", (e)=>{ if (e.target === $("pcOverlay")) closePhil(); });
   document.querySelectorAll("[data-pc-size]").forEach(btn => {
     btn.addEventListener("click", () => setPhilSize(btn.dataset.pcSize));
+  });
+
+
+  // Ensure Last-week Top 3 breakdown links always work (10s/20s)
+  document.addEventListener("click", (e) => {
+    const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
+    if (!el) return;
+    const wallet = el.getAttribute("data-wallet") || "";
+    const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
+    const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+    if (!idsText.trim()) return;
+    openTourneyLinksModal(wallet, tier, idsText);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const t = e.target;
+    if (!t || !t.classList || !t.classList.contains("clickBreakdown")) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const wallet = t.getAttribute("data-wallet") || "";
+      const tier = t.getAttribute("data-tier") === "20" ? 20 : 10;
+      const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
+      if (!idsText.trim()) return;
+      openTourneyLinksModal(wallet, tier, idsText);
+    }
   });
 
   document.addEventListener("keydown", (e) => {
