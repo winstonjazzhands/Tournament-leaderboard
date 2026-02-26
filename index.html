@@ -63,7 +63,7 @@
     .topHeaderRow{
       display:grid;
       grid-template-columns: repeat(5, minmax(0, 1fr));
-      gap:10px;
+      gap: 8px;
       align-items:stretch;
       margin:10px 0 14px;
     }
@@ -180,7 +180,15 @@
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      4%   { background: rgba(255,255,255,.062); }
+      
+    @keyframes learnPulse {
+      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+    }
+4%   { background: rgba(255,255,255,.062); }
       8%   { background: rgba(255,255,255,.04); }
       100% { background: rgba(255,255,255,.04); }
     }
@@ -190,10 +198,11 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color:#ffffff;
-      animation:none;
+      animation: none;
     }
     .learnMini.noPulse{ animation:none !important; }
-    .learnMini:hover{
+        .learnMini.pulseOnce{ animation: learnPulse 1.6s ease-in-out 0s 1; }
+.learnMini:hover{
       background: rgba(255,255,255,.07);
       border-color: rgba(255,255,255,.20);
     }
@@ -233,7 +242,7 @@
       min-width:0;
     }
     .tile .hd{
-      padding:12px 14px;
+      padding: 10px 12px;
       border-bottom:1px dashed rgba(255,255,255,.16);
       color: var(--muted);
       font-weight:900;
@@ -242,13 +251,13 @@
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      min-height:44px;
+      min-height: 38px;
     }
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
     .tile .bd{
-      padding:14px;
+      padding: 10px;
       color: var(--muted);
       font-size:12px;
     }
@@ -256,12 +265,12 @@
     .filterGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
+      gap: 8px;
     }
 
         .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
 /* Filters fit + tighter controls */
-    #filtersCard .btn{ width:100%; }
+    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
     #filtersCard input{ min-width:0; }
     #filtersCard .dateBtn{
       min-width:0;
@@ -360,7 +369,7 @@
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:13px; }
-    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:20px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
 
     .card{
       background: rgba(255,255,255,.03);
@@ -373,9 +382,9 @@
       padding:12px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .lbLeft{flex:0 0 auto;}
-    .lbRight{flex:0 0 auto;}
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:18px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
+.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap;}
+.lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
       overflow:auto;
@@ -564,6 +573,9 @@
     /* Back to top button (shown after scroll) */
     #backToTopBtn{ display:none; }
     #backToTopBtn.show{ display:inline-flex; }
+    #walletsBtn, #csvBtn{ padding:6px 8px; font-size:10px; border-radius:10px; }
+    #csvBtn span{ font-size:10px; }
+
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
         .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
     .tourneyLinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px;}
@@ -736,7 +748,7 @@
     <header>
       <div>
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
+        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
         
 
@@ -784,10 +796,7 @@
 
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
             <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
-
-            <div class="winsLabel fullRow"># Wins</div>
-
-            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
@@ -837,15 +846,12 @@
 
     <section class="card">
       <div class="hd">
-        <div class="lbLeft">
-          <div style="font-size:12px;color:var(--muted)">Leaderboard</div>
-          <div style="font-weight:700">Lvl 10 vs Lvl 20 wins</div>
-        </div>
-
-        <div class="lbCenter" id="rangeIndicator" aria-live="polite">
+        <div class="lbLeft" id="rangeIndicator" aria-live="polite">
           <span id="rangeText">—</span>
           <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
         </div>
+
+        <div class="lbCenter" id="lbTitle">Leaderboard</div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
@@ -1890,12 +1896,24 @@
     const stopped = localStorage.getItem("learn_pulse_stopped") === "1";
     if (stopped) btn.classList.add("noPulse");
 
+    // One-time attention pulse after the page has been open for a bit.
+    if (!stopped){
+      setTimeout(() => {
+        // If they already opened Learn More, don't pulse.
+        if (localStorage.getItem("learn_pulse_stopped") === "1") return;
+        btn.classList.remove("noPulse");
+        btn.classList.add("pulseOnce");
+        setTimeout(() => btn.classList.remove("pulseOnce"), 1800);
+      }, 15000);
+    }
+
     btn.addEventListener("click", () => {
       openModal("learnBackdrop");
       btn.classList.add("noPulse");
       localStorage.setItem("learn_pulse_stopped", "1");
     });
   }
+
 
   async function fetchJsonMaybe(url){
     try{
@@ -2111,7 +2129,6 @@
     const wallet = el.getAttribute("data-wallet") || "";
     const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
     const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-    if (!idsText.trim()) return;
     openTourneyLinksModal(wallet, tier, idsText);
   });
 
@@ -2123,8 +2140,7 @@
       const wallet = t.getAttribute("data-wallet") || "";
       const tier = t.getAttribute("data-tier") === "20" ? 20 : 10;
       const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
-      if (!idsText.trim()) return;
-      openTourneyLinksModal(wallet, tier, idsText);
+    openTourneyLinksModal(wallet, tier, idsText);
     }
   });
 
