@@ -1,5 +1,1198 @@
 {
-  "updatedAtUtc": "2026-02-25T22:34:38.329Z",
-  "source": "stub (tournamentRanges build failed)",
-  "rangesByTournamentId": {}
+  "updatedAtUtc": "2026-02-26T00:39:18.045Z",
+  "source": "event-logs-two-seeds-with-maxLevel-fallback",
+  "rpcUrl": "https://andromeda.metis.io/?owner=1088",
+  "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
+  "seeds": {
+    "level10": "0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820",
+    "level20": "0x216dfd59fedd6b85bbc9548fdab5339e5f5a6f89b753cc196035b1ec80679edb"
+  },
+  "discovered": {
+    "level10": {
+      "topic0": "0x75d94d0a6d7482a5e000bdd51731be867e0369a4fc8bcc7cda22d5731b1a855b",
+      "pairIndex": 35,
+      "matchedPair": [
+        10,
+        10
+      ],
+      "tournamentId": "2087",
+      "wordCount": 58
+    },
+    "level20": {
+      "topic0": "0x75d94d0a6d7482a5e000bdd51731be867e0369a4fc8bcc7cda22d5731b1a855b",
+      "pairIndex": 35,
+      "matchedPair": [
+        16,
+        20
+      ],
+      "tournamentId": "2088",
+      "wordCount": 58
+    },
+    "topicsToScan": [
+      "0x75d94d0a6d7482a5e000bdd51731be867e0369a4fc8bcc7cda22d5731b1a855b"
+    ]
+  },
+  "scan": {
+    "startBlock": 22000000,
+    "endBlock": 22245702,
+    "blockChunk": 50000
+  },
+  "rangesByTournamentId": {
+    "1734": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1735": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1736": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1740": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1742": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1744": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1745": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1747": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1748": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1749": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1750": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1751": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1752": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1753": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1754": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1755": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1756": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1757": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1758": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1759": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1760": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1761": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1762": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1763": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1764": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1765": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1766": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1767": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1768": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1769": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1770": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1771": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1772": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1773": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1774": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1776": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1777": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1778": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1779": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1780": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1781": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1782": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1783": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1784": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1785": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1786": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1787": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1788": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1789": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1790": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1791": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1792": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1793": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1794": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1795": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1796": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1798": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1800": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1801": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1802": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1803": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1804": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1806": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1807": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1809": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1810": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1811": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1812": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1813": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1814": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1815": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1817": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1818": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1819": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1820": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1821": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1822": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1823": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1824": {
+      "minLevel": 20,
+      "maxLevel": 25,
+      "tier": 20
+    },
+    "1825": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1826": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1827": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1828": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1831": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1832": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1833": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1834": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1837": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1838": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1839": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1840": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1841": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1843": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1844": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1845": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1846": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1847": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1848": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1849": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1850": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1852": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1853": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1854": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1856": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1857": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1858": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1859": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1860": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1861": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1862": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1863": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1864": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1865": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1866": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1867": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1868": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1869": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1876": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1878": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1879": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1880": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1881": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1882": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1883": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1884": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1887": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1889": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1890": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1893": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1894": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1895": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1896": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1898": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1901": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1904": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1905": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1906": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1907": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1908": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1909": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1910": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1912": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1913": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1914": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1915": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1916": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1917": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1918": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1919": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1920": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1921": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1922": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1923": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1924": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1925": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1926": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1927": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1928": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1929": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1930": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1931": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1932": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1933": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1934": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1936": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1937": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1938": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1939": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1941": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1942": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1943": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1944": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1945": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1946": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1947": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1948": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1949": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1950": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1951": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1952": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1953": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1954": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1955": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1956": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1957": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1958": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1959": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1960": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2022": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2025": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2026": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2027": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2028": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2029": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2032": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2033": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2034": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2035": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2036": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2037": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2039": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2040": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2041": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2044": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2046": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2047": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2048": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2049": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2050": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2052": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2053": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2054": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2055": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2057": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2059": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2060": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2063": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2066": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2069": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2070": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2072": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2076": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2078": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2079": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2080": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2082": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2084": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2085": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2086": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    }
+  },
+  "missingTournamentIds": [
+    "1700",
+    "1701",
+    "1702",
+    "1703",
+    "1704",
+    "1705",
+    "1707",
+    "1708",
+    "1709"
+  ]
 }
