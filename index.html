@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="app-version" content="v1.0.0" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -97,6 +98,7 @@
       min-width:0;
     }
     .miniInner .k{color:var(--muted);font-size:11px;white-space:nowrap}
+    #utcTile .miniInner .k{white-space:normal;}
     .miniInner .v{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-weight:900;
@@ -253,12 +255,14 @@
       gap:10px;
       min-height: 38px;
     }
+    .hdRightSpacer{flex:0 0 auto; width:92px; height:28px;}
+
     
     .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
 .tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
 
     /* Last week range subtitle color */
-    #lastWeekRangeLabel{color:var(--muted);}
+    #lastWeekRangeLabel{color:rgba(78,161,255,.85);}
     .tile .bd{
       padding: 10px;
       color: var(--muted);
@@ -762,6 +766,7 @@
 </head>
 
 <body>
+<!-- DFK Tournament Leaderboard • version v1.0.0 -->
 <div class="wrap" id="app">
   <div class="headerInner">
     <header>
@@ -778,8 +783,9 @@
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
-          <div class="miniTile">
+          <div class="miniTile" id="utcTile">
             <div class="miniInner">
+              <span class="k">Current UTC time:</span>
               <span class="v" id="utcNow">—</span>
             </div>
           </div>
@@ -842,6 +848,7 @@
             <span>Last week top 3</span>
             <span class="subhd lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
+          <div class="hdRightSpacer" aria-hidden="true"></div>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -1163,6 +1170,8 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
+  const APP_VERSION = "v1.0.0";
+
   const state = {
     wins: [],
     filtered: [],
@@ -1186,7 +1195,8 @@
   "darthwarpath": "darthwarpath",
   "maxgerin": "maxgerin",
   "dragnipur": "malotru3849",
-  "tunefed": "Tunefed",
+    "dragonfly tales": "dragonflytales",
+"tunefed": "Tunefed",
   "level.up": "level_uppp",
   "bboynomad": "bboynomad",
   "slick_bruss2": "dreadpiraterob1",
