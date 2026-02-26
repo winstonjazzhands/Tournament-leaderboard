@@ -736,7 +736,7 @@
     <header>
       <div>
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
+        <div class="sub" id="tagline">Your guide to weekly tournament rewards on Defi Kingdoms</div>
         <div class="sub" id="subline"></div>
         
 
@@ -784,7 +784,10 @@
 
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
             <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
-<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+
+            <div class="winsLabel fullRow"># Wins</div>
+
+            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
@@ -1171,14 +1174,8 @@
     if (!el || !clearBtn) return;
 
     const preset = state.weekPreset;
-
     if (preset === "this"){
       el.textContent = "Showing this week";
-      clearBtn.style.display = "none";
-      return;
-    }
-    if (preset === "last"){
-      el.textContent = "Showing last week";
       clearBtn.style.display = "none";
       return;
     }
@@ -1230,28 +1227,23 @@
     const now = Date.now();
     const mon = startOfUtcWeekMonday(now);
     const nextMon = mon + 7*86400000;
-
-    state.weekPreset = "this";
     setRange(mon, nextMon);
+    state.weekPreset = "this";
     updateWeekPresetUI();
-    updateRangeIndicator();
   }
 
   function setLastWeek(){
     const now = Date.now();
     const thisMon = startOfUtcWeekMonday(now);
     const lastMon = thisMon - 7*86400000;
-
-    state.weekPreset = "last";
     setRange(lastMon, thisMon);
+    state.weekPreset = "last";
     updateWeekPresetUI();
-    updateRangeIndicator();
   }
 
   function setCustomRange(){
     state.weekPreset = "custom";
     updateWeekPresetUI();
-    updateRangeIndicator();
   }
 
   function shortWallet(addr){
@@ -1735,7 +1727,7 @@
       const enc20 = encodeURIComponent(ids20);
 
       const winsLine = isLastWeek
-        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="10" data-ids="${enc10}" title="Click to view Level 10 tournaments">10s: ${r.lvl10Wins}</span> • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="20" data-ids="${enc20}" title="Click to view Level 20 tournaments">20s: ${r.lvl20Wins}</span>`
+        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="10" data-ids="${enc10}" title="Click to view Level 10 tournaments" onclick="handleBreakdownClick(event)" onkeydown="handleBreakdownKey(event)">10s: ${r.lvl10Wins}</span> • <span class="clickBreakdown" role="button" tabindex="0" data-wallet="${r.wallet}" data-tier="20" data-ids="${enc20}" title="Click to view Level 20 tournaments" onclick="handleBreakdownClick(event)" onkeydown="handleBreakdownKey(event)">20s: ${r.lvl20Wins}</span>`
         : `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
 
       return `
@@ -2113,12 +2105,30 @@
 
 
   // Ensure Last-week Top 3 breakdown links always work (10s/20s)
-  document.addEventListener("click", (e) => {
+  function handleBreakdownClick(e){
+    e.preventDefault();
+    e.stopPropagation();
+    const el = e.currentTarget || (e.target && e.target.closest ? e.target.closest(".clickBreakdown") : null);
+    if (!el) return;
+    const wallet = el.getAttribute("data-wallet") || "";
+    const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
+    const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+    openTourneyLinksModal(wallet, tier, idsText);
+  }
+  function handleBreakdownKey(e){
+    if (e.key === "Enter" || e.key === " "){
+      e.preventDefault();
+      handleBreakdownClick(e);
+    }
+  }
+
+    document.addEventListener("click", (e) => {
     const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
     if (!el) return;
     const wallet = el.getAttribute("data-wallet") || "";
     const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
     const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+    if (!idsText.trim()) return;
     openTourneyLinksModal(wallet, tier, idsText);
   });
 
