@@ -2,14 +2,12 @@ name: Update leaderboard data
 
 on:
   schedule:
-    # Runs at minute 0 every hour (UTC). GitHub schedules are best-effort.
     - cron: '0 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
 
-# Avoid overlapping scheduled runs fighting each other
 concurrency:
   group: update-leaderboard-data
   cancel-in-progress: true
@@ -35,25 +33,28 @@ jobs:
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
         env:
-          # ✅ Uppercase (required by build-tournamentRanges-subgraph.js)
+          # Uppercase (required by build-tournamentRanges-subgraph.js)
           RPC_URL: ${{ vars.RPC_URL }}
           SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
           TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
           SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
           SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
 
-          # ✅ Lowercase aliases (some scripts may use these)
-          rpc_url: ${{ vars.RPC_URL }}
-          subgraph_endpoint: ${{ vars.SUBGRAPH_ENDPOINT }}
-          tournament_diamond: ${{ vars.TOURNAMENT_DIAMOND }}
-          seed_tx_l10: ${{ vars.SEED_TX_L10 }}
-          seed_tx_l20: ${{ vars.SEED_TX_L20 }}
-
           START_BLOCK: "22000000"
           LOOKBACK_BLOCKS: "3000000"
           LOG_CHUNK_BLOCKS: "60000"
           USE_CACHE: "1"
-        run: npm run update:all
+        run: |
+          set -e
+
+          # Lowercase aliases (without duplicating YAML keys)
+          export rpc_url="$RPC_URL"
+          export subgraph_endpoint="$SUBGRAPH_ENDPOINT"
+          export tournament_diamond="$TOURNAMENT_DIAMOND"
+          export seed_tx_l10="$SEED_TX_L10"
+          export seed_tx_l20="$SEED_TX_L20"
+
+          npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
         run: |
@@ -74,16 +75,10 @@ jobs:
         run: |
           set -e
 
-          # Add generated public files
           git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
-
-          # Add Pages-root copies
           git add leaderboard.json profiles.json tournamentRanges.json || true
-
-          # Add caches (helps speed/stability between runs)
           git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
 
-          # Only commit if something changed
           if git diff --cached --quiet; then
             echo "No changes to commit"
             echo "committed=false" >> "$GITHUB_OUTPUT"
@@ -99,8 +94,6 @@ jobs:
           set -e
           git fetch origin main
 
-          # Rebase onto latest main (best-effort). If it conflicts, abort and fail
-          # so the next scheduled run retries cleanly.
           if ! git rebase origin/main; then
             git rebase --abort || true
             echo "Rebase conflict. Aborting so the next run can retry cleanly."
