@@ -61,7 +61,13 @@
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
     /* ✅ TOP ROW: 4 items on one line */
-    .topHeaderRow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:stretch;margin:10px 0 14px;}
+    .topHeaderRow{
+      display:grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
+      align-items:stretch;
+      margin:10px 0 14px;
+    }
 
     .miniTile,
     .topMiniBtn{
@@ -765,72 +771,34 @@
     }
     
   
+    .headerLeft{min-width:0}
+
 /* Lifetime disbursed (top-right, aligned with header) */
-.headerRightLifetime{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:flex-start;
-  text-align:right;
-  line-height:1.05;
-  min-width:160px;
-}
-.headerRightLifetime .lifeNum{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:18px;
-  white-space:nowrap;
-  text-shadow:0 2px 0 rgba(0,0,0,.25);
-}
-.headerRightLifetime .lifeLbl{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:12px;
-  letter-spacing:.4px;
-  text-transform:uppercase;
-  white-space:nowrap;
-  text-shadow:0 2px 0 rgba(0,0,0,.25);
-}
-
-
-.headerLeft{min-width:0;}
-.siteTitle{white-space:nowrap;}
+.headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;text-align:right;line-height:1.05;min-width:160px}
+.headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
 </style>
 </head>
 
 <body>
 <!-- DFK Tournament Leaderboard • version v1.0.3 -->
 <div class="wrap" id="app">
-  <div class="headerInner">
+    <div class="headerInner">
     <header>
-      <div>
+      <div class="headerLeft">
         <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
         <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
-        
+      </div>
 
-        
-</div>
+      <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
+        <div class="lifeNum" id="lifetimeJewelVal">—</div>
+        <div class="lifeLbl">DISBURSED</div>
+      </div>
+    </header>
 
-          <div class="miniTile secondary" id="rolloverTile">
-            <div class="miniInner">
-              <span class="k">Daily rollover in:</span>
-              <span class="v" id="utcCountdown">—</span>
-              
-            </div>
-          </div>
-
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
-        </div>
-    <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-  <div class="lifeNum" id="lifetimeJewelVal">—</div>
-  <div class="lifeLbl">DISBURSED</div>
-</div>
-</header>
-
-<div class="topHeaderRow">
-
-          <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
+    <div class="topHeaderRow">
+<a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
             PLAY DFK NOW
           </a>
 
@@ -843,7 +811,20 @@
     <span class="k">Current UTC time:</span>
     <span class="v" id="utcNow">—</span>
   </div>
+</div>
+
+          <div class="miniTile secondary" id="rolloverTile">
+            <div class="miniInner">
+              <span class="k">Daily rollover in:</span>
+              <span class="v" id="utcCountdown">—</span>
+
+            </div>
+          </div>
+
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+    </div>
   </div>
+
 
   <div class="mainNarrow">
     <div class="topRow">
@@ -1091,35 +1072,7 @@
       font-weight:1000;
     }
     
-  
-/* Lifetime disbursed (top-right, aligned with header) */
-.headerRightLifetime{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:flex-start;
-  text-align:right;
-  line-height:1.05;
-  min-width:160px;
-}
-.headerRightLifetime .lifeNum{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:18px;
-  white-space:nowrap;
-  text-shadow:0 2px 0 rgba(0,0,0,.25);
-}
-.headerRightLifetime .lifeLbl{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:12px;
-  letter-spacing:.4px;
-  text-transform:uppercase;
-  white-space:nowrap;
-  text-shadow:0 2px 0 rgba(0,0,0,.25);
-}
-
-</style>
+  </style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
