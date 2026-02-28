@@ -56,66 +56,6 @@
     header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
     h1{margin:0}
     .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
-
-    .titleRow{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:14px;
-    }
-    .lifetimeHdr{
-      text-align:right;
-      color: var(--gold);
-      font-weight:900;
-      letter-spacing:.3px;
-      line-height:1.05;
-      font-size: 14px; /* about 1/3 of title size */
-      max-width: 260px;
-      white-space:normal;
-      overflow-wrap:anywhere;
-      margin-top: 2px;
-      flex: 0 1 260px;
-    }
-    .lifetimeHdr .lifetimeVal{
-      font-size: 14px;
-      color: var(--gold);
-      text-shadow: 0 1px 0 rgba(0,0,0,.35);
-      white-space:normal;
-    }
-    .lifetimeHdr .lifetimeLbl{
-      font-size: 13px;
-      color: var(--gold);
-      white-space:normal;
-    }
-
-    /* Make top buttons/tiles fill the row more evenly */
-    .topHeaderRow{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:stretch;
-    }
-    .topHeaderRow > .topMiniBtn,
-    .topHeaderRow > .miniTile{
-      flex: 1 1 190px;
-      min-width: 180px;
-    }
-    #philBtn{
-      flex: 1 1 220px;
-      min-width: 210px;
-    }
-
-    /* Last week JEWEL meta: wrap between value and label nicely */
-    #lastWeekJewelMeta{
-      max-width: 220px;
-    }
-    #lastWeekJewelMeta .v{
-      white-space:normal;
-    }
-    #lastWeekJewelMeta .k{
-      font-size: 10px; /* ~2px smaller */
-      white-space:normal;
-    }
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
@@ -123,7 +63,7 @@
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(7, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
       gap: 8px;
       align-items:stretch;
       margin:10px 0 14px;
@@ -830,31 +770,6 @@
       font-weight:1000;
     }
     
-  
-    /* --- Overrides (keep layout consistent) --- */
-    .topHeaderRow{
-      display:flex !important;
-      flex-wrap:wrap !important;
-      gap:10px !important;
-      align-items:stretch !important;
-    }
-    .topHeaderRow > .topMiniBtn,
-    .topHeaderRow > .miniTile{
-      flex: 1 1 190px !important;
-      min-width: 180px !important;
-    }
-    #philBtn{
-      flex: 1 1 220px !important;
-      min-width: 210px !important;
-    }
-    #lastWeekJewelMeta .k{
-      font-size:10px !important;
-      white-space:normal !important;
-    }
-    #lastWeekJewelMeta .v{
-      white-space:normal !important;
-    }
-
   </style>
 </head>
 
@@ -864,13 +779,7 @@
   <div class="headerInner">
     <header>
       <div>
-        <div class="titleRow">
-          <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-          <div class="lifetimeHdr" id="lifetimeHdr" title="Total JEWEL rewards distributed since Jan 16, 2026">
-            <div class="lifetimeVal" id="lifetimeJewelVal">—</div>
-            <div class="lifetimeLbl">DISBURSED LIFETIME</div>
-          </div>
-        </div>
+        <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
         <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
         
@@ -883,7 +792,7 @@
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP DEV</button>
 
           <div class="miniTile" id="utcTile">
   <div class="miniInner">
@@ -948,7 +857,7 @@
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
           <div class="hdMetaRight" id="lastWeekJewelMeta">
-            <div class="k">DISBURSED LAST WEEK</div>
+            <div class="k">JEWEL distributed</div>
             <div class="v" id="lastWeekJewelTotal">—</div>
           </div>
         </div>
@@ -1845,8 +1754,8 @@
       address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
     },
     {
-      button: "TIP JERMCURRY",
-      title: "TIP JERMCURRY",
+      button: "TIP DEV",
+      title: "TIP DEV",
       messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
       address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
     },
