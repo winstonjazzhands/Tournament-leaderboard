@@ -181,20 +181,21 @@
     }
 
     @keyframes subtlePulse {
-      0%   { background: rgba(255,255,255,.04); }
-      
-    @keyframes learnPulse {
-      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-    }
-4%   { background: rgba(255,255,255,.062); }
-      8%   { background: rgba(255,255,255,.04); }
-      100% { background: rgba(255,255,255,.04); }
-    }
-    .learnMini{
+  0%   { background: rgba(255,255,255,.04); }
+  4%   { background: rgba(255,255,255,.062); }
+  8%   { background: rgba(255,255,255,.04); }
+  100% { background: rgba(255,255,255,.04); }
+}
+
+@keyframes learnPulse {
+  0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+  15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+  35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+  55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+  100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+}
+
+.learnMini{
       font-size:13px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
@@ -770,6 +771,59 @@
       font-weight:1000;
     }
     
+  /* Lifetime JEWEL disbursed (top-right of header) */
+.lifetimeHdr{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-start;
+  gap:2px;
+  text-align:right;
+  white-space:normal;
+  line-height:1.05;
+  margin-top:2px;
+}
+.lifetimeHdr .val{
+  color:var(--gold);
+  font-weight:1000;
+  font-size: 18px; /* smaller than title */
+  letter-spacing:.2px;
+}
+.lifetimeHdr .lab{
+  color:var(--gold);
+  font-weight:1000;
+  font-size: 14px;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+}
+
+/* Last week meta: wrap between JEWEL and DISBURSED */
+.hdMetaRight{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:center;
+  gap:2px;
+  text-align:right;
+  white-space:normal;
+  line-height:1.05;
+  min-width: 0;
+}
+.hdMetaRight .v{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:12px;
+  white-space:nowrap;
+}
+.hdMetaRight .k{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:10px; /* 2px smaller */
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  white-space:normal;
+}
+
   </style>
 </head>
 
@@ -811,7 +865,13 @@
 
           <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
-    </header>
+    <div class="headerRight">
+  <div class="lifetimeHdr" aria-label="Lifetime JEWEL disbursed">
+    <div class="val" id="lifetimeJewelVal">—</div>
+    <div class="lab">DISBURSED</div>
+  </div>
+</div>
+</header>
   </div>
 
   <div class="mainNarrow">
@@ -856,11 +916,12 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-          <div class="hdMetaRight" id="lastWeekJewelMeta">
-            <div class="k">JEWEL distributed</div>
-            <div class="v" id="lastWeekJewelTotal">—</div>
-          </div>
-        </div>
+            <div class="hdMetaRight" id="lastWeekJewelMeta">
+    <div class="v" id="lastWeekJewelTotal">—</div>
+    <div class="k">DISBURSED LAST WEEK</div>
+  </div>
+</div>
+
         <div class="bd">
           <div id="top3LastWeek" class="top3">
             <div class="topEmpty">Loading…</div>
