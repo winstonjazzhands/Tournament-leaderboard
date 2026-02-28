@@ -2029,7 +2029,7 @@ function openWalletsModal(){
     // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
     const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
     const lifeEl = $("lifetimeJewelVal");
-    const walletCount = rows.filter(r => (r.jT || 0) > 0).length;
+    const walletCount = new Set(enriched.filter(r => (Number(r.jT) || 0) > 0).map(r => r.wallet)).size;
 
     if (lifeEl) lifeEl.textContent = `${formatJewel(lifeTotal)} DISBURSED TO ${walletCount.toLocaleString()} ${walletCount === 1 ? "WALLET" : "WALLETS"}`;
 
