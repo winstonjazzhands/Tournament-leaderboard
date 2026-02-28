@@ -34,17 +34,16 @@ jobs:
         run: npm ci
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
-env:
-  rpc_url: ${{ vars.RPC_URL }}
-  subgraph_endpoint: ${{ vars.SUBGRAPH_ENDPOINT }}
-  tournament_diamond: ${{ vars.TOURNAMENT_DIAMOND }}
-  seed_tx_l10: ${{ vars.SEED_TX_L10 }}
-  seed_tx_l20: ${{ vars.SEED_TX_L20 }}
-
-  START_BLOCK: "22000000"
-  LOOKBACK_BLOCKS: "3000000"
-  LOG_CHUNK_BLOCKS: "60000"
-  USE_CACHE: "1"
+        env:
+          rpc_url: ${{ vars.RPC_URL }}
+          subgraph_endpoint: ${{ vars.SUBGRAPH_ENDPOINT }}
+          tournament_diamond: ${{ vars.TOURNAMENT_DIAMOND }}
+          seed_tx_l10: ${{ vars.SEED_TX_L10 }}
+          seed_tx_l20: ${{ vars.SEED_TX_L20 }}
+          START_BLOCK: "22000000"
+          LOOKBACK_BLOCKS: "3000000"
+          LOG_CHUNK_BLOCKS: "60000"
+          USE_CACHE: "1"
         run: npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
