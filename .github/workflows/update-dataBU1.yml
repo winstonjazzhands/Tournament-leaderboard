@@ -1,15 +1,13 @@
 name: Update leaderboard data
 
 on:
-  schedule:
-    # Runs at minute 0 every hour (UTC). GitHub schedules are best-effort.
+ schedule:
     - cron: '0 * * * *'
-  workflow_dispatch:
 
 permissions:
   contents: write
 
-# Avoid overlapping scheduled runs fighting each other
+# Avoid overlapping scheduled runs fighting each other (and breaking git pull/rebase)
 concurrency:
   group: update-leaderboard-data
   cancel-in-progress: true
@@ -35,24 +33,23 @@ jobs:
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
         env:
-          # ✅ Uppercase (required by build-tournamentRanges-subgraph.js)
-          RPC_URL: ${{ vars.RPC_URL }}
-          SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
-          TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
-          SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
-          SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
+          # Required (store these in repo Settings -> Secrets and variables -> Actions)
+          RPC_URL: ${{ secrets.RPC_URL }}
+          SUBGRAPH_ENDPOINT: ${{ secrets.SUBGRAPH_ENDPOINT }}
+          TOURNAMENT_DIAMOND: ${{ secrets.TOURNAMENT_DIAMOND }}
 
-          # ✅ Lowercase aliases (some scripts may use these)
-          rpc_url: ${{ vars.RPC_URL }}
-          subgraph_endpoint: ${{ vars.SUBGRAPH_ENDPOINT }}
-          tournament_diamond: ${{ vars.TOURNAMENT_DIAMOND }}
-          seed_tx_l10: ${{ vars.SEED_TX_L10 }}
-          seed_tx_l20: ${{ vars.SEED_TX_L20 }}
-
+          # Optional tuning (constants are fine here; move to secrets later if you want)
           START_BLOCK: "22000000"
           LOOKBACK_BLOCKS: "3000000"
           LOG_CHUNK_BLOCKS: "60000"
           USE_CACHE: "1"
+
+          # Seed transactions used by tournamentRanges builder (secrets)
+          SEED_TX_L10: ${{ secrets.SEED_TX_L10 }}
+          SEED_TX_L20: ${{ secrets.SEED_TX_L20 }}
+
+          # Back-compat if any script reads RPC instead of RPC_URL
+          RPC: ${{ secrets.RPC_URL }}
         run: npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
@@ -97,14 +94,21 @@ jobs:
         if: steps.commit.outputs.committed == 'true'
         run: |
           set -e
+
+          # Rebase onto the latest main to avoid non-fast-forward pushes
           git fetch origin main
+          git rebase origin/main
 
-          # Rebase onto latest main (best-effort). If it conflicts, abort and fail
-          # so the next scheduled run retries cleanly.
-          if ! git rebase origin/main; then
-            git rebase --abort || true
-            echo "Rebase conflict. Aborting so the next run can retry cleanly."
-            exit 1
-          fi
+          # Push with a couple retries for transient network hiccups
+          for i in 1 2 3; do
+            echo "Push attempt $i..."
+            if git push origin HEAD:main; then
+              echo "Push succeeded."
+              exit 0
+            fi
+            echo "Push failed, retrying..."
+            sleep 2
+          done
 
-          git push origin HEAD:main
+          echo "Push failed after 3 attempts."
+          exit 1
