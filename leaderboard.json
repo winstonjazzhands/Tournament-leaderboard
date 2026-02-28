@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-02-28T15:35:45.845Z",
+  "updatedAtUtc": "2026-02-28T16:04:12.041Z",
   "source": "subgraph+logs/lookback",
   "decodeVersion": "post22m-v1-flexpair",
   "rpc": "https://andromeda.metis.io/?owner=1088",
@@ -113,7 +113,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769180353,
       "blockNumber": 22017625,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xd6f3aa5340efb35f4f6aca2762f2d0e889623dc795958dc10ff478910b790245-1",
@@ -153,7 +153,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769267222,
       "blockNumber": 22024628,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb5c0ea3bb31e406c9be2ad788eab8c9f6de67e5a775caee6e9bae235e1885c03-1",
@@ -169,7 +169,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1769288734,
       "blockNumber": 22026406,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xbe66f65b1d10ca160a9464c0f515f062bc5e912c60285088437a1323b65c4963-10",
@@ -185,7 +185,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1769302082,
       "blockNumber": 22027524,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb4c49ac119e99af0a877ae32fe038a02299188c0d77c9c0cad03d83c43299593-10",
@@ -193,7 +193,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1769352978,
       "blockNumber": 22031767,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xe1c12df37d68d0103f2ae012b88706ca385f4b6228b3280d0c46b46aa7a65066-6",
@@ -217,7 +217,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1769368098,
       "blockNumber": 22033067,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xa29c03f25536660ce971dcb7f7de0af3e942265e02e44e417e732f39a1e4fd84-7",
@@ -241,7 +241,7 @@
       "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
       "timestamp": 1769400467,
       "blockNumber": 22035747,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xd4b3ee9dddcc618ad183d706a60c861bdb319b99a4ede8d9496f15752640cc30-1",
@@ -369,7 +369,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1769638944,
       "blockNumber": 22055383,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xcbbb7947be9694e4f9f7469e863d660488244460c8a32ff8042b910d32fd1e5f-6",
@@ -377,7 +377,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1769643520,
       "blockNumber": 22055752,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xf998d36d2115a8b6a35f1a53ef6332afe31b123ec24dce5bd102601b1e8d98ce-1",
@@ -449,7 +449,7 @@
       "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
       "timestamp": 1769755375,
       "blockNumber": 22065039,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x0ca3ee61b991de17d9d771b97ba3ecb5cb26366c38fef21543311c85b299f907-1",
@@ -457,7 +457,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1769785583,
       "blockNumber": 22067453,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x1ba16081601c0400d08af3c608c5ab0c946a715b154508ba117183d0ab9881d0-6",
@@ -465,7 +465,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769799692,
       "blockNumber": 22068553,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb1b4042c8950b30802b2749131e3d1c4c598fd041faba9ef3b0ce90f60c01abb-6",
@@ -473,7 +473,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1769807532,
       "blockNumber": 22069181,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb43d0f5b002501d7260fe2e4a4520c76eaaa05b06cc90636600a6df36d1f245d-1",
@@ -489,7 +489,7 @@
       "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
       "timestamp": 1769817041,
       "blockNumber": 22069876,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x488236eb99893e7e9f5a4b2fcd4baa3202c030f0404040acc8409881b2d4be88-6",
@@ -497,7 +497,7 @@
       "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
       "timestamp": 1769824642,
       "blockNumber": 22070438,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x7899a88587844e3e6ac248f6cc2cc2267e375019c2016ae5e97d33b31a55ef8a-5",
@@ -505,7 +505,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769830484,
       "blockNumber": 22070910,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xe31fd5a375cbc85db7f3c83a6dd227216c54f40292dedf09c6acfd6b0a0a7bc9-5",
@@ -513,7 +513,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1769872022,
       "blockNumber": 22074308,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x242ebda6b08d18f92eb546b342604fc7941b71d0923daac9f696e306d30a8dab-1",
@@ -537,7 +537,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769886395,
       "blockNumber": 22075483,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xaca2713c295a7723956bca661b15bea2a0d58e2122534a236914eeb0142750b4-2",
@@ -545,7 +545,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1769893779,
       "blockNumber": 22076085,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb74095a22c4f2e76d2124122b7127211330367e84daee801421b73e011e6cd8c-6",
@@ -561,7 +561,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769918110,
       "blockNumber": 22078067,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x2f0cd207e8bc7961ad46ff5b4d237f3edd608afcd8b3294c59e50258b1685ecd-12",
@@ -569,7 +569,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769924878,
       "blockNumber": 22078603,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xc5daa68ef6d2f925420bddc5fd343f8e4f2d9b63f46d3f480733c38f1e5ae1e4-56",
@@ -577,7 +577,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769956998,
       "blockNumber": 22081098,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xc63461dc0a9841cd58168587e21ba9627cd6625608e225d344ff77abf5169aa7-15",
@@ -585,7 +585,7 @@
       "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
       "timestamp": 1769965605,
       "blockNumber": 22081795,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x7638aea129ca8988e7dc380d36fa197cb613ac1a138e47cef1cd5aed36faab8e-43",
@@ -593,7 +593,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1769973005,
       "blockNumber": 22082430,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb38d8cff85fb6a7f8b3adf1eb46cdb1b379183136df58942c3a8ccafcb3ef088-6",
@@ -609,7 +609,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1769979936,
       "blockNumber": 22082999,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xfec67e656ac47448b096d514f37a68b6394c1b8efdef55a93e5db6d9b12ac539-8",
@@ -665,7 +665,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1770073129,
       "blockNumber": 22090764,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x0caba348b8319664decd1438bf233fb84d5f3829607e2e90e849a1df29bb51c1-1",
@@ -713,7 +713,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1770160850,
       "blockNumber": 22097959,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x3e2ee6c3360237e7626345fd244ce5414d067db5f8efa3f343454d5e4c008811-1",
@@ -737,7 +737,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1770229957,
       "blockNumber": 22103601,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xa30f3cf844bfe3aa41020ee17bb4c4d8c7b0d1d96fe41aecb8eef92188a96387-1",
@@ -761,7 +761,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770249277,
       "blockNumber": 22105185,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xea580a4c853773f44d082de6a4428f636f717ac94fdc8fafed9bb1aabeb158fd-7",
@@ -817,7 +817,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1770333915,
       "blockNumber": 22112435,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x1708f133228ca81ece4f7245ee3eccae3031624bad82ef37d2ac61574be287e8-1",
@@ -833,7 +833,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1770390133,
       "blockNumber": 22117060,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x8edb9ca8db6e0705aa5d770c934da05c64cf81cf1f28726bb6aa2a2820536409-6",
@@ -841,7 +841,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1770392674,
       "blockNumber": 22117241,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x5afff259f32d50aa7e0166901a6b4a1e33513827669c791ce42c23165c3e676e-36",
@@ -849,7 +849,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1770398776,
       "blockNumber": 22117753,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xdf05a144946800f1646166c0d32310658baaa460872938c2f8c47cdedda5e90d-1",
@@ -857,7 +857,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1770402552,
       "blockNumber": 22118063,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x1f3a33ecb1aac178f9c075622bd4f0424f6d9ea794427b44f3d52fe0788e34d6-4",
@@ -865,7 +865,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770411519,
       "blockNumber": 22118812,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x9338a5abae32b837c9d3eadf7e2743c2c1cfad0c278e6734e18f4f24adf22132-1",
@@ -873,7 +873,7 @@
       "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
       "timestamp": 1770431879,
       "blockNumber": 22120442,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x1dd29ed0ba43a59e3f784f93aadc965e663118ca8182d9c611e4454d5a6f23f6-1",
@@ -881,7 +881,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1770476810,
       "blockNumber": 22124083,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x5c214620bb294e1b8bac8cfe099dd8e62bb49186107773615760da5928b50aa2-7",
@@ -889,7 +889,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1770491185,
       "blockNumber": 22125257,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x2fc4f5d5ca5dab08be7e9488f134d71de215b5d188a591d1a1bb92bbdb8c09f9-16",
@@ -897,7 +897,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770498495,
       "blockNumber": 22125854,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xecc5f56e795a0781e2037625c8c97a545c7cbbd79cf1b2bb0b469b78a7155a4e-11",
@@ -905,7 +905,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770502569,
       "blockNumber": 22126186,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x7411a582524702b28df95db77bb1ec64dae65d06e7a6bae0f238832e9b501276-6",
@@ -913,7 +913,7 @@
       "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
       "timestamp": 1770562969,
       "blockNumber": 22130984,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xac891bed65cf5e5310109a925b16eb03d9b88f99152cc8565d1054e2e6713e96-15",
@@ -921,7 +921,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770576911,
       "blockNumber": 22132111,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x7c91a72f3d2c30159b86b84a4137f1b247127b28fa043f15f9d24d34211e6c5c-5",
@@ -929,7 +929,7 @@
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "timestamp": 1770584223,
       "blockNumber": 22132696,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x0150693ab741f72229789553c1d4566ed9b22cd3451f5d5e0b9967a4ffb65f1b-10",
@@ -937,7 +937,7 @@
       "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
       "timestamp": 1770589194,
       "blockNumber": 22133094,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xdeba2ba82bcc23fb98266a888921c72dc7fd3a672f7b0166f5c65ab9bd576ce8-6",
@@ -1073,7 +1073,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1770826830,
       "blockNumber": 22152117,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xaf5aa87b4ec6b0b62d5782e6792526046dec8a60efb017bc0a0ec6642e78973a-2",
@@ -1113,7 +1113,7 @@
       "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
       "timestamp": 1770855995,
       "blockNumber": 22154492,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x09ab03c3804782259b16b1c05b61513b71091d231c998def8e5719af0958b97d-9",
@@ -1121,7 +1121,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1770857826,
       "blockNumber": 22154632,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x9214e0a4e5b452b766132b9e4eb7ef87ba1e65715210eeee057278a92879a0b4-15",
@@ -1153,7 +1153,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1770914568,
       "blockNumber": 22159147,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x0aba9ee3e250602b831741656eff751e072637e55544d8868994a49b88621907-5",
@@ -1161,7 +1161,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1770918885,
       "blockNumber": 22159489,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x7a8a05bc34afb41fc15fa7f1bdaca3c629fa217ce40f3d95315803e826f14a04-2",
@@ -1193,7 +1193,7 @@
       "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
       "timestamp": 1770940803,
       "blockNumber": 22161234,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x28fc030aa1641297b83ff98125c56277915f034be1326cefa20903b29f550a77-5",
@@ -1201,7 +1201,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1770947681,
       "blockNumber": 22161689,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x56b91eb0c80823d9ef02f8299e16b6f403bf16dbdb6af0c02cbc9dcfbb1f52c0-2",
@@ -1209,7 +1209,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1770995184,
       "blockNumber": 22165314,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xe136d1f38cf24911513afe370fb630ba1c60f2ad392e2244ccc6a6345358aa97-26",
@@ -1225,7 +1225,7 @@
       "wallet": "0x0685c633fa2cba58ea7c05a74f7d5c7fd921c344",
       "timestamp": 1771009187,
       "blockNumber": 22166426,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x263f57da238de694709a61a905cd85818cd8c52eed52a475d95171400d5935d4-1",
@@ -1233,7 +1233,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1771012393,
       "blockNumber": 22166686,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x384f1f1bbcb35006ca1436abc7ef96235c2e13cbe6866330f5c5cc8109cf5997-9",
@@ -1241,7 +1241,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771024309,
       "blockNumber": 22167628,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xf9be79ae0d8d5d61bc1005d9e7b2f07898ed2d0ec55ccf87f263996783e47eef-11",
@@ -1265,7 +1265,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1771080947,
       "blockNumber": 22172007,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xeb1b2204ddfc7caad0135516e66b96e8610036019c1e40fbc652fb971e81bb82-7",
@@ -1289,7 +1289,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771095797,
       "blockNumber": 22173177,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xfe4ec49bd2064dc687458c487f3ca8fa130bed1385ff81a175537f5b641c0248-6",
@@ -1297,7 +1297,7 @@
       "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
       "timestamp": 1771101711,
       "blockNumber": 22173630,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x003bedd2736136f7b2f73d96053b75791a482d90795d92d75dddd2cf861fc350-1",
@@ -1305,7 +1305,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1771110531,
       "blockNumber": 22174319,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x80d3c4beb6c7254b020cb123bd6ebbdf6d9d10da24dee4727d6577df1006e6e1-6",
@@ -1329,7 +1329,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771167899,
       "blockNumber": 22178734,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xd668c944250b50ed9f283f2b10c84449c65cf7c56f5dce63644090978f77622f-5",
@@ -1353,7 +1353,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1771182109,
       "blockNumber": 22179861,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x22987bcd73b3256365d6dd0d64d5d1332fc8020686533cd0bc0d897633ab1c3c-6",
@@ -1369,7 +1369,7 @@
       "wallet": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
       "timestamp": 1771188043,
       "blockNumber": 22180330,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xa3a1afcda3a1d332a931d3f07d4079c516918fa364a8abd429b9cbf251b81d26-7",
@@ -1377,7 +1377,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771195209,
       "blockNumber": 22180901,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xd211caa1a3b87c46d8fbf23900b094767e860226e5a585260cc4f48ef9e7fe92-17",
@@ -1409,7 +1409,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1771261798,
       "blockNumber": 22185966,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xfd74883d48864849e203ec943056f825aecfb5b26b79004f0cfc4afaaea693d0-1",
@@ -1441,7 +1441,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1771286488,
       "blockNumber": 22187869,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x33cb0d6245c502d452f37bf141f56a8f36dedd3706943ec74a6ba540c10c4c4d-6",
@@ -1505,7 +1505,7 @@
       "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
       "timestamp": 1771386857,
       "blockNumber": 22195491,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xbd6e2aece9ee4b913abff34135e49f4839300341b3efc867d4e3fd9019ae1802-12",
@@ -1641,7 +1641,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771600101,
       "blockNumber": 22211497,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xfef89bf16ea214afd88643392e83760b3d7c61e4ea9939d166dfd06594705a44-5",
@@ -1657,7 +1657,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771613030,
       "blockNumber": 22212503,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb6da1f7866e1d4b95a5eed2d20a2df80f6e56f6a92af49cb86c9e32bd8c44ae2-9",
@@ -1665,7 +1665,7 @@
       "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
       "timestamp": 1771621448,
       "blockNumber": 22213140,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x63aa7e121b5818abf8b152519e13c50dddf3f993d9f9010d1dc39713438e3f41-1",
@@ -1689,7 +1689,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1771684509,
       "blockNumber": 22217734,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xf0f68df173e3a904861cd9538283daaebcb28053ec14a163230c70f85fd112c4-7",
@@ -1705,7 +1705,7 @@
       "wallet": "0xc088e033a5db0f1b2fef24726f78fbaa428d8238",
       "timestamp": 1771700468,
       "blockNumber": 22218933,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x71b785adfdc40365613816c43f44db355e1366fd8217a7310ff852499a5be937-4",
@@ -1713,7 +1713,7 @@
       "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
       "timestamp": 1771708007,
       "blockNumber": 22219512,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x23e9a7bba3bbd30938a86f0588955ae33b7f81f06a2096f247a2945c84cbe864-1",
@@ -1721,7 +1721,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1771713605,
       "blockNumber": 22219914,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb1fd43e8e76b4865ce0c6e7277de6f1dd82cb467c1ed1ff14db9beb9d2e3a3f6-1",
@@ -1729,7 +1729,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1771745229,
       "blockNumber": 22222210,
-      "tier": 20
+      "tier": 10
     },
     {
       "id": "0x8ec954cff24191af8d854db70ee7abee7c361314c023ece6b186724f5fe10950-6",
@@ -1737,7 +1737,7 @@
       "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
       "timestamp": 1771770707,
       "blockNumber": 22224086,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xb562173745e0ec40fcfd27d83ecfea621178a02192229c2d86b16c9f6c8a11ae-6",
@@ -1753,7 +1753,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1771787012,
       "blockNumber": 22225283,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xbf154278e8fa02639ca50e79f3f8358969b6183de22ad85f847c560c8bba46f4-1",
@@ -1761,7 +1761,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1771794301,
       "blockNumber": 22225826,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x0fb528881355c5ed46e37be10e9af08901a9ef8d3210239b2bbf45ac53aeb506-1",
@@ -1769,7 +1769,7 @@
       "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
       "timestamp": 1771801623,
       "blockNumber": 22226355,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x35ebde36ab3a92b31dbecad0f133181ad0891c31359891d4d2294db2fc6b60e6-2",
@@ -1841,7 +1841,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1771948080,
       "blockNumber": 22236963,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x5491e2bc2217c3d6794d470768a9ec83b6e7be755096c4550ab726780712936f-5",
@@ -1873,7 +1873,7 @@
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
       "timestamp": 1771979205,
       "blockNumber": 22239262,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x269da318ff8895af1adf4bbfa941cde8b8501e87e1b4066c3256edc53c7fbfce-7",
@@ -1945,7 +1945,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1772136158,
       "blockNumber": 22250817,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x61ff050a25486a668a4d8b733c71b3cbf56af59d258200cb12be4dc242a73242-1",
@@ -1969,7 +1969,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1772150863,
       "blockNumber": 22251882,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x0d671ab75c98fa07172bdbacfb1b0778e9359a912abeaf2bda4c934e9e69e099-1",
@@ -1993,7 +1993,7 @@
       "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
       "timestamp": 1772204665,
       "blockNumber": 22255636,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x2c17bb7d1b8902ae56604639619ed7fce5c3c6e50647c703e921ccdb553d5adb-6",
@@ -2001,7 +2001,7 @@
       "wallet": "0x2c64efe6770b4d1320e9df1c1f10c6ecabf93bf2",
       "timestamp": 1772209757,
       "blockNumber": 22256001,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x302d338b38b3d56f9bf34e46ddd01cfc38fd477eadfd912dbd5577956e2da3bd-1",
@@ -2009,7 +2009,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1772218442,
       "blockNumber": 22256628,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xc6dc6ab3fa5af737fb436ae2f143d7e0164f98f65eb7e2dd583754d3a0300634-1",
@@ -2017,7 +2017,7 @@
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "timestamp": 1772226405,
       "blockNumber": 22257190,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xac1de24ff3b7add92de016833e80e3c28f1add3a3cdf099a7fd529efaa62bf1f-13",
@@ -2033,7 +2033,7 @@
       "wallet": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
       "timestamp": 1772232329,
       "blockNumber": 22257628,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0xf7881f93c92b6ec0e7c0e71cbf4340c4e5595dc6331c716e8633b48ba899f040-11",
@@ -2041,7 +2041,7 @@
       "wallet": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
       "timestamp": 1772237087,
       "blockNumber": 22257948,
-      "tier": 10
+      "tier": 20
     },
     {
       "id": "0x4aa95911b7659662ce2962402d797de59f67ab08569973e27801c394c03d3337-1",
@@ -2285,5 +2285,7 @@
       "totalWins": 1,
       "lastWin": 1769122086
     }
-  ]
+  ],
+  "tiersUpdatedAtUtc": "2026-02-28T16:04:14.033Z",
+  "tiersChanges": 88
 }

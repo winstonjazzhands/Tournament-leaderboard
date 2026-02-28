@@ -1,7 +1,7 @@
 {
-  "updatedAtUtc": "2026-02-26T00:39:18.045Z",
+  "updatedAtUtc": "2026-02-28T16:04:13.888Z",
   "source": "event-logs-two-seeds-with-maxLevel-fallback",
-  "rpcUrl": "https://andromeda.metis.io/?owner=1088",
+  "rpcUrl": "https://andromeda.metis.io/?owner=1088\r\n",
   "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
   "seeds": {
     "level10": "0x7c410f9faf35cae21b23d1ff35495237e82d500e5845e96fca361d71a9e78820",
@@ -34,7 +34,7 @@
   },
   "scan": {
     "startBlock": 22000000,
-    "endBlock": 22245702,
+    "endBlock": 22262013,
     "blockChunk": 50000
   },
   "rangesByTournamentId": {
@@ -978,6 +978,46 @@
       "maxLevel": 10,
       "tier": 10
     },
+    "1961": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1962": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1963": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1964": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "1965": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1966": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1967": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "1968": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
     "2022": {
       "minLevel": 16,
       "maxLevel": 20,
@@ -1179,6 +1219,51 @@
       "tier": 20
     },
     "2086": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2087": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2091": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2092": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2093": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2094": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2095": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2096": {
+      "minLevel": 16,
+      "maxLevel": 20,
+      "tier": 20
+    },
+    "2097": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
+    },
+    "2098": {
       "minLevel": 10,
       "maxLevel": 10,
       "tier": 10
