@@ -778,6 +778,29 @@
 .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
 .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25) display:none;
     }
+
+
+.copyBtnRow{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex:0 0 auto;
+}
+.discordCopyBtn{
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+  font-size:12px;
+  line-height:1;
+  user-select:none;
+  transition: background .15s ease, opacity .15s ease;
+}
+.discordCopyBtn:hover{background: rgba(255,255,255,.06)}
+.discordCopyBtn.copied{opacity:.95;border-color: rgba(78,161,255,.45)}
+
 </style>
 </head>
 
@@ -1593,7 +1616,7 @@
                 </a>
                 ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               </div>
-              <button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy</button>
+              <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
             </div>
           </td>
 
@@ -1619,7 +1642,25 @@
       });
     });
 
-    tb.querySelectorAll(".clickWins").forEach(el => {
+    
+
+tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const wallet = btn.getAttribute("data-discord") || "";
+    const d = discordForWallet(wallet) || "";
+    if (!d) return;
+    const ok = await copyToClipboard(d);
+    if (!ok) return;
+    btn.classList.add("copied");
+    const prev = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => {
+      btn.textContent = prev;
+      btn.classList.remove("copied");
+    }, 1200);
+  });
+});
+tb.querySelectorAll(".clickWins").forEach(el => {
       const open = () => {
         const wallet = el.getAttribute("data-wallet") || "";
         const col = el.getAttribute("data-col") || "T";
