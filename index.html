@@ -60,60 +60,6 @@
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
-
-    /* Header lifetime disbursed (top-right, above buttons) */
-    .headerRightLifetime{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      justify-content:flex-start;
-      gap:2px;
-      padding-top:2px;
-      margin-left:14px;
-      min-width: 160px;
-      text-align:right;
-    }
-    .headerRightLifetime .lifeNum{
-      color: var(--gold);
-      font-weight:1000;
-      font-size: 18px;
-      line-height:1.05;
-      white-space:nowrap;
-    }
-    .headerRightLifetime .lifeLbl{
-      color: var(--gold);
-      font-weight:1000;
-      font-size: 14px;
-      line-height:1.05;
-      letter-spacing:.3px;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
-
-    /* Last week meta (force wrap between JEWEL and DISBURSED) */
-    .hdMetaRight{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      justify-content:flex-start;
-      text-align:right;
-      line-height:1.05;
-      color: var(--gold);
-      font-weight:1000;
-      min-width: 0;
-    }
-    .hdMetaRight .topLine{
-      font-size: 11px;
-      white-space:nowrap; /* number + JEWEL stays on one line */
-    }
-    .hdMetaRight .botLine{
-      font-size: 9px;     /* ~2px smaller */
-      white-space:nowrap; /* no extra wrapping */
-      letter-spacing:.3px;
-      text-transform:uppercase;
-    }
-
-
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
@@ -157,7 +103,7 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-weight:900;
       white-space:nowrap;
-      font-size:11px;
+      font-size:12px;
     }
     .miniInner .hint{color:var(--muted);font-size:11px;white-space:nowrap}
 
@@ -298,16 +244,16 @@
       min-width:0;
     }
     .tile .hd{
-      padding: 9px 11px;
+      padding: 10px 12px;
       border-bottom:1px dashed rgba(255,255,255,.16);
       color: var(--text);
       font-weight:900;
-      font-size:11px;
+      font-size:12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      min-height: 34px;
+      min-height: 38px;
     }
     .hdRightSpacer{flex:0 0 auto; width:92px; height:28px;}
 
@@ -318,9 +264,9 @@
 
     /* Last week range subtitle color */
 .tile .bd{
-      padding: 9px;
+      padding: 10px;
       color: var(--muted);
-      font-size:11px;
+      font-size:12px;
     }
 
     .filterGrid{
@@ -407,14 +353,14 @@
       color: var(--text);
       font-weight:900;
       flex:0 0 auto;
-      font-size:11px;
+      font-size:12px;
     }
     .topWallet{min-width:0;display:flex;flex-direction:column;gap:2px;}
     .topWallet a{
       min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
       text-decoration:none;color: var(--accent);font-weight:900;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:11px;
+      font-size:12px;
     }
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
@@ -426,11 +372,11 @@
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:9px 11px;
+      padding:10px 12px;
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
-    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:16px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
 
     .card{
       background: rgba(255,255,255,.03);
@@ -511,7 +457,7 @@
       border-radius:10px;
       padding:6px 10px;
       cursor:pointer;
-      font-size:11px;
+      font-size:12px;
       line-height:1;
       user-select:none;
       transition: background .15s ease, opacity .15s ease;
@@ -698,7 +644,7 @@
       min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
       text-decoration:none;color: var(--accent);font-weight:900;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:11px;
+      font-size:12px;
     }
     .top10Wallet a:hover{text-decoration:underline;}
     .top10Meta{font-size:11px;color: var(--muted);white-space:nowrap;}
@@ -743,7 +689,7 @@
       white-space:nowrap;border:1px solid rgba(255,255,255,.10);
     }
     .pcTitle{
-      font-size:11px;color: var(--text);opacity:.92;
+      font-size:12px;color: var(--text);opacity:.92;
       overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
       max-width: 42vw;font-weight:900;
     }
@@ -865,11 +811,6 @@
 
           <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
-      <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-        <div class="lifeNum" id="lifetimeJewelVal">—</div>
-        <div class="lifeLbl">DISBURSED</div>
-      </div>
-
     </header>
   </div>
 
@@ -916,9 +857,8 @@
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
           <div class="hdMetaRight" id="lastWeekJewelMeta">
-            <span class="topLine" id="lastWeekJewelTotal">—</span>
-            <span class="botLine">DISBURSED LAST WEEK</span>
-          </div>
+            <div class="k">JEWEL distributed</div>
+            <div class="v" id="lastWeekJewelTotal">—</div>
           </div>
         </div>
         <div class="bd">
