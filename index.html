@@ -68,6 +68,11 @@
       align-items:stretch;
       margin:10px 0 14px;
     }
+/* Lifetime disbursed above Phil Collins */
+.philStack{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;}
+.lifeMini{display:flex;flex-direction:column;align-items:center;line-height:1.05;text-align:center;}
+.lifeMiniNum{color:var(--gold);font-weight:1000;font-size:14px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
+.lifeMiniLbl{color:var(--gold);font-weight:1000;font-size:11px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
 
     .miniTile,
     .topMiniBtn{
@@ -181,21 +186,20 @@
     }
 
     @keyframes subtlePulse {
-  0%   { background: rgba(255,255,255,.04); }
-  4%   { background: rgba(255,255,255,.062); }
-  8%   { background: rgba(255,255,255,.04); }
-  100% { background: rgba(255,255,255,.04); }
-}
-
-@keyframes learnPulse {
-  0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-  15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-  35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-  55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-  100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-}
-
-.learnMini{
+      0%   { background: rgba(255,255,255,.04); }
+      
+    @keyframes learnPulse {
+      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+    }
+4%   { background: rgba(255,255,255,.062); }
+      8%   { background: rgba(255,255,255,.04); }
+      100% { background: rgba(255,255,255,.04); }
+    }
+    .learnMini{
       font-size:13px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
@@ -212,7 +216,7 @@
 
     input{
       width:100%;
-      padding:10px 10px;
+      padding:8px 10px;
       border-radius:12px;
       border:1px solid var(--border);
       background: rgba(0,0,0,.18);
@@ -373,7 +377,7 @@
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:10px 12px;
+      padding:8px 12px;
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
@@ -771,59 +775,6 @@
       font-weight:1000;
     }
     
-  /* Lifetime JEWEL disbursed (top-right of header) */
-.lifetimeHdr{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:flex-start;
-  gap:2px;
-  text-align:right;
-  white-space:normal;
-  line-height:1.05;
-  margin-top:2px;
-}
-.lifetimeHdr .val{
-  color:var(--gold);
-  font-weight:1000;
-  font-size: 18px; /* smaller than title */
-  letter-spacing:.2px;
-}
-.lifetimeHdr .lab{
-  color:var(--gold);
-  font-weight:1000;
-  font-size: 14px;
-  letter-spacing:.6px;
-  text-transform:uppercase;
-}
-
-/* Last week meta: wrap between JEWEL and DISBURSED */
-.hdMetaRight{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:center;
-  gap:2px;
-  text-align:right;
-  white-space:normal;
-  line-height:1.05;
-  min-width: 0;
-}
-.hdMetaRight .v{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:12px;
-  white-space:nowrap;
-}
-.hdMetaRight .k{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:10px; /* 2px smaller */
-  letter-spacing:.6px;
-  text-transform:uppercase;
-  white-space:normal;
-}
-
   </style>
 </head>
 
@@ -863,15 +814,15 @@
             </div>
           </div>
 
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
-        </div>
-    <div class="headerRight">
-  <div class="lifetimeHdr" aria-label="Lifetime JEWEL disbursed">
-    <div class="val" id="lifetimeJewelVal">—</div>
-    <div class="lab">DISBURSED</div>
+          <div class="philStack">
+  <div class="lifeMini" aria-label="Lifetime JEWEL disbursed">
+    <div class="lifeMiniNum" id="lifetimeJewelVal">—</div>
+    <div class="lifeMiniLbl">DISBURSED</div>
   </div>
+  <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
 </div>
-</header>
+        </div>
+    </header>
   </div>
 
   <div class="mainNarrow">
@@ -916,12 +867,11 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-            <div class="hdMetaRight" id="lastWeekJewelMeta">
-    <div class="v" id="lastWeekJewelTotal">—</div>
-    <div class="k">DISBURSED LAST WEEK</div>
-  </div>
-</div>
-
+          <div class="hdMetaRight" id="lastWeekJewelMeta">
+            <div class="k">JEWEL distributed</div>
+            <div class="v" id="lastWeekJewelTotal">—</div>
+          </div>
+        </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
             <div class="topEmpty">Loading…</div>
