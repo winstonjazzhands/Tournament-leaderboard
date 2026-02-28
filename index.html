@@ -53,7 +53,7 @@
     .wrap{max-width:1240px;margin:0 auto;padding:10px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
-    header{display:grid;grid-template-columns:1fr auto;align-items:start;column-gap:20px;margin-bottom:10px;}
+    header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:10px;}
     h1{margin:0}
     .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
@@ -61,18 +61,7 @@
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
     /* ✅ TOP ROW: 4 items on one line */
-    .topHeaderRow{
-      display:grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-      gap: 8px;
-      align-items:stretch;
-      margin:10px 0 14px;
-    }
-/* Lifetime disbursed above Phil Collins */
-.philStack{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;}
-.lifeMini{display:flex;flex-direction:column;align-items:center;line-height:1.05;text-align:center;}
-.lifeMiniNum{color:var(--gold);font-weight:1000;font-size:14px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
-.lifeMiniLbl{color:var(--gold);font-weight:1000;font-size:11px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
+    .topHeaderRow{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px;align-items:stretch;margin:10px 0 14px;}
 
     .miniTile,
     .topMiniBtn{
@@ -216,7 +205,7 @@
 
     input{
       width:100%;
-      padding:8px 10px;
+      padding:10px 10px;
       border-radius:12px;
       border:1px solid var(--border);
       background: rgba(0,0,0,.18);
@@ -377,7 +366,7 @@
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:8px 12px;
+      padding:10px 12px;
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
@@ -776,12 +765,36 @@
     }
     
   
-    .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;
-      text-align:right;line-height:1.05;min-width:180px;justify-self:end;align-self:start;margin-top:0;}
-    .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:20px;white-space:nowrap;}
-    .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;
-      text-transform:uppercase;white-space:nowrap;}
+/* Lifetime disbursed (top-right, aligned with header) */
+.headerRightLifetime{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-start;
+  text-align:right;
+  line-height:1.05;
+  min-width:160px;
+}
+.headerRightLifetime .lifeNum{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:18px;
+  white-space:nowrap;
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
+}
+.headerRightLifetime .lifeLbl{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:12px;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
+}
 
+
+.headerLeft{min-width:0;}
+.siteTitle{white-space:nowrap;}
 </style>
 </head>
 
@@ -807,15 +820,13 @@
             </div>
           </div>
 
-          <div class="philStack">
-  <div class="lifeMini" aria-label="Lifetime JEWEL disbursed">
-    <div class="lifeMiniNum" id="lifetimeJewelVal">—</div>
-    <div class="lifeMiniLbl">DISBURSED</div>
-  </div>
-  <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
-</div>
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
-    </header>
+    <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
+  <div class="lifeNum" id="lifetimeJewelVal">—</div>
+  <div class="lifeLbl">DISBURSED</div>
+</div>
+</header>
 
 <div class="topHeaderRow">
 
@@ -1081,11 +1092,32 @@
     }
     
   
-    .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;
-      text-align:right;line-height:1.05;min-width:180px;justify-self:end;align-self:start;margin-top:0;}
-    .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:20px;white-space:nowrap;}
-    .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;
-      text-transform:uppercase;white-space:nowrap;}
+/* Lifetime disbursed (top-right, aligned with header) */
+.headerRightLifetime{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-start;
+  text-align:right;
+  line-height:1.05;
+  min-width:160px;
+}
+.headerRightLifetime .lifeNum{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:18px;
+  white-space:nowrap;
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
+}
+.headerRightLifetime .lifeLbl{
+  color:var(--gold);
+  font-weight:1000;
+  font-size:12px;
+  letter-spacing:.4px;
+  text-transform:uppercase;
+  white-space:nowrap;
+  text-shadow:0 2px 0 rgba(0,0,0,.25);
+}
 
 </style>
 
