@@ -63,7 +63,7 @@
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 8px;
       align-items:stretch;
       margin:10px 0 14px;
@@ -809,6 +809,13 @@
             </div>
           </div>
 
+          <div class="miniTile secondary" id="lifetimeJewelTile" title="Total JEWEL rewards distributed since Jan 16, 2026">
+            <div class="miniInner">
+              <span class="k">Lifetime JEWEL disbursed:</span>
+              <span class="v" id="lifetimeJewelVal">—</span>
+            </div>
+          </div>
+
           <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
         </div>
     </header>
@@ -856,7 +863,10 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-          <div class="hdRightSpacer" aria-hidden="true"></div>
+          <div class="hdMetaRight" id="lastWeekJewelMeta">
+            <div class="k">JEWEL distributed</div>
+            <div class="v" id="lastWeekJewelTotal">—</div>
+          </div>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -1931,6 +1941,13 @@ function openWalletsModal(){
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
     );
+
+
+    // Total JEWEL distributed last week (sum of per-wallet rewards)
+    const totalJewel = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lwEl = $("lastWeekJewelTotal");
+    if (lwEl) lwEl.textContent = formatJewel(totalJewel);
+
     return enriched;
   }
 
@@ -2001,6 +2018,14 @@ function openWalletsModal(){
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
     );
+
+
+
+    // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
+    const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lifeEl = $("lifetimeJewelVal");
+    if (lifeEl) lifeEl.textContent = formatJewel(lifeTotal);
+
 
     state.lifetimeSorted = enriched;
     return enriched;
