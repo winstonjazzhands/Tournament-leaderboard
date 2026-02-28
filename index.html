@@ -777,6 +777,33 @@
 .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;text-align:right;line-height:1.05;min-width:160px}
 .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
 .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+
+/* Last week header meta as gold two-line */
+.goldMeta{color:var(--gold);text-align:right;line-height:1.05;}
+.goldMeta .v{color:var(--gold);font-weight:1000;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
+.goldMeta .k2{color:var(--gold);font-weight:1000;font-size:11px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
+
+
+.copyBtnRow{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex:0 0 auto;}
+.discordCopyBtn{
+  flex:0 0 auto;
+  border:1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.14);
+  color: var(--text);
+  padding: 7px 10px;
+  border-radius: 12px;
+  font-weight: 900;
+  font-size: 12px;
+  cursor:pointer;
+  transition: .12s ease;
+  white-space:nowrap;
+}
+.discordCopyBtn:hover{border-color:rgba(255,255,255,.22);}
+.discordCopyBtn.copied{border-color:rgba(255,216,77,.45);box-shadow:0 0 0 4px rgba(255,216,77,.14);}
+
+
+.lifeOneLine{white-space:nowrap;}
+
 </style>
 </head>
 
@@ -792,8 +819,7 @@
       </div>
 
       <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-        <div class="lifeNum" id="lifetimeJewelVal">—</div>
-        <div class="lifeLbl">DISBURSED</div>
+        <div class="lifeNum lifeOneLine" id="lifetimeJewelVal">—</div>
       </div>
     </header>
 
@@ -868,9 +894,9 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-          <div class="hdMetaRight" id="lastWeekJewelMeta">
-            <div class="k">JEWEL distributed</div>
+          <div class="hdMetaRight goldMeta" id="lastWeekJewelMeta">
             <div class="v" id="lastWeekJewelTotal">—</div>
+            <div class="k2">DISBURSED</div>
           </div>
         </div>
         <div class="bd">
@@ -1593,7 +1619,7 @@
                 </a>
                 ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               </div>
-              <button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy</button>
+              <div class="copyBtnRow"><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button></div>
             </div>
           </td>
 
@@ -1619,14 +1645,29 @@
       });
     });
 
+
+tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const wallet = btn.getAttribute("data-discord");
+    const d = discordForWallet(wallet) || "";
+    const ok = await copyToClipboard(d);
+    if (!ok) return;
+    btn.classList.add("copied");
+    const prev = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => {
+      btn.textContent = prev;
+      btn.classList.remove("copied");
+    }, 1200);
+  });
+});
+
     tb.querySelectorAll(".clickWins").forEach(el => {
       const open = () => {
         const wallet = el.getAttribute("data-wallet") || "";
         const col = el.getAttribute("data-col") || "T";
         const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-        if (!idsText.trim()){
-          return;
-        }
+        if (!idsText.trim()){ openTourneyLinksModal(wallet, col, ""); return; }
         openTourneyLinksModal(wallet, col, idsText);
       };
       el.addEventListener("click", open);
@@ -1881,23 +1922,44 @@ function openWalletsModal(){
     return `https://game.defikingdoms.com/registry/tournaments/${tid}`;
   }
 
-  function openTourneyLinksModal(wallet, tier, idsText){
-    const ids = (idsText || "").split(/\s+/).map(s=>s.trim()).filter(Boolean);
-    const label = tier === 20 ? "Lvl 20" : "Lvl 10";
-    $("tourneyLinksTitle").textContent = `${label} tournament links`;
-    $("tourneyLinksMeta").textContent = `${displayName(wallet)} • Last week • ${ids.length.toLocaleString()} ${ids.length === 1 ? "tournament" : "tournaments"}`;
-    $("tourneyLinksStatus").textContent = "";
+  function openTourneyLinksModal(wallet, col, idsText){
+  const ids = (idsText || "").split(/\s+/).map(s=>s.trim()).filter(Boolean);
 
-    if (!ids.length){
-      $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No tournaments found.</div>`;
-    } else {
-      $("tourneyLinksList").innerHTML = `<ul style="margin:0;padding-left:18px;line-height:1.6;">${
-        ids.map(tid => {
-          const url = tourneyUrl(tid);
-          return `<li><a href="${url}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:800;text-decoration:none;">${url}</a></li>`;
-        }).join("")
-      }</ul>`;
-    }
+  const c = String(col || "T").toUpperCase();
+  const label =
+    c === "20" ? "Lvl 20" :
+    c === "10" ? "Lvl 10" :
+    "Total";
+
+  // Range label from current UI state (this week / last week)
+  const rangeLabel = (state && state.range && state.range.label) ? state.range.label : "Selected range";
+
+  $("tourneyLinksTitle").textContent = `${label} tournament links`;
+
+  const who = displayName(wallet);
+  $("tourneyLinksMeta").textContent = `${who} • ${rangeLabel} • ${ids.length.toLocaleString()} ${ids.length === 1 ? "tournament" : "tournaments"}`;
+  $("tourneyLinksStatus").textContent = "";
+
+  if (!ids.length){
+    $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No tournaments found.</div>`;
+    $("tourneyLinksList").setAttribute("data-copy", "");
+  } else {
+    // Keep order as shown in your data (already sorted earlier), but ensure unique
+    const uniq = Array.from(new Set(ids));
+    $("tourneyLinksList").innerHTML = `<ul style="margin:0;padding-left:18px;line-height:1.6;">${
+      uniq.map(tid => {
+        const url = tourneyUrl(tid);
+        return `<li><a href="${url}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:800;text-decoration:none;">${url}</a></li>`;
+      }).join("")
+    }</ul>`;
+
+    // store for copy
+    $("tourneyLinksList").setAttribute("data-copy", uniq.map(tid => tourneyUrl(tid)).join("\n"));
+  }
+
+  openModal("tourneyLinksBackdrop");
+  setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
+}
 
     // store for copy
     $("tourneyLinksList").setAttribute("data-copy", ids.map(tid => tourneyUrl(tid)).join("\n"));
@@ -2029,7 +2091,10 @@ function openWalletsModal(){
     // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
     const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
     const lifeEl = $("lifetimeJewelVal");
-    if (lifeEl) lifeEl.textContent = formatJewel(lifeTotal);
+    if (lifeEl){
+      const wc = enriched.length;
+      lifeEl.textContent = `${formatJewel(lifeTotal)} DISBURSED TO ${wc.toLocaleString()} ${wc===1?"WALLET":"WALLETS"}`;
+    }
 
 
     state.lifetimeSorted = enriched;
