@@ -61,34 +61,61 @@
       display:flex;
       align-items:flex-start;
       justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+      gap:14px;
     }
-    .lifetimeJewelHeader{
+    .lifetimeHdr{
       text-align:right;
       color: var(--gold);
-      font-weight:1000;
-      font-size: clamp(12px, 1.2vw, 16px);
-      line-height:1.08;
-      max-width: 50%;
+      font-weight:900;
+      letter-spacing:.3px;
+      line-height:1.05;
+      font-size: 14px; /* about 1/3 of title size */
+      max-width: 260px;
       white-space:normal;
       overflow-wrap:anywhere;
-      flex: 0 1 50%;
+      margin-top: 2px;
+      flex: 0 1 260px;
     }
-    .lifetimeJewelHeader .value{display:block;}
-    .lifetimeJewelHeader .label{display:block; text-transform:uppercase;}
-    /* Last week jewel meta: wrap + slightly smaller */
-    #lastWeekJewelMeta .v{
+    .lifetimeHdr .lifetimeVal{
+      font-size: 14px;
       color: var(--gold);
-      font-weight:1000;
-      font-size:10px;
-      line-height:1.15;
-      text-align:right;
+      text-shadow: 0 1px 0 rgba(0,0,0,.35);
       white-space:normal;
-      overflow-wrap:anywhere;
-      text-transform:uppercase;
+    }
+    .lifetimeHdr .lifetimeLbl{
+      font-size: 13px;
+      color: var(--gold);
+      white-space:normal;
     }
 
+    /* Make top buttons/tiles fill the row more evenly */
+    .topHeaderRow{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      align-items:stretch;
+    }
+    .topHeaderRow > .topMiniBtn,
+    .topHeaderRow > .miniTile{
+      flex: 1 1 190px;
+      min-width: 180px;
+    }
+    #philBtn{
+      flex: 1 1 220px;
+      min-width: 210px;
+    }
+
+    /* Last week JEWEL meta: wrap between value and label nicely */
+    #lastWeekJewelMeta{
+      max-width: 220px;
+    }
+    #lastWeekJewelMeta .v{
+      white-space:normal;
+    }
+    #lastWeekJewelMeta .k{
+      font-size: 10px; /* ~2px smaller */
+      white-space:normal;
+    }
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
     .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
@@ -803,6 +830,31 @@
       font-weight:1000;
     }
     
+  
+    /* --- Overrides (keep layout consistent) --- */
+    .topHeaderRow{
+      display:flex !important;
+      flex-wrap:wrap !important;
+      gap:10px !important;
+      align-items:stretch !important;
+    }
+    .topHeaderRow > .topMiniBtn,
+    .topHeaderRow > .miniTile{
+      flex: 1 1 190px !important;
+      min-width: 180px !important;
+    }
+    #philBtn{
+      flex: 1 1 220px !important;
+      min-width: 210px !important;
+    }
+    #lastWeekJewelMeta .k{
+      font-size:10px !important;
+      white-space:normal !important;
+    }
+    #lastWeekJewelMeta .v{
+      white-space:normal !important;
+    }
+
   </style>
 </head>
 
@@ -814,9 +866,9 @@
       <div>
         <div class="titleRow">
           <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
-          <div class="lifetimeJewelHeader" id="lifetimeJewelHeader" title="Total JEWEL rewards distributed since Jan 16, 2026">
-            <span class="value" id="lifetimeJewelVal">—</span>
-            <span class="label">DISBURSED LIFETIME</span>
+          <div class="lifetimeHdr" id="lifetimeHdr" title="Total JEWEL rewards distributed since Jan 16, 2026">
+            <div class="lifetimeVal" id="lifetimeJewelVal">—</div>
+            <div class="lifetimeLbl">DISBURSED LIFETIME</div>
           </div>
         </div>
         <div class="sub" id="tagline">Created by the DFK Dev Team</div>
@@ -846,7 +898,6 @@
               <span class="v" id="utcCountdown">—</span>
               
             </div>
-          </div>
           </div>
 
           <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
@@ -897,6 +948,7 @@
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
           <div class="hdMetaRight" id="lastWeekJewelMeta">
+            <div class="k">DISBURSED LAST WEEK</div>
             <div class="v" id="lastWeekJewelTotal">—</div>
           </div>
         </div>
@@ -1978,7 +2030,7 @@ function openWalletsModal(){
     // Total JEWEL distributed last week (sum of per-wallet rewards)
     const totalJewel = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
     const lwEl = $("lastWeekJewelTotal");
-    if (lwEl) lwEl.textContent = `${totalJewel.toLocaleString()} JEWEL DISBURSED LAST WEEK`;
+    if (lwEl) lwEl.textContent = formatJewel(totalJewel);
 
     return enriched;
   }
