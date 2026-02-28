@@ -776,7 +776,8 @@
 /* Lifetime disbursed (top-right, aligned with header) */
 .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;text-align:right;line-height:1.05;min-width:160px}
 .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25) display:none;
+    }
 </style>
 </head>
 
@@ -793,7 +794,6 @@
 
       <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
         <div class="lifeNum" id="lifetimeJewelVal">—</div>
-        <div class="lifeLbl">DISBURSED</div>
       </div>
     </header>
 
@@ -868,9 +868,9 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-          <div class="hdMetaRight" id="lastWeekJewelMeta">
-            <div class="k">JEWEL distributed</div>
+          <div class="hdMetaRight goldMeta" id="lastWeekJewelMeta">
             <div class="v" id="lastWeekJewelTotal">—</div>
+            <div class="k2">DISBURSED</div>
           </div>
         </div>
         <div class="bd">
@@ -2029,7 +2029,9 @@ function openWalletsModal(){
     // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
     const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
     const lifeEl = $("lifetimeJewelVal");
-    if (lifeEl) lifeEl.textContent = formatJewel(lifeTotal);
+    const walletCount = rows.filter(r => (r.jT || 0) > 0).length;
+
+    if (lifeEl) lifeEl.textContent = `${formatJewel(lifeTotal)} DISBURSED TO ${walletCount.toLocaleString()} ${walletCount === 1 ? "WALLET" : "WALLETS"}`;
 
 
     state.lifetimeSorted = enriched;
