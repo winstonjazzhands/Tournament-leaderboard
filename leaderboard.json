@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-02-28T16:05:46.185Z",
+  "updatedAtUtc": "2026-02-28T16:26:14.380Z",
   "source": "subgraph+logs/lookback",
   "decodeVersion": "post22m-v1-flexpair",
   "rpc": "https://andromeda.metis.io/?owner=1088",
@@ -7,8 +7,8 @@
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 255,
-  "uniqueTournaments": 255,
+  "totalWins": 256,
+  "uniqueTournaments": 256,
   "unknownTierWins": 0,
   "wins": [
     {
@@ -2050,16 +2050,24 @@
       "timestamp": 1772243362,
       "blockNumber": 22258375,
       "tier": 10
+    },
+    {
+      "id": "0xaf65d507bf149bffeb970f607c69b8825b29e53b8c90ec87a483d70d89581de1-1",
+      "tournamentId": 2099,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1772295683,
+      "blockNumber": 22262094,
+      "tier": 10
     }
   ],
   "leaderboard": [
     {
       "rank": 1,
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
-      "lvl10Wins": 51,
+      "lvl10Wins": 52,
       "lvl20Wins": 0,
-      "totalWins": 51,
-      "lastWin": 1772146528
+      "totalWins": 52,
+      "lastWin": 1772295683
     },
     {
       "rank": 2,
@@ -2286,6 +2294,6 @@
       "lastWin": 1769122086
     }
   ],
-  "tiersUpdatedAtUtc": "2026-02-28T16:05:47.949Z",
+  "tiersUpdatedAtUtc": "2026-02-28T16:26:15.743Z",
   "tiersChanges": 88
 }
