@@ -68,6 +68,11 @@
       align-items:stretch;
       margin:10px 0 14px;
     }
+/* Lifetime disbursed above Phil Collins */
+.philStack{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:6px;}
+.lifeMini{display:flex;flex-direction:column;align-items:center;line-height:1.05;text-align:center;}
+.lifeMiniNum{color:var(--gold);font-weight:1000;font-size:14px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
+.lifeMiniLbl{color:var(--gold);font-weight:1000;font-size:11px;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
 
     .miniTile,
     .topMiniBtn{
@@ -211,7 +216,7 @@
 
     input{
       width:100%;
-      padding:10px 10px;
+      padding:8px 10px;
       border-radius:12px;
       border:1px solid var(--border);
       background: rgba(0,0,0,.18);
@@ -372,7 +377,7 @@
     /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
     #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
     #lastWeekTile .topItem, #lifetimeTile .topItem{
-      padding:10px 12px;
+      padding:8px 12px;
       border-radius:16px;
     }
     #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
@@ -792,7 +797,7 @@
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP DEV</button>
 
           <div class="miniTile" id="utcTile">
   <div class="miniInner">
@@ -809,7 +814,13 @@
             </div>
           </div>
 
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+          <div class="philStack">
+  <div class="lifeMini" aria-label="Lifetime JEWEL disbursed">
+    <div class="lifeMiniNum" id="lifetimeJewelVal">—</div>
+    <div class="lifeMiniLbl">DISBURSED</div>
+  </div>
+  <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+</div>
         </div>
     </header>
   </div>
@@ -856,7 +867,10 @@
             <span>Last week top 3</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
-          <div class="hdRightSpacer" aria-hidden="true"></div>
+          <div class="hdMetaRight" id="lastWeekJewelMeta">
+            <div class="k">JEWEL distributed</div>
+            <div class="v" id="lastWeekJewelTotal">—</div>
+          </div>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -1751,8 +1765,8 @@
       address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
     },
     {
-      button: "TIP JERMCURRY",
-      title: "TIP JERMCURRY",
+      button: "TIP DEV",
+      title: "TIP DEV",
       messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
       address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
     },
@@ -1931,6 +1945,13 @@ function openWalletsModal(){
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
     );
+
+
+    // Total JEWEL distributed last week (sum of per-wallet rewards)
+    const totalJewel = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lwEl = $("lastWeekJewelTotal");
+    if (lwEl) lwEl.textContent = formatJewel(totalJewel);
+
     return enriched;
   }
 
@@ -2001,6 +2022,14 @@ function openWalletsModal(){
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
     );
+
+
+
+    // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
+    const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lifeEl = $("lifetimeJewelVal");
+    if (lifeEl) lifeEl.textContent = formatJewel(lifeTotal);
+
 
     state.lifetimeSorted = enriched;
     return enriched;
