@@ -783,7 +783,7 @@
 .goldMeta .v{color:var(--gold);font-weight:1000;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
 .goldMeta .k2{color:var(--gold);font-weight:1000;font-size:11px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);}
 
-
+  
 .copyBtnRow{display:flex;gap:8px;align-items:center;justify-content:flex-end;flex:0 0 auto;}
 .discordCopyBtn{
   flex:0 0 auto;
@@ -801,10 +801,9 @@
 .discordCopyBtn:hover{border-color:rgba(255,255,255,.22);}
 .discordCopyBtn.copied{border-color:rgba(255,216,77,.45);box-shadow:0 0 0 4px rgba(255,216,77,.14);}
 
-
-.lifeOneLine{white-space:nowrap;}
-
-</style>
+  
+    .headerRightLifetime .lifeLbl{display:none;}
+  </style>
 </head>
 
 <body>
@@ -819,7 +818,8 @@
       </div>
 
       <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-        <div class="lifeNum lifeOneLine" id="lifetimeJewelVal">—</div>
+        <div class="lifeNum" id="lifetimeJewelVal">—</div>
+        <div class="lifeLbl">DISBURSED</div>
       </div>
     </header>
 
@@ -1645,10 +1645,10 @@
       });
     });
 
-
+    
 tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
   btn.addEventListener("click", async () => {
-    const wallet = btn.getAttribute("data-discord");
+    const wallet = btn.getAttribute("data-discord") || "";
     const d = discordForWallet(wallet) || "";
     const ok = await copyToClipboard(d);
     if (!ok) return;
@@ -1662,7 +1662,7 @@ tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
   });
 });
 
-    tb.querySelectorAll(".clickWins").forEach(el => {
+tb.querySelectorAll(".clickWins").forEach(el => {
       const open = () => {
         const wallet = el.getAttribute("data-wallet") || "";
         const col = el.getAttribute("data-col") || "T";
@@ -2092,7 +2092,8 @@ function openWalletsModal(){
     const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
     const lifeEl = $("lifetimeJewelVal");
     if (lifeEl){
-      const wc = enriched.length;
+      const winners = enriched.filter(r => (Number(r.jT) || 0) > 0);
+      const wc = winners.length;
       lifeEl.textContent = `${formatJewel(lifeTotal)} DISBURSED TO ${wc.toLocaleString()} ${wc===1?"WALLET":"WALLETS"}`;
     }
 
