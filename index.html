@@ -57,33 +57,7 @@
     h1{margin:0}
     .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
-    
-/* Lifetime disbursed (top-right, aligned with header) */
-.headerRightLifetime{
-  display:flex;
-  flex-direction:column;
-  align-items:flex-end;
-  justify-content:flex-start;
-  text-align:right;
-  line-height:1.05;
-  min-width:160px;
-  margin-top:0px;
-}
-.headerRightLifetime .lifeNum{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:18px;
-  white-space:nowrap;
-}
-.headerRightLifetime .lifeLbl{
-  color:var(--gold);
-  font-weight:1000;
-  font-size:12px;
-  letter-spacing:.4px;
-  text-transform:uppercase;
-  white-space:nowrap;
-}
-.playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
+    .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
     /* ✅ TOP ROW: 4 items on one line */
@@ -212,21 +186,20 @@
     }
 
     @keyframes subtlePulse {
-  0%   { background: rgba(255,255,255,.04); }
-  4%   { background: rgba(255,255,255,.062); }
-  8%   { background: rgba(255,255,255,.04); }
-  100% { background: rgba(255,255,255,.04); }
-}
-
-@keyframes learnPulse {
-  0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-  15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-  35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-  55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
-  100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
-}
-
-.learnMini{
+      0%   { background: rgba(255,255,255,.04); }
+      
+    @keyframes learnPulse {
+      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+    }
+4%   { background: rgba(255,255,255,.062); }
+      8%   { background: rgba(255,255,255,.04); }
+      100% { background: rgba(255,255,255,.04); }
+    }
+    .learnMini{
       font-size:13px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
@@ -802,7 +775,32 @@
       font-weight:1000;
     }
     
-  </style>
+  
+    .headerRightLifetime{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      justify-content:flex-start;
+      text-align:right;
+      line-height:1.05;
+      min-width:180px;
+    }
+    .headerRightLifetime .lifeNum{
+      color:var(--gold);
+      font-weight:1000;
+      font-size:20px;
+      white-space:nowrap;
+    }
+    .headerRightLifetime .lifeLbl{
+      color:var(--gold);
+      font-weight:1000;
+      font-size:12px;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+</style>
 </head>
 
 <body>
@@ -816,14 +814,7 @@
         <div class="sub" id="subline"></div>
         
 
-        
-    <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-  <div class="lifeNum" id="lifetimeJewelVal">—</div>
-  <div class="lifeLbl">DISBURSED</div>
-</div>
-</header>
-
-    <div class="topHeaderRow">
+        <div class="topHeaderRow">
 
           <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
             PLAY DFK NOW
@@ -848,9 +839,21 @@
             </div>
           </div>
 
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+          <div class="philStack">
+  <div class="lifeMini" aria-label="Lifetime JEWEL disbursed">
+    <div class="lifeMiniNum" id="lifetimeJewelVal">—</div>
+    <div class="lifeMiniLbl">DISBURSED</div>
+  </div>
+  <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+</div>
         </div>
+    
+  <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
+    <div class="lifeNum" id="lifetimeJewelVal">—</div>
+    <div class="lifeLbl">DISBURSED</div>
+  </div>
 
+</header>
   </div>
 
   <div class="mainNarrow">
@@ -1099,7 +1102,32 @@
       font-weight:1000;
     }
     
-  </style>
+  
+    .headerRightLifetime{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      justify-content:flex-start;
+      text-align:right;
+      line-height:1.05;
+      min-width:180px;
+    }
+    .headerRightLifetime .lifeNum{
+      color:var(--gold);
+      font-weight:1000;
+      font-size:20px;
+      white-space:nowrap;
+    }
+    .headerRightLifetime .lifeLbl{
+      color:var(--gold);
+      font-weight:1000;
+      font-size:12px;
+      letter-spacing:.4px;
+      text-transform:uppercase;
+      white-space:nowrap;
+    }
+
+</style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
