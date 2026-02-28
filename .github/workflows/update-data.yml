@@ -1,20 +1,33 @@
-name: Update leaderboard data
+name: Update leaderboard data (hourly)
 
 on:
- schedule:
-    - cron: '0 * * * *'
+  workflow_dispatch:
+  schedule:
+    # Every hour (UTC). GitHub schedules are best-effort.
+    - cron: "0 * * * *"
 
 permissions:
   contents: write
 
-# Avoid overlapping scheduled runs fighting each other (and breaking git pull/rebase)
 concurrency:
   group: update-leaderboard-data
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  update:
+  build-and-push:
     runs-on: ubuntu-latest
+    env:
+      # Required
+      RPC_URL: ${{ secrets.RPC_URL }}
+      SUBGRAPH_ENDPOINT: ${{ secrets.SUBGRAPH_ENDPOINT }}
+      TOURNAMENT_DIAMOND: ${{ secrets.TOURNAMENT_DIAMOND }}
+      # Optional / used by your tier builder if present
+      SEED_TX_L10: ${{ secrets.SEED_TX_L10 }}
+      SEED_TX_L20: ${{ secrets.SEED_TX_L20 }}
+      # If your scripts expect these names instead, add them too
+      rpc_url: ${{ secrets.RPC_URL }}
+      subgraph_endpoint: ${{ secrets.SUBGRAPH_ENDPOINT }}
+      tournament_diamond: ${{ secrets.TOURNAMENT_DIAMOND }}
 
     steps:
       - name: Checkout
@@ -22,93 +35,75 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Node
+      - name: Use Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
 
-      - name: Install dependencies
+      - name: Install deps
         run: npm ci
 
-      - name: Update ALL data (wins + profiles + tournamentRanges + validate)
-        env:
-          # Required (store these in repo Settings -> Secrets and variables -> Actions)
-          RPC_URL: ${{ secrets.RPC_URL }}
-          SUBGRAPH_ENDPOINT: ${{ secrets.SUBGRAPH_ENDPOINT }}
-          TOURNAMENT_DIAMOND: ${{ secrets.TOURNAMENT_DIAMOND }}
-
-          # Optional tuning (constants are fine here; move to secrets later if you want)
-          START_BLOCK: "22000000"
-          LOOKBACK_BLOCKS: "3000000"
-          LOG_CHUNK_BLOCKS: "60000"
-          USE_CACHE: "1"
-
-          # Seed transactions used by tournamentRanges builder (secrets)
-          SEED_TX_L10: ${{ secrets.SEED_TX_L10 }}
-          SEED_TX_L20: ${{ secrets.SEED_TX_L20 }}
-
-          # Back-compat if any script reads RPC instead of RPC_URL
-          RPC: ${{ secrets.RPC_URL }}
-        run: npm run update:all
-
-      - name: Copy public outputs to repo root (Pages root hosting)
+      - name: Sanity check required secrets
         run: |
           set -e
-          cp -f public/leaderboard.json leaderboard.json
-          cp -f public/profiles.json profiles.json
-          if [ -f public/tournamentRanges.json ]; then
-            cp -f public/tournamentRanges.json tournamentRanges.json
-          fi
+          if [ -z "${RPC_URL}" ]; then echo "Missing RPC_URL (set repo secret RPC_URL)"; exit 1; fi
+          if [ -z "${SUBGRAPH_ENDPOINT}" ]; then echo "Missing SUBGRAPH_ENDPOINT (set repo secret SUBGRAPH_ENDPOINT)"; exit 1; fi
+          if [ -z "${TOURNAMENT_DIAMOND}" ]; then echo "Missing TOURNAMENT_DIAMOND (set repo secret TOURNAMENT_DIAMOND)"; exit 1; fi
 
-      - name: Configure git author
+      # --- Run your data builder(s) ---
+      # Adjust these commands to match your repo scripts.
+      - name: Build leaderboard + profiles
+        run: |
+          set -e
+          npm run build:data
+
+      - name: Build tournamentRanges (tier overrides)
+        run: |
+          set -e
+          # If your repo uses a different script name, change it here.
+          npm run build:tiers
+
+      # --- Commit generated artifacts ---
+      - name: Configure git identity
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit updated data (if changed)
-        id: commit
+      - name: Stage generated files
+        id: stage
         run: |
           set -e
+          # Stage both root + public versions (some repos keep one, some both)
+          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json 2>/dev/null || true
+          git add leaderboard.json profiles.json tournamentRanges.json 2>/dev/null || true
+          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json 2>/dev/null || true
 
-          # Add generated public files
-          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
-
-          # Add Pages-root copies
-          git add leaderboard.json profiles.json tournamentRanges.json || true
-
-          # Add caches (helps speed/stability between runs)
-          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
-
-          # Only commit if something changed
           if git diff --cached --quiet; then
-            echo "No changes to commit"
-            echo "committed=false" >> "$GITHUB_OUTPUT"
-            exit 0
+            echo "committed=false" >> $GITHUB_OUTPUT
+            echo "No changes to commit."
+          else
+            echo "committed=true" >> $GITHUB_OUTPUT
           fi
 
-          git commit -m "chore: update leaderboard data"
-          echo "committed=true" >> "$GITHUB_OUTPUT"
-
-      - name: Push changes
-        if: steps.commit.outputs.committed == 'true'
+      - name: Commit
+        if: steps.stage.outputs.committed == 'true'
         run: |
           set -e
+          git commit -m "chore: update leaderboard data"
 
-          # Rebase onto the latest main to avoid non-fast-forward pushes
+      - name: Push (no rebase; avoid conflicts on generated files)
+        if: steps.stage.outputs.committed == 'true'
+        run: |
+          set -e
           git fetch origin main
-          git rebase origin/main
+          git checkout main
+          git reset --hard origin/main
 
-          # Push with a couple retries for transient network hiccups
-          for i in 1 2 3; do
-            echo "Push attempt $i..."
-            if git push origin HEAD:main; then
-              echo "Push succeeded."
-              exit 0
-            fi
-            echo "Push failed, retrying..."
-            sleep 2
-          done
+          # Re-apply the staged/generated changes on top of latest main
+          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json 2>/dev/null || true
+          git add leaderboard.json profiles.json tournamentRanges.json 2>/dev/null || true
+          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json 2>/dev/null || true
 
-          echo "Push failed after 3 attempts."
-          exit 1
+          git commit -m "chore: update leaderboard data" || echo "No changes"
+          git push origin main
