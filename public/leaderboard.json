@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-02-28T21:09:48.931Z",
+  "updatedAtUtc": "2026-02-28T22:10:39.007Z",
   "source": "subgraph+logs/lookback",
   "decodeVersion": "post22m-v1-flexpair",
   "rpc": "https://andromeda.metis.io/?owner=1088",
@@ -2310,6 +2310,6 @@
       "lastWin": 1769122086
     }
   ],
-  "tiersUpdatedAtUtc": "2026-02-28T21:09:50.036Z",
+  "tiersUpdatedAtUtc": "2026-02-28T22:10:40.655Z",
   "tiersChanges": 90
 }
