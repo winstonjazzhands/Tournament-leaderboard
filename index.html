@@ -53,7 +53,7 @@
     .wrap{max-width:1240px;margin:0 auto;padding:10px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
-    header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:10px;}
+    header{display:grid;grid-template-columns:1fr auto;align-items:start;column-gap:20px;margin-bottom:10px;}
     h1{margin:0}
     .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
     .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
@@ -776,29 +776,11 @@
     }
     
   
-    .headerRightLifetime{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      justify-content:flex-start;
-      text-align:right;
-      line-height:1.05;
-      min-width:180px;
-    }
-    .headerRightLifetime .lifeNum{
-      color:var(--gold);
-      font-weight:1000;
-      font-size:20px;
-      white-space:nowrap;
-    }
-    .headerRightLifetime .lifeLbl{
-      color:var(--gold);
-      font-weight:1000;
-      font-size:12px;
-      letter-spacing:.4px;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
+    .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;
+      text-align:right;line-height:1.05;min-width:180px;justify-self:end;align-self:start;margin-top:0;}
+    .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:20px;white-space:nowrap;}
+    .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;
+      text-transform:uppercase;white-space:nowrap;}
 
 </style>
 </head>
@@ -814,21 +796,7 @@
         <div class="sub" id="subline"></div>
         
 
-        <div class="topHeaderRow">
-
-          <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
-            PLAY DFK NOW
-          </a>
-
-          <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
-
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP DEV</button>
-
-          <div class="miniTile" id="utcTile">
-  <div class="miniInner">
-    <span class="k">Current UTC time:</span>
-    <span class="v" id="utcNow">—</span>
-  </div>
+        
 </div>
 
           <div class="miniTile secondary" id="rolloverTile">
@@ -847,13 +815,23 @@
   <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
 </div>
         </div>
-    
-  <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
-    <div class="lifeNum" id="lifetimeJewelVal">—</div>
-    <div class="lifeLbl">DISBURSED</div>
-  </div>
+    </header>
 
-</header>
+<div class="topHeaderRow">
+
+          <a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
+            PLAY DFK NOW
+          </a>
+
+          <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
+
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP DEV</button>
+
+          <div class="miniTile" id="utcTile">
+  <div class="miniInner">
+    <span class="k">Current UTC time:</span>
+    <span class="v" id="utcNow">—</span>
+  </div>
   </div>
 
   <div class="mainNarrow">
@@ -1103,29 +1081,11 @@
     }
     
   
-    .headerRightLifetime{
-      display:flex;
-      flex-direction:column;
-      align-items:flex-end;
-      justify-content:flex-start;
-      text-align:right;
-      line-height:1.05;
-      min-width:180px;
-    }
-    .headerRightLifetime .lifeNum{
-      color:var(--gold);
-      font-weight:1000;
-      font-size:20px;
-      white-space:nowrap;
-    }
-    .headerRightLifetime .lifeLbl{
-      color:var(--gold);
-      font-weight:1000;
-      font-size:12px;
-      letter-spacing:.4px;
-      text-transform:uppercase;
-      white-space:nowrap;
-    }
+    .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;
+      text-align:right;line-height:1.05;min-width:180px;justify-self:end;align-self:start;margin-top:0;}
+    .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:20px;white-space:nowrap;}
+    .headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;
+      text-transform:uppercase;white-space:nowrap;}
 
 </style>
 
