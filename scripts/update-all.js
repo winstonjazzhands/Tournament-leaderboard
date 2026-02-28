@@ -1,59 +1,51 @@
-// scripts/update-all.js
-import { execSync } from "node:child_process";
-import fs from "node:fs";
-import path from "node:path";
+#!/usr/bin/env node
+/**
+ * Update everything in the correct order, then always copy public outputs to repo root.
+ *
+ * Order:
+ *   1) wins
+ *   2) profiles
+ *   3) ranges
+ *   4) apply tiers
+ *   5) validate
+ *   6) copy public/*.json -> repo root
+ */
 
-function run(cmd) {
-  console.log(`\n> ${cmd}`);
-  execSync(cmd, { stdio: "inherit", shell: true });
+import fs from "fs";
+import path from "path";
+import { spawnSync } from "child_process";
+
+const ROOT = process.cwd();
+const PUBLIC_DIR = path.join(ROOT, "public");
+
+function run(cmd, args) {
+  const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
+  if (r.status !== 0) process.exit(r.status ?? 1);
 }
 
-function ensureDir(p) {
-  fs.mkdirSync(p, { recursive: true });
-}
-
-function writeTournamentRangesStub(publicDir) {
-  const outPath = path.join(publicDir, "tournamentRanges.json");
-
-  // If it already exists, do nothing
-  if (fs.existsSync(outPath)) return;
-
-  const stub = {
-    updatedAtUtc: new Date().toISOString(),
-    source: "stub (tournamentRanges build failed)",
-    rangesByTournamentId: {},
-  };
-
-  fs.writeFileSync(outPath, JSON.stringify(stub, null, 2) + "\n", "utf8");
-  console.log(`⚠️  Wrote stub tournamentRanges.json -> ${outPath}`);
-}
-
-const PUBLIC_DIR = path.resolve("public");
-ensureDir(PUBLIC_DIR);
-
-try {
-  // 1) Wins
-  run("node scripts/pull-wins-tier-from-logs-post22m-lookback.js");
-
-  // 2) Profiles
-  run("node scripts/resolve-profiles-community-api.js");
-
-  // 3) Tournament ranges (allowed to fail)
-  try {
-    run("node scripts/build-tournamentRanges-subgraph.js");
-  } catch (e) {
-    console.log("\n⚠️ tournamentRanges build FAILED (continuing)");
-    writeTournamentRangesStub(PUBLIC_DIR);
+function copyIfExists(src, dst) {
+  if (fs.existsSync(src)) {
+    fs.copyFileSync(src, dst);
+    console.log(`Copied: ${src} -> ${dst}`);
+  } else {
+    console.log(`Skip copy (missing): ${src}`);
   }
-
-  // If build script failed before creating file, ensure stub exists anyway
-  writeTournamentRangesStub(PUBLIC_DIR);
-
-  // 4) Validate (now it should always have required files)
-  run("node scripts/validate-public-data.js");
-
-  console.log("\n✅ update-all finished.");
-} catch (err) {
-  console.error("\n❌ update-all failed.");
-  process.exitCode = 1;
 }
+
+function main() {
+  // Run the same scripts your package.json points to
+  run("node", ["scripts/pull-wins-tier-from-logs-post22m-lookback.js"]);
+  run("node", ["scripts/resolve-profiles-community-api.js"]);
+  run("node", ["scripts/build-tournamentRanges-subgraph.js"]);
+  run("node", ["scripts/apply-tournament-ranges-to-leaderboard.js"]);
+  run("node", ["scripts/validate-public-data.js"]);
+
+  // Always keep repo root in sync for GitHub Pages root hosting
+  copyIfExists(path.join(PUBLIC_DIR, "leaderboard.json"), path.join(ROOT, "leaderboard.json"));
+  copyIfExists(path.join(PUBLIC_DIR, "profiles.json"), path.join(ROOT, "profiles.json"));
+  copyIfExists(path.join(PUBLIC_DIR, "tournamentRanges.json"), path.join(ROOT, "tournamentRanges.json"));
+
+  console.log("update-all complete.");
+}
+
+main();
