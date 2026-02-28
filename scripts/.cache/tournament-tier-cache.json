@@ -6928,6 +6928,14 @@
       "resolvedAtUtc": "2026-02-28T00:50:51.299Z",
       "decodeVersion": "post22m-v1-flexpair"
     },
+    "2097": {
+      "tier": 10,
+      "matchedBlock": 22258141,
+      "anchorWinBlock": 22258375,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-02-28T03:03:48.112Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
     "2098": {
       "tier": 10,
       "matchedBlock": 22257411,
