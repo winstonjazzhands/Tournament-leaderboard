@@ -1,9 +1,6 @@
 {
-  "updatedAtUtc": "2026-03-02T14:06:18.377Z",
-  "source": "subgraph+logs/lookback",
+  "updatedAtUtc": "2026-03-02T14:23:21.713Z",
   "decodeVersion": "post22m-v1-flexpair",
-  "rpc": "https://andromeda.metis.io/?owner=1088\r\n",
-  "tournamentDiamond": "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
@@ -2499,6 +2496,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-02T14:06:19.837Z",
+  "tiersUpdatedAtUtc": "2026-03-02T14:23:23.304Z",
   "tiersChanges": 96
 }
