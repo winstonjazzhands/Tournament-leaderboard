@@ -10,13 +10,10 @@
  *      - wins[] (raw, per-win, includes tier)
  *      - leaderboard[] (aggregated per wallet, L10/L20 totals, lastWin)
  *
- * Decoder (proven on sample70):
- *  1) Flexible (min,max) pair near tournamentId word:
- *      - min and max don’t have to be adjacent
- *      - max must be 10 or 20
- *      - min <= max
- *      - max-min <= 4
- *  2) Fallback: nearest 10/20 near tournamentId ONLY if unambiguous (not both 10 and 20 present)
+ * FIX (Lifetime Earned):
+ *  - Adds true JEWEL earned calculations by summing WEEKLY payouts over time:
+ *      lifetimeEarned = Σ per-week [ bracket(L10winsThatWeek) + 60 * L20winsThatWeek ]
+ *    This is required because L10 rewards are weekly threshold payouts (not additive per win).
  */
 
 import fs from "fs";
@@ -29,12 +26,27 @@ const __dirname = path.dirname(__filename);
 
 const DECODE_VERSION = "post22m-v1-flexpair";
 
+// Reward rules (keep here so backend + frontend stay consistent)
+const REWARDS = {
+  L20_PER_WIN: 60,
+  // Weekly bracket payout for L10 wins in a week
+  L10_BRACKETS: [
+    { minWins: 10, jewel: 750 },
+    { minWins: 5, jewel: 300 },
+    { minWins: 3, jewel: 150 },
+  ],
+};
+
 const CFG = {
   SUBGRAPH_ENDPOINT:
     process.env.SUBGRAPH_ENDPOINT ||
     "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7",
 
-  RPC: process.env.RPC || "https://andromeda.metis.io/?owner=1088",
+  // Accept either RPC_URL (workflow) or RPC (older scripts)
+  RPC:
+    process.env.RPC_URL ||
+    process.env.RPC ||
+    "https://andromeda.metis.io/?owner=1088",
 
   TOURNAMENT_DIAMOND:
     process.env.TOURNAMENT_DIAMOND ||
@@ -100,6 +112,25 @@ function wordToSmallInt(hexWord) {
   } catch {
     return null;
   }
+}
+
+/**
+ * Week start (Monday 00:00 UTC) as epoch seconds
+ */
+function weekStartUtcSeconds(tsSec) {
+  const d = new Date(tsSec * 1000);
+  const day = d.getUTCDay(); // 0=Sun..6=Sat
+  const diffToMonday = (day + 6) % 7; // Mon->0 ... Sun->6
+  d.setUTCDate(d.getUTCDate() - diffToMonday);
+  d.setUTCHours(0, 0, 0, 0);
+  return Math.floor(d.getTime() / 1000);
+}
+
+function l10BracketPayout(winsL10ThatWeek) {
+  for (const b of REWARDS.L10_BRACKETS) {
+    if (winsL10ThatWeek >= b.minWins) return b.jewel;
+  }
+  return 0;
 }
 
 /**
@@ -332,6 +363,13 @@ async function gqlFetchAllTournamentWins(endpoint) {
 function aggregateLeaderboardFromWins(wins) {
   const by = new Map();
 
+  // wallet -> weekStartSec -> {l10, l20}
+  const weekly = new Map();
+
+  const nowSec = Math.floor(Date.now() / 1000);
+  const thisWeekStart = weekStartUtcSeconds(nowSec);
+  const lastWeekStart = thisWeekStart - 7 * 24 * 60 * 60;
+
   for (const w of wins) {
     const wallet = toLower0x(w.wallet);
     if (!wallet) continue;
@@ -352,18 +390,64 @@ function aggregateLeaderboardFromWins(wins) {
     if (Number(w.timestamp) > cur.lastWin) cur.lastWin = Number(w.timestamp);
 
     by.set(wallet, cur);
+
+    // Only count tiered wins into JEWEL earnings
+    if (w.tier !== 10 && w.tier !== 20) continue;
+    if (!Number.isFinite(Number(w.timestamp))) continue;
+
+    const wk = weekStartUtcSeconds(Number(w.timestamp));
+
+    let walletWeeks = weekly.get(wallet);
+    if (!walletWeeks) {
+      walletWeeks = new Map();
+      weekly.set(wallet, walletWeeks);
+    }
+
+    let counts = walletWeeks.get(wk);
+    if (!counts) {
+      counts = { l10: 0, l20: 0 };
+      walletWeeks.set(wk, counts);
+    }
+
+    if (w.tier === 10) counts.l10++;
+    else counts.l20++;
+  }
+
+  // Compute earnings per wallet
+  const earnedByWallet = new Map(); // wallet -> { lifetime, thisWeek, lastWeek }
+  for (const [wallet, weeks] of weekly.entries()) {
+    let lifetime = 0;
+    let thisWeek = 0;
+    let lastWeek = 0;
+
+    for (const [wk, c] of weeks.entries()) {
+      const payout = l10BracketPayout(c.l10) + REWARDS.L20_PER_WIN * c.l20;
+      lifetime += payout;
+      if (wk === thisWeekStart) thisWeek += payout;
+      if (wk === lastWeekStart) lastWeek += payout;
+    }
+
+    earnedByWallet.set(wallet, { lifetime, thisWeek, lastWeek });
   }
 
   return [...by.values()]
     .sort((a, b) => (b.totalWins - a.totalWins) || (b.lastWin - a.lastWin) || a.wallet.localeCompare(b.wallet))
-    .map((r, i) => ({
-      rank: i + 1,
-      wallet: r.wallet,
-      lvl10Wins: r.lvl10Wins,
-      lvl20Wins: r.lvl20Wins,
-      totalWins: r.totalWins,
-      lastWin: r.lastWin,
-    }));
+    .map((r, i) => {
+      const e = earnedByWallet.get(r.wallet) || { lifetime: 0, thisWeek: 0, lastWeek: 0 };
+      return {
+        rank: i + 1,
+        wallet: r.wallet,
+        lvl10Wins: r.lvl10Wins,
+        lvl20Wins: r.lvl20Wins,
+        totalWins: r.totalWins,
+        lastWin: r.lastWin,
+
+        // NEW: true earned totals
+        lifetimeEarned: e.lifetime,
+        thisWeekEarned: e.thisWeek,
+        lastWeekEarned: e.lastWeek,
+      };
+    });
 }
 
 async function main() {
@@ -475,6 +559,15 @@ async function main() {
     totalWins: wins.length,
     uniqueTournaments: tids.length,
     unknownTierWins,
+
+    // Useful metadata for reward interpretation
+    rewards: {
+      lvl10Brackets: REWARDS.L10_BRACKETS,
+      lvl20PerWin: REWARDS.L20_PER_WIN,
+      weekStart: "Monday 00:00 UTC",
+      earnedDefinition: "Sum of weekly payouts over time (L10 bracket per week + L20 per-win per week).",
+    },
+
     wins: wins.map((w) => ({
       id: w.id,
       tournamentId: w.tournamentId,
