@@ -1,0 +1,22 @@
+{
+  "generatedAtUtc": "2026-02-28T23:53:46.291Z",
+  "source": "public/matches.json",
+  "thresholds": {
+    "TOP_N": 80,
+    "MIN_MATCHES": 20,
+    "MIN_WINRATE": 0.05,
+    "MAX_WINRATE": 0.95,
+    "MIN_MATCHES_SYSTEMISH": 50,
+    "SYSTEMISH_WINRATE_HIGH": 0.98,
+    "SYSTEMISH_WINRATE_LOW": 0.02
+  },
+  "usedMatches": 20711,
+  "skippedMatches": 176,
+  "players": [],
+  "counts": {
+    "allPlayers": 99,
+    "competitive": 0,
+    "systemish": 39,
+    "other": 60
+  }
+}

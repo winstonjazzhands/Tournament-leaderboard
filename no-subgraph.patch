@@ -1,0 +1,803 @@
+diff --git a/.github/workflows/update-data.yml b/.github/workflows/update-data.yml
+index b15a70c..ad32092 100644
+--- a/.github/workflows/update-data.yml
++++ b/.github/workflows/update-data.yml
+@@ -1,89 +1,88 @@
+-name: Update leaderboard data
+-
+-on:
+-  schedule:
+-    # Runs at minute 0 every hour (UTC). GitHub schedules are best-effort.
+-    - cron: '0 * * * *'
+-  workflow_dispatch:
+-
+-permissions:
+-  contents: write
+-
+-# Avoid overlapping scheduled runs fighting each other
+-concurrency:
+-  group: update-leaderboard-data
+-  cancel-in-progress: true
+-
+-jobs:
+-  update:
+-    runs-on: ubuntu-latest
+-
+-    steps:
+-      - name: Checkout
+-        uses: actions/checkout@v4
+-        with:
+-          fetch-depth: 0
+-
+-      - name: Setup Node
+-        uses: actions/setup-node@v4
+-        with:
+-          node-version: 20
+-          cache: npm
+-
+-      - name: Install dependencies
+-        run: npm ci
+-
+-      - name: Update ALL data (wins + profiles + tournamentRanges + validate)
+-        env:
+-          RPC_URL: ${{ vars.RPC_URL }}
+-          SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
+-          TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
+-          SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
+-          SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
+-          START_BLOCK: "22000000"
+-          LOOKBACK_BLOCKS: "3000000"
+-          LOG_CHUNK_BLOCKS: "60000"
+-          USE_CACHE: "1"
+-        run: npm run update:all
+-
+-      - name: Copy public outputs to repo root (Pages root hosting)
+-        run: |
+-          set -e
+-          cp -f public/leaderboard.json leaderboard.json
+-          cp -f public/profiles.json profiles.json
+-          if [ -f public/tournamentRanges.json ]; then
+-            cp -f public/tournamentRanges.json tournamentRanges.json
+-          fi
+-
+-      - name: Configure git author
+-        run: |
+-          git config user.name "github-actions[bot]"
+-          git config user.email "github-actions[bot]@users.noreply.github.com"
+-
+-      - name: Commit updated data (if changed)
+-        id: commit
+-        run: |
+-          set -e
+-
+-          # Add generated public files
+-          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
+-
+-          # Add Pages-root copies
+-          git add leaderboard.json profiles.json tournamentRanges.json || true
+-
+-          # Add caches (helps speed/stability between runs)
+-          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
+-
+-          # Only commit if something changed
+-          if git diff --cached --quiet; then
+-            echo "No changes to commit"
+-            echo "changed=false" >> $GITHUB_OUTPUT
+-            exit 0
+-          fi
+-
+-          git commit -m "Update leaderboard data"
+-          echo "changed=true" >> $GITHUB_OUTPUT
+-
+-      - name: Push changes
+-        if: steps.commit.outputs.changed == 'true'
++name: Update leaderboard data
++
++on:
++  schedule:
++    # Runs at minute 0 every hour (UTC). GitHub schedules are best-effort.
++    - cron: '0 * * * *'
++  workflow_dispatch:
++
++permissions:
++  contents: write
++
++# Avoid overlapping scheduled runs fighting each other
++concurrency:
++  group: update-leaderboard-data
++  cancel-in-progress: true
++
++jobs:
++  update:
++    runs-on: ubuntu-latest
++
++    steps:
++      - name: Checkout
++        uses: actions/checkout@v4
++        with:
++          fetch-depth: 0
++
++      - name: Setup Node
++        uses: actions/setup-node@v4
++        with:
++          node-version: 20
++          cache: npm
++
++      - name: Install dependencies
++        run: npm ci
++
++      - name: Update ALL data (wins + profiles + tournamentRanges + validate)
++        env:
++          RPC_URL: ${{ vars.RPC_URL }}
++          TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
++          SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
++          SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
++          START_BLOCK: "22000000"
++          LOOKBACK_BLOCKS: "3000000"
++          LOG_CHUNK_BLOCKS: "60000"
++          USE_CACHE: "1"
++        run: npm run update:all
++
++      - name: Copy public outputs to repo root (Pages root hosting)
++        run: |
++          set -e
++          cp -f public/leaderboard.json leaderboard.json
++          cp -f public/profiles.json profiles.json
++          if [ -f public/tournamentRanges.json ]; then
++            cp -f public/tournamentRanges.json tournamentRanges.json
++          fi
++
++      - name: Configure git author
++        run: |
++          git config user.name "github-actions[bot]"
++          git config user.email "github-actions[bot]@users.noreply.github.com"
++
++      - name: Commit updated data (if changed)
++        id: commit
++        run: |
++          set -e
++
++          # Add generated public files
++          git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
++
++          # Add Pages-root copies
++          git add leaderboard.json profiles.json tournamentRanges.json || true
++
++          # Add caches (helps speed/stability between runs)
++          git add scripts/.cache/tournament-tier-cache.json scripts/.cache/profiles-name-cache.json || true
++
++          # Only commit if something changed
++          if git diff --cached --quiet; then
++            echo "No changes to commit"
++            echo "changed=false" >> $GITHUB_OUTPUT
++            exit 0
++          fi
++
++          git commit -m "Update leaderboard data"
++          echo "changed=true" >> $GITHUB_OUTPUT
++
++      - name: Push changes
++        if: steps.commit.outputs.changed == 'true'
+         run: git push
+\ No newline at end of file
+diff --git a/RUN_ME_FIRST.md b/RUN_ME_FIRST.md
+index 66f95c8..277489b 100644
+--- a/RUN_ME_FIRST.md
++++ b/RUN_ME_FIRST.md
+@@ -1,40 +1,46 @@
+-Tournament Leaderboard — One-command runner
+-==========================================
++Tournament Leaderboard — RPC Logs (No Subgraph)
++===============================================
+ 
+-This project is a The Graph subgraph.
++This project no longer requires The Graph / subgraphs.
++All data is built directly from on-chain logs using your RPC endpoint.
+ 
+-Run everything in the correct order with ONE command:
++Quick start
++-----------
+-macOS / Linux:
+-  ./runner/start.sh
++1) Install dependencies
++
++  npm ci
+ 
+-Windows:
+-  runner\start.bat
++2) Set required env vars
+ 
+-Requirements
+-------------
+-- Docker Desktop / Docker Engine with docker compose
+-- Node.js (18+ recommended)
++Windows (CMD):
++  set RPC_URL=https://andromeda.metis.io/?owner=1088
++  set TOURNAMENT_DIAMOND=0xc7681698B14a2381d9f1eD69FC3D27F33965b53B
++  set SEED_TX_L10=<seed tx hash for a tier10 tournament>
++  set SEED_TX_L20=<seed tx hash for a tier20 tournament>
++
++macOS / Linux:
++  export RPC_URL=https://andromeda.metis.io/?owner=1088
++  export TOURNAMENT_DIAMOND=0xc7681698B14a2381d9f1eD69FC3D27F33965b53B
++  export SEED_TX_L10=<seed tx hash for a tier10 tournament>
++  export SEED_TX_L20=<seed tx hash for a tier20 tournament>
+ 
+-RPC endpoint (important)
+-------------------------
+-Your graph-node container needs an Ethereum JSON-RPC endpoint.
+-By default this project points to:
+-  mainnet:http://host.docker.internal:8545
++3) Build all JSON outputs (wins + profiles + tournamentRanges + validation)
+ 
+-If you don't have an RPC node running there, set ETHEREUM_RPC first:
++  npm run update:all
+ 
+-macOS/Linux:
+-  export ETHEREUM_RPC="mainnet:https://YOUR_RPC_URL"
+-  ./runner/start.sh
++4) Serve the site locally
+ 
+-Windows (PowerShell):
+-  setx ETHEREUM_RPC "mainnet:https://YOUR_RPC_URL"
+-  runner\start.bat
++  npm run serve
+ 
+-Stop services:
+-  ./runner/stop.sh   (macOS/Linux)
+-  runner\stop.bat   (Windows)
++Outputs
++-------
++- public/leaderboard.json
++- public/profiles.json
++- public/tournamentRanges.json
+ 
+-After start, your subgraph should be queryable at:
+-  http://localhost:8000/subgraphs/name/tournament-leaderboard
++Notes
++-----
++- The wins pipeline scans PlayerWonTournament logs from START_BLOCK (default 22,000,000).
++- You can set END_BLOCK to cap the scan for debugging.
++- scripts/.cache/ stores caches to speed up repeated runs.
+diff --git a/package-lock.json b/package-lock.json
+index e81cce9..607e6e9 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -1,10 +1,12 @@
+ {
+   "name": "dfk-tournament-leaderboard",
++  "version": "1.0.0",
+   "lockfileVersion": 3,
+   "requires": true,
+   "packages": {
+     "": {
+       "name": "dfk-tournament-leaderboard",
++      "version": "1.0.0",
+       "dependencies": {
+         "ethers": "^6.16.0"
+       }
+diff --git a/package.json b/package.json
+index c5206cd..1c486f1 100644
+--- a/package.json
++++ b/package.json
+@@ -16,4 +16,4 @@
+   "dependencies": {
+     "ethers": "^6.16.0"
+   }
+-}
+\ No newline at end of file
++}
+diff --git a/scripts/pull-wins-tier-from-logs-post22m-lookback.js b/scripts/pull-wins-tier-from-logs-post22m-lookback.js
+index 1d95f09..992e8d0 100644
+--- a/scripts/pull-wins-tier-from-logs-post22m-lookback.js
++++ b/scripts/pull-wins-tier-from-logs-post22m-lookback.js
+@@ -1,8 +1,8 @@
+ /**
+- * Post-22M tournament tier resolver (logs + subgraph) — restarted with the working decoder.
++ * Post-22M tournament tier resolver (logs only) — no subgraph.
+  *
+  * What it does:
+- *  - Pull all tournamentWins from your subgraph
++ *  - Pull all PlayerWonTournament logs from the TournamentDiamond via RPC (eth_getLogs)
+  *  - Filter wins to blockNumber >= START_BLOCK (default 22,000,000)
+  *  - For each unique tournamentId in that filtered set, resolve tier (10/20) by scanning diamond logs
+  *    backwards from that tournament’s first win block, up to LOOKBACK_BLOCKS.
+@@ -30,20 +30,22 @@ const __dirname = path.dirname(__filename);
+ const DECODE_VERSION = "post22m-v1-flexpair";
+ 
+ const CFG = {
+-  SUBGRAPH_ENDPOINT:
+-    process.env.SUBGRAPH_ENDPOINT ||
+-    "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7",
+-
+-  RPC: process.env.RPC || "https://andromeda.metis.io/?owner=1088",
++  RPC: process.env.RPC || process.env.RPC_URL || "https://andromeda.metis.io/?owner=1088",
+ 
+   TOURNAMENT_DIAMOND:
+     process.env.TOURNAMENT_DIAMOND ||
+     "0xc7681698B14a2381d9f1eD69FC3D27F33965b53B",
+ 
+   START_BLOCK: Number(process.env.START_BLOCK || "22000000"),
++  // Optional hard stop (useful for debugging/replays). Defaults to latest.
++  END_BLOCK: process.env.END_BLOCK ? Number(process.env.END_BLOCK) : null,
++
+   LOOKBACK_BLOCKS: Number(process.env.LOOKBACK_BLOCKS || "1500000"),
+   LOG_CHUNK_BLOCKS: Number(process.env.LOG_CHUNK_BLOCKS || "60000"),
+ 
++  // Fetch win logs in chunks too (providers often cap getLogs ranges)
++  WIN_CHUNK_BLOCKS: Number(process.env.WIN_CHUNK_BLOCKS || "60000"),
++
+   THROTTLE_MS: Number(process.env.THROTTLE_MS || "0"),
+ 
+   OUT_JSON: path.resolve(__dirname, "..", "public", "leaderboard.json"),
+@@ -226,19 +228,21 @@ function inferTierNearestUnambiguous(words, tidWord) {
+       if (v === 20) seen20 = true;
+     }
+ 
+-    if (seen10 && seen20) continue;
++    if (seen10 && seen20) continue; // ambiguous
++    if (!seen10 && !seen20) continue;
+ 
+-    const target = seen10 ? 10 : seen20 ? 20 : null;
+-    if (!target) continue;
++    const target = seen20 ? 20 : 10;
+ 
++    // find nearest occurrence of target
+     let bestDist = Infinity;
+     for (let i = start; i <= end; i++) {
+       const v = wordToSmallInt(words[i]);
+       if (v !== target) continue;
+-      bestDist = Math.min(bestDist, Math.abs(i - tidIdx));
++      const d = Math.abs(i - tidIdx);
++      if (d < bestDist) bestDist = d;
+     }
+ 
+-    if (bestDist < Infinity) return target;
++    if (bestDist !== Infinity) return target;
+   }
+ 
+   return null;
+@@ -246,87 +250,37 @@ function inferTierNearestUnambiguous(words, tidWord) {
+ 
+ async function findTierByLookback({ provider, diamond, tournamentId, winBlock }) {
+   const tidWord = hex32FromU256(tournamentId);
+-  const start = Math.max(0, Number(winBlock) - Number(CFG.LOOKBACK_BLOCKS));
+-  const end = Number(winBlock);
+ 
+-  for (let toBlock = end; toBlock >= start; toBlock -= CFG.LOG_CHUNK_BLOCKS) {
+-    const fromBlock = Math.max(start, toBlock - CFG.LOG_CHUNK_BLOCKS + 1);
++  // Scan backwards from winBlock down to (winBlock - LOOKBACK)
++  const start = Math.max(CFG.START_BLOCK, winBlock - CFG.LOOKBACK_BLOCKS);
++  const end = winBlock;
+ 
+-    let logs = [];
+-    try {
+-      logs = await provider.getLogs({ address: diamond, fromBlock, toBlock });
+-    } catch (e) {
+-      return { tier: null, matchedBlock: null, error: String(e?.message || e) };
+-    }
++  for (let from = end; from >= start; ) {
++    const to = Math.max(start, from - CFG.LOG_CHUNK_BLOCKS + 1);
+ 
+-    // newest-first
+-    for (let i = logs.length - 1; i >= 0; i--) {
+-      const log = logs[i];
++    const logs = await provider.getLogs({
++      address: diamond,
++      fromBlock: to,
++      toBlock: from,
++    });
++
++    for (const log of logs) {
+       const words = extractWordsFromLog(log);
+       if (!words.includes(tidWord)) continue;
+ 
+-      let tier = inferTierFlexPair(words, tidWord);
+-      if (tier !== 10 && tier !== 20) {
+-        tier = inferTierNearestUnambiguous(words, tidWord);
+-      }
+--      if (tier === 10 || tier === 20) {
+-        return { tier, matchedBlock: Number(log.blockNumber) };
+-      }
+-    }
+-
+-    if (CFG.THROTTLE_MS > 0) await sleep(CFG.THROTTLE_MS);
+-  }
+-
+-  return { tier: null, matchedBlock: null };
+-}
++      const tier1 = inferTierFlexPair(words, tidWord);
++      const tier2 = tier1 ?? inferTierNearestUnambiguous(words, tidWord);
+ 
+-async function gqlFetchAllTournamentWins(endpoint) {
+-  const all = [];
+-  const first = 1000;
+-  let skip = 0;
+-
+-  const query = `
+-    query($first: Int!, $skip: Int!) {
+-      tournamentWins(first: $first, skip: $skip, orderBy: timestamp, orderDirection: asc) {
+-        id
+-        timestamp
+-        tournamentId
+-        blockNumber
+-        player { id }
++      if (tier2 === 10 || tier2 === 20) {
++        return { tier: tier2, matchedBlock: log.blockNumber };
+       }
+     }
+-  `;
+-
+-  while (true) {
+-    const body = JSON.stringify({ query, variables: { first, skip } });
+-
+-    const res = await fetch(endpoint, {
+-      method: "POST",
+-      headers: { "content-type": "application/json" },
+-      body,
+-    });
+ 
+-    if (!res.ok) {
+-      const txt = await res.text().catch(() => "");
+-      throw new Error(`Subgraph HTTP ${res.status}: ${txt.slice(0, 300)}`);
+-    }
+-
+-    const json = await res.json();
+-    if (json.errors?.length) {
+-      throw new Error(`Subgraph errors: ${JSON.stringify(json.errors)}`);
+-    }
+-
+-    const batch = json?.data?.tournamentWins || [];
+-    all.push(...batch);
+-
+-    console.log(`[post22m] page=${skip / first} batch=${batch.length} total=${all.length}`);
+-
+-    if (batch.length < first) break;
+-    skip += first;
++    if (CFG.THROTTLE_MS) await sleep(CFG.THROTTLE_MS);
++    from = to - 1;
+   }
+ 
+-  return all;
++  return { tier: null, matchedBlock: null, error: "not-found-in-lookback" };
+ }
+ 
+ function aggregateLeaderboardFromWins(wins) {
+@@ -355,7 +309,12 @@ function aggregateLeaderboardFromWins(wins) {
+   }
+ 
+   return [...by.values()]
+-    .sort((a, b) => (b.totalWins - a.totalWins) || (b.lastWin - a.lastWin) || a.wallet.localeCompare(b.wallet))
++    .sort(
++      (a, b) =>
++        b.totalWins - a.totalWins ||
++        b.lastWin - a.lastWin ||
++        a.wallet.localeCompare(b.wallet)
++    )
+     .map((r, i) => ({
+       rank: i + 1,
+       wallet: r.wallet,
+@@ -366,12 +325,80 @@ function aggregateLeaderboardFromWins(wins) {
+     }));
+ }
+ 
++function topicToAddress(topic) {
++  // topics[2] is 32-byte right-aligned address
++  if (!topic || typeof topic !== "string") return null;
++  const t = topic.toLowerCase();
++  if (!t.startsWith("0x") || t.length !== 66) return null;
++  return "0x" + t.slice(26);
++}
++
++async function fetchWinsFromLogs({ provider, diamond, startBlock, endBlock }) {
++  const iface = new ethers.Interface([
++    "event PlayerWonTournament(uint256 indexed tournamentId, address indexed player, uint256 value)",
++  ]);
++
++  const topic0 = iface.getEventTopic("PlayerWonTournament").toLowerCase();
++
++  const latest = await provider.getBlockNumber();
++  const toBlock = Number.isFinite(endBlock) ? endBlock : latest;
++
++  if (!Number.isFinite(startBlock) || startBlock < 0) throw new Error("Invalid START_BLOCK");
++
++  const blockTsCache = new Map();
++
++  const wins = [];
++
++  for (let from = startBlock; from <= toBlock; ) {
++    const to = Math.min(toBlock, from + CFG.WIN_CHUNK_BLOCKS - 1);
++
++    const logs = await provider.getLogs({
++      address: diamond,
++      fromBlock: from,
++      toBlock: to,
++      topics: [topic0],
++    });
++
++    // Resolve timestamps (cache per block)
++    for (const log of logs) {
++      const tournamentId = Number(BigInt(log.topics[1]));
++      const wallet = toLower0x(topicToAddress(log.topics[2]));
++      const blockNumber = Number(log.blockNumber);
++
++      if (!wallet || !Number.isFinite(tournamentId) || !Number.isFinite(blockNumber)) continue;
++
++      let timestamp = blockTsCache.get(blockNumber);
++      if (!timestamp) {
++        const blk = await provider.getBlock(blockNumber);
++        timestamp = Number(blk?.timestamp || 0);
++        blockTsCache.set(blockNumber, timestamp);
++      }
++
++      wins.push({
++        id: `${log.transactionHash}:${log.logIndex}`,
++        tournamentId,
++        wallet,
++        timestamp,
++        blockNumber,
++      });
++    }
++
++    console.log(`[post22m] wins logs ${from}..${to} => ${wins.length} total`);
++
++    if (CFG.THROTTLE_MS) await sleep(CFG.THROTTLE_MS);
++    from = to + 1;
++  }
++
++  return { wins, endBlock: toBlock };
++}
++
+ async function main() {
+-  console.log(`[post22m] subgraph: ${CFG.SUBGRAPH_ENDPOINT}`);
+   console.log(`[post22m] rpc: ${CFG.RPC}`);
+   console.log(`[post22m] diamond: ${CFG.TOURNAMENT_DIAMOND}`);
+   console.log(`[post22m] startBlock: ${CFG.START_BLOCK}`);
++  console.log(`[post22m] endBlock: ${CFG.END_BLOCK ?? "latest"}`);
+   console.log(`[post22m] lookbackBlocks: ${CFG.LOOKBACK_BLOCKS}`);
++  console.log(`[post22m] winChunkBlocks: ${CFG.WIN_CHUNK_BLOCKS}`);
+   console.log(`[post22m] logChunkBlocks: ${CFG.LOG_CHUNK_BLOCKS}`);
+   console.log(`[post22m] decodeVersion: ${DECODE_VERSION}`);
+   console.log(`[post22m] useCache: ${CFG.USE_CACHE}`);
+@@ -383,28 +410,22 @@ async function main() {
+   const provider = new ethers.JsonRpcProvider(CFG.RPC);
+   const diamond = ethers.getAddress(CFG.TOURNAMENT_DIAMOND);
+ 
+-  const rawWins = await gqlFetchAllTournamentWins(CFG.SUBGRAPH_ENDPOINT);
+-
+-  const wins = rawWins
+-    .map((w) => ({
+-      id: w.id,
+-      tournamentId: Number(w.tournamentId),
+-      timestamp: Number(w.timestamp),
+-      blockNumber: Number(w.blockNumber),
+-      wallet: toLower0x(w?.player?.id),
+-    }))
+-    .filter((w) => w.wallet && Number.isFinite(w.tournamentId) && Number.isFinite(w.timestamp) && Number.isFinite(w.blockNumber))
+-    .filter((w) => w.blockNumber >= CFG.START_BLOCK);
++  const { wins: rawWins, endBlock } = await fetchWinsFromLogs({
++    provider,
++    diamond,
++    startBlock: CFG.START_BLOCK,
++    endBlock: CFG.END_BLOCK,
++  });
+ 
+   // Map tid->first winBlock after startBlock
+   const tidToWinBlock = new Map();
+-  for (const w of wins) {
++  for (const w of rawWins) {
+     if (!tidToWinBlock.has(w.tournamentId)) tidToWinBlock.set(w.tournamentId, w.blockNumber);
+   }
+ 
+   const tids = [...tidToWinBlock.keys()].sort((a, b) => a - b);
+ 
+-  console.log(`[post22m] wins(post)=${wins.length} uniqueTournaments(post)=${tids.length}`);
++  console.log(`[post22m] wins(post)=${rawWins.length} uniqueTournaments(post)=${tids.length}`);
+ 
+   // Resolve tiers
+   for (let i = 0; i < tids.length; i++) {
+@@ -414,13 +435,22 @@ async function main() {
+     const cached = cache.byTournamentId[String(tid)];
+     const cachedTier = cached?.tier;
+ 
+-    if (CFG.USE_CACHE && (cachedTier === 10 || cachedTier === 20) && cached?.decodeVersion === DECODE_VERSION) {
++    if (
++      CFG.USE_CACHE &&
++      (cachedTier === 10 || cachedTier === 20) &&
++      cached?.decodeVersion === DECODE_VERSION
++    ) {
+       continue;
+     }
+ 
+     console.log(`[post22m] ${i + 1}/${tids.length} tid=${tid} winBlock=${winBlock}`);
+ 
+-    const found = await findTierByLookback({ provider, diamond, tournamentId: tid, winBlock });
++    const found = await findTierByLookback({
++      provider,
++      diamond,
++      tournamentId: tid,
++      winBlock,
++    });
+ 
+     if (found?.tier === 10 || found?.tier === 20) {
+       cache.byTournamentId[String(tid)] = {
+@@ -451,7 +481,7 @@ async function main() {
+ 
+   // Apply tiers to wins
+   let unknownTierWins = 0;
+-  for (const w of wins) {
++  for (const w of rawWins) {
+     const entry = cache.byTournamentId[String(w.tournamentId)];
+     const tier = entry?.tier;
+     if (tier === 10 || tier === 20) w.tier = tier;
+@@ -461,21 +491,23 @@ async function main() {
+     }
+   }
+ 
+-  const leaderboard = aggregateLeaderboardFromWins(wins);
++  const leaderboard = aggregateLeaderboardFromWins(rawWins);
+ 
+   const out = {
+     updatedAtUtc: new Date().toISOString(),
+-    source: "subgraph+logs/lookback",
++    source: "chain+logs/lookback",
+     decodeVersion: DECODE_VERSION,
+     rpc: CFG.RPC,
+     tournamentDiamond: CFG.TOURNAMENT_DIAMOND,
+     startBlock: CFG.START_BLOCK,
++    endBlock,
+     lookbackBlocks: CFG.LOOKBACK_BLOCKS,
++    winChunkBlocks: CFG.WIN_CHUNK_BLOCKS,
+     logChunkBlocks: CFG.LOG_CHUNK_BLOCKS,
+-    totalWins: wins.length,
++    totalWins: rawWins.length,
+     uniqueTournaments: tids.length,
+     unknownTierWins,
+-    wins: wins.map((w) => ({
++    wins: rawWins.map((w) => ({
+       id: w.id,
+       tournamentId: w.tournamentId,
+       wallet: w.wallet,
+@@ -492,12 +524,16 @@ async function main() {
+   console.log(`[post22m] wrote ${CFG.OUT_JSON}`);
+   console.log(`[post22m] unknownTierWins: ${unknownTierWins}`);
+   if (unknownTierWins > 0) {
+-    const unknownTids = [...new Set(wins.filter((w) => !w.tier).map((w) => w.tournamentId))].sort((a, b) => a - b);
+-    console.log(`[post22m] unknown tournamentIds (${unknownTids.length}): ${unknownTids.join(", ")}`);
++    const unknownTids = [
++      ...new Set(rawWins.filter((w) => !w.tier).map((w) => w.tournamentId)),
++    ].sort((a, b) => a - b);
++    console.log(
++      `[post22m] unknown tournamentIds (${unknownTids.length}): ${unknownTids.join(", ")}`
++    );
+   }
+ }
+ 
+ main().catch((e) => {
+   console.error(`[post22m] fatal:`, e);
+   process.exitCode = 1;
+-});
+\ No newline at end of file
++});
+diff --git a/scripts/update-all.js b/scripts/update-all.js
+index ef59cc6..04f85a1 100644
+--- a/scripts/update-all.js
++++ b/scripts/update-all.js
+@@ -1,51 +1,65 @@
+-#!/usr/bin/env node
+-/**
+- * Update everything in the correct order, then always copy public outputs to repo root.
+- *
+- * Order:
+- *   1) wins
+- *   2) profiles
+- *   3) ranges
+- *   4) apply tiers
+- *   5) validate
+- *   6) copy public/*.json -> repo root
+- */
+-
+-import fs from "fs";
+-import path from "path";
+-import { spawnSync } from "child_process";
+-
+-const ROOT = process.cwd();
+-const PUBLIC_DIR = path.join(ROOT, "public");
+-
+-function run(cmd, args) {
+-  const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
+-  if (r.status !== 0) process.exit(r.status ?? 1);
+-}
+-
+-function copyIfExists(src, dst) {
+-  if (fs.existsSync(src)) {
+-    fs.copyFileSync(src, dst);
+-    console.log(`Copied: ${src} -> ${dst}`);
+-  } else {
+-    console.log(`Skip copy (missing): ${src}`);
+-  }
+-}
+-
+-function main() {
+-  // Run the same scripts your package.json points to
+-  run("node", ["scripts/pull-wins-tier-from-logs-post22m-lookback.js"]);
+-  run("node", ["scripts/resolve-profiles-community-api.js"]);
+-  run("node", ["scripts/build-tournamentRanges-subgraph.js"]);
+-  run("node", ["scripts/apply-tournament-ranges-to-leaderboard.js"]);
+-  run("node", ["scripts/validate-public-data.js"]);
+-
+-  // Always keep repo root in sync for GitHub Pages root hosting
+-  copyIfExists(path.join(PUBLIC_DIR, "leaderboard.json"), path.join(ROOT, "leaderboard.json"));
+-  copyIfExists(path.join(PUBLIC_DIR, "profiles.json"), path.join(ROOT, "profiles.json"));
+-  copyIfExists(path.join(PUBLIC_DIR, "tournamentRanges.json"), path.join(ROOT, "tournamentRanges.json"));
+-
+-  console.log("update-all complete.");
+-}
+-
++#!/usr/bin/env node
++import fs from "fs";
++import path from "path";
++import { spawnSync } from "child_process";
++
++const ROOT = process.cwd();
++const PUBLIC_DIR = path.join(ROOT, "public");
++
++function sleepSync(ms) {
++  const end = Date.now() + ms;
++  while (Date.now() < end) {
++    // busy wait (fine for short backoffs in CI)
++  }
++}
++
++function run(cmd, args) {
++  const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
++  if (r.status !== 0) process.exit(r.status ?? 1);
++}
++
++function runWithRetry(cmd, args, { attempts = 5, baseDelayMs = 1500 } = {}) {
++  for (let i = 1; i <= attempts; i++) {
++    const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
++
++    if (r.status === 0) return;
++
++    if (i === attempts) {
++      process.exit(r.status ?? 1);
++    }
++
++    const delay = baseDelayMs * Math.pow(2, i - 1); // 1.5s, 3s, 6s, 12s, ...
++    console.log(`Step failed (attempt ${i}/${attempts}). Retrying in ${Math.round(delay)}ms...`);
++    sleepSync(delay);
++  }
++}
++
++function copyIfExists(src, dst) {
++  if (fs.existsSync(src)) {
++    fs.copyFileSync(src, dst);
++    console.log(`Copied: ${src} -> ${dst}`);
++  } else {
++    console.log(`Skip copy (missing): ${src}`);
++  }
++}
++
++function main() {
++  // Retry the RPC log scan step (RPC providers can be flaky)
++  runWithRetry("node", ["scripts/pull-wins-tier-from-logs-post22m-lookback.js"], {
++    attempts: 6,
++    baseDelayMs: 2000,
++  });
++
++  run("node", ["scripts/resolve-profiles-community-api.js"]);
++  run("node", ["scripts/build-tournamentRanges-subgraph.js"]);
++  run("node", ["scripts/apply-tournament-ranges-to-leaderboard.js"]);
++  run("node", ["scripts/validate-public-data.js"]);
++
++  copyIfExists(path.join(PUBLIC_DIR, "leaderboard.json"), path.join(ROOT, "leaderboard.json"));
++  copyIfExists(path.join(PUBLIC_DIR, "profiles.json"), path.join(ROOT, "profiles.json"));
++  copyIfExists(path.join(PUBLIC_DIR, "tournamentRanges.json"), path.join(ROOT, "tournamentRanges.json"));
++
++  console.log("update-all complete.");
++}
++
+ main();
+\ No newline at end of file
+ 

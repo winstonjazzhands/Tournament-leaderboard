@@ -15,5 +15,8 @@
   },
   "dependencies": {
     "ethers": "^6.16.0"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-ts": "^0.38.2"
   }
 }

@@ -1,0 +1,2023 @@
+{
+  "generatedAtUtc": "2026-02-28T23:53:46.291Z",
+  "source": "public/matches.json",
+  "thresholds": {
+    "TOP_N": 80,
+    "MIN_MATCHES": 20,
+    "MIN_WINRATE": 0.05,
+    "MAX_WINRATE": 0.95,
+    "MIN_MATCHES_SYSTEMISH": 50,
+    "SYSTEMISH_WINRATE_HIGH": 0.98,
+    "SYSTEMISH_WINRATE_LOW": 0.02
+  },
+  "usedMatches": 20711,
+  "skippedMatches": 176,
+  "players": [
+    {
+      "wallet": "0x84834d3f6cc986b586f34180f9118b2076ac3ad8",
+      "wins": 42,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 14,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 14,
+          "l": 0
+        }
+      ],
+      "totalMatches": 42
+    },
+    {
+      "wallet": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+      "wins": 38,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 11,
+          "l": 0
+        },
+        {
+          "opp": "0xd9e5a3dedf1e5e529102b7e76d9f9d5a1a9facb5",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0x932049df7f09dee7cf5aefe03f373810ebbdddc7",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0x4e3c1463454abaa87441c3206d48125715ceb2b3",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x82b999269e4d2c1dd1fbac4fb1a00ee82458fb56",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x4e3c1463454abaa87441c3206d48125715ceb2b3",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0x82b999269e4d2c1dd1fbac4fb1a00ee82458fb56",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x932049df7f09dee7cf5aefe03f373810ebbdddc7",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xd9e5a3dedf1e5e529102b7e76d9f9d5a1a9facb5",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 11,
+          "l": 0
+        }
+      ],
+      "totalMatches": 38
+    },
+    {
+      "wallet": "0xec677fb98254a95b5896f6876135b86fb466ecd4",
+      "wins": 36,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 12,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 12,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 12,
+          "l": 0
+        }
+      ],
+      "totalMatches": 36
+    },
+    {
+      "wallet": "0x5e4d5f1ed642ddbcc13c8df441a58d3f3ae85770",
+      "wins": 34,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 13,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 11,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 13,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 11,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "totalMatches": 34
+    },
+    {
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "wins": 34,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 19,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0x797b89420a898df912fadfd7cfe7840f7f19cd52",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0x797b89420a898df912fadfd7cfe7840f7f19cd52",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 19,
+          "l": 0
+        }
+      ],
+      "totalMatches": 34
+    },
+    {
+      "wallet": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+      "wins": 32,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 16,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 16,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 16,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 16,
+          "l": 0
+        }
+      ],
+      "totalMatches": 32
+    },
+    {
+      "wallet": "0xde5c933e0a5fe0b7332fe5281a11420873d82d1a",
+      "wins": 32,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 16,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 16,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 16,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 16,
+          "l": 0
+        }
+      ],
+      "totalMatches": 32
+    },
+    {
+      "wallet": "0xe7e8a44b481a7cf5e8fa1c846b7654735874e809",
+      "wins": 28,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 14,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 14,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 14,
+          "l": 0
+        }
+      ],
+      "totalMatches": 28
+    },
+    {
+      "wallet": "0x6156c9b64ab857101fdb353cad6edd69afc7bb75",
+      "wins": 21,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 11,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 11,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "totalMatches": 21
+    },
+    {
+      "wallet": "0x7174b5281d90815f46dda9906ac34129b5625578",
+      "wins": 20,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 10,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 10,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "totalMatches": 20
+    },
+    {
+      "wallet": "0x2a72912856b07938af8dcb97e07ab2317867d9ab",
+      "wins": 20,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 10,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 10,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 10,
+          "l": 0
+        }
+      ],
+      "totalMatches": 20
+    },
+    {
+      "wallet": "0xe824c21b8724a2991ec94201d5eeb078dfee0ebb",
+      "wins": 19,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0x932049df7f09dee7cf5aefe03f373810ebbdddc7",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0x932049df7f09dee7cf5aefe03f373810ebbdddc7",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 7,
+          "l": 0
+        }
+      ],
+      "totalMatches": 19
+    },
+    {
+      "wallet": "0x23b909814fcc91d30323d00896d1aa15c5428a2e",
+      "wins": 18,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "totalMatches": 18
+    },
+    {
+      "wallet": "0xc1068ad1c84adf7312059bebeb4640b62f58b119",
+      "wins": 18,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "totalMatches": 18
+    },
+    {
+      "wallet": "0x97ca0881daa46c4028b9231e3a10ba9acd84d9b9",
+      "wins": 18,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "totalMatches": 18
+    },
+    {
+      "wallet": "0x0e808f94941398aec2e7ff7b375ab882dd2bdb26",
+      "wins": 17,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0xd9e5a3dedf1e5e529102b7e76d9f9d5a1a9facb5",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0xd9e5a3dedf1e5e529102b7e76d9f9d5a1a9facb5",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "totalMatches": 17
+    },
+    {
+      "wallet": "0x1aa3eae0780e5cb85c7dadab72c623a3b925ff5d",
+      "wins": 16,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "totalMatches": 16
+    },
+    {
+      "wallet": "0x6dfc86162031e3ca4d35f77aa081c28a31081647",
+      "wins": 14,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 8,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 8,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "totalMatches": 14
+    },
+    {
+      "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+      "wins": 13,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 7,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "totalMatches": 13
+    },
+    {
+      "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "wins": 12,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 6,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 6,
+          "l": 0
+        }
+      ],
+      "totalMatches": 12
+    },
+    {
+      "wallet": "0x83f0fbbc2ccb84e38c32ac9d39aa130c7e1ed47c",
+      "wins": 12,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "totalMatches": 12
+    },
+    {
+      "wallet": "0xa2655e4b195d66704302685bf9ff0a78a5b67d95",
+      "wins": 10,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "totalMatches": 10
+    },
+    {
+      "wallet": "0x17ff5e7eb895dfba1969922f0be35f039157a123",
+      "wins": 10,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "totalMatches": 10
+    },
+    {
+      "wallet": "0xbfa3c4acb4b2c01e59953e9cb2d37e8e18209f30",
+      "wins": 9,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 9,
+          "l": 0
+        }
+      ],
+      "totalMatches": 9
+    },
+    {
+      "wallet": "0x1c381d406324868ff0be20183e5f97ff17ae1c2d",
+      "wins": 8,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 4,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 4,
+          "l": 0
+        }
+      ],
+      "totalMatches": 8
+    },
+    {
+      "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "wins": 8,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 8
+    },
+    {
+      "wallet": "0x078530d8024942dc65649cfe65b7776e6ee55951",
+      "wins": 8,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x82b999269e4d2c1dd1fbac4fb1a00ee82458fb56",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 4,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x82b999269e4d2c1dd1fbac4fb1a00ee82458fb56",
+          "w": 4,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 4,
+          "l": 0
+        }
+      ],
+      "totalMatches": 8
+    },
+    {
+      "wallet": "0x95c82b70c2bae419c5729e092464790880579037",
+      "wins": 0,
+      "losses": 8,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x93075b2127eb61ba936d60290a384a515a446575",
+          "w": 0,
+          "l": 8
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x93075b2127eb61ba936d60290a384a515a446575",
+          "w": 0,
+          "l": 8
+        }
+      ],
+      "totalMatches": 8
+    },
+    {
+      "wallet": "0xd9e5a3dedf1e5e529102b7e76d9f9d5a1a9facb5",
+      "wins": 0,
+      "losses": 7,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x0e808f94941398aec2e7ff7b375ab882dd2bdb26",
+          "w": 0,
+          "l": 1
+        },
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 6
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 6
+        },
+        {
+          "opp": "0x0e808f94941398aec2e7ff7b375ab882dd2bdb26",
+          "w": 0,
+          "l": 1
+        }
+      ],
+      "totalMatches": 7
+    },
+    {
+      "wallet": "0x932049df7f09dee7cf5aefe03f373810ebbdddc7",
+      "wins": 0,
+      "losses": 7,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 4
+        },
+        {
+          "opp": "0xe824c21b8724a2991ec94201d5eeb078dfee0ebb",
+          "w": 0,
+          "l": 3
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 4
+        },
+        {
+          "opp": "0xe824c21b8724a2991ec94201d5eeb078dfee0ebb",
+          "w": 0,
+          "l": 3
+        }
+      ],
+      "totalMatches": 7
+    },
+    {
+      "wallet": "0x62dd4a3946fbe64fc842fb886102cfeb5e263e56",
+      "wins": 6,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 6
+    },
+    {
+      "wallet": "0x566a1715496e6343b6b6012178f11e11b9d6feee",
+      "wins": 6,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "totalMatches": 6
+    },
+    {
+      "wallet": "0x82b999269e4d2c1dd1fbac4fb1a00ee82458fb56",
+      "wins": 0,
+      "losses": 6,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x078530d8024942dc65649cfe65b7776e6ee55951",
+          "w": 0,
+          "l": 4
+        },
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x078530d8024942dc65649cfe65b7776e6ee55951",
+          "w": 0,
+          "l": 4
+        },
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "totalMatches": 6
+    },
+    {
+      "wallet": "0xc49b43b01046f37ee3764aabf7ab617825528a19",
+      "wins": 5,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 5,
+          "l": 0
+        }
+      ],
+      "totalMatches": 5
+    },
+    {
+      "wallet": "0x3000078da12a11431385cfeaf0c9bad7155ad7f2",
+      "wins": 4,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 4
+    },
+    {
+      "wallet": "0xb8685166a6e856e2c20ac51db55b1f507805bf49",
+      "wins": 4,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 4
+    },
+    {
+      "wallet": "0x51c22ea8c5b47bde6303df57146bfb8a70ecf8c9",
+      "wins": 4,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 4
+    },
+    {
+      "wallet": "0xf61f94f62fbe8c396433c7d2555a5bd6eab6bb29",
+      "wins": 4,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 4
+    },
+    {
+      "wallet": "0x3adf1972d11a7e018e623a201c9c236f91eaadd5",
+      "wins": 4,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 4
+    },
+    {
+      "wallet": "0xac40d5a0193a52b4879ae254ad3138e3c0d5138b",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x04b2890c7241bced2006984c5a3f85c99fabfd0c",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0xec1ee38e3e451a979bd0232be188c606d0ce0e13",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0xb0f99514410f34ab5920bffc765b171ba8a0fbd5",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0x24206bbd15cfda68ae19c4ad2d5a55882f2aa007",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 3,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
+      "wins": 3,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0x797b89420a898df912fadfd7cfe7840f7f19cd52",
+      "wins": 0,
+      "losses": 3,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+          "w": 0,
+          "l": 3
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+          "w": 0,
+          "l": 3
+        }
+      ],
+      "totalMatches": 3
+    },
+    {
+      "wallet": "0x3ff43ee9d3bc291f73602913e9336229a48c8ddd",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x5453b4a0dc3c5e330aa428eb0ce16977e948932b",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x31b89ad5f6e2a47f9746043df20ec01c60472dc2",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x7bac7b2b8c8306959c2f918d22422d5aa9ed8386",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 2,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x6ef29103747edfa66bcb3237d5ae4f773a5b9bee",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0xc70795d4159341d0de5c5552dc01f8b88701bff3",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x42dcaf01b005766fc349527dc644cbd554653f53",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0xd59b2a2acea9704121598c5fd942f9fbea4dfa47",
+      "wins": 2,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x6e473afad39150ffdc18aab5d436c0cce06d44b2",
+          "w": 1,
+          "l": 0
+        },
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0x4e3c1463454abaa87441c3206d48125715ceb2b3",
+      "wins": 0,
+      "losses": 2,
+      "winRate": 0,
+      "beatenMost": [
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0x39fe1e72a5ef2c3b2cdca5e1779113b870d0d700",
+          "w": 0,
+          "l": 2
+        }
+      ],
+      "totalMatches": 2
+    },
+    {
+      "wallet": "0xa06d264f4f87ed213502cf2bf4ea3b0b73f60231",
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xef4be4fb3e03d173f29dbfe8f8f2da26fda95932",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 1
+    },
+    {
+      "wallet": "0xd0dc4d85013a024c1c989f385ca1141f469599b8",
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 1
+    },
+    {
+      "wallet": "0x71476baed7dacfe14739bbaf48041e8de7b035ca",
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 1
+    },
+    {
+      "wallet": "0x6d825a6e7f785d40017c0fa97bfa803c19fd651f",
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 1
+    },
+    {
+      "wallet": "0xb002ecd4a281582383978c9327281fa1aed5a6e0",
+      "wins": 1,
+      "losses": 0,
+      "winRate": 1,
+      "beatenMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "lostToMost": [
+        {
+          "opp": "0xd9551f2a44de25e833e103eb9217f096f9d09eab",
+          "w": 1,
+          "l": 0
+        }
+      ],
+      "totalMatches": 1
+    }
+  ],
+  "counts": {
+    "allPlayers": 99,
+    "competitive": 0,
+    "systemish": 39,
+    "other": 60
+  }
+}
