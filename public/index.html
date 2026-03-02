@@ -278,7 +278,66 @@
         .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
 /* Filters fit + tighter controls */
     #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
-    #filtersCard input{ min-width:0; }
+    /* Week nav arrows */
+    #filtersCard .navBtn{ width:100%; padding:5px 9px; font-size:16px; line-height:1; height:auto; }
+    #filtersCard .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+    
+
+/* Filters collapse toggle (looks like the "Filters" label) */
+.filtersHideLink{
+  color: rgba(233,240,255,.92);
+  font-weight: 900;
+  font-size: 12px;
+  cursor: pointer;
+  user-select:none;
+  white-space:nowrap;
+}
+.filtersHideLink:hover{ text-decoration: underline; }
+.filtersHideLink:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(78,161,255,.14);
+  border-radius: 10px;
+  padding:2px 6px;
+  margin:-2px -6px;
+}
+
+/* Tears ticker shown when Filters are collapsed */
+.tearsBox{
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  border-radius:14px;
+  padding:10px 10px;
+}
+.tearsRow{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:10px;
+}
+.tearsLabel{
+  color: var(--muted);
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.tearsVal{
+  font-weight:1000;
+  font-size:12px;
+  white-space:nowrap;
+}
+.tearsDivider{
+  height:1px;
+  background: rgba(255,255,255,.08);
+  margin:10px 0;
+}
+.tearsNote{
+  margin-top:10px;
+  color: var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+#filtersCard input{ min-width:0; }
     #filtersCard .dateBtn{
       min-width:0;
       overflow:hidden;
@@ -338,10 +397,10 @@
     .toggleBtn.active{ background: var(--toggleOn); }
     .toggleBtn + .toggleBtn{ border-left:1px solid var(--border); }
 
-    .top3{display:flex;flex-direction:column;gap:10px;}
+    .top3{display:flex;flex-direction:column;gap:9px;}
     .topItem{
       display:flex;align-items:center;justify-content:space-between;gap:8px;
-      padding:10px 10px;border:1px solid rgba(255,255,255,.10);
+      padding:9px 10px;border:1px solid rgba(255,255,255,.10);
       border-radius:14px;background: rgba(255,255,255,.03);
     }
     .topLeft{display:flex;align-items:center;gap:10px;min-width:0;}
@@ -852,9 +911,11 @@
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd" id="filtersNote"></span></div>
-        <div class="bd">
+        <div class="hd"><div class="hdCol"><span>Filters</span><span class="subhd" id="filtersNote"></span></div><span id="filtersHideToggle" class="filtersHideLink" role="button" tabindex="0" aria-label="Hide filters">Hide</span></div>
+        <div class="bd" id="filtersBd">
           <div class="filterGrid">
+            <button class="btn navBtn" id="prevWeekBtn" type="button" title="Back one week" aria-label="Back one week">←</button>
+            <button class="btn navBtn" id="nextWeekBtn" type="button" title="Forward one week" aria-label="Forward one week">→</button>
             <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
               <span class="lab">From</span>
               <span class="val" id="fromLabel">—</span>
@@ -867,6 +928,8 @@
 
             <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
             <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
+            <button class="btn" id="lastMonthBtn" type="button" aria-pressed="false">Last month</button>
+            <button class="btn" id="thisMonthBtn" type="button" aria-pressed="false">This month</button>
 <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
@@ -883,12 +946,60 @@
           <input class="dateHidden" id="fromDate" type="date" />
           <input class="dateHidden" id="toDate" type="date" />
         </div>
+
+        <div class="bd" id="tearsTickerBd" style="display:none;">
+  <div class="tearsBox" aria-label="DFK token price ticker">
+    <div class="tearsRow">
+      <div class="tearsLabel">TEAR</div>
+      <div class="tearsVal mono" id="tearsPriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:6px;">
+      <div class="tearsLabel">1,000,000 TEAR</div>
+      <div class="tearsVal mono" id="tearsMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">GOLD</div>
+      <div class="tearsVal mono" id="goldPriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:6px;">
+      <div class="tearsLabel">10,000,000 GOLD</div>
+      <div class="tearsVal mono" id="goldMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">DE</div>
+      <div class="tearsVal mono" id="dePriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:6px;">
+      <div class="tearsLabel">500 DE</div>
+      <div class="tearsVal mono" id="deMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">GDE</div>
+      <div class="tearsVal mono" id="gdePriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:6px;">
+      <div class="tearsLabel">100 GDE</div>
+      <div class="tearsVal mono" id="gdeMillionCost">—</div>
+    </div>
+
+    <div class="tearsNote" id="tearsStatus">—</div>
+  </div>
+</div>
       </section>
 
       <aside class="tile" id="lastWeekTile" aria-label="Last week's top winners">
         <div class="hd">
           <div class="hdCol">
-            <span>Last week top 3</span>
+            <span>Last week's leaders</span>
             <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
           </div>
           <div class="hdMetaRight goldMeta" id="lastWeekJewelMeta">
@@ -906,7 +1017,7 @@
       <aside class="tile" id="lifetimeTile" aria-label="Lifetime top winners">
         <div class="hd">
 <div class="hdCol">
-  <span>Lifetime top 3</span>
+  <span>Lifetime Leaders</span>
   <span class="subhd top3Sub" id="lifetimeSinceLabel">Tracking since Jan 16, 2026</span>
 </div>
 <div style="display:flex;gap:8px;align-items:center;">
@@ -1260,7 +1371,100 @@
   "just have fun": "clash.hope"
 };
 
-  function escHtml(s){
+// Filters collapse + token price tickers (shown when filters are hidden)
+const TOKEN_PAIRS = [
+  { key: "tears", label: "TEAR", pair: "0x9c0788c0f36e60c33074f7498c8d83d7dcb6d54a", priceEl: "tearsPriceVal", costEl: "tearsMillionCost", amount: 1_000_000, amountLabel: "1,000,000 TEAR" },
+  { key: "gold",  label: "GOLD", pair: "0xd2df51059ab32cc8680fd2c030e66f08b13bc9bd", priceEl: "goldPriceVal",  costEl: "goldMillionCost",  amount: 10_000_000, amountLabel: "10,000,000 GOLD" },
+  { key: "de",    label: "DE",   pair: "0x32e2dcd4fb6980a917fc140d0bc65576fd2e6490", priceEl: "dePriceVal",    costEl: "deMillionCost",    amount: 500, amountLabel: "500 DE" },
+  { key: "gde",   label: "GDE",  pair: "0x3521f89e02666891f082cfc3e1e881aafb6a71df", priceEl: "gdePriceVal",   costEl: "gdeMillionCost",   amount: 100, amountLabel: "100 GDE" },
+];
+
+let _tokenTickerTimer = null;
+
+function setFiltersCollapsed(collapsed){
+  const bd = $("filtersBd");
+  const ticker = $("tearsTickerBd");
+  const toggle = $("filtersHideToggle");
+  if (!bd || !ticker || !toggle) return;
+
+  bd.style.display = collapsed ? "none" : "block";
+  ticker.style.display = collapsed ? "block" : "none";
+  toggle.textContent = collapsed ? "Show" : "Hide";
+  toggle.setAttribute("aria-label", collapsed ? "Show filters" : "Hide filters");
+
+  if (collapsed) {
+    startTokenTicker();
+  }
+}
+
+async function fetchPriceNative(pairAddress){
+  const urls = [
+    `https://api.dexscreener.com/latest/dex/pairs/avalanchedfk/${pairAddress}`,
+    `https://api.dexscreener.com/latest/dex/pairs/avalanche-dfk/${pairAddress}`,
+    `https://api.dexscreener.com/latest/dex/pairs/avalanche/${pairAddress}`,
+  ];
+
+  for (const url of urls){
+    try{
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) continue;
+      const j = await res.json();
+      const p = (j && j.pairs && j.pairs[0]) ? j.pairs[0] : null;
+      const pn = p && p.priceNative != null ? Number(p.priceNative) : NaN;
+      if (Number.isFinite(pn) && pn > 0) return pn;
+    }catch{}
+  }
+  return null;
+}
+
+function formatFixedSmart(n, decimals){
+  if (!Number.isFinite(n)) return "—";
+  return n.toFixed(decimals);
+}
+
+function renderTokenTickerRow(cfg, priceNative){
+  const priceEl = $(cfg.priceEl);
+  const costEl = $(cfg.costEl);
+  if (!priceEl || !costEl) return;
+
+  if (!Number.isFinite(priceNative)){
+    priceEl.textContent = "—";
+    costEl.textContent = "—";
+    return;
+  }
+
+  priceEl.textContent = `${formatFixedSmart(priceNative, 6)} JEWEL / ${cfg.label}`;
+
+  const qty = Number.isFinite(cfg.amount) ? cfg.amount : 1_000_000;
+  const cost = priceNative * qty;
+  costEl.textContent = `${cost.toLocaleString(undefined, { maximumFractionDigits: 2 })} JEWEL`;
+}
+
+async function updateTokenTickerOnce(){
+  const statusEl = $("tearsStatus");
+  if (statusEl) statusEl.textContent = "Updating…";
+
+  // fetch in parallel
+  const results = await Promise.all(TOKEN_PAIRS.map(async (cfg) => {
+    const pn = await fetchPriceNative(cfg.pair);
+    return { cfg, pn };
+  }));
+
+  for (const { cfg, pn } of results){
+    renderTokenTickerRow(cfg, pn == null ? NaN : pn);
+  }
+
+  if (statusEl) statusEl.textContent = `Updated ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' })} UTC`;
+}
+
+function startTokenTicker(){
+  if (_tokenTickerTimer) return;
+  updateTokenTickerOnce();
+  _tokenTickerTimer = setInterval(updateTokenTickerOnce, 30_000);
+}
+
+
+function escHtml(s){
     return String(s)
       .replaceAll('&','&amp;')
       .replaceAll('<','&lt;')
@@ -1370,16 +1574,27 @@
     $("toDate").value = state.range.toMs != null ? toIsoDateUtc(state.range.toMs) : "";
     updateDateLabels();
     updateRangeIndicator();
+    updateWeekNavUI();
   }
 
   function updateWeekPresetUI(){
-    const isThis = state.weekPreset === "this";
-    const isLast = state.weekPreset === "last";
-    $("thisWeekBtn").classList.toggle("active", isThis);
-    $("lastWeekBtn").classList.toggle("active", isLast);
-    $("thisWeekBtn").setAttribute("aria-pressed", String(isThis));
-    $("lastWeekBtn").setAttribute("aria-pressed", String(isLast));
-  }
+  const isThis = state.weekPreset === "this";
+  const isLast = state.weekPreset === "last";
+  const isThisMonth = state.weekPreset === "thisMonth";
+  const isLastMonth = state.weekPreset === "lastMonth";
+
+  $("thisWeekBtn").classList.toggle("active", isThis);
+  $("lastWeekBtn").classList.toggle("active", isLast);
+  $("thisMonthBtn").classList.toggle("active", isThisMonth);
+  $("lastMonthBtn").classList.toggle("active", isLastMonth);
+
+  $("thisWeekBtn").setAttribute("aria-pressed", String(isThis));
+  $("lastWeekBtn").setAttribute("aria-pressed", String(isLast));
+  $("thisMonthBtn").setAttribute("aria-pressed", String(isThisMonth));
+  $("lastMonthBtn").setAttribute("aria-pressed", String(isLastMonth));
+
+  updateWeekNavUI();
+}
 
   function setThisWeek(){
     const now = Date.now();
@@ -1398,6 +1613,68 @@
     state.weekPreset = "last";
     updateWeekPresetUI();
   }
+
+function startOfUtcMonth(ms){
+  const d = new Date(ms);
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1, 0,0,0,0);
+}
+
+function setThisMonth(){
+  const now = Date.now();
+  const start = startOfUtcMonth(now);
+  const next = Date.UTC(new Date(now).getUTCFullYear(), new Date(now).getUTCMonth()+1, 1, 0,0,0,0);
+  setRange(start, next);
+  state.weekPreset = "thisMonth";
+  updateWeekPresetUI();
+}
+
+function setLastMonth(){
+  const now = Date.now();
+  const thisStart = startOfUtcMonth(now);
+  const lastStart = Date.UTC(new Date(now).getUTCFullYear(), new Date(now).getUTCMonth()-1, 1, 0,0,0,0);
+  setRange(lastStart, thisStart);
+  state.weekPreset = "lastMonth";
+  updateWeekPresetUI();
+}
+
+function isThisWeekRange(){
+  const now = Date.now();
+  const mon = startOfUtcWeekMonday(now);
+  const nextMon = mon + 7*86400000;
+  return state.range.fromMs === mon && state.range.toMs === nextMon;
+}
+
+function updateWeekNavUI(){
+  const prev = $("prevWeekBtn");
+  const next = $("nextWeekBtn");
+  if (!prev || !next) return;
+
+  // Disable forward when viewing the current week range
+  next.disabled = isThisWeekRange();
+
+  // Disable back if moving back a week would go before our data start
+  const candidateFrom = (state.range.fromMs ?? Date.now()) - 7*86400000;
+  prev.disabled = candidateFrom < DATA_START_MS;
+}
+
+function shiftWeek(dir){
+  // dir: -1 back, +1 forward
+  const span = 7*86400000;
+  const baseFrom = state.range.fromMs ?? startOfUtcWeekMonday(Date.now());
+  const baseTo = state.range.toMs ?? (baseFrom + span);
+  const newFrom = baseFrom + dir*span;
+  const newTo = baseTo + dir*span;
+
+  // Clamp to data start on backward shifts
+  if (dir < 0 && newFrom < DATA_START_MS) return;
+
+  // Prevent shifting into the future beyond this week
+  if (dir > 0 && isThisWeekRange()) return;
+
+  setRange(newFrom, newTo);
+  state.weekPreset = "custom";
+  updateWeekPresetUI();
+}
 
   function setCustomRange(){
     state.weekPreset = "custom";
@@ -2055,7 +2332,7 @@ function openWalletsModal(){
 
   function computeLifetimeTop(){
     // Always compute lifetime earned from wins[] by summing WEEKLY payouts over time.
-    // (L10 rewards are weekly threshold payouts, not additive per win.)
+    // (Required because L10 rewards are weekly threshold payouts, not additive per win.)
     const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
 
     for (const w of state.wins){
@@ -2067,13 +2344,14 @@ function openWalletsModal(){
       if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
 
       let c = byWeek.get(wk);
-      if (!c){ c = { l10: 0, l20: 0 }; byWeek.set(wk, c); }
+      if (!c){ c = { l10: 0, l20: 0, total: 0 }; byWeek.set(wk, c); }
 
       if (w.tier === 10) c.l10++;
       else if (w.tier === 20) c.l20++;
+      c.total++;
     }
 
-    // Basic win totals for display
+    // Also keep basic win totals for display
     const agg = aggregateWins(state.wins, DATA_START_MS, null).rows;
 
     const earnedByWallet = new Map();
@@ -2085,14 +2363,14 @@ function openWalletsModal(){
       earnedByWallet.set(wallet, sum);
     }
 
-    const enriched = agg.map(r => ({
+    let enriched = agg.map(r => ({
       ...r,
       jT: earnedByWallet.get(r.wallet) || 0
     }));
 
     enriched.sort((a,b)=>
-      (b.jT - a.jT) 
-      || (b.total - a.total) ||
+      (b.jT - a.jT) ||
+      (b.total - a.total) ||
       (b.lvl10Wins - a.lvl10Wins) ||
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
@@ -2107,6 +2385,7 @@ function openWalletsModal(){
     state.lifetimeSorted = enriched;
     return enriched;
   }
+
 
 
   function openTop10Modal(){
@@ -2332,10 +2611,10 @@ function openWalletsModal(){
       apply();
 
       const lastWeekSorted = computeLastWeekTop();
-      renderTopList("top3LastWeek", lastWeekSorted, 3);
+      renderTopList("top3LastWeek", lastWeekSorted, 4);
 
       const lifetimeSorted = computeLifetimeTop();
-      renderTopList("top3Lifetime", lifetimeSorted, 3);
+      renderTopList("top3Lifetime", lifetimeSorted, 4);
 
       requestAnimationFrame(() => sizeTilesToFilters());
     } catch (e){
@@ -2382,18 +2661,37 @@ function openWalletsModal(){
 
   $("thisWeekBtn").addEventListener("click", () => {
     setThisWeek(); apply();
-    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
     requestAnimationFrame(() => sizeTilesToFilters());
   });
   $("lastWeekBtn").addEventListener("click", () => {
     setLastWeek(); apply();
-    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+
+  $("thisMonthBtn").addEventListener("click", () => {
+    setThisMonth(); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+  $("lastMonthBtn").addEventListener("click", () => {
+    setLastMonth(); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+  $("prevWeekBtn").addEventListener("click", () => {
+    shiftWeek(-1); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+  $("nextWeekBtn").addEventListener("click", () => {
+    shiftWeek(1); apply();
     requestAnimationFrame(() => sizeTilesToFilters());
   });
 
   $("clearRangeBtn").addEventListener("click", () => {
     setThisWeek(); apply();
-    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
     requestAnimationFrame(() => sizeTilesToFilters());
   });
 
@@ -2519,6 +2817,20 @@ function openWalletsModal(){
     refresh();
   })();
 
+
+// Filters hide/show toggle
+(function initFiltersHide(){
+  const t = $("filtersHideToggle");
+  if (!t) return;
+  const toggle = () => {
+    const collapsed = ($("filtersBd") && $("filtersBd").style.display !== "none") ? true : false;
+    setFiltersCollapsed(collapsed);
+  };
+  t.addEventListener("click", toggle);
+  t.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+  });
+})();
 
   initLearnPulse();
   setToggleUI();
