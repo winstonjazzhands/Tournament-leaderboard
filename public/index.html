@@ -2314,59 +2314,50 @@ function openWalletsModal(){
   }
 
   function computeLifetimeTop(){
-    // Prefer server-side computed lifetimeEarned if available in leaderboard.json
-    const srv = Array.isArray(state.serverLeaderboard) ? state.serverLeaderboard : [];
-    const hasServerEarned = srv.length && srv.some(r => Number.isFinite(Number(r.lifetimeEarned)));
+    // Always compute lifetime earned from wins[] by summing WEEKLY payouts over time.
+    // (Lvl 10 rewards are weekly threshold payouts, not additive per win.)
+    const winsNorm = (state.wins || []).map(w => ({
+      ...w,
+      wallet: (w.wallet || "").toLowerCase(),
+      timestamp: Number(w.timestamp) || 0,
+      tier: Number(w.tier) || 0,
+      tournamentId: w.tournamentId
+    }));
 
-    let enriched = [];
-    if (hasServerEarned){
-      enriched = srv.map(r => ({
-        wallet: (r.wallet || "").toLowerCase(),
-        lvl10Wins: Number(r.lvl10Wins) || 0,
-        lvl20Wins: Number(r.lvl20Wins) || 0,
-        total: Number(r.totalWins) || 0,
-        lastWin: Number(r.lastWin) || 0,
-        // Use true lifetime earned computed by the updater
-        jT: Number(r.lifetimeEarned) || 0,
-      }));
-    } else {
-      // Fallback: compute lifetime earned from wins[] by summing WEEKLY payouts over time.
-      // (Required because L10 rewards are weekly threshold payouts, not additive per win.)
-      const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
+    const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
 
-      for (const w of state.wins){
-        const tMs = w.timestamp * 1000;
-        if (tMs < DATA_START_MS) continue;
+    for (const w of winsNorm){
+      const tMs = w.timestamp * 1000;
+      if (tMs < DATA_START_MS) continue;
 
-        const wk = startOfUtcWeekMonday(tMs);
-        let byWeek = weekly.get(w.wallet);
-        if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
+      const wk = startOfUtcWeekMonday(tMs);
+      let byWeek = weekly.get(w.wallet);
+      if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
 
-        let c = byWeek.get(wk);
-        if (!c){ c = { l10: 0, l20: 0, total: 0 }; byWeek.set(wk, c); }
+      let c = byWeek.get(wk);
+      if (!c){ c = { l10: 0, l20: 0 }; byWeek.set(wk, c); }
 
-        if (w.tier === 10) c.l10++;
-        else if (w.tier === 20) c.l20++;
-        c.total++;
-      }
-
-      // Also keep basic win totals for display
-      const agg = aggregateWins(state.wins, DATA_START_MS, null).rows;
-
-      const earnedByWallet = new Map();
-      for (const [wallet, byWeek] of weekly.entries()){
-        let sum = 0;
-        for (const c of byWeek.values()){
-          sum += jewel10(c.l10) + jewel20(c.l20);
-        }
-        earnedByWallet.set(wallet, sum);
-      }
-
-      enriched = agg.map(r => ({
-        ...r,
-        jT: earnedByWallet.get(r.wallet) || 0
-      }));
+      if (w.tier === 10) c.l10++;
+      else if (w.tier === 20) c.l20++;
     }
+
+    // Win totals for display
+    const agg = aggregateWins(winsNorm, DATA_START_MS, null).rows;
+
+    const earnedByWallet = new Map();
+    for (const [wallet, byWeek] of weekly.entries()){
+      let sum = 0;
+      for (const c of byWeek.values()){
+        sum += jewel10(c.l10) + jewel20(c.l20);
+      }
+      earnedByWallet.set(wallet, sum);
+    }
+
+    const enriched = agg.map(r => ({
+      ...r,
+      wallet: (r.wallet || "").toLowerCase(),
+      jT: earnedByWallet.get((r.wallet || "").toLowerCase()) || 0
+    }));
 
     enriched.sort((a,b)=>
       (b.jT - a.jT) ||
