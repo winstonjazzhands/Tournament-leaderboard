@@ -14,4 +14,4 @@ node
 score
 runner/
 .cache/
-public/.github/
+public/.github/node_modules/
