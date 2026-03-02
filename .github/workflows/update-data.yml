@@ -3,7 +3,7 @@ name: Update leaderboard data
 on:
   schedule:
     # Runs at minute 0 every hour (UTC). GitHub schedules are best-effort.
-    - cron: '0 * * * *'
+    - cron: "0 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -18,7 +18,7 @@ jobs:
   update:
     runs-on: ubuntu-latest
 
-    # Make vars available to EVERY step (npm ci, npm run, etc.)
+    # Make repo Variables available to EVERY step (npm ci, npm run, etc.)
     env:
       RPC_URL: ${{ vars.RPC_URL }}
       SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
@@ -26,7 +26,7 @@ jobs:
       SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
       SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
 
-      # Script tuning
+      # Script tuning (if your scripts read these)
       START_BLOCK: "22000000"
       LOOKBACK_BLOCKS: "3000000"
       LOG_CHUNK_BLOCKS: "60000"
@@ -58,7 +58,6 @@ jobs:
               echo "❌ Missing required variable: $name"
               missing=1
             else
-              # Don't print secrets/URLs; just confirm it's present
               echo "✅ Found variable: $name"
             fi
           }
@@ -122,6 +121,30 @@ jobs:
           git commit -m "Update leaderboard data"
           echo "changed=true" >> "$GITHUB_OUTPUT"
 
-      - name: Push changes
+      - name: Rebase onto origin/main (avoid non-fast-forward)
         if: steps.commit.outputs.changed == 'true'
-        run: git push
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin main
+          git rebase origin/main
+
+      - name: Push changes (retry)
+        if: steps.commit.outputs.changed == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for i in 1 2 3; do
+            if git push; then
+              echo "Push succeeded"
+              exit 0
+            fi
+
+            echo "Push failed (attempt $i). Rebasing and retrying..."
+            git fetch origin main
+            git rebase origin/main
+          done
+
+          echo "Push failed after 3 attempts."
+          exit 1
