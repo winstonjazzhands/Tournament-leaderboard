@@ -1,19 +1,15 @@
 /**
- * Post-22M tournament tier resolver (logs + subgraph) — restarted with the working decoder.
+ * Post-22M tournament tier resolver (subgraph + on-chain logs)
  *
- * What it does:
- *  - Pull all tournamentWins from your subgraph
- *  - Filter wins to blockNumber >= START_BLOCK (default 22,000,000)
- *  - For each unique tournamentId in that filtered set, resolve tier (10/20) by scanning diamond logs
- *    backwards from that tournament’s first win block, up to LOOKBACK_BLOCKS.
- *  - Writes public/leaderboard.json containing:
- *      - wins[] (raw, per-win, includes tier)
- *      - leaderboard[] (aggregated per wallet, L10/L20 totals, lastWin)
+ * Outputs: public/leaderboard.json
+ *  - wins[]: per-win with {wallet,tournamentId,timestamp,blockNumber,tier}
+ *  - leaderboard[]: per-wallet totals + true earned totals
  *
- * FIX (Lifetime Earned):
- *  - Adds true JEWEL earned calculations by summing WEEKLY payouts over time:
- *      lifetimeEarned = Σ per-week [ bracket(L10winsThatWeek) + 60 * L20winsThatWeek ]
- *    This is required because L10 rewards are weekly threshold payouts (not additive per win).
+ * TRUE LIFETIME EARNED:
+ *   Since L10 rewards are weekly threshold payouts (not additive per win),
+ *   lifetimeEarned MUST be the sum of weekly payouts over time:
+ *     weeklyPayout = bracket(L10winsThatWeek) + 60 * (L20winsThatWeek)
+ *     lifetimeEarned = Σ weeklyPayout across all weeks in the dataset
  */
 
 import fs from "fs";
@@ -26,7 +22,6 @@ const __dirname = path.dirname(__filename);
 
 const DECODE_VERSION = "post22m-v1-flexpair";
 
-// Reward rules (keep here so backend + frontend stay consistent)
 const REWARDS = {
   L20_PER_WIN: 60,
   // Weekly bracket payout for L10 wins in a week
@@ -42,7 +37,7 @@ const CFG = {
     process.env.SUBGRAPH_ENDPOINT ||
     "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7",
 
-  // Accept either RPC_URL (workflow) or RPC (older scripts)
+  // Accept RPC_URL (your workflow) or RPC (older local usage)
   RPC:
     process.env.RPC_URL ||
     process.env.RPC ||
@@ -55,15 +50,12 @@ const CFG = {
   START_BLOCK: Number(process.env.START_BLOCK || "22000000"),
   LOOKBACK_BLOCKS: Number(process.env.LOOKBACK_BLOCKS || "1500000"),
   LOG_CHUNK_BLOCKS: Number(process.env.LOG_CHUNK_BLOCKS || "60000"),
-
   THROTTLE_MS: Number(process.env.THROTTLE_MS || "0"),
 
   OUT_JSON: path.resolve(__dirname, "..", "public", "leaderboard.json"),
   CACHE_DIR: path.resolve(__dirname, ".cache"),
   CACHE_FILE: path.resolve(__dirname, ".cache", "tournament-tier-cache.json"),
 
-  // If true, we will keep existing tier in cache and NOT recompute it.
-  // Set to 0 if you want to recompute everything from scratch.
   USE_CACHE: (process.env.USE_CACHE ?? "1") === "1",
 };
 
@@ -86,10 +78,12 @@ function writeJsonPretty(p, obj) {
 function toLower0x(addr) {
   return (addr || "").toLowerCase();
 }
+
 function hex32FromU256(n) {
   const bi = BigInt(n);
   return ethers.zeroPadValue(ethers.toBeHex(bi), 32).toLowerCase();
 }
+
 function splitDataWords(dataHex) {
   if (!dataHex || dataHex === "0x") return [];
   const clean = dataHex.startsWith("0x") ? dataHex.slice(2) : dataHex;
@@ -99,11 +93,13 @@ function splitDataWords(dataHex) {
   }
   return out;
 }
+
 function extractWordsFromLog(log) {
   const topics = (log.topics || []).map((t) => (t || "").toLowerCase());
   const dataWords = splitDataWords(log.data);
   return [...topics, ...dataWords];
 }
+
 function wordToSmallInt(hexWord) {
   try {
     const bi = BigInt(hexWord);
@@ -115,7 +111,7 @@ function wordToSmallInt(hexWord) {
 }
 
 /**
- * Week start (Monday 00:00 UTC) as epoch seconds
+ * Week start (Monday 00:00 UTC) as epoch seconds.
  */
 function weekStartUtcSeconds(tsSec) {
   const d = new Date(tsSec * 1000);
@@ -194,7 +190,7 @@ function inferTierFlexPair(words, tidWord) {
   const SPAN = 14;
   const MAX_DRIFT = 4;
 
-  let best = null; // {tier, score}
+  let best = null;
 
   for (const tidIdx of tidIdxs) {
     const start = Math.max(0, tidIdx - WINDOW);
@@ -213,7 +209,6 @@ function inferTierFlexPair(words, tidWord) {
       for (let j = a.idx + 1; j <= Math.min(end, a.idx + SPAN); j++) {
         const max = wordToSmallInt(words[j]);
         if (max !== 10 && max !== 20) continue;
-
         if (min > max) continue;
         if (max - min > MAX_DRIFT) continue;
 
@@ -222,9 +217,7 @@ function inferTierFlexPair(words, tidWord) {
         const spanBonus = SPAN - (j - a.idx);
         const score = 10_000 - distToTid * 80 + exactBonus + spanBonus;
 
-        if (!best || score > best.score) {
-          best = { tier: max, score };
-        }
+        if (!best || score > best.score) best = { tier: max, score };
       }
     }
   }
@@ -268,7 +261,6 @@ function inferTierNearestUnambiguous(words, tidWord) {
       if (v !== target) continue;
       bestDist = Math.min(bestDist, Math.abs(i - tidIdx));
     }
-
     if (bestDist < Infinity) return target;
   }
 
@@ -290,20 +282,15 @@ async function findTierByLookback({ provider, diamond, tournamentId, winBlock })
       return { tier: null, matchedBlock: null, error: String(e?.message || e) };
     }
 
-    // newest-first
     for (let i = logs.length - 1; i >= 0; i--) {
       const log = logs[i];
       const words = extractWordsFromLog(log);
       if (!words.includes(tidWord)) continue;
 
       let tier = inferTierFlexPair(words, tidWord);
-      if (tier !== 10 && tier !== 20) {
-        tier = inferTierNearestUnambiguous(words, tidWord);
-      }
+      if (tier !== 10 && tier !== 20) tier = inferTierNearestUnambiguous(words, tidWord);
 
-      if (tier === 10 || tier === 20) {
-        return { tier, matchedBlock: Number(log.blockNumber) };
-      }
+      if (tier === 10 || tier === 20) return { tier, matchedBlock: Number(log.blockNumber) };
     }
 
     if (CFG.THROTTLE_MS > 0) await sleep(CFG.THROTTLE_MS);
@@ -331,7 +318,6 @@ async function gqlFetchAllTournamentWins(endpoint) {
 
   while (true) {
     const body = JSON.stringify({ query, variables: { first, skip } });
-
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -344,9 +330,7 @@ async function gqlFetchAllTournamentWins(endpoint) {
     }
 
     const json = await res.json();
-    if (json.errors?.length) {
-      throw new Error(`Subgraph errors: ${JSON.stringify(json.errors)}`);
-    }
+    if (json.errors?.length) throw new Error(`Subgraph errors: ${JSON.stringify(json.errors)}`);
 
     const batch = json?.data?.tournamentWins || [];
     all.push(...batch);
@@ -360,10 +344,8 @@ async function gqlFetchAllTournamentWins(endpoint) {
   return all;
 }
 
-function aggregateLeaderboardFromWins(wins) {
-  const by = new Map();
-
-  // wallet -> weekStartSec -> {l10, l20}
+function computeEarnedByWalletFromWins(wins) {
+  // wallet -> weekStart -> {l10,l20}
   const weekly = new Map();
 
   const nowSec = Math.floor(Date.now() / 1000);
@@ -373,25 +355,6 @@ function aggregateLeaderboardFromWins(wins) {
   for (const w of wins) {
     const wallet = toLower0x(w.wallet);
     if (!wallet) continue;
-
-    const cur =
-      by.get(wallet) || {
-        wallet,
-        lvl10Wins: 0,
-        lvl20Wins: 0,
-        totalWins: 0,
-        lastWin: 0,
-      };
-
-    if (w.tier === 10) cur.lvl10Wins++;
-    else if (w.tier === 20) cur.lvl20Wins++;
-
-    cur.totalWins++;
-    if (Number(w.timestamp) > cur.lastWin) cur.lastWin = Number(w.timestamp);
-
-    by.set(wallet, cur);
-
-    // Only count tiered wins into JEWEL earnings
     if (w.tier !== 10 && w.tier !== 20) continue;
     if (!Number.isFinite(Number(w.timestamp))) continue;
 
@@ -413,8 +376,7 @@ function aggregateLeaderboardFromWins(wins) {
     else counts.l20++;
   }
 
-  // Compute earnings per wallet
-  const earnedByWallet = new Map(); // wallet -> { lifetime, thisWeek, lastWeek }
+  const earned = new Map();
   for (const [wallet, weeks] of weekly.entries()) {
     let lifetime = 0;
     let thisWeek = 0;
@@ -427,13 +389,48 @@ function aggregateLeaderboardFromWins(wins) {
       if (wk === lastWeekStart) lastWeek += payout;
     }
 
-    earnedByWallet.set(wallet, { lifetime, thisWeek, lastWeek });
+    earned.set(wallet, { lifetime, thisWeek, lastWeek });
   }
 
+  return earned;
+}
+
+function aggregateLeaderboardFromWins(wins) {
+  const by = new Map();
+
+  for (const w of wins) {
+    const wallet = toLower0x(w.wallet);
+    if (!wallet) continue;
+
+    const cur =
+      by.get(wallet) || {
+        wallet,
+        lvl10Wins: 0,
+        lvl20Wins: 0,
+        totalWins: 0,
+        lastWin: 0,
+      };
+
+    if (w.tier === 10) cur.lvl10Wins++;
+    else if (w.tier === 20) cur.lvl20Wins++;
+
+    cur.totalWins++;
+    if (Number(w.timestamp) > cur.lastWin) cur.lastWin = Number(w.timestamp);
+
+    by.set(wallet, cur);
+  }
+
+  const earned = computeEarnedByWalletFromWins(wins);
+
   return [...by.values()]
-    .sort((a, b) => (b.totalWins - a.totalWins) || (b.lastWin - a.lastWin) || a.wallet.localeCompare(b.wallet))
+    .sort(
+      (a, b) =>
+        b.totalWins - a.totalWins ||
+        b.lastWin - a.lastWin ||
+        a.wallet.localeCompare(b.wallet)
+    )
     .map((r, i) => {
-      const e = earnedByWallet.get(r.wallet) || { lifetime: 0, thisWeek: 0, lastWeek: 0 };
+      const e = earned.get(r.wallet) || { lifetime: 0, thisWeek: 0, lastWeek: 0 };
       return {
         rank: i + 1,
         wallet: r.wallet,
@@ -442,7 +439,7 @@ function aggregateLeaderboardFromWins(wins) {
         totalWins: r.totalWins,
         lastWin: r.lastWin,
 
-        // NEW: true earned totals
+        // NEW: correct earned totals (weekly-summed over time)
         lifetimeEarned: e.lifetime,
         thisWeekEarned: e.thisWeek,
         lastWeekEarned: e.lastWeek,
@@ -477,15 +474,20 @@ async function main() {
       blockNumber: Number(w.blockNumber),
       wallet: toLower0x(w?.player?.id),
     }))
-    .filter((w) => w.wallet && Number.isFinite(w.tournamentId) && Number.isFinite(w.timestamp) && Number.isFinite(w.blockNumber))
+    .filter(
+      (w) =>
+        w.wallet &&
+        Number.isFinite(w.tournamentId) &&
+        Number.isFinite(w.timestamp) &&
+        Number.isFinite(w.blockNumber)
+    )
     .filter((w) => w.blockNumber >= CFG.START_BLOCK);
 
-  // Map tid->first winBlock after startBlock
+  // Map tid -> first winBlock after startBlock
   const tidToWinBlock = new Map();
   for (const w of wins) {
     if (!tidToWinBlock.has(w.tournamentId)) tidToWinBlock.set(w.tournamentId, w.blockNumber);
   }
-
   const tids = [...tidToWinBlock.keys()].sort((a, b) => a - b);
 
   console.log(`[post22m] wins(post)=${wins.length} uniqueTournaments(post)=${tids.length}`);
@@ -498,13 +500,22 @@ async function main() {
     const cached = cache.byTournamentId[String(tid)];
     const cachedTier = cached?.tier;
 
-    if (CFG.USE_CACHE && (cachedTier === 10 || cachedTier === 20) && cached?.decodeVersion === DECODE_VERSION) {
+    if (
+      CFG.USE_CACHE &&
+      (cachedTier === 10 || cachedTier === 20) &&
+      cached?.decodeVersion === DECODE_VERSION
+    ) {
       continue;
     }
 
     console.log(`[post22m] ${i + 1}/${tids.length} tid=${tid} winBlock=${winBlock}`);
 
-    const found = await findTierByLookback({ provider, diamond, tournamentId: tid, winBlock });
+    const found = await findTierByLookback({
+      provider,
+      diamond,
+      tournamentId: tid,
+      winBlock,
+    });
 
     if (found?.tier === 10 || found?.tier === 20) {
       cache.byTournamentId[String(tid)] = {
@@ -559,15 +570,13 @@ async function main() {
     totalWins: wins.length,
     uniqueTournaments: tids.length,
     unknownTierWins,
-
-    // Useful metadata for reward interpretation
     rewards: {
       lvl10Brackets: REWARDS.L10_BRACKETS,
       lvl20PerWin: REWARDS.L20_PER_WIN,
       weekStart: "Monday 00:00 UTC",
-      earnedDefinition: "Sum of weekly payouts over time (L10 bracket per week + L20 per-win per week).",
+      earnedDefinition:
+        "Sum of weekly payouts over time (L10 bracket per week + L20 per-win per week).",
     },
-
     wins: wins.map((w) => ({
       id: w.id,
       tournamentId: w.tournamentId,
@@ -584,10 +593,6 @@ async function main() {
 
   console.log(`[post22m] wrote ${CFG.OUT_JSON}`);
   console.log(`[post22m] unknownTierWins: ${unknownTierWins}`);
-  if (unknownTierWins > 0) {
-    const unknownTids = [...new Set(wins.filter((w) => !w.tier).map((w) => w.tournamentId))].sort((a, b) => a - b);
-    console.log(`[post22m] unknown tournamentIds (${unknownTids.length}): ${unknownTids.join(", ")}`);
-  }
 }
 
 main().catch((e) => {
