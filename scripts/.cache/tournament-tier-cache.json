@@ -6568,6 +6568,38 @@
       "resolvedAtUtc": "2026-02-28T23:10:55.412Z",
       "decodeVersion": "post22m-v1-flexpair"
     },
+    "1973": {
+      "tier": 10,
+      "matchedBlock": 22267891,
+      "anchorWinBlock": 22267891,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:24:49.317Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "1974": {
+      "tier": 10,
+      "matchedBlock": 22268907,
+      "anchorWinBlock": 22268907,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:24:59.598Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "1975": {
+      "tier": 10,
+      "matchedBlock": 22269429,
+      "anchorWinBlock": 22269429,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:25:09.729Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "1976": {
+      "tier": 10,
+      "matchedBlock": 22269947,
+      "anchorWinBlock": 22269947,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:25:19.771Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
     "2022": {
       "tier": 10,
       "matchedBlock": 22161435,
@@ -6982,6 +7014,30 @@
       "anchorWinBlock": 22264223,
       "method": "logs/lookback",
       "resolvedAtUtc": "2026-03-01T01:05:19.485Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2102": {
+      "tier": 10,
+      "matchedBlock": 22268124,
+      "anchorWinBlock": 22268393,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:25:29.708Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2103": {
+      "tier": 20,
+      "matchedBlock": 22270225,
+      "anchorWinBlock": 22270296,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:25:39.691Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2104": {
+      "tier": 10,
+      "matchedBlock": 22270561,
+      "anchorWinBlock": 22270729,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-02T11:25:49.704Z",
       "decodeVersion": "post22m-v1-flexpair"
     }
   }
