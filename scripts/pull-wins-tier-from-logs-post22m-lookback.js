@@ -1,15 +1,9 @@
 /**
  * Post-22M tournament tier resolver (subgraph + on-chain logs)
+ * Writes: public/leaderboard.json  (NOT scripts/public/...)
  *
- * Outputs: public/leaderboard.json
- *  - wins[]: per-win with {wallet,tournamentId,timestamp,blockNumber,tier}
- *  - leaderboard[]: per-wallet totals + true earned totals
- *
- * TRUE LIFETIME EARNED:
- *   Since L10 rewards are weekly threshold payouts (not additive per win),
- *   lifetimeEarned MUST be the sum of weekly payouts over time:
- *     weeklyPayout = bracket(L10winsThatWeek) + 60 * (L20winsThatWeek)
- *     lifetimeEarned = Σ weeklyPayout across all weeks in the dataset
+ * Adds correct earnings:
+ *  lifetimeEarned = sum over weeks (L10 bracket payout + 60 * L20 wins)
  */
 
 import fs from "fs";
@@ -24,7 +18,6 @@ const DECODE_VERSION = "post22m-v1-flexpair";
 
 const REWARDS = {
   L20_PER_WIN: 60,
-  // Weekly bracket payout for L10 wins in a week
   L10_BRACKETS: [
     { minWins: 10, jewel: 750 },
     { minWins: 5, jewel: 300 },
@@ -37,7 +30,7 @@ const CFG = {
     process.env.SUBGRAPH_ENDPOINT ||
     "https://api.studio.thegraph.com/query/1742426/tournament-leaderboards/1.7",
 
-  // Accept RPC_URL (your workflow) or RPC (older local usage)
+  // accept either name
   RPC:
     process.env.RPC_URL ||
     process.env.RPC ||
@@ -52,7 +45,9 @@ const CFG = {
   LOG_CHUNK_BLOCKS: Number(process.env.LOG_CHUNK_BLOCKS || "60000"),
   THROTTLE_MS: Number(process.env.THROTTLE_MS || "0"),
 
+  // ✅ correct output path (repoRoot/public/leaderboard.json)
   OUT_JSON: path.resolve(__dirname, "..", "public", "leaderboard.json"),
+
   CACHE_DIR: path.resolve(__dirname, ".cache"),
   CACHE_FILE: path.resolve(__dirname, ".cache", "tournament-tier-cache.json"),
 
@@ -78,12 +73,10 @@ function writeJsonPretty(p, obj) {
 function toLower0x(addr) {
   return (addr || "").toLowerCase();
 }
-
 function hex32FromU256(n) {
   const bi = BigInt(n);
   return ethers.zeroPadValue(ethers.toBeHex(bi), 32).toLowerCase();
 }
-
 function splitDataWords(dataHex) {
   if (!dataHex || dataHex === "0x") return [];
   const clean = dataHex.startsWith("0x") ? dataHex.slice(2) : dataHex;
@@ -93,13 +86,11 @@ function splitDataWords(dataHex) {
   }
   return out;
 }
-
 function extractWordsFromLog(log) {
   const topics = (log.topics || []).map((t) => (t || "").toLowerCase());
   const dataWords = splitDataWords(log.data);
   return [...topics, ...dataWords];
 }
-
 function wordToSmallInt(hexWord) {
   try {
     const bi = BigInt(hexWord);
@@ -110,9 +101,6 @@ function wordToSmallInt(hexWord) {
   }
 }
 
-/**
- * Week start (Monday 00:00 UTC) as epoch seconds.
- */
 function weekStartUtcSeconds(tsSec) {
   const d = new Date(tsSec * 1000);
   const day = d.getUTCDay(); // 0=Sun..6=Sat
@@ -129,26 +117,16 @@ function l10BracketPayout(winsL10ThatWeek) {
   return 0;
 }
 
-/**
- * Cache loader + migration:
- * Accepts:
- *  - new shape: { byTournamentId: { "123": { tier: 10, ... } } }
- *  - old shape: { "123": 10, ... } OR { "123": { tier: 10 }, ... }
- */
 function loadTierCache() {
   const raw = readJsonSafe(CFG.CACHE_FILE, null);
   const base = { byTournamentId: {} };
-
   if (!raw || typeof raw !== "object") return base;
-
   if (raw.byTournamentId && typeof raw.byTournamentId === "object") {
     return { byTournamentId: raw.byTournamentId };
   }
-
   const migrated = { byTournamentId: {} };
   for (const [k, v] of Object.entries(raw)) {
     if (!/^\d+$/.test(k)) continue;
-
     if (v === 10 || v === 20) {
       migrated.byTournamentId[k] = {
         tier: v,
@@ -173,23 +151,14 @@ function loadTierCache() {
   return migrated;
 }
 
-/**
- * Decoder 1: flexible min/max pair near tournamentId word.
- * - Search +/- WINDOW around tid
- * - Find min in [0..30], then max (10 or 20) within +SPAN words
- * - Validate min<=max and max-min<=4
- */
 function inferTierFlexPair(words, tidWord) {
   const tidIdxs = [];
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] === tidWord) tidIdxs.push(i);
-  }
+  for (let i = 0; i < words.length; i++) if (words[i] === tidWord) tidIdxs.push(i);
   if (!tidIdxs.length) return null;
 
   const WINDOW = 40;
   const SPAN = 14;
   const MAX_DRIFT = 4;
-
   let best = null;
 
   for (const tidIdx of tidIdxs) {
@@ -199,8 +168,7 @@ function inferTierFlexPair(words, tidWord) {
     const ints = [];
     for (let i = start; i <= end; i++) {
       const v = wordToSmallInt(words[i]);
-      if (v == null) continue;
-      if (v < 0 || v > 30) continue;
+      if (v == null || v < 0 || v > 30) continue;
       ints.push({ idx: i, v });
     }
 
@@ -221,18 +189,12 @@ function inferTierFlexPair(words, tidWord) {
       }
     }
   }
-
   return best ? best.tier : null;
 }
 
-/**
- * Decoder 2: nearest 10/20 near tid, ONLY if unambiguous (not both 10 and 20 in window)
- */
 function inferTierNearestUnambiguous(words, tidWord) {
   const tidIdxs = [];
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] === tidWord) tidIdxs.push(i);
-  }
+  for (let i = 0; i < words.length; i++) if (words[i] === tidWord) tidIdxs.push(i);
   if (!tidIdxs.length) return null;
 
   const WINDOW = 40;
@@ -255,15 +217,11 @@ function inferTierNearestUnambiguous(words, tidWord) {
     const target = seen10 ? 10 : seen20 ? 20 : null;
     if (!target) continue;
 
-    let bestDist = Infinity;
     for (let i = start; i <= end; i++) {
       const v = wordToSmallInt(words[i]);
-      if (v !== target) continue;
-      bestDist = Math.min(bestDist, Math.abs(i - tidIdx));
+      if (v === target) return target;
     }
-    if (bestDist < Infinity) return target;
   }
-
   return null;
 }
 
@@ -317,11 +275,10 @@ async function gqlFetchAllTournamentWins(endpoint) {
   `;
 
   while (true) {
-    const body = JSON.stringify({ query, variables: { first, skip } });
     const res = await fetch(endpoint, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body,
+      body: JSON.stringify({ query, variables: { first, skip } }),
     });
 
     if (!res.ok) {
@@ -334,7 +291,6 @@ async function gqlFetchAllTournamentWins(endpoint) {
 
     const batch = json?.data?.tournamentWins || [];
     all.push(...batch);
-
     console.log(`[post22m] page=${skip / first} batch=${batch.length} total=${all.length}`);
 
     if (batch.length < first) break;
@@ -345,8 +301,7 @@ async function gqlFetchAllTournamentWins(endpoint) {
 }
 
 function computeEarnedByWalletFromWins(wins) {
-  // wallet -> weekStart -> {l10,l20}
-  const weekly = new Map();
+  const weekly = new Map(); // wallet -> weekStart -> {l10,l20}
 
   const nowSec = Math.floor(Date.now() / 1000);
   const thisWeekStart = weekStartUtcSeconds(nowSec);
@@ -366,17 +321,17 @@ function computeEarnedByWalletFromWins(wins) {
       weekly.set(wallet, walletWeeks);
     }
 
-    let counts = walletWeeks.get(wk);
-    if (!counts) {
-      counts = { l10: 0, l20: 0 };
-      walletWeeks.set(wk, counts);
+    let c = walletWeeks.get(wk);
+    if (!c) {
+      c = { l10: 0, l20: 0 };
+      walletWeeks.set(wk, c);
     }
 
-    if (w.tier === 10) counts.l10++;
-    else counts.l20++;
+    if (w.tier === 10) c.l10++;
+    else c.l20++;
   }
 
-  const earned = new Map();
+  const out = new Map(); // wallet -> {lifetime,thisWeek,lastWeek}
   for (const [wallet, weeks] of weekly.entries()) {
     let lifetime = 0;
     let thisWeek = 0;
@@ -389,10 +344,10 @@ function computeEarnedByWalletFromWins(wins) {
       if (wk === lastWeekStart) lastWeek += payout;
     }
 
-    earned.set(wallet, { lifetime, thisWeek, lastWeek });
+    out.set(wallet, { lifetime, thisWeek, lastWeek });
   }
 
-  return earned;
+  return out;
 }
 
 function aggregateLeaderboardFromWins(wins) {
@@ -402,14 +357,13 @@ function aggregateLeaderboardFromWins(wins) {
     const wallet = toLower0x(w.wallet);
     if (!wallet) continue;
 
-    const cur =
-      by.get(wallet) || {
-        wallet,
-        lvl10Wins: 0,
-        lvl20Wins: 0,
-        totalWins: 0,
-        lastWin: 0,
-      };
+    const cur = by.get(wallet) || {
+      wallet,
+      lvl10Wins: 0,
+      lvl20Wins: 0,
+      totalWins: 0,
+      lastWin: 0,
+    };
 
     if (w.tier === 10) cur.lvl10Wins++;
     else if (w.tier === 20) cur.lvl20Wins++;
@@ -423,12 +377,7 @@ function aggregateLeaderboardFromWins(wins) {
   const earned = computeEarnedByWalletFromWins(wins);
 
   return [...by.values()]
-    .sort(
-      (a, b) =>
-        b.totalWins - a.totalWins ||
-        b.lastWin - a.lastWin ||
-        a.wallet.localeCompare(b.wallet)
-    )
+    .sort((a, b) => b.totalWins - a.totalWins || b.lastWin - a.lastWin || a.wallet.localeCompare(b.wallet))
     .map((r, i) => {
       const e = earned.get(r.wallet) || { lifetime: 0, thisWeek: 0, lastWeek: 0 };
       return {
@@ -439,7 +388,7 @@ function aggregateLeaderboardFromWins(wins) {
         totalWins: r.totalWins,
         lastWin: r.lastWin,
 
-        // NEW: correct earned totals (weekly-summed over time)
+        // ✅ correct totals
         lifetimeEarned: e.lifetime,
         thisWeekEarned: e.thisWeek,
         lastWeekEarned: e.lastWeek,
@@ -459,7 +408,6 @@ async function main() {
 
   ensureDir(CFG.CACHE_DIR);
   const cache = loadTierCache();
-  if (!cache.byTournamentId) cache.byTournamentId = {};
 
   const provider = new ethers.JsonRpcProvider(CFG.RPC);
   const diamond = ethers.getAddress(CFG.TOURNAMENT_DIAMOND);
@@ -474,49 +422,31 @@ async function main() {
       blockNumber: Number(w.blockNumber),
       wallet: toLower0x(w?.player?.id),
     }))
-    .filter(
-      (w) =>
-        w.wallet &&
-        Number.isFinite(w.tournamentId) &&
-        Number.isFinite(w.timestamp) &&
-        Number.isFinite(w.blockNumber)
-    )
+    .filter((w) => w.wallet && Number.isFinite(w.tournamentId) && Number.isFinite(w.timestamp) && Number.isFinite(w.blockNumber))
     .filter((w) => w.blockNumber >= CFG.START_BLOCK);
 
-  // Map tid -> first winBlock after startBlock
   const tidToWinBlock = new Map();
-  for (const w of wins) {
-    if (!tidToWinBlock.has(w.tournamentId)) tidToWinBlock.set(w.tournamentId, w.blockNumber);
-  }
+  for (const w of wins) if (!tidToWinBlock.has(w.tournamentId)) tidToWinBlock.set(w.tournamentId, w.blockNumber);
   const tids = [...tidToWinBlock.keys()].sort((a, b) => a - b);
 
   console.log(`[post22m] wins(post)=${wins.length} uniqueTournaments(post)=${tids.length}`);
 
-  // Resolve tiers
   for (let i = 0; i < tids.length; i++) {
     const tid = tids[i];
     const winBlock = tidToWinBlock.get(tid);
 
-    const cached = cache.byTournamentId[String(tid)];
+    const cached = cache.byTournamentId?.[String(tid)];
     const cachedTier = cached?.tier;
 
-    if (
-      CFG.USE_CACHE &&
-      (cachedTier === 10 || cachedTier === 20) &&
-      cached?.decodeVersion === DECODE_VERSION
-    ) {
+    if (CFG.USE_CACHE && (cachedTier === 10 || cachedTier === 20) && cached?.decodeVersion === DECODE_VERSION) {
       continue;
     }
 
     console.log(`[post22m] ${i + 1}/${tids.length} tid=${tid} winBlock=${winBlock}`);
 
-    const found = await findTierByLookback({
-      provider,
-      diamond,
-      tournamentId: tid,
-      winBlock,
-    });
+    const found = await findTierByLookback({ provider, diamond, tournamentId: tid, winBlock });
 
+    cache.byTournamentId = cache.byTournamentId || {};
     if (found?.tier === 10 || found?.tier === 20) {
       cache.byTournamentId[String(tid)] = {
         tier: found.tier,
@@ -537,17 +467,15 @@ async function main() {
         decodeVersion: DECODE_VERSION,
         error: found?.error || null,
       };
-      console.log(`[post22m]  ⚠️  unknown tier`);
+      console.log(`[post22m]  ⚠️ unknown tier`);
     }
   }
 
   writeJsonPretty(CFG.CACHE_FILE, cache);
-  console.log(`[post22m] cache saved: ${CFG.CACHE_FILE}`);
 
-  // Apply tiers to wins
   let unknownTierWins = 0;
   for (const w of wins) {
-    const entry = cache.byTournamentId[String(w.tournamentId)];
+    const entry = cache.byTournamentId?.[String(w.tournamentId)];
     const tier = entry?.tier;
     if (tier === 10 || tier === 20) w.tier = tier;
     else {
@@ -560,10 +488,7 @@ async function main() {
 
   const out = {
     updatedAtUtc: new Date().toISOString(),
-    source: "subgraph+logs/lookback",
     decodeVersion: DECODE_VERSION,
-    rpc: CFG.RPC,
-    tournamentDiamond: CFG.TOURNAMENT_DIAMOND,
     startBlock: CFG.START_BLOCK,
     lookbackBlocks: CFG.LOOKBACK_BLOCKS,
     logChunkBlocks: CFG.LOG_CHUNK_BLOCKS,
@@ -574,8 +499,7 @@ async function main() {
       lvl10Brackets: REWARDS.L10_BRACKETS,
       lvl20PerWin: REWARDS.L20_PER_WIN,
       weekStart: "Monday 00:00 UTC",
-      earnedDefinition:
-        "Sum of weekly payouts over time (L10 bracket per week + L20 per-win per week).",
+      earnedDefinition: "Sum of weekly payouts over time (L10 bracket per week + L20 per-win per week).",
     },
     wins: wins.map((w) => ({
       id: w.id,
@@ -590,9 +514,7 @@ async function main() {
 
   ensureDir(path.dirname(CFG.OUT_JSON));
   writeJsonPretty(CFG.OUT_JSON, out);
-
   console.log(`[post22m] wrote ${CFG.OUT_JSON}`);
-  console.log(`[post22m] unknownTierWins: ${unknownTierWins}`);
 }
 
 main().catch((e) => {
