@@ -517,93 +517,6 @@
     .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
     .clickBreakdown:hover{text-decoration:underline;}
 
-    /* Wins detail modal (grouped payouts) */
-    #winsDetailBackdrop .modal{ width: min(860px, 100%); }
-
-    /* Wins detail modal sizing tweaks */
-    #winsDetailBackdrop .modalHd{
-      padding:9px 11px; /* ~20% smaller than default */
-    }
-    #winsDetailBackdrop .modalTitle{
-      font-size:12px; /* ~20% smaller than base */
-    }
-    #winsDetailBackdrop #winsDetailCloseBtn{
-      padding:7px 8px; /* ~20% smaller */
-      font-size:12px;
-      border-radius:10px;
-    }
-    #winsDetailBackdrop .winsDetailActions .modalBtn{
-      padding:7px 8px; /* ~20% smaller */
-      font-size:12px;
-      border-radius:10px;
-    }
-
-    
-    .winsDetailTopbar{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-      margin: 8px 0 12px;
-    }
-    .winsDetailNote{
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.35;
-      max-width: 560px;
-    }
-    .winsDetailNote strong{ color: var(--text); }
-    #winsDetailMeta:empty{display:none;}
-    .winsDetailActions{ display:flex; gap:8px; flex-wrap:wrap; }
-
-    .winsTile{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius:14px;
-      margin: 10px 0;
-      overflow:hidden;
-    }
-    .winsTileHdr{
-      width:100%;
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:10px;
-      padding:12px 12px;
-      background: transparent;
-      border:0;
-      color: var(--text);
-      cursor:pointer;
-      text-align:left;
-    }
-    .winsTileHdr:hover{ background: rgba(255,255,255,.04); }
-    .winsTileHdr .wk{font-weight:1000}
-    .winsTileHdr .pay{color: var(--gold); font-weight:1000; white-space:nowrap;}
-    .winsTileBody{
-      padding: 0 12px 12px;
-    }
-    .winsTile.closed .winsTileBody{ display:none; }
-.winsWeekCard{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius:14px;
-      padding:12px 12px;
-      margin: 10px 0;
-    }
-    .winsWeekHdr{
-      display:flex;
-      justify-content:space-between;
-      align-items:baseline;
-      gap:10px;
-      margin-bottom:8px;
-    }
-    .winsWeekHdr .wk{font-weight:1000}
-    .winsWeekHdr .pay{color: var(--gold); font-weight:1000; white-space:nowrap;}
-    .winsWeekMeta{color: var(--muted); font-size:12px; margin-bottom:8px;}
-    .winsIds{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; line-height:1.35; word-break:break-word;}
-    .winsIds .lbl{color: rgba(233,240,255,.85); font-weight:900;}
-    .winsIds .none{color: var(--muted);}
-
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
 
@@ -1182,17 +1095,7 @@
       font-weight:1000;
     }
     
-  
-    /* --- Modal scrolling fix: allow content to be reachable on smaller screens --- */
-    .modal{
-      max-height: calc(100vh - 32px);
-      display: flex;
-      flex-direction: column;
-    }
-    .modalBd{
-      overflow: auto;
-    }
-</style>
+  </style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
@@ -1289,21 +1192,6 @@
   </div>
 </div>
 
-</div>
-
-
-<div class="modalBackdrop" id="winsDetailBackdrop" aria-hidden="true">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="winsDetailTitle">
-    <div class="modalHd">
-      <div class="modalTitle" id="winsDetailTitle">Win details</div>
-      <button class="modalBtn" id="winsDetailCloseBtn" type="button">Close</button>
-    </div>
-    <div class="modalBd">
-      <p class="modalNote" id="winsDetailMeta">—</p>
-      <div id="winsDetailBody"></div>
-<div class="modalNote" id="winsDetailStatus" style="margin-top:10px"></div>
-    </div>
-  </div>
 </div>
 
 <div class="pcOverlay" id="pcOverlay" aria-hidden="true">
@@ -1772,6 +1660,21 @@ tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
     }, 1200);
   });
 });
+tb.querySelectorAll(".clickWins").forEach(el => {
+      const open = () => {
+        const wallet = el.getAttribute("data-wallet") || "";
+        const col = el.getAttribute("data-col") || "T";
+        const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+        if (!idsText.trim()){
+          return;
+        }
+        openTourneyLinksModal(wallet, col, idsText);
+      };
+      el.addEventListener("click", open);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+      });
+    });
   }
 
   function apply(){
@@ -2044,177 +1947,6 @@ function openWalletsModal(){
     setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
   }
 
-  // =========================
-  // Wins detail modal (grouped by week, with JEWEL breakdown)
-  // =========================
-  let winsDetailLast = { wallet: "", col: "T", idsText: "" };
-
-  function buildIdsTextForWalletCol(wallet, col, scope){
-    const w = (wallet || "").toLowerCase();
-    const colKey = (col || "T").toUpperCase();
-
-    const fromMs = (scope === "range") ? state.range.fromMs : null;
-    const toMs   = (scope === "range") ? state.range.toMs   : null;
-
-    const ids = [];
-    for (const win of state.wins){
-      if ((win.wallet || "").toLowerCase() !== w) continue;
-
-      // Optional range filter (inclusive end)
-      if (fromMs != null && toMs != null){
-        const tMs = (win.timestamp || 0) * 1000;
-        if (tMs < fromMs || tMs > toMs) continue;
-      }
-
-      if (colKey === "10" && win.tier !== 10) continue;
-      if (colKey === "20" && win.tier !== 20) continue;
-      if (colKey === "T" && !(win.tier === 10 || win.tier === 20)) continue;
-
-      const tid = win.tournamentId;
-      if (tid == null) continue;
-      ids.push(Number(tid));
-    }
-
-    // Unique + sorted
-    const uniq = [...new Set(ids)].sort((a,b)=>a-b);
-    return uniq.map(String).join("\n");
-  }
-
-
-  function openWinsDetailModal(wallet, col, idsText){
-    const ids = (idsText || "").split(/\s+/).map(s=>s.trim()).filter(Boolean);
-    if (!ids.length) return;
-
-    winsDetailLast = { wallet, col, idsText: ids.join("\n") };
-
-    const w = (wallet || "").toLowerCase();
-    const colKey = (col || "T").toUpperCase();
-
-    const idSet = new Set(ids.map(String));
-
-    // Filter wins by wallet + selected ids + column tier
-    const selectedWins = state.wins.filter(win => {
-      if ((win.wallet || "").toLowerCase() !== w) return false;
-      const tid = win.tournamentId != null ? String(win.tournamentId) : "";
-      if (!tid || !idSet.has(tid)) return false;
-
-      if (colKey === "10") return win.tier === 10;
-      if (colKey === "20") return win.tier === 20;
-      return (win.tier === 10 || win.tier === 20);
-    });
-
-    // Group by Monday 00:00 UTC week start
-    const weeks = new Map(); // weekStartMs -> { l10: [], l20: [], lastTsMs }
-    for (const win of selectedWins){
-      const tMs = (win.timestamp || 0) * 1000;
-      const wk = startOfUtcWeekMonday(tMs);
-      const cur = weeks.get(wk) || { l10: [], l20: [], lastTsMs: 0 };
-
-      if (win.tier === 20) cur.l20.push(win);
-      else cur.l10.push(win);
-
-      if (tMs > cur.lastTsMs) cur.lastTsMs = tMs;
-      weeks.set(wk, cur);
-    }
-
-    const weekKeys = [...weeks.keys()].sort((a,b)=>b-a);
-
-    const tierLabel = colKey === "10" ? "Lvl 10" : colKey === "20" ? "Lvl 20" : "Total";
-    $("winsDetailTitle").textContent = `${displayName(wallet)} ${tierLabel} win details, grouped by week`;
-    $("winsDetailMeta").textContent = ``;
-
-    const body = $("winsDetailBody");
-    if (!weekKeys.length){
-      body.innerHTML = `<div class="topEmpty">No wins found for this selection.</div>`;
-    } else {
-      // Build collapsible tiles (default closed)
-      body.innerHTML = `
-        <div class="winsDetailTopbar">
-          <div class="winsDetailNote">
-            Lvl 10 pays weekly brackets (3=150, 5=300, 10=750). Lvl 20 pays 60 per win.
-          </div>
-          <div class="winsDetailActions">
-            <button class="modalBtn" id="winsDetailOpenAllBtn" type="button">Open all</button>
-            <button class="modalBtn" id="winsDetailCloseAllBtn" type="button">Close all</button>
-          </div>
-        </div>
-        <div id="winsDetailTiles"></div>
-      `;
-
-      const tilesHost = $("winsDetailTiles");
-      tilesHost.innerHTML = weekKeys.map(wk => {
-        const g = weeks.get(wk);
-        const l10Ids = g.l10.map(x=>Number(x.tournamentId)).sort((a,b)=>a-b);
-        const l20Ids = g.l20.map(x=>Number(x.tournamentId)).sort((a,b)=>a-b);
-
-        const w10 = l10Ids.length;
-        const w20 = l20Ids.length;
-
-        const pay10 = jewel10(w10);
-        const pay20 = jewel20(w20);
-        const pay = (colKey === "10") ? pay10 : (colKey === "20") ? pay20 : (pay10 + pay20);
-
-        const wkEnd = wk + 7*86400000;
-        const wkLabel = `${formatPrettyUtc(wk)} → ${formatPrettyUtcInclusiveEnd(wkEnd)}`;
-        const lastWinLabel = g.lastTsMs ? formatPrettyUtc(g.lastTsMs) : "—";
-
-        const show10 = (colKey !== "20");
-        const show20 = (colKey !== "10");
-
-        // Default closed: header shows week + earned only
-        return `
-          <div class="winsTile closed" data-wk="${wk}">
-            <button class="winsTileHdr" type="button">
-              <div class="wk">Week <span class="tag">${wkLabel}</span></div>
-              <div class="pay">${formatJewel(pay)}</div>
-            </button>
-
-            <div class="winsTileBody">
-              <div class="winsWeekMeta">Last win that week: <strong>${lastWinLabel}</strong></div>
-
-              <div class="winsIds">
-                ${show10 ? `<div><span class="lbl">Lvl 10 (${w10})</span>: ${w10 ? l10Ids.join(", ") : `<span class="none">none</span>`}</div>` : ``}
-                ${show20 ? `<div style="margin-top:6px;"><span class="lbl">Lvl 20 (${w20})</span>: ${w20 ? l20Ids.join(", ") : `<span class="none">none</span>`}</div>` : ``}
-              </div>
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      // Wire Open all / Close all
-      $("winsDetailOpenAllBtn")?.addEventListener("click", () => {
-        tilesHost.querySelectorAll(".winsTile").forEach(t => t.classList.remove("closed"));
-      });
-      $("winsDetailCloseAllBtn")?.addEventListener("click", () => {
-        tilesHost.querySelectorAll(".winsTile").forEach(t => t.classList.add("closed"));
-      });
-
-      // Toggle individual tile (remains open once clicked until user closes or uses close all)
-      tilesHost.addEventListener("click", (e) => {
-        const btn = e.target?.closest?.(".winsTileHdr");
-        if (!btn) return;
-        const tile = btn.closest(".winsTile");
-        if (!tile) return;
-        tile.classList.toggle("closed");
-      });
-    }
-
-    $("winsDetailStatus").textContent = "";
-    $("winsDetailBackdrop").classList.add("show");
-    $("winsDetailBackdrop").setAttribute("aria-hidden","false");
-  }
-
-  function closeWinsDetailModal(){
-    $("winsDetailBackdrop").classList.remove("show");
-    $("winsDetailBackdrop").setAttribute("aria-hidden","true");
-  }
-
-  // Close actions
-  $("winsDetailCloseBtn")?.addEventListener("click", closeWinsDetailModal);
-  $("winsDetailBackdrop")?.addEventListener("click", (e) => {
-    if (e.target && e.target.id === "winsDetailBackdrop") closeWinsDetailModal();
-  });
-
   function sizeTilesToFilters(){
     const filters = $("filtersCard");
     const last = $("lastWeekTile");
@@ -2283,8 +2015,6 @@ function openWalletsModal(){
       const ids20 = (r.ids20 || []).join("\n");
       const enc10 = encodeURIComponent(ids10);
       const enc20 = encodeURIComponent(ids20);
-      const idsAll = (r.idsAll || []).join("\n");
-      const encAll = encodeURIComponent(idsAll);
 
       const winsLine = isLastWeek
         ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`
@@ -2297,7 +2027,7 @@ function openWalletsModal(){
             <div class="topWallet">
               <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
               ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
-              <div class="topMeta"><span class="clickWins" role="button" tabindex="0" data-wallet="${r.wallet}" data-col="T" data-scope="${isLastWeek ? "range" : "all"}" data-ids="${isLastWeek ? encAll : ""}" title="Click for win details">${winsLine}</span></div>
+              <div class="topMeta">${winsLine}</div>
             </div>
           </div>
           <div class="topRight">
@@ -2324,63 +2054,45 @@ function openWalletsModal(){
   }
 
   function computeLifetimeTop(){
-    // Prefer server-side computed lifetimeEarned if available in leaderboard.json
-    const srv = Array.isArray(state.serverLeaderboard) ? state.serverLeaderboard : [];
-    const hasServerEarned = srv.length && srv.some(r => Number.isFinite(Number(r.lifetimeEarned)));
+    // Always compute lifetime earned from wins[] by summing WEEKLY payouts over time.
+    // (L10 rewards are weekly threshold payouts, not additive per win.)
+    const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
 
-    let enriched = [];
-    if (hasServerEarned){
-      enriched = srv.map(r => ({
-        wallet: (r.wallet || "").toLowerCase(),
-        lvl10Wins: Number(r.lvl10Wins) || 0,
-        lvl20Wins: Number(r.lvl20Wins) || 0,
-        total: Number(r.totalWins) || 0,
-        lastWin: Number(r.lastWin) || 0,
-        // Use true lifetime earned computed by the updater
-        jT: Number(r.lifetimeEarned) || 0,
-      }));
-    } else {
-      // Fallback: compute lifetime earned from wins[] by summing WEEKLY payouts over time.
-      // (Required because L10 rewards are weekly threshold payouts, not additive per win.)
-      const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
+    for (const w of state.wins){
+      const tMs = w.timestamp * 1000;
+      if (tMs < DATA_START_MS) continue;
 
-      for (const w of state.wins){
-        const tMs = w.timestamp * 1000;
-        if (tMs < DATA_START_MS) continue;
+      const wk = startOfUtcWeekMonday(tMs);
+      let byWeek = weekly.get(w.wallet);
+      if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
 
-        const wk = startOfUtcWeekMonday(tMs);
-        let byWeek = weekly.get(w.wallet);
-        if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
+      let c = byWeek.get(wk);
+      if (!c){ c = { l10: 0, l20: 0 }; byWeek.set(wk, c); }
 
-        let c = byWeek.get(wk);
-        if (!c){ c = { l10: 0, l20: 0, total: 0 }; byWeek.set(wk, c); }
-
-        if (w.tier === 10) c.l10++;
-        else if (w.tier === 20) c.l20++;
-        c.total++;
-      }
-
-      // Also keep basic win totals for display
-      const agg = aggregateWins(state.wins, DATA_START_MS, null).rows;
-
-      const earnedByWallet = new Map();
-      for (const [wallet, byWeek] of weekly.entries()){
-        let sum = 0;
-        for (const c of byWeek.values()){
-          sum += jewel10(c.l10) + jewel20(c.l20);
-        }
-        earnedByWallet.set(wallet, sum);
-      }
-
-      enriched = agg.map(r => ({
-        ...r,
-        jT: earnedByWallet.get(r.wallet) || 0
-      }));
+      if (w.tier === 10) c.l10++;
+      else if (w.tier === 20) c.l20++;
     }
 
+    // Basic win totals for display
+    const agg = aggregateWins(state.wins, DATA_START_MS, null).rows;
+
+    const earnedByWallet = new Map();
+    for (const [wallet, byWeek] of weekly.entries()){
+      let sum = 0;
+      for (const c of byWeek.values()){
+        sum += jewel10(c.l10) + jewel20(c.l20);
+      }
+      earnedByWallet.set(wallet, sum);
+    }
+
+    const enriched = agg.map(r => ({
+      ...r,
+      jT: earnedByWallet.get(r.wallet) || 0
+    }));
+
     enriched.sort((a,b)=>
-      (b.jT - a.jT) ||
-      (b.total - a.total) ||
+      (b.jT - a.jT) 
+      || (b.total - a.total) ||
       (b.lvl10Wins - a.lvl10Wins) ||
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
@@ -2414,7 +2126,7 @@ function openWalletsModal(){
               <span class="top10Place">${place}</span>
               <div class="top10Wallet">
                 <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
-                <div class="top10Meta"><span class="clickWins" role="button" tabindex="0" data-wallet="${r.wallet}" data-col="T" data-scope="all" title="Click for win details">${winsLine}</span></div>
+                <div class="top10Meta">${winsLine}</div>
               </div>
             </div>
             <div class="top10Right">
@@ -2745,38 +2457,6 @@ function openWalletsModal(){
 
 
   // Ensure Last-week Top 3 breakdown links always work (10s/20s)
-
-  // Win details modal: click on "XX wins" anywhere (table + lifetime/last-week tiles + top10 modal)
-  function handleClickWinsTarget(targetEl){
-    const wallet = targetEl.getAttribute("data-wallet") || "";
-    const col = targetEl.getAttribute("data-col") || "T";
-    const scope = targetEl.getAttribute("data-scope") || "range"; // default range
-    const enc = targetEl.getAttribute("data-ids") || "";
-    let idsText = "";
-    if (enc && enc.trim()){
-      try { idsText = decodeURIComponent(enc); } catch { idsText = enc; }
-    } else {
-      idsText = buildIdsTextForWalletCol(wallet, col, scope);
-    }
-    if (!idsText.trim()) return;
-    openWinsDetailModal(wallet, col, idsText);
-  }
-
-  document.addEventListener("click", (e) => {
-    const el = (e.target && e.target.closest) ? e.target.closest(".clickWins") : null;
-    if (!el) return;
-    handleClickWinsTarget(el);
-  });
-
-  document.addEventListener("keydown", (e) => {
-    const t = e.target;
-    if (!t || !t.classList || !t.classList.contains("clickWins")) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      handleClickWinsTarget(t);
-    }
-  });
-
   document.addEventListener("click", (e) => {
     const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
     if (!el) return;
@@ -2806,7 +2486,6 @@ function openWalletsModal(){
     if ($("modalBackdrop").classList.contains("show")) closeModal("modalBackdrop");
     if ($("tourneyBackdrop").classList.contains("show")) closeModal("tourneyBackdrop");
     if ($("tourneyLinksBackdrop").classList.contains("show")) closeModal("tourneyLinksBackdrop");
-    if ($("winsDetailBackdrop").classList.contains("show")) closeWinsDetailModal();
   });
 
   window.addEventListener("resize", () => {
