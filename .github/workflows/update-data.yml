@@ -18,6 +18,20 @@ jobs:
   update:
     runs-on: ubuntu-latest
 
+    # Make vars available to EVERY step (npm ci, npm run, etc.)
+    env:
+      RPC_URL: ${{ vars.RPC_URL }}
+      SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
+      TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
+      SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
+      SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
+
+      # Script tuning
+      START_BLOCK: "22000000"
+      LOOKBACK_BLOCKS: "3000000"
+      LOG_CHUNK_BLOCKS: "60000"
+      USE_CACHE: "1"
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,25 +44,48 @@ jobs:
           node-version: 20
           cache: npm
 
+      - name: Preflight - verify required GitHub Variables exist
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          missing=0
+
+          check() {
+            local name="$1"
+            local value="${!name:-}"
+            if [ -z "$value" ]; then
+              echo "❌ Missing required variable: $name"
+              missing=1
+            else
+              # Don't print secrets/URLs; just confirm it's present
+              echo "✅ Found variable: $name"
+            fi
+          }
+
+          check RPC_URL
+          check SUBGRAPH_ENDPOINT
+          check TOURNAMENT_DIAMOND
+          check SEED_TX_L10
+          check SEED_TX_L20
+
+          if [ "$missing" -ne 0 ]; then
+            echo ""
+            echo "Fix: Repo → Settings → Secrets and variables → Actions → Variables"
+            echo "Add the missing variable(s) exactly as named above."
+            exit 1
+          fi
+
       - name: Install dependencies
         run: npm ci
 
       - name: Update ALL data (wins + profiles + tournamentRanges + validate)
-        env:
-          RPC_URL: ${{ vars.RPC_URL }}
-          SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
-          TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
-          SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
-          SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
-          START_BLOCK: "22000000"
-          LOOKBACK_BLOCKS: "3000000"
-          LOG_CHUNK_BLOCKS: "60000"
-          USE_CACHE: "1"
         run: npm run update:all
 
       - name: Copy public outputs to repo root (Pages root hosting)
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
           cp -f public/leaderboard.json leaderboard.json
           cp -f public/profiles.json profiles.json
           if [ -f public/tournamentRanges.json ]; then
@@ -62,8 +99,9 @@ jobs:
 
       - name: Commit updated data (if changed)
         id: commit
+        shell: bash
         run: |
-          set -e
+          set -euo pipefail
 
           # Add generated public files
           git add public/leaderboard.json public/profiles.json public/tournamentRanges.json || true
@@ -77,12 +115,12 @@ jobs:
           # Only commit if something changed
           if git diff --cached --quiet; then
             echo "No changes to commit"
-            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "changed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
 
           git commit -m "Update leaderboard data"
-          echo "changed=true" >> $GITHUB_OUTPUT
+          echo "changed=true" >> "$GITHUB_OUTPUT"
 
       - name: Push changes
         if: steps.commit.outputs.changed == 'true'
