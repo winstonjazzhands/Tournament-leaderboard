@@ -329,7 +329,7 @@
 .tearsDivider{
   height:1px;
   background: rgba(255,255,255,.08);
-  margin:10px 0;
+  margin:9px 0;
 }
 .tearsNote{
   margin-top:10px;
@@ -445,7 +445,7 @@
       overflow:hidden;
     }
     .card .hd{
-      padding:11px 14px;border-bottom:1px solid var(--border);
+      padding:10px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
     .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
@@ -471,7 +471,7 @@
       text-align:left;
       color:var(--muted);
       font-weight:700;
-      padding:11px 12px;
+      padding:10px 12px;
       border-bottom:1px solid var(--border);
       background: rgba(255,255,255,.02);
       position:sticky; top:0;
@@ -481,7 +481,7 @@
       white-space:nowrap;
     }
     tbody td{
-      padding:12px 12px;
+      padding:11px 12px;
       border-bottom:1px solid var(--border);
       vertical-align:middle;
       font-variant-numeric: tabular-nums;
@@ -615,7 +615,7 @@
     }
     }
     .modalHd{
-      padding:12px 14px;
+      padding:10px 12px;
       display:flex;align-items:center;justify-content:space-between;gap:8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
@@ -809,8 +809,8 @@
       .miniTile,.topMiniBtn{height:54px;}
 
       table{font-size:15px}
-      thead th{font-size:13px;padding:10px 10px}
-      tbody td{padding:10px 10px}
+      thead th{font-size:13px;padding:9px 10px}
+      tbody td{padding:9px 10px}
       .rank{width:56px}
       .tableWrap{max-height:65vh}
       .filterGrid{gap:8px;}
@@ -859,6 +859,70 @@
 }
 .discordCopyBtn:hover{background: rgba(255,255,255,.06)}
 .discordCopyBtn.copied{opacity:.95;border-color: rgba(78,161,255,.45)}
+
+
+    /* weekly breakdown modal */
+    .wkCard{
+      border:1px solid var(--modalBorder);
+      border-radius:16px;
+      overflow:hidden;
+      margin:9px 0;
+      background:rgba(0,0,0,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .wkHdr{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.04);
+      border:0;
+      color:var(--text);
+      cursor:pointer;
+      text-align:left
+    }
+    .wkHdr:hover{background:rgba(255,255,255,.06)}
+    .wkLeft{display:flex;flex-direction:column;gap:4px}
+    .wkTitle{font-weight:900;letter-spacing:.2px}
+    .wkSub{font-size:12px;color:var(--muted)}
+    .wkRight{display:flex;align-items:center;gap:12px}
+    .wkJewel{font-weight:1000;color:#facc15;white-space:nowrap;letter-spacing:.2px}
+    .wkCaret{font-size:16px;color:var(--muted);min-width:14px;text-align:right}
+    .wkBody{padding:12px 16px}
+
+    /* Weekly breakdown lines */
+    .wkLine{display:flex;gap:10px;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .wkLine:last-child{border-bottom:none}
+    .wkLbl{min-width:92px;color:var(--muted);font-size:12px;font-weight:900}
+    .wkIds{color:var(--text);font-size:12px;overflow-wrap:anywhere;line-height:1.35}
+
+    /* Hide meta/rewards lines for this modal */
+    #tourneyLinksMeta, #tourneyLinksRewards{display:none}
+
+    /* Slightly smaller header + close button */
+    #tourneyLinksBackdrop .modalHd{padding:10px 12px}
+    #tourneyLinksCloseBtn{padding:6px 8px;border-radius:10px;font-size:11px;line-height:1}
+
+    /* Open/Close all buttons slightly smaller */
+    #wkOpenAllBtn, #wkCloseAllBtn{padding:4px 7px;border-radius:9px;font-size:10px}
+
+    .wkControls{display:flex;align-items:center;gap:10px;margin:2px 0 11px}
+    .wkControlsRight{margin-left:auto;display:flex;gap:10px}
+
+    .wkSearch{
+      width: 260px;
+      max-width: 52vw;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+    }
+    .wkSearch::placeholder{color: rgba(233,240,255,.55)}
 
 </style>
 </head>
@@ -1294,9 +1358,10 @@
     </div>
     <div class="modalBd">
       <p class="modalNote" id="tourneyLinksMeta">—</p>
+      <p class="modalNote" id="tourneyLinksRewards" style="margin-top:6px">—</p>
       <div id="tourneyLinksList" style="max-height:50vh;overflow:auto;padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.18);text-align:left;"></div>
       <div class="modalBtns">
-        <button class="modalBtn" id="tourneyLinksCopyBtn" type="button">Copy links</button>
+        
       </div>
       <div class="modalNote" id="tourneyLinksStatus" style="margin-top:10px"></div>
     </div>
@@ -1940,12 +2005,11 @@ tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
 tb.querySelectorAll(".clickWins").forEach(el => {
       const open = () => {
         const wallet = el.getAttribute("data-wallet") || "";
-        const col = el.getAttribute("data-col") || "T";
-        const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-        if (!idsText.trim()){
-          return;
-        }
-        openTourneyLinksModal(wallet, col, idsText);
+        const tier = el.getAttribute("data-tier") || "all";
+        const rangeLabel = el.getAttribute("data-range") || "";
+        const fromMs = Number(el.getAttribute("data-from") || "");
+        const toMs = Number(el.getAttribute("data-to") || "");
+        openTourneyLinksModal(wallet, tier, fromMs, toMs, rangeLabel);
       };
       el.addEventListener("click", open);
       el.addEventListener("keydown", (e) => {
@@ -2050,17 +2114,59 @@ tb.querySelectorAll(".clickWins").forEach(el => {
 
   function openModal(backdropId){
     const b = $(backdropId);
+    if (!b){ console.warn("[openModal] missing element", backdropId); return; }
+
+    // If the backdrop lives inside a transformed/overflow-hidden container, fixed positioning can get clipped.
+    // Move it to <body> once so it truly overlays the whole page.
+    if (b.parentElement !== document.body){
+      document.body.appendChild(b);
+    }
+
     b.classList.add("show");
     b.setAttribute("aria-hidden","false");
+
+    // Force overlay styling (bypass any CSS that might hide/clip it)
+    b.style.display = "flex";
+    b.style.position = "fixed";
+    b.style.inset = "0";
+    b.style.alignItems = "center";
+    b.style.justifyContent = "center";
+    b.style.padding = "24px";
+    b.style.background = "rgba(0,0,0,.60)";
+    b.style.zIndex = "999999";
+    b.style.visibility = "visible";
+    b.style.opacity = "1";
+    b.style.pointerEvents = "auto";
+
+    const modal = b.querySelector(".modal");
+    if (modal){
+      modal.style.display = "block";
+      modal.style.position = "relative";
+      modal.style.transform = "none";
+      modal.style.visibility = "visible";
+      modal.style.opacity = "1";
+      modal.style.pointerEvents = "auto";
+      modal.style.zIndex = "1000000";
+      modal.style.maxHeight = "90vh";
+      modal.style.overflow = "auto";
+      modal.style.width = "min(720px, calc(100vw - 48px))";
+    }
+
+    console.log("[openModal] opened", backdropId);
   }
   function closeModal(backdropId){
     const b = $(backdropId);
+    if (!b) return;
     b.classList.remove("show");
     b.setAttribute("aria-hidden","true");
+
+    // Hide, but don't remove from body (we may have moved it for clipping reasons)
+    b.style.display = "none";
+    b.style.pointerEvents = "none";
+
+    console.log("[openModal] closed", backdropId);
   }
 
-  
-  
   // Rotating tip button (changes every 36 hours)
   const TIP_ROTATE_MS = 36 * 60 * 60 * 1000;
 
@@ -2199,26 +2305,208 @@ function openWalletsModal(){
     return `https://game.defikingdoms.com/registry/tournaments/${tid}`;
   }
 
-  function openTourneyLinksModal(wallet, tier, idsText){
-    const ids = (idsText || "").split(/\s+/).map(s=>s.trim()).filter(Boolean);
-    const label = tier === 20 ? "Lvl 20" : "Lvl 10";
-    $("tourneyLinksTitle").textContent = `${label} tournament links`;
-    $("tourneyLinksMeta").textContent = `${displayName(wallet)} • Last week • ${ids.length.toLocaleString()} ${ids.length === 1 ? "tournament" : "tournaments"}`;
-    $("tourneyLinksStatus").textContent = "";
+  function openTourneyLinksModal(wallet, tier, fromMs, toMs, rangeLabel){
+    const tierKey = String(tier || "all").toLowerCase();
+    const tierNum = (tierKey === "all") ? null : Number(tierKey);
+    const label = (tierNum == null) ? "All wins" : (tierNum === 20 ? "Lvl 20" : "Lvl 10");
+    const labelTitle = (tierNum == null) ? "Total" : (tierNum === 20 ? "Lvl 20" : "Lvl 10");
 
-    if (!ids.length){
-      $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No tournaments found.</div>`;
-    } else {
-      $("tourneyLinksList").innerHTML = `<ul style="margin:0;padding-left:18px;line-height:1.6;">${
-        ids.map(tid => {
-          const url = tourneyUrl(tid);
-          return `<li><a href="${url}" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:800;text-decoration:none;">${url}</a></li>`;
-        }).join("")
-      }</ul>`;
+    const w = (wallet || "").toLowerCase();
+    const name = displayName(wallet);
+
+    // Gather wins for this wallet + range + tier
+    const items = [];
+    for (const win of state.wins){
+      if ((win.wallet || "").toLowerCase() !== w) continue;
+      const tMs = (win.timestamp || 0) * 1000;
+      if (Number.isFinite(fromMs) && fromMs && tMs < fromMs) continue;
+      if (Number.isFinite(toMs) && toMs && tMs >= toMs) continue;
+      if (tierNum != null && win.tier !== tierNum) continue;
+      const tid = normalizeTournamentId(win.tournamentId);
+      if (!tid) continue;
+      items.push({ tMs, tid, tier: win.tier });
     }
 
-    // store for copy
-    $("tourneyLinksList").setAttribute("data-copy", ids.map(tid => tourneyUrl(tid)).join("\n"));
+    // Group by UTC week (Monday start)
+    const byWeek = new Map(); // weekStartMs -> { weekStartMs, w10, w20, ids10, ids20, idsAll }
+    for (const it of items){
+      const wk = startOfUtcWeekMonday(it.tMs);
+      const cur = byWeek.get(wk) || {
+        weekStartMs: wk,
+        w10: 0,
+        w20: 0,
+        ids10: new Set(),
+        ids20: new Set(),
+        idsAll: new Set(),
+      };
+      cur.idsAll.add(it.tid);
+      if (it.tier === 10){
+        cur.w10++;
+        cur.ids10.add(it.tid);
+      } else if (it.tier === 20){
+        cur.w20++;
+        cur.ids20.add(it.tid);
+      }
+      byWeek.set(wk, cur);
+    }
+
+    const weeks = [...byWeek.values()].sort((a,b)=>b.weekStartMs - a.weekStartMs);
+
+    // Title + meta
+    $("tourneyLinksTitle").textContent = `Lifetime Rewards Details`;
+    $("tourneyLinksMeta").textContent = "";
+        $("tourneyLinksRewards").textContent = "";
+    $("tourneyLinksStatus").textContent = "";
+
+    // Render
+    if (!weeks.length){
+      $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No wins found in this range.</div>`;
+      $("tourneyLinksList").setAttribute("data-copy", "");
+      openModal("tourneyLinksBackdrop");
+      setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
+      return;
+    }
+
+    // Compute per-week jewel based on selected tier
+    function jewelForWeek(w10, w20){
+      if (tierNum === 10) return jewel10(w10);
+      if (tierNum === 20) return jewel20(w20);
+      return jewel10(w10) + jewel20(w20);
+    }
+
+    function fmtDateUtc(ms){
+      return new Intl.DateTimeFormat("en-US", { timeZone:"UTC", month:"short", day:"numeric", year:"numeric" }).format(new Date(ms));
+    }
+
+    function weekLabel(wkStartMs){
+      const start = fmtDateUtc(wkStartMs);
+      const end = fmtDateUtc(wkStartMs + 6*86400000);
+      return `${start} → ${end}`;
+    }
+
+    const controlsHtml = `
+      <div class="wkControls">
+        <div class="wkControlsLeft"><input id="wkSearchInput" class="wkSearch" type="text" placeholder="Search date or tournament ID…" autocomplete="off" /></div>
+        <div class="wkControlsRight">
+          <button class="btn tiny" id="wkOpenAllBtn" type="button">Open all</button>
+          <button class="btn tiny" id="wkCloseAllBtn" type="button">Close all</button>
+        </div>
+      </div>
+    `;
+
+    const rowsHtml = weeks.map((wk, i) => {
+      const idsAll = [...wk.idsAll].sort((a,b)=>Number(a)-Number(b));
+      const ids10 = [...wk.ids10].sort((a,b)=>Number(a)-Number(b));
+      const ids20 = [...wk.ids20].sort((a,b)=>Number(a)-Number(b));
+
+      const jewel = jewelForWeek(wk.w10, wk.w20);
+      const wkId = `wk_${wk.weekStartMs}`;
+
+      const joinIds = (arr) => arr.map(x => escHtml(x)).join(", ");
+      const idsToShow = (tierNum === 10) ? ids10 : (tierNum === 20) ? ids20 : idsAll;
+
+      let list = "";
+      if (tierNum == null){
+        const line10 = ids10.length ? `<div class="wkLine"><span class="wkLbl">Lvl 10 (${wk.w10}):</span> <span class="wkIds">${joinIds(ids10)}</span></div>` : "";
+        const line20 = ids20.length ? `<div class="wkLine"><span class="wkLbl">Lvl 20 (${wk.w20}):</span> <span class="wkIds">${joinIds(ids20)}</span></div>` : "";
+        list = (line10 || line20) ? `${line10}${line20}` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      } else if (tierNum === 10){
+        list = ids10.length ? `<div class="wkLine"><span class="wkLbl">Lvl 10 (${wk.w10}):</span> <span class="wkIds">${joinIds(ids10)}</span></div>` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      } else {
+        list = ids20.length ? `<div class="wkLine"><span class="wkLbl">Lvl 20 (${wk.w20}):</span> <span class="wkIds">${joinIds(ids20)}</span></div>` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      }
+
+      const subline = (tierNum == null)
+        ? `${wk.w10}×10s • ${wk.w20}×20s`
+        : (tierNum === 10) ? `${wk.w10}×10s`
+        : `${wk.w20}×20s`;
+
+      return `
+        <div class="wkCard" data-week="${wk.weekStartMs}">
+          <button class="wkHdr" type="button" data-wkbtn="${wkId}" aria-expanded="${i===0 ? "true":"false"}">
+            <div class="wkLeft">
+              <div class="wkTitle">${weekLabel(wk.weekStartMs)}</div>
+              <div class="wkSub">${subline}</div>
+            </div>
+            <div class="wkRight">
+              <div class="wkJewel">${formatJewel(jewel)}</div>
+              <div class="wkCaret">${i===0 ? "▾":"▸"}</div>
+            </div>
+          </button>
+          <div class="wkBody" id="${wkId}" style="display:${i===0 ? "block":"none"};">
+            ${list}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    $("tourneyLinksList").innerHTML = controlsHtml + rowsHtml;
+
+    // Store for copy: just IDs (not urls), grouped by week
+    const copyText = weeks.map(wk => {
+      const ids = [...wk.idsAll].sort((a,b)=>Number(a)-Number(b));
+      return `${weekLabel(wk.weekStartMs)}\n${ids.join("\n")}`;
+    }).join("\n\n");
+    $("tourneyLinksList").setAttribute("data-copy", copyText);
+
+    // Wire buttons + accordion (inside modal)
+    const listHost = $("tourneyLinksList");
+
+    const openAll = () => {
+      listHost.querySelectorAll(".wkBody").forEach(b => b.style.display = "block");
+      listHost.querySelectorAll(".wkHdr").forEach(h => { h.setAttribute("aria-expanded","true"); const c=h.querySelector(".wkCaret"); if(c) c.textContent="▾"; });
+    };
+    const closeAll = () => {
+      listHost.querySelectorAll(".wkBody").forEach(b => b.style.display = "none");
+      listHost.querySelectorAll(".wkHdr").forEach(h => { h.setAttribute("aria-expanded","false"); const c=h.querySelector(".wkCaret"); if(c) c.textContent="▸"; });
+    };
+
+    // Ensure old listeners don't stack: replace buttons by cloning
+    const openBtn = $("wkOpenAllBtn");
+    const closeBtn = $("wkCloseAllBtn");
+    if (openBtn){
+      const nb = openBtn.cloneNode(true);
+      openBtn.replaceWith(nb);
+      nb.addEventListener("click", openAll);
+    }
+    if (closeBtn){
+      const nb = closeBtn.cloneNode(true);
+      closeBtn.replaceWith(nb);
+      nb.addEventListener("click", closeAll);
+    }
+
+    // Week search (date or tournament ID)
+    const searchEl0 = $("wkSearchInput");
+    if (searchEl0){
+      const searchEl = searchEl0.cloneNode(true);
+      searchEl0.replaceWith(searchEl);
+      searchEl.addEventListener("input", () => {
+        const q = (searchEl.value || "").trim().toLowerCase();
+        const cards = Array.from($("tourneyLinksList").querySelectorAll(".wkCard"));
+        if (!q){
+          cards.forEach(c => c.style.display = "");
+          return;
+        }
+        cards.forEach(c => {
+          const hay = (c.innerText || "").toLowerCase();
+          c.style.display = hay.includes(q) ? "" : "none";
+        });
+      });
+    }
+
+
+    listHost.querySelectorAll(".wkHdr").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-wkbtn");
+        const body = id ? $(id) : null;
+        if (!body) return;
+        const isOpen = body.style.display !== "none";
+        body.style.display = isOpen ? "none" : "block";
+        btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        const caret = btn.querySelector(".wkCaret");
+        if (caret) caret.textContent = isOpen ? "▸" : "▾";
+      });
+    });
 
     openModal("tourneyLinksBackdrop");
     setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
@@ -2288,14 +2576,15 @@ function openWalletsModal(){
       const place = idx + 1;
       const name = displayName(r.wallet);
 
-      const ids10 = (r.ids10 || []).join("\n");
-      const ids20 = (r.ids20 || []).join("\n");
-      const enc10 = encodeURIComponent(ids10);
-      const enc20 = encodeURIComponent(ids20);
-
-      const winsLine = isLastWeek
-        ? `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`
-        : `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
+      const rangeLabel = isLastWeek ? "Last week" : "Lifetime";
+      const fromMs = isLastWeek ? lastWeekRangeMs().fromMs : DATA_START_MS;
+      const toMs = isLastWeek ? lastWeekRangeMs().toMs : Date.now();
+      const winsLine = `
+        <span class="clickBreakdown" role="button" tabindex="0"
+          data-wallet="${r.wallet}" data-tier="all" data-range="${rangeLabel}" data-from="${fromMs}" data-to="${toMs}">
+          ${r.total.toLocaleString()} ${pluralWins(r.total)}
+        </span>
+        • 10s: <span>${r.lvl10Wins}</span> • 20s: <span>${r.lvl20Wins}</span>`;
 
       return `
         <div class="topItem">
@@ -2313,21 +2602,6 @@ function openWalletsModal(){
         </div>
       `;
     }).join("");
-
-    if (isLastWeek){
-      host.querySelectorAll(".clickBreakdown").forEach(el => {
-        const open = () => {
-          const wallet = el.getAttribute("data-wallet") || "";
-          const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
-          const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-          openTourneyLinksModal(wallet, tier, idsText);
-        };
-        el.addEventListener("click", open);
-        el.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
-        });
-      });
-    }
   }
 
   function computeLifetimeTop(){
@@ -2653,10 +2927,11 @@ function openWalletsModal(){
 
   $("tourneyLinksCloseBtn").addEventListener("click", () => closeModal("tourneyLinksBackdrop"));
   $("tourneyLinksBackdrop").addEventListener("click", (e) => { if (e.target === $("tourneyLinksBackdrop")) closeModal("tourneyLinksBackdrop"); });
-  $("tourneyLinksCopyBtn").addEventListener("click", async () => {
+    const copyBtn = $("tourneyLinksCopyBtn");
+  if (copyBtn) copyBtn.addEventListener("click", async () => {
     const text = $("tourneyLinksList").getAttribute("data-copy") || "";
     const ok = await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false);
-    $("tourneyLinksStatus").textContent = ok ? "Copied tournament links to clipboard." : "Copy failed (browser blocked clipboard).";
+    $("tourneyLinksStatus").textContent = ok ? "Copied tournament IDs to clipboard." : "Copy failed (browser blocked clipboard).";
   });
 
   $("thisWeekBtn").addEventListener("click", () => {
@@ -2758,10 +3033,15 @@ function openWalletsModal(){
   document.addEventListener("click", (e) => {
     const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
     if (!el) return;
+
     const wallet = el.getAttribute("data-wallet") || "";
-    const tier = el.getAttribute("data-tier") === "20" ? 20 : 10;
+    const tierAttr = (el.getAttribute("data-tier") || "10").toLowerCase();
+    const tier = (tierAttr === "20") ? 20 : (tierAttr === "all" ? "all" : 10);
+
     const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-    openTourneyLinksModal(wallet, tier, idsText);
+    const rangeLabel = el.getAttribute("data-range") || "";
+
+    openTourneyLinksModal(wallet, tier, idsText, rangeLabel);
   });
 
   document.addEventListener("keydown", (e) => {
@@ -2770,9 +3050,11 @@ function openWalletsModal(){
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       const wallet = t.getAttribute("data-wallet") || "";
-      const tier = t.getAttribute("data-tier") === "20" ? 20 : 10;
+      const tierAttr = (t.getAttribute("data-tier") || "10").toLowerCase();
+      const tier = (tierAttr === "20") ? 20 : (tierAttr === "all" ? "all" : 10);
       const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
-    openTourneyLinksModal(wallet, tier, idsText);
+      const rangeLabel = t.getAttribute("data-range") || "";
+      openTourneyLinksModal(wallet, tier, idsText, rangeLabel);
     }
   });
 
