@@ -6704,6 +6704,14 @@
       "resolvedAtUtc": "2026-03-05T15:38:11.529Z",
       "decodeVersion": "post22m-v1-flexpair"
     },
+    "1990": {
+      "tier": 10,
+      "matchedBlock": 22293498,
+      "anchorWinBlock": 22293498,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-05T20:26:37.636Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
     "2022": {
       "tier": 10,
       "matchedBlock": 22161435,
@@ -7158,6 +7166,14 @@
       "anchorWinBlock": 22276321,
       "method": "logs/lookback",
       "resolvedAtUtc": "2026-03-03T01:00:25.075Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2107": {
+      "tier": 10,
+      "matchedBlock": 22293578,
+      "anchorWinBlock": 22293615,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-05T20:26:48.356Z",
       "decodeVersion": "post22m-v1-flexpair"
     },
     "2108": {
