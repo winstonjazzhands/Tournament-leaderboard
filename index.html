@@ -310,10 +310,10 @@
   padding:8px 10px;
 }
 .tearsRow{
-  display:flex;
+  display:grid;
+  grid-template-columns: 1fr auto;
   align-items:baseline;
-  justify-content:space-between;
-  gap:8px;
+  column-gap:10px;
   line-height:1.15;
 }
 .tearsLabel{ color: var(--text); font-weight:900; font-size:11px; }
@@ -325,8 +325,10 @@
   white-space:nowrap;
 }
 .tearsVal{
-  font-weight:1000;
-  font-size:12px;
+  text-align:right;
+  color: var(--muted);
+  font-size:11px;
+  font-weight:900;
   white-space:nowrap;
 }
 .tearsDivider{
@@ -993,7 +995,7 @@
 
           <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
 
-          <button class="topMiniBtn" id="tipBtn" type="button">TIP DEV</button>
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
 
           <div class="miniTile" id="utcTile">
   <div class="miniInner">
@@ -1463,6 +1465,11 @@
 
   // Discord handles (shown next to in-game names when available)
   const DISCORD_BY_INGAME = {
+
+  "xbla": "iibla",
+  "jermcurry": "jermcurry",
+  "kkoper": "kkoper11",
+
   "superbowl": "okulperilousscamfrog",
   "winstonhunts": "winstonjazzhands",
   "liumeb": "maifriendo",
@@ -2237,8 +2244,8 @@ tb.querySelectorAll(".clickWins").forEach(el => {
       address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
     },
     {
-      button: "TIP DEV",
-      title: "TIP DEV",
+      button: "TIP JERMCURRY",
+      title: "TIP JERMCURRY",
       messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
       address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
     },
