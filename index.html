@@ -307,15 +307,18 @@
   border:1px solid rgba(255,255,255,.10);
   background: rgba(255,255,255,.03);
   border-radius:14px;
-  padding:10px 10px;
+  padding:8px 10px;
 }
 .tearsRow{
   display:flex;
   align-items:baseline;
   justify-content:space-between;
-  gap:10px;
+  gap:8px;
+  line-height:1.15;
 }
-.tearsLabel{
+.tearsLabel{ color: var(--text); font-weight:900; font-size:11px; }
+
+.tearsAmt{
   color: var(--muted);
   font-size:11px;
   font-weight:900;
@@ -329,10 +332,10 @@
 .tearsDivider{
   height:1px;
   background: rgba(255,255,255,.08);
-  margin:9px 0;
+  margin:6px 0;
 }
 .tearsNote{
-  margin-top:10px;
+  margin-top:6px;
   color: var(--muted);
   font-size:11px;
   font-weight:800;
@@ -924,6 +927,46 @@
     }
     .wkSearch::placeholder{color: rgba(233,240,255,.55)}
 
+
+    /* Vote Watcher */
+    #vwBackdrop .chip{ cursor:pointer; }
+    #vwBackdrop .chip.active{
+      outline:2px solid rgba(78,161,255,.35);
+      border-color: rgba(78,161,255,.45);
+    }
+    #vwBackdrop .panel{
+      border:1px solid var(--modalBorder);
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    #vwBackdrop .panelHd{
+      padding:10px 12px;
+      font-weight:900;
+      border-bottom:1px solid var(--modalBorder);
+      background: rgba(0,0,0,.18);
+    }
+    #vwBackdrop .panelBd{ padding:10px 12px; }
+    #vwBackdrop .vwRow{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background: rgba(0,0,0,.14);
+      margin-bottom:8px;
+      cursor:pointer;
+    }
+    #vwBackdrop .vwRow:hover{ border-color: rgba(78,161,255,.35); }
+    #vwBackdrop .vwRow .sub{ font-size:12px; color: var(--muted); }
+    #vwBackdrop .vwBadge{
+      font-size:12px;
+      color: var(--text);
+      background: rgba(78,161,255,.16);
+      border:1px solid rgba(78,161,255,.25);
+      padding:3px 8px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
 </style>
 </head>
 
@@ -1014,21 +1057,21 @@
         <div class="bd" id="tearsTickerBd" style="display:none;">
   <div class="tearsBox" aria-label="DFK token price ticker">
     <div class="tearsRow">
-      <div class="tearsLabel">TEAR</div>
+      <div class="tearsLabel">Tears</div>
       <div class="tearsVal mono" id="tearsPriceVal">—</div>
     </div>
-    <div class="tearsRow" style="margin-top:6px;">
-      <div class="tearsLabel">1,000,000 TEAR</div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">50,000 Tears</div>
       <div class="tearsVal mono" id="tearsMillionCost">—</div>
     </div>
 
     <div class="tearsDivider"></div>
 
     <div class="tearsRow">
-      <div class="tearsLabel">GOLD</div>
+      <div class="tearsLabel">Gold</div>
       <div class="tearsVal mono" id="goldPriceVal">—</div>
     </div>
-    <div class="tearsRow" style="margin-top:6px;">
+    <div class="tearsRow" style="margin-top:3px;">
       <div class="tearsLabel">10,000,000 GOLD</div>
       <div class="tearsVal mono" id="goldMillionCost">—</div>
     </div>
@@ -1039,8 +1082,8 @@
       <div class="tearsLabel">DE</div>
       <div class="tearsVal mono" id="dePriceVal">—</div>
     </div>
-    <div class="tearsRow" style="margin-top:6px;">
-      <div class="tearsLabel">500 DE</div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">100 DE</div>
       <div class="tearsVal mono" id="deMillionCost">—</div>
     </div>
 
@@ -1050,8 +1093,8 @@
       <div class="tearsLabel">GDE</div>
       <div class="tearsVal mono" id="gdePriceVal">—</div>
     </div>
-    <div class="tearsRow" style="margin-top:6px;">
-      <div class="tearsLabel">100 GDE</div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">10 GDE</div>
       <div class="tearsVal mono" id="gdeMillionCost">—</div>
     </div>
 
@@ -1297,6 +1340,9 @@
             Mellow&#39;s Tools
           </a>
         </div>
+        <div style="margin-top:14px; display:flex; justify-content:center;">
+          <button id="openVoteWatcherBtn" type="button" class="modalBtn" style="min-width:180px;">Vote Watcher</button>
+        </div>
       </div>
     </div>
   </div>
@@ -1438,10 +1484,10 @@
 
 // Filters collapse + token price tickers (shown when filters are hidden)
 const TOKEN_PAIRS = [
-  { key: "tears", label: "TEAR", pair: "0x9c0788c0f36e60c33074f7498c8d83d7dcb6d54a", priceEl: "tearsPriceVal", costEl: "tearsMillionCost", amount: 1_000_000, amountLabel: "1,000,000 TEAR" },
+  { key: "tears", label: "Tears", pair: "0x9c0788c0f36e60c33074f7498c8d83d7dcb6d54a", priceEl: "tearsPriceVal", costEl: "tearsMillionCost", amount: 50_000, amountLabel: "50,000 Tears" },
   { key: "gold",  label: "GOLD", pair: "0xd2df51059ab32cc8680fd2c030e66f08b13bc9bd", priceEl: "goldPriceVal",  costEl: "goldMillionCost",  amount: 10_000_000, amountLabel: "10,000,000 GOLD" },
-  { key: "de",    label: "DE",   pair: "0x32e2dcd4fb6980a917fc140d0bc65576fd2e6490", priceEl: "dePriceVal",    costEl: "deMillionCost",    amount: 500, amountLabel: "500 DE" },
-  { key: "gde",   label: "GDE",  pair: "0x3521f89e02666891f082cfc3e1e881aafb6a71df", priceEl: "gdePriceVal",   costEl: "gdeMillionCost",   amount: 100, amountLabel: "100 GDE" },
+  { key: "de",    label: "DE",   pair: "0x32e2dcd4fb6980a917fc140d0bc65576fd2e6490", priceEl: "dePriceVal",    costEl: "deMillionCost",    amount: 100, amountLabel: "100 DE" },
+  { key: "gde",   label: "GDE",  pair: "0x3521f89e02666891f082cfc3e1e881aafb6a71df", priceEl: "gdePriceVal",   costEl: "gdeMillionCost",   amount: 10, amountLabel: "10 GDE" },
 ];
 
 let _tokenTickerTimer = null;
@@ -1498,7 +1544,8 @@ function renderTokenTickerRow(cfg, priceNative){
     return;
   }
 
-  priceEl.textContent = `${formatFixedSmart(priceNative, 6)} JEWEL / ${cfg.label}`;
+  const dec = (cfg.key==="de"||cfg.key==="gde") ? 2 : 6;
+  priceEl.textContent = `${formatFixedSmart(priceNative, dec)} JEWEL / ${cfg.label}`;
 
   const qty = Number.isFinite(cfg.amount) ? cfg.amount : 1_000_000;
   const cost = priceNative * qty;
@@ -3120,6 +3167,555 @@ function openWalletsModal(){
   setUtcWidgets();
   setInterval(setUtcWidgets, 1000);
   load();
+
+/* =========================
+   Vote Watcher (UI-only)
+   Opens in a light window using the site's existing openModal/closeModal helpers.
+   Reads: public/votes.json (preferred) or votes.json fallback
+   Requires votes.json rows: { tournamentId, fightIndex, side, votes, voter, timestamp, txHash, blockNumber }
+   ========================= */
+(function(){
+  // Use the site's $ helper if present, otherwise fallback
+  const $id = (id) => (typeof window.$ === "function" ? window.$(id) : document.getElementById(id));
+
+  const backdropId = "vwBackdrop";
+
+  function openVW(){
+    if (typeof window.openModal === "function") window.openModal(backdropId);
+    else {
+      const b = $id(backdropId);
+      if (b) { b.style.display = "flex"; b.classList.add("show"); b.setAttribute("aria-hidden","false"); }
+    }
+    if (!state.loaded) loadAll();
+    setMode("tournament");
+  }
+
+  function closeVW(){
+    if (typeof window.closeModal === "function") window.closeModal(backdropId);
+    else {
+      const b = $id(backdropId);
+      if (b) { b.style.display = "none"; b.classList.remove("show"); b.setAttribute("aria-hidden","true"); }
+    }
+  }
+
+  // Event delegation so it works even if Learn More content is re-rendered
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!t) return;
+
+    if (t.id === "openVoteWatcherBtn") {
+      e.preventDefault();
+      openVW();
+      return;
+    }
+    if (t.id === "vwCloseBtn") {
+      e.preventDefault();
+      closeVW();
+      return;
+    }
+    if (t.id === "vwTabTournament") {
+      e.preventDefault();
+      setMode("tournament");
+      return;
+    }
+    if (t.id === "vwTabIndividual") {
+      e.preventDefault();
+      setMode("individual");
+      return;
+    }
+    if (t.id === "vwBackBtn") {
+      e.preventDefault();
+      if (state.lastTournament) renderTournament(state.lastTournament);
+      return;
+    }
+  });
+
+  // Close when clicking backdrop
+  document.addEventListener("click", (e) => {
+    const b = $id(backdropId);
+    if (!b) return;
+    if (e.target === b) closeVW();
+  });
+
+  const state = {
+    loaded:false,
+    mode:"tournament",
+    votes: [],
+    byTournament: new Map(),
+    byWallet: new Map(),
+    boutKeyToMatchKey: null,
+    lastTournament: null,
+    lastFight: null
+  };
+
+  const statusEl = () => $id("vwStatus");
+  const leftEl = () => $id("vwLeftList");
+  const rightEl = () => $id("vwRightList");
+  const searchEl = () => $id("vwSearch");
+  const tabTEl = () => $id("vwTabTournament");
+  const tabIEl = () => $id("vwTabIndividual");
+
+  function resolveUrl(u){
+    return new URL(u, window.location.href).toString();
+  }
+  async function fetchJsonStrict(url){
+    const full = resolveUrl(url) + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+    const res = await fetch(full, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }
+  async function fetchFirstOk(urls){
+    for (const u of urls){
+      try{ return await fetchJsonStrict(u); }catch{}
+    }
+    return null;
+  }
+
+  const VOTE_SCALE = 100n; // votes are stored in on-chain "centivotes" (e.g., 10000 => 100)
+  const DISPLAY_TID_OFFSET = 825; // UI-facing tournament numbers appear to be (rawTournamentId - 815)
+  function tidDisplay(rawTid){
+    const n = Number(rawTid);
+    return Number.isFinite(n) ? String(n - DISPLAY_TID_OFFSET) : String(rawTid);
+  }
+
+  function fmtInt(n){
+    try { return Number(n).toLocaleString(); } catch { return String(n); }
+  }
+  function fmtVotes(rawBigInt){
+    try{
+      const x = BigInt(rawBigInt);
+      const whole = x / VOTE_SCALE;
+      const frac = x % VOTE_SCALE;
+      // Most values are exact multiples of 100; show decimals only if needed.
+      if (frac === 0n) return Number(whole).toLocaleString();
+      const fracStr = frac.toString().padStart(2,"0").replace(/0+$/,"");
+      return Number(whole).toLocaleString() + "." + fracStr;
+    }catch{
+      return String(rawBigInt);
+    }
+  }
+
+  function shortAddr(a){
+    if (!a) return "";
+    return a.slice(0,6) + "…" + a.slice(-4);
+  }
+
+  function setMode(m){
+    state.mode = m;
+    const t = tabTEl(); const i = tabIEl();
+    if (t) t.classList.toggle("active", m==="tournament");
+    if (i) i.classList.toggle("active", m==="individual");
+    const s = searchEl();
+    if (s) s.value = "";
+    renderLeft();
+    renderRightIntro();
+  }
+
+  // search input handler
+  document.addEventListener("input", (e) => {
+    if (e.target && e.target.id === "vwSearch") {
+      renderLeft();
+    }
+  });
+
+  function renderRightIntro(){
+    const r = rightEl();
+    if (!r) return;
+    if (state.mode === "tournament"){
+      r.innerHTML = `<div style="color:var(--muted);">Select a tournament to see fights and voters.</div>`;
+    } else {
+      r.innerHTML = `<div style="color:var(--muted);">Select a wallet to see tournaments and votes spent.</div>`;
+    }
+  }
+
+  async function loadAll(){
+    const st = statusEl();
+    if (st) st.textContent = "Loading votes…";
+
+    const data = await fetchFirstOk(["public/votes.json","votes.json"]);
+    if (!Array.isArray(data)){
+      if (st) st.textContent = "Failed to load votes data";
+      return;
+    }
+
+    state.votes = data;
+
+    // load boutKey → matchKey join map (prevents exploding "fights" per round)
+    const map = await fetchFirstOk(["public/boutKeyToMatchKey.json","boutKeyToMatchKey.json"]);
+    state.boutKeyToMatchKey = (map && typeof map === "object") ? map : null;
+
+    buildIndexes();
+    state.loaded = true;
+
+    if (st) st.textContent = `${fmtInt(state.votes.length)} votes (tournamentId-only)`;
+    renderLeft();
+    renderRightIntro();
+  }
+
+  function buildIndexes(){
+    state.byTournament.clear();
+    state.byWallet.clear();
+
+    for (const v of state.votes){
+      const tid = String(v.tournamentId ?? "");
+      if (!tid) continue;
+
+      const fight = v.fightIndex == null ? null : Number(v.fightIndex);
+      const side = v.side == null ? null : String(v.side);
+      const voter = (v.voter || "").toLowerCase();
+      const amt = BigInt(String(v.votes || "0"));
+
+      if (!state.byTournament.has(tid)){
+        state.byTournament.set(tid, { totalVotes: 0n, voters: new Set(), fights: new Map() });
+      }
+      const t = state.byTournament.get(tid);
+      t.totalVotes += amt;
+      if (voter) t.voters.add(voter);
+
+      // Build a stable fight key:
+// - fightIndex is the round bucket (0,1,2..)
+// - boutKey is often too granular; join to matchKey when possible to collapse to the actual fight
+const boutKey = v.boutKey == null ? null : String(v.boutKey);
+const joined = (state.boutKeyToMatchKey && boutKey && state.boutKeyToMatchKey[boutKey] != null)
+  ? String(state.boutKeyToMatchKey[boutKey])
+  : null;
+
+// IMPORTANT: do NOT fall back to boutKey (it is too granular and creates fake fights)
+const matchKey = joined ?? (v.matchKey != null ? String(v.matchKey) : null);
+if (!matchKey) continue;
+
+v.matchKey = matchKey;
+
+const fightKey = (fight == null ? "unknown" : (String(fight) + ":" + String(matchKey || "unknown")));
+if (!t.fights.has(fightKey)){
+        t.fights.set(fightKey, { totalVotes: 0n, bySide: new Map(), voters: new Set(), rows: [], round: (fight==null?null: fight), matchKey });
+      }
+      const f = t.fights.get(fightKey);
+      f.totalVotes += amt;
+      if (voter) f.voters.add(voter);
+      if (side != null){
+        f.bySide.set(side, (f.bySide.get(side) || 0n) + amt);
+      }
+      f.rows.push(v);
+
+      if (voter){
+        if (!state.byWallet.has(voter)){
+          state.byWallet.set(voter, { totalVotes: 0n, tournaments: new Map(), rows: [] });
+        }
+        const w = state.byWallet.get(voter);
+        w.totalVotes += amt;
+        w.tournaments.set(tid, (w.tournaments.get(tid) || 0n) + amt);
+        w.rows.push(v);
+      }
+    }
+  }
+
+  function getTournamentList(){
+    const s = searchEl();
+    const q = (s ? s.value.trim().toLowerCase() : "");
+    let arr = [...state.byTournament.entries()].map(([tid, obj])=>({
+      tid,
+      totalVotes: obj.totalVotes,
+      voters: obj.voters.size,
+      fights: obj.fights.size
+    }));
+
+    arr.sort((a,b)=>Number(b.tid)-Number(a.tid));
+
+    if (q) arr = arr.filter(x => x.tid.includes(q) || tidDisplay(x.tid).includes(q));
+    if (!q) arr = arr.slice(0, 10);
+
+    return arr;
+  }
+
+  function getWalletList(){
+    const s = searchEl();
+    const q = (s ? s.value.trim().toLowerCase() : "");
+    let arr = [...state.byWallet.entries()].map(([wallet, obj])=>({
+      wallet,
+      totalVotes: obj.totalVotes,
+      tournaments: obj.tournaments.size
+    }));
+
+    arr.sort((a,b)=> (b.totalVotes > a.totalVotes ? 1 : -1));
+    if (q) arr = arr.filter(x => x.wallet.includes(q));
+    else arr = arr.slice(0, 20);
+
+    return arr;
+  }
+
+  function renderLeft(){
+    const l = leftEl();
+    if (!l) return;
+    l.innerHTML = "";
+
+    if (!state.loaded){
+      l.innerHTML = `<div style="color:var(--muted);">Loading…</div>`;
+      return;
+    }
+
+    if (state.mode === "tournament"){
+      const list = getTournamentList();
+      if (!list.length){
+        l.innerHTML = `<div style="color:var(--muted);">No tournaments found.</div>`;
+        return;
+      }
+      for (const t of list){
+        const el = document.createElement("div");
+        el.className = "vwRow";
+        el.innerHTML = `
+          <div>
+            <div style="font-weight:900;">Tournament ${tidDisplay(t.tid)} <span style="opacity:.55; font-weight:700;">(raw ${t.tid})</span></div>
+            <div class="sub">${fmtInt(t.voters)} voters • ${fmtInt(t.fights)} fights</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(t.totalVotes)} votes</div>
+        `;
+        el.addEventListener("click", ()=>renderTournament(t.tid));
+        l.appendChild(el);
+      }
+    } else {
+      const list = getWalletList();
+      if (!list.length){
+        l.innerHTML = `<div style="color:var(--muted);">No wallets found.</div>`;
+        return;
+      }
+      for (const w of list){
+        const el = document.createElement("div");
+        el.className = "vwRow";
+        el.innerHTML = `
+          <div>
+            <div style="font-weight:900;">${shortAddr(w.wallet)}</div>
+            <div class="sub">${w.tournaments} tournaments</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(w.totalVotes)} votes</div>
+        `;
+        el.addEventListener("click", ()=>renderWallet(w.wallet));
+        l.appendChild(el);
+      }
+    }
+  }
+
+  function renderTournament(tid){
+    state.lastTournament = tid;
+    state.lastFight = null;
+
+    const r = rightEl();
+    if (!r) return;
+
+    const t = state.byTournament.get(tid);
+    if (!t){
+      r.innerHTML = `<div style="color:var(--muted);">Tournament not found.</div>`;
+      return;
+    }
+
+    const fights = [...t.fights.entries()].map(([k, f])=>({ k, f }));
+// Sort by round then matchKey when available
+fights.sort((a,b)=>{
+  if (a.k==="unknown") return 1;
+  if (b.k==="unknown") return -1;
+  const [ar] = String(a.k).split(":");
+  const [br] = String(b.k).split(":");
+  const rA = Number(ar), rB = Number(br);
+  if (rA !== rB) return rA - rB;
+  const aMk = a.f?.matchKey ?? "";
+  const bMk = b.f?.matchKey ?? "";
+  return Number(aMk) - Number(bMk);
+});
+
+// Assign "Fight 1..N" within each round for display
+const roundCounters = new Map();
+for (const it of fights){
+  const r = (it.f && it.f.round!=null) ? Number(it.f.round) : null;
+  if (r==null || !Number.isFinite(r)) { it.f._ordinal = null; continue; }
+  const next = (roundCounters.get(r) || 0) + 1;
+  roundCounters.set(r, next);
+  it.f._ordinal = next;
+}
+
+const rows = fights.map(({k,f})=>{
+      const label = (k==="unknown")
+  ? "Fight ?"
+  : (() => {
+      const r = (f && f.round!=null) ? Number(f.round) : null;
+      const ord = f?._ordinal;
+      const base = (r==null || !Number.isFinite(r)) ? "Round ?" : (r<=0 ? "Round 1" : (r===1 ? "Round 2" : "Final"));
+      if (base==="Final") return "Final";
+      return base + (ord ? ` — Fight ${ord}` : "");
+    })();
+      const sideSorted = [...f.bySide.entries()].sort((a,b)=> (b[1] > a[1] ? 1 : -1));
+      const aVotes = sideSorted[0]?.[1] ?? 0n;
+      const bVotes = sideSorted[1]?.[1] ?? 0n;
+
+      return `
+        <div class="vwRow" data-fight="${k}">
+          <div>
+            <div style="font-weight:900;">${label}</div>
+            <div class="sub">${fmtInt(f.voters.size)} voters • A ${fmtVotes(aVotes)} / B ${fmtVotes(bVotes)}</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(f.totalVotes)} votes</div>
+        </div>
+      `;
+    }).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;">
+        <div style="font-weight:900;">Tournament ${tidDisplay(tid)} <span style="opacity:.55; font-weight:700;">(raw ${tid})</span></div>
+        <div class="vwBadge">${fmtVotes(t.totalVotes)} votes</div>
+      </div>
+      ${rows}
+      <div style="margin-top:10px; color:var(--muted); font-size:12px;">
+        Click a fight to see voters.
+      </div>
+    `;
+
+    r.querySelectorAll(".vwRow").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        const fk = el.getAttribute("data-fight");
+        renderFightVoters(tid, fk);
+      });
+    });
+  }
+
+  function renderFightVoters(tid, fightKey){
+    state.lastTournament = tid;
+    state.lastFight = fightKey;
+
+    const r = rightEl();
+    if (!r) return;
+
+    const t = state.byTournament.get(tid);
+    if (!t) return;
+    const f = t.fights.get(fightKey);
+    if (!f) return;
+
+    const label = (fightKey==="unknown")
+  ? "Fight ?"
+  : (() => {
+      const fobj = f;
+      const rN = (fobj && fobj.round!=null) ? Number(fobj.round) : null;
+      const ord = fobj?._ordinal;
+      const base = (rN==null || !Number.isFinite(rN)) ? "Round ?" : (rN<=0 ? "Round 1" : (rN===1 ? "Round 2" : "Final"));
+      if (base==="Final") return "Final";
+      return base + (ord ? ` — Fight ${ord}` : "");
+    })();
+    const sideSorted = [...f.bySide.entries()].sort((a,b)=> (b[1] > a[1] ? 1 : -1));
+    const aSide = sideSorted[0]?.[0] ?? null;
+    const bSide = sideSorted[1]?.[0] ?? null;
+
+    const voterSums = new Map();
+    for (const row of f.rows){
+      const voter = (row.voter || "").toLowerCase();
+      if (!voter) continue;
+      const amt = BigInt(String(row.votes||"0"));
+      if (!voterSums.has(voter)) voterSums.set(voter, { total:0n, a:0n, b:0n });
+      const obj = voterSums.get(voter);
+      obj.total += amt;
+      if (aSide!=null && String(row.side)===String(aSide)) obj.a += amt;
+      else if (bSide!=null && String(row.side)===String(bSide)) obj.b += amt;
+    }
+
+    const list = [...voterSums.entries()].map(([wallet, o])=>({ wallet, ...o }));
+    list.sort((x,y)=> (y.total > x.total ? 1 : -1));
+
+    const rows = list.map(v=>`
+      <div class="vwRow" style="cursor:default;">
+        <div>
+          <div style="font-weight:900;">${shortAddr(v.wallet)}</div>
+          <div class="sub">A ${fmtVotes(v.a)} • B ${fmtVotes(v.b)}</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(v.total)} votes</div>
+      </div>
+    `).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+        <div>
+          <div style="font-weight:900;">Tournament ${tidDisplay(tid)} <span style="opacity:.55; font-weight:700;">(raw ${tid})</span> — ${label}</div>
+          <div style="color:var(--muted); font-size:12px;">A side = ${aSide ?? "?"} • B side = ${bSide ?? "?"}</div>
+        </div>
+        <button class="modalBtn" type="button" id="vwBackBtn">Back</button>
+      </div>
+      <div style="margin-bottom:8px; color:var(--muted); font-size:12px;">
+        ${fmtInt(list.length)} voters • ${fmtVotes(f.totalVotes)} total votes
+      </div>
+      ${rows || `<div style="color:var(--muted);">No voters found.</div>`}
+    `;
+  }
+
+  function renderWallet(wallet){
+    const r = rightEl();
+    if (!r) return;
+    const w = state.byWallet.get(wallet);
+    if (!w){
+      r.innerHTML = `<div style="color:var(--muted);">Wallet not found.</div>`;
+      return;
+    }
+
+    const tourneys = [...w.tournaments.entries()].map(([tid, amt])=>({ tid, amt }));
+    tourneys.sort((a,b)=>Number(b.tid)-Number(a.tid));
+
+    const rows = tourneys.map(t=>`
+      <div class="vwRow" style="cursor:default;">
+        <div>
+          <div style="font-weight:900;">Tournament ${tidDisplay(t.tid)} <span style="opacity:.55; font-weight:700;">(raw ${t.tid})</span></div>
+          <div class="sub">Spent votes</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(t.amt)} votes</div>
+      </div>
+    `).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+        <div>
+          <div style="font-weight:900;">${wallet}</div>
+          <div style="color:var(--muted); font-size:12px;">${tourneys.length} tournaments</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(w.totalVotes)} votes</div>
+      </div>
+      ${rows || `<div style="color:var(--muted);">No tournaments.</div>`}
+    `;
+  }
+})();;
 </script>
+
+<!-- Vote Watcher Modal -->
+<div class="modalBackdrop" id="vwBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vwTitle" style="width:min(980px, 96vw);">
+    <div class="modalHd">
+      <div class="modalTitle" id="vwTitle">Vote Watcher</div>
+      <button class="modalBtn" id="vwCloseBtn" type="button">Close</button>
+    </div>
+
+    <div class="modalBd" style="padding:12px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+        <button class="chip" id="vwTabTournament" type="button">By Tournament</button>
+        <button class="chip" id="vwTabIndividual" type="button">By Individual</button>
+
+        <input id="vwSearch" type="text" placeholder="Search by tournament ID or wallet…" style="flex:1; min-width:260px;"
+          class="searchInput" />
+        <div id="vwStatus" style="font-size:12px; color:var(--muted);"></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div class="panel" style="min-height:420px;">
+          <div class="panelHd">Tournaments</div>
+          <div class="panelBd" id="vwLeftList" style="max-height:390px; overflow:auto;"></div>
+        </div>
+
+        <div class="panel" style="min-height:420px;">
+          <div class="panelHd">Voters</div>
+          <div class="panelBd" id="vwRightList" style="max-height:390px; overflow:auto;">
+            <div style="color:var(--muted);">Select a tournament to see fights and voters.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; font-size:12px; color:var(--muted);">
+        Showing only entries with a tournament ID.
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
