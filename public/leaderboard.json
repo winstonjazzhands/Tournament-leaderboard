@@ -1,11 +1,11 @@
 {
-  "updatedAtUtc": "2026-03-06T15:25:21.844Z",
+  "updatedAtUtc": "2026-03-06T16:25:06.811Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 295,
-  "uniqueTournaments": 295,
+  "totalWins": 296,
+  "uniqueTournaments": 296,
   "unknownTierWins": 0,
   "rewards": {
     "lvl10Brackets": [
@@ -2386,16 +2386,24 @@
       "timestamp": 1772756384,
       "blockNumber": 22294805,
       "tier": 20
+    },
+    {
+      "id": "0x3b16508cd81e90341f4bafc1b2e5da8724af1e0b171f1f50f053691bacf9f72a-3",
+      "tournamentId": 2127,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1772813991,
+      "blockNumber": 22298753,
+      "tier": 10
     }
   ],
   "leaderboard": [
     {
       "rank": 1,
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
-      "lvl10Wins": 58,
+      "lvl10Wins": 59,
       "lvl20Wins": 0,
-      "totalWins": 58,
-      "lastWin": 1772756384,
+      "totalWins": 59,
+      "lastWin": 1772813991,
       "lifetimeEarned": 3000,
       "thisWeekEarned": 300,
       "lastWeekEarned": 750
@@ -2731,6 +2739,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-06T15:25:23.532Z",
+  "tiersUpdatedAtUtc": "2026-03-06T16:25:08.353Z",
   "tiersChanges": 101
 }
