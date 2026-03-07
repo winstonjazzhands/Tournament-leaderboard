@@ -581,16 +581,51 @@
     .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
     .clickPoints{
       cursor:pointer;
-      color: var(--accent);
+      color: var(--text);
       font-weight:900;
       text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
     }
-    .clickPoints:hover{text-decoration:underline;}
+    .clickPoints:hover{text-decoration:none;}
     .clickPoints:focus-visible{
       outline:none;
       box-shadow: 0 0 0 3px rgba(78,161,255,.14);
       border-radius: 10px;
     }
+
+    .pointsFinishStack{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      line-height:1.05;
+      text-align:center;
+      width:100%;
+    }
+    .pointsFinishWinsLine{
+      display:flex;
+      align-items:baseline;
+      justify-content:center;
+      gap:4px;
+      white-space:nowrap;
+    }
+    .pointsFinishWinsNum,
+    .pointsFinishWinsWord{
+      color: var(--text);
+      font-size:17px;
+      font-weight:900;
+    }
+    .pointsFinishPts{
+      font-size:9px;
+      font-weight:900;
+      color: var(--muted);
+      white-space:nowrap;
+      margin-top:3px;
+    }
+
     .clickBreakdown:hover{text-decoration:underline;}
 
     .sortableHeader{
@@ -2308,6 +2343,11 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     return Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—";
   }
 
+  function renderPointsFinishCell(wallet, type, wins, pointsPerWin){
+    const earned = Number(wins || 0) * Number(pointsPerWin || 0);
+    return `<span class="clickPoints" tabindex="0" role="button" data-points-wallet="${wallet}" data-points-type="${type}"><span class="pointsFinishStack"><span class="pointsFinishWinsLine"><span class="pointsFinishWinsNum">${renderPointsCell(wins)}</span><span class="pointsFinishWinsWord">Wins</span></span><span class="pointsFinishPts">${renderPointsCell(earned)} pts</span></span></span>`;
+  }
+
   function getPointsBucketLabel(type){
     if (type === "first") return "1st-place tournaments";
     if (type === "second") return "2nd-place tournaments";
@@ -2493,10 +2533,10 @@ tb.querySelectorAll(".clickWins").forEach(el => {
             </div>
           </td>
           <td class="right">${renderPointsCell(r.points)}</td>
-          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="first">${renderPointsCell(r.firsts)}</span></td>
-          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="second">${renderPointsCell(r.seconds)}</span></td>
-          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="third">${renderPointsCell(r.thirds)}</span></td>
-          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="fourth">${renderPointsCell(r.round1Exits)}</span></td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "first", r.firsts, 3)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1Exits, 0.5)}</td>
         </tr>
       `;
     }).join("");
