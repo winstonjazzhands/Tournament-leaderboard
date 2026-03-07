@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="app-version" content="v1.0.3" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
-      --bg:#0b1220;
+      --bg:#09111f;
       --muted:#7f93b8;
       --text:#e9f0ff;
       --border:rgba(255,255,255,.10);
@@ -49,25 +50,28 @@
       color:var(--text);
     }
     a{color:inherit}
-    .wrap{max-width:1240px;margin:0 auto;padding:18px}
+    .wrap{max-width:1240px;margin:0 auto;padding:10px}
     .headerInner, .mainNarrow{width:76%;margin:0 auto;}
 
-    header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;}
-    h1{font-size:18px;margin:0}
+    header{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;margin-bottom:10px;}
+    h1{margin:0}
+    .siteTitle{font-size:clamp(18px,2.6vw,34px);letter-spacing:-.4px;font-weight:1000;line-height:1.05;white-space:nowrap;}
+    .headerRight{display:flex;align-items:flex-start;justify-content:flex-end;min-width:160px}
+    .playNowBtn{font-weight:900;letter-spacing:.6px;padding:10px 14px}
     .sub{color:var(--muted);font-size:12px;margin-top:2px;min-height:16px;}
 
     /* ✅ TOP ROW: 4 items on one line */
     .topHeaderRow{
       display:grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap:10px;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 8px;
       align-items:stretch;
       margin:10px 0 14px;
     }
 
     .miniTile,
     .topMiniBtn{
-      height:56px; /* smaller so it fits */
+      height:50px;
       border-radius: var(--radius);
       border:1px solid var(--border);
       background: rgba(255,255,255,.03);
@@ -78,8 +82,9 @@
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:8px 10px;
+      padding:6px 8px;
       text-align:center;
+          text-decoration:none;
     }
     .miniTile.secondary{ background: rgba(255,255,255,.02); }
 
@@ -88,11 +93,12 @@
       display:flex;
       align-items:baseline;
       justify-content:center;
-      gap:8px;
+      gap:6px;
       flex-wrap:wrap;
       min-width:0;
     }
     .miniInner .k{color:var(--muted);font-size:11px;white-space:nowrap}
+    #utcTile .miniInner .k{white-space:normal;}
     .miniInner .v{
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
       font-weight:900;
@@ -132,13 +138,12 @@
       border-color: rgba(78,161,255,.35);
     }
 
-    /* ✅ Top buttons: white text + obvious hover */
     .topMiniBtn{
       font-weight:900;
       letter-spacing:.2px;
       padding:8px 10px;
       background: rgba(255,255,255,.04);
-      color: #ffffff; /* ✅ force white */
+      color: #ffffff;
       cursor: pointer;
       user-select:none;
       transition:
@@ -175,10 +180,17 @@
         rgba(255,255,255,.03);
     }
 
-    /* Learn more subtle pulse (10s cycle, pulse only briefly) */
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      4%   { background: rgba(255,255,255,.062); }
+      
+    @keyframes learnPulse {
+      0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      35%  { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+      55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
+      100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
+    }
+4%   { background: rgba(255,255,255,.062); }
       8%   { background: rgba(255,255,255,.04); }
       100% { background: rgba(255,255,255,.04); }
     }
@@ -188,10 +200,11 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
       color:#ffffff;
-      animation: subtlePulse 10s infinite;
+      animation: none;
     }
     .learnMini.noPulse{ animation:none !important; }
-    .learnMini:hover{
+        .learnMini.pulseOnce{ animation: learnPulse 1.6s ease-in-out 0s 1; }
+.learnMini:hover{
       background: rgba(255,255,255,.07);
       border-color: rgba(255,255,255,.20);
     }
@@ -213,10 +226,9 @@
       box-shadow: 0 0 0 3px rgba(78,161,255,.12);
     }
 
-    /* ✅ 3 tiles on top row (filters / last week / lifetime) */
     .topRow{
       display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 0.85fr 1.075fr 1.075fr;
       gap:14px;
       align-items:stretch;
       margin-bottom:14px;
@@ -232,39 +244,114 @@
       min-width:0;
     }
     .tile .hd{
-      padding:12px 14px;
+      padding: 10px 12px;
       border-bottom:1px dashed rgba(255,255,255,.16);
-      color: var(--muted);
+      color: var(--text);
       font-weight:900;
       font-size:12px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:10px;
-      min-height:44px;
+      min-height: 38px;
     }
-    .tile .hd .subhd{
-      font-weight:800;
-      color:rgba(233,240,255,.75);
-      font-size:11px;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      max-width: 62%;
-      text-align:right;
-    }
-    .tile .bd{
-      padding:14px;
+    .hdRightSpacer{flex:0 0 auto; width:92px; height:28px;}
+
+    
+    .hdCol{display:flex;flex-direction:column;gap:2px;min-width:0;}
+.tile .hd .subhd{font-weight:800;color:rgba(233,240,255,.75);font-size:10px;white-space:nowrap;overflow:visible;text-overflow:clip;max-width:none;}
+    .top3Sub{color:var(--accent); font-weight:900;}
+
+    /* Last week range subtitle color */
+.tile .bd{
+      padding: 10px;
       color: var(--muted);
       font-size:12px;
     }
 
-    /* Filters layout */
     .filterGrid{
       display:grid;
       grid-template-columns: 1fr 1fr;
-      gap:10px;
+      gap: 8px;
     }
+
+        .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
+/* Filters fit + tighter controls */
+    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
+    /* Week nav arrows */
+    #filtersCard .navBtn{ width:100%; padding:5px 9px; font-size:16px; line-height:1; height:auto; }
+    #filtersCard .btn:disabled{ opacity:.45; cursor:not-allowed; }
+
+    
+
+/* Filters collapse toggle (looks like the "Filters" label) */
+.filtersHideLink{
+  color: rgba(233,240,255,.92);
+  font-weight: 900;
+  font-size: 12px;
+  cursor: pointer;
+  user-select:none;
+  white-space:nowrap;
+}
+.filtersHideLink:hover{ text-decoration: underline; }
+.filtersHideLink:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(78,161,255,.14);
+  border-radius: 10px;
+  padding:2px 6px;
+  margin:-2px -6px;
+}
+
+/* Tears ticker shown when Filters are collapsed */
+.tearsBox{
+  border:1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.03);
+  border-radius:14px;
+  padding:8px 10px;
+}
+.tearsRow{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  align-items:baseline;
+  column-gap:10px;
+  line-height:1.15;
+}
+.tearsLabel{ color: var(--text); font-weight:900; font-size:11px; }
+
+.tearsAmt{
+  color: var(--muted);
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.tearsVal{
+  text-align:right;
+  color: var(--muted);
+  font-size:11px;
+  font-weight:900;
+  white-space:nowrap;
+}
+.tearsDivider{
+  height:1px;
+  background: rgba(255,255,255,.08);
+  margin:6px 0;
+}
+.tearsNote{
+  margin-top:6px;
+  color: var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+#filtersCard input{ min-width:0; }
+    #filtersCard .dateBtn{
+      min-width:0;
+      overflow:hidden;
+      padding:7px 8px;
+      gap:6px;
+      justify-content:space-between;
+    }
+    #filtersCard .dateBtn .lab{ font-size:9px; }
+    #filtersCard .dateBtn .val{ font-size:11px; }
     .fullRow{grid-column: 1 / -1;}
 
     .dateBtn{
@@ -281,8 +368,8 @@
       gap:8px;
       min-height:38px;
     }
-    .dateBtn .lab{color:var(--muted); font-size:12px}
-    .dateBtn .val{font-weight:700; font-size:13px}
+    .dateBtn .lab{color:var(--muted); font-size:11px; white-space:nowrap}
+    .dateBtn .val{font-weight:700; font-size:12px; white-space:nowrap}
     .dateBtn:hover{filter: brightness(1.05)}
 
     .dateHidden{position:absolute;opacity:0;pointer-events:none;width:1px;height:1px}
@@ -315,11 +402,10 @@
     .toggleBtn.active{ background: var(--toggleOn); }
     .toggleBtn + .toggleBtn{ border-left:1px solid var(--border); }
 
-    /* Top lists */
-    .top3{display:flex;flex-direction:column;gap:10px;}
+    .top3{display:flex;flex-direction:column;gap:9px;}
     .topItem{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
-      padding:10px 10px;border:1px solid rgba(255,255,255,.10);
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
+      padding:9px 10px;border:1px solid rgba(255,255,255,.10);
       border-radius:14px;background: rgba(255,255,255,.03);
     }
     .topLeft{display:flex;align-items:center;gap:10px;min-width:0;}
@@ -343,11 +429,19 @@
     .topWallet a:hover{text-decoration:underline;}
     .topMeta{font-size:11px;color: var(--muted);white-space:nowrap;}
     .topRight{text-align:right;white-space:nowrap;flex:0 0 auto;}
-    .topReward{color: var(--gold);font-weight:900;font-size:14px;line-height:1.1;}
+    .topReward{color:var(--gold);font-weight:1000;font-size:23px;line-height:1.05;}
     .topRewardLabel{color: var(--muted);font-size:11px;line-height:1.1;margin-top:2px;}
     .topEmpty{color: var(--muted);font-size:12px;padding:4px 2px;}
 
-    /* Table */
+    /* Bigger Top 3 items: reduce side padding feel + slightly larger text */
+    #lastWeekTile .top3, #lifetimeTile .top3{ margin:0 -10px; }
+    #lastWeekTile .topItem, #lifetimeTile .topItem{
+      padding:10px 12px;
+      border-radius:16px;
+    }
+    #lastWeekTile .topWallet a, #lifetimeTile .topWallet a{ font-size:12px; }
+    #lastWeekTile .topReward, #lifetimeTile .topReward{ font-size:17px; }
+
     .card{
       background: rgba(255,255,255,.03);
       border:1px solid var(--border);
@@ -356,15 +450,19 @@
       overflow:hidden;
     }
     .card .hd{
-      padding:12px 14px;border-bottom:1px solid var(--border);
+      padding:10px 14px;border-bottom:1px solid var(--border);
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
+    .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
+.lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; align-self:flex-end;}
+
+.lbRight{flex:0 0 auto;}
     .tableWrap{
       max-height:560px;
       overflow:auto;
       padding-left: var(--tableGutter);
       padding-right: var(--tableGutter);
-      scrollbar-gutter: stable; /* reduces jitter */
+      scrollbar-gutter: stable;
     }
     table{
       width:100%;
@@ -378,7 +476,7 @@
       text-align:left;
       color:var(--muted);
       font-weight:700;
-      padding:12px 12px;
+      padding:10px 12px;
       border-bottom:1px solid var(--border);
       background: rgba(255,255,255,.02);
       position:sticky; top:0;
@@ -388,7 +486,7 @@
       white-space:nowrap;
     }
     tbody td{
-      padding:12px 12px;
+      padding:11px 12px;
       border-bottom:1px solid var(--border);
       vertical-align:middle;
       font-variant-numeric: tabular-nums;
@@ -398,7 +496,6 @@
     .mono{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace}
     .right{text-align:right}
 
-    /* rank same sizing as others */
     .rank{font-weight:700;width:70px}
     th.rank{width:70px}
 
@@ -412,6 +509,10 @@
 
     .walletCell{display:flex;align-items:center;gap:10px;min-width:0}
     .walletCell a{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+    .walletStack{display:flex;flex-direction:column;min-width:0;}
+    .discordTag{font-size:10px;color:var(--muted);font-weight:800;line-height:1.1;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
     .copyBtn{
       flex:0 0 auto;
       border:1px solid var(--border);
@@ -428,39 +529,18 @@
     .copyBtn:hover{background: rgba(255,255,255,.06)}
     .copyBtn.copied{opacity:.95;border-color: rgba(78,161,255,.45)}
 
-    /* ✅ tiny name line in wallet cell (matches current look, no redesign) */
-    .walletNameLine{
-      display:flex;
-      flex-direction:column;
-      gap:2px;
-      min-width:0;
-    }
-    .walletName{
-      font-weight:900;
-      font-size:12px;
-      color: rgba(233,240,255,.92);
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-      max-width: 100%;
-    }
-    .walletAddr a{
-      font-size:12px;
-    }
-
-    /* Win/Jewel cell formatting (wins bigger white, jewel smaller gold) */
     .winsInline{
       display:inline-flex;
       align-items:baseline;
       justify-content:flex-end;
       gap:8px;
       white-space:nowrap;
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
     }
     .winsInline .winsWord{
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
     }
@@ -473,7 +553,7 @@
       line-height:1.05;
     }
     .rewardWins{
-      font-size:12px;
+      font-size:17px;
       font-weight:900;
       color: var(--text);
       white-space:nowrap;
@@ -485,7 +565,6 @@
       white-space:nowrap;
     }
 
-    /* clickable wins for tournament IDs */
     .clickWins{
       cursor:pointer;
       text-decoration:none;
@@ -499,7 +578,9 @@
       border-radius: 10px;
     }
 
-    /* Sorted column highlight (10/20/total) */
+    .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
+    .clickBreakdown:hover{text-decoration:underline;}
+
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
 
@@ -512,7 +593,6 @@
     .colHi10 thead th, .colHi20 thead th, .colHiT thead th { background: rgba(255,255,255,.02); }
     .colHi10 thead th.col10, .colHi20 thead th.col20, .colHiT thead th.colT { background: var(--colHiHead); }
 
-    /* unified dark modal system */
     .modalBackdrop{
       position:fixed;inset:0;background: var(--overlayBg);
       display:none;align-items:center;justify-content:center;padding:16px;z-index:1000;
@@ -527,17 +607,68 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
+
+    /* Tip (community dev) modal: ~70% width and capped */
+    #tipBackdrop .modal{
+      width: min(546px, 70vw);
+      max-width: 546px;
+    }
+    #tipBackdrop #tipMessage a{
+      color: var(--accent);
+      text-decoration: underline;
+      font-weight: 900;
+    }
     }
     .modalHd{
-      padding:12px 14px;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:10px 12px;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
     }
     .modalTitle{font-weight:900}
     .modalBd{padding:14px;background: var(--modalBd)}
+
+    /* Learn modal: center all copy */
+    #learnBackdrop .modalBd, #learnBackdrop #learnText{ text-align:center; }
+    #learnBackdrop #learnText ul{
+      list-style-position: inside;
+      padding-left:0;
+      margin-left:0;
+    }
+
+    /* Leaderboard: hide scrollbars until interaction */
+    .tableWrap{
+      scrollbar-color: transparent transparent; /* Firefox */
+    }
+    .tableWrap:hover,
+    .tableWrap:focus-within{
+      scrollbar-color: rgba(255,255,255,.28) transparent;
+    }
+    .tableWrap::-webkit-scrollbar{ width:10px; height:10px; }
+    .tableWrap::-webkit-scrollbar-track{ background: transparent; }
+    .tableWrap::-webkit-scrollbar-thumb{
+      background: transparent;
+      border-radius: 999px;
+      border: 2px solid transparent;
+      background-clip: content-box;
+    }
+    .tableWrap:hover::-webkit-scrollbar-thumb,
+    .tableWrap:focus-within::-webkit-scrollbar-thumb{
+      background: rgba(255,255,255,.28);
+    }
+
+    /* Back to top button (shown after scroll) */
+    #backToTopBtn{ display:none; }
+    #backToTopBtn.show{ display:inline-flex; }
+    #walletsBtn, #csvBtn{ padding:5px 7px; font-size:9px; border-radius:10px; }
+    #csvBtn span{ font-size:9px; }
+
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
-    .modalBtns{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
+        .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
+    .tourneyLinks{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 4px;}
+    .tourneyLinks a{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);border-radius:12px;padding:8px 10px;text-decoration:none;font-weight:900;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+    .tourneyLinks a:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);}
+.modalBtns{display:flex;gap:10px;justify-content:flex-end;margin-top:12px;flex-wrap:wrap}
     .modalBtn{
       border:1px solid var(--modalBorder);
       background: rgba(255,255,255,.06);
@@ -557,7 +688,6 @@
       color: var(--text);
     }
 
-    /* Top10 list inside dark modal */
     .top10List{display:flex;flex-direction:column;gap:10px;}
     .top10Item{
       display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -586,7 +716,6 @@
     .top10Reward{font-weight:900;font-size:14px;color: var(--gold);}
     .top10RewardLabel{font-size:11px;color: var(--muted);margin-top:2px;}
 
-    /* Phil Collins window (lightbox only, medium default) */
     .pcOverlay{
       position:fixed;inset:0;background: var(--overlayBg);
       display:none;align-items:center;justify-content:center;padding:16px;z-index:1200;
@@ -612,7 +741,7 @@
       backdrop-filter: blur(10px);
     }
     .pcHd{
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      display:flex;align-items:center;justify-content:space-between;gap:8px;
       padding:10px 10px 8px;
       border-bottom:1px solid var(--modalBorder);
       background: var(--modalHdr);
@@ -654,7 +783,6 @@
     }
     .pcFrame{width:100%;height:100%;border:0;display:block;background:#000;}
 
-    /* Responsive */
     @media (max-width: 1200px){ .headerInner, .mainNarrow{width: 86%;} }
     @media (max-width: 1100px){ .headerInner, .mainNarrow{width: 92%;} }
 
@@ -664,11 +792,14 @@
       header{flex-direction:column;align-items:stretch;gap:12px}
 
       .topHeaderRow{
-        grid-template-columns: 1fr 1fr; /* 2x2 on smaller screens */
+        grid-template-columns: 1fr 1fr;
         gap:10px;
       }
 
-      .topRow{grid-template-columns: 1fr;}
+      .topRow{grid-template-columns: 1fr; display:flex; flex-direction:column;}
+      #lastWeekTile{order:1;}
+      #lifetimeTile{order:2;}
+      #filtersCard{order:3;}
       .tile{height:auto;}
       table{ table-layout:auto; }
       th.walletCol{width:auto}
@@ -683,98 +814,307 @@
       .miniTile,.topMiniBtn{height:54px;}
 
       table{font-size:15px}
-      thead th{font-size:13px;padding:10px 10px}
-      tbody td{padding:10px 10px}
+      thead th{font-size:13px;padding:9px 10px}
+      tbody td{padding:9px 10px}
       .rank{width:56px}
       .tableWrap{max-height:65vh}
       .filterGrid{gap:8px;}
       .dateBtn{min-height:38px;padding:8px 10px}
 
-      .winsInline,.winsInline .winsWord,.rewardWins{font-size:12px;}
+      .winsInline,.winsInline .winsWord,.rewardWins{font-size:16px;}
       .rewardJewel{font-size:9px;}
 
       .pcBox{width: 92vw; height: 54vh;}
     }
-  </style>
+  
+    #tipBackdrop .modalTitle{
+      text-align:center;
+      width:100%;
+      font-size:24px;
+      font-weight:1000;
+    }
+    
+  
+    .headerLeft{min-width:0}
+
+/* Lifetime disbursed (top-right, aligned with header) */
+.headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;text-align:right;line-height:1.05;min-width:160px}
+.headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
+.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25) display:none;
+    }
+
+
+.copyBtnRow{
+  display:flex;
+  gap:6px;
+  align-items:center;
+  flex:0 0 auto;
+}
+.discordCopyBtn{
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.04);
+  color: var(--text);
+  border-radius:10px;
+  padding:6px 10px;
+  cursor:pointer;
+  font-size:12px;
+  line-height:1;
+  user-select:none;
+  transition: background .15s ease, opacity .15s ease;
+}
+.discordCopyBtn:hover{background: rgba(255,255,255,.06)}
+.discordCopyBtn.copied{opacity:.95;border-color: rgba(78,161,255,.45)}
+
+
+    /* weekly breakdown modal */
+    .wkCard{
+      border:1px solid var(--modalBorder);
+      border-radius:16px;
+      overflow:hidden;
+      margin:9px 0;
+      background:rgba(0,0,0,.18);
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .wkHdr{
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:14px;
+      padding:10px 14px;
+      background:rgba(255,255,255,.04);
+      border:0;
+      color:var(--text);
+      cursor:pointer;
+      text-align:left
+    }
+    .wkHdr:hover{background:rgba(255,255,255,.06)}
+    .wkLeft{display:flex;flex-direction:column;gap:4px}
+    .wkTitle{font-weight:900;letter-spacing:.2px}
+    .wkSub{font-size:12px;color:var(--muted)}
+    .wkRight{display:flex;align-items:center;gap:12px}
+    .wkJewel{font-weight:1000;color:#facc15;white-space:nowrap;letter-spacing:.2px}
+    .wkCaret{font-size:16px;color:var(--muted);min-width:14px;text-align:right}
+    .wkBody{padding:12px 16px}
+
+    /* Weekly breakdown lines */
+    .wkLine{display:flex;gap:10px;align-items:flex-start;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+    .wkLine:last-child{border-bottom:none}
+    .wkLbl{min-width:92px;color:var(--muted);font-size:12px;font-weight:900}
+    .wkIds{color:var(--text);font-size:12px;overflow-wrap:anywhere;line-height:1.35}
+
+    /* Hide meta/rewards lines for this modal */
+    #tourneyLinksMeta, #tourneyLinksRewards{display:none}
+
+    /* Slightly smaller header + close button */
+    #tourneyLinksBackdrop .modalHd{padding:10px 12px}
+    #tourneyLinksCloseBtn{padding:6px 8px;border-radius:10px;font-size:11px;line-height:1}
+
+    /* Open/Close all buttons slightly smaller */
+    #wkOpenAllBtn, #wkCloseAllBtn{padding:4px 7px;border-radius:9px;font-size:10px}
+
+    .wkControls{display:flex;align-items:center;gap:10px;margin:2px 0 11px}
+    .wkControlsRight{margin-left:auto;display:flex;gap:10px}
+
+    .wkSearch{
+      width: 260px;
+      max-width: 52vw;
+      padding: 6px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.20);
+      color: var(--text);
+      font-size: 12px;
+      outline: none;
+    }
+    .wkSearch::placeholder{color: rgba(233,240,255,.55)}
+
+
+    /* Vote Watcher */
+    #vwBackdrop .chip{ cursor:pointer; }
+    #vwBackdrop .chip.active{
+      outline:2px solid rgba(78,161,255,.35);
+      border-color: rgba(78,161,255,.45);
+    }
+    #vwBackdrop .panel{
+      border:1px solid var(--modalBorder);
+      border-radius:14px;
+      background: rgba(255,255,255,.03);
+      overflow:hidden;
+    }
+    #vwBackdrop .panelHd{
+      padding:10px 12px;
+      font-weight:900;
+      border-bottom:1px solid var(--modalBorder);
+      background: rgba(0,0,0,.18);
+    }
+    #vwBackdrop .panelBd{ padding:10px 12px; }
+    #vwBackdrop .vwRow{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding:8px 10px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:12px;
+      background: rgba(0,0,0,.14);
+      margin-bottom:8px;
+      cursor:pointer;
+    }
+    #vwBackdrop .vwRow:hover{ border-color: rgba(78,161,255,.35); }
+    #vwBackdrop .vwRow .sub{ font-size:12px; color: var(--muted); }
+    #vwBackdrop .vwBadge{
+      font-size:12px;
+      color: var(--text);
+      background: rgba(78,161,255,.16);
+      border:1px solid rgba(78,161,255,.25);
+      padding:3px 8px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+</style>
 </head>
 
 <body>
+<!-- DFK Tournament Leaderboard • version v1.0.3 -->
 <div class="wrap" id="app">
-  <div class="headerInner">
+    <div class="headerInner">
     <header>
-      <div>
-        <h1>DFK Tournament Leaderboard</h1>
+      <div class="headerLeft">
+        <h1 class="siteTitle">DFK Tournament Leaderboard</h1>
+        <div class="sub" id="tagline">Created by the DFK Dev Team</div>
         <div class="sub" id="subline"></div>
-
-        <div class="topHeaderRow" title="All weekly presets and date ranges are interpreted in UTC">
-          <div class="miniTile">
-            <div class="miniInner">
-              <span class="k">UTC time:</span>
-              <span class="v" id="utcNow">—</span>
-              <span class="hint">(UTC)</span>
-            </div>
-          </div>
-
-          <div class="miniTile secondary">
-            <div class="miniInner">
-              <span class="k">Daily rollover:</span>
-              <span class="v" id="utcCountdown">—</span>
-              <span class="hint">(00:00 UTC)</span>
-            </div>
-          </div>
-
-          <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button" title="Learn more">
-            Learn more
-          </button>
-
-          <button class="topMiniBtn philMini" id="philBtn" type="button" title="Random Phil Collins player">
-            PHIL COLLINS
-          </button>
-        </div>
       </div>
-      <div></div>
+
+      <div class="headerRightLifetime" aria-label="Lifetime JEWEL disbursed">
+        <div class="lifeNum" id="lifetimeJewelVal">—</div>
+      </div>
     </header>
+
+    <div class="topHeaderRow">
+<a class="topMiniBtn" id="playNowBtn" href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer">
+            PLAY DFK NOW
+          </a>
+
+          <button class="topMiniBtn learnMini" id="learnMoreBtn" type="button">LEARN MORE</button>
+
+          <button class="topMiniBtn" id="tipBtn" type="button">TIP JERMCURRY</button>
+
+          <div class="miniTile" id="utcTile">
+  <div class="miniInner">
+    <span class="k">Current UTC time:</span>
+    <span class="v" id="utcNow">—</span>
   </div>
+</div>
+
+          <div class="miniTile secondary" id="rolloverTile">
+            <div class="miniInner">
+              <span class="k">Daily rollover in:</span>
+              <span class="v" id="utcCountdown">—</span>
+
+            </div>
+          </div>
+
+          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+    </div>
+  </div>
+
 
   <div class="mainNarrow">
     <div class="topRow">
       <section class="tile" id="filtersCard" aria-label="Filters">
-        <div class="hd"><span>Filters</span><span class="subhd"></span></div>
-        <div class="bd">
+        <div class="hd"><div class="hdCol"><span>Filters</span><span class="subhd" id="filtersNote"></span></div><span id="filtersHideToggle" class="filtersHideLink" role="button" tabindex="0" aria-label="Hide filters">Hide</span></div>
+        <div class="bd" id="filtersBd">
           <div class="filterGrid">
-            <button class="dateBtn" id="fromBtn" type="button" title="Pick From date (UTC)">
+            <button class="btn navBtn" id="prevWeekBtn" type="button" title="Back one week" aria-label="Back one week">←</button>
+            <button class="btn navBtn" id="nextWeekBtn" type="button" title="Forward one week" aria-label="Forward one week">→</button>
+            <button class="dateBtn" id="fromBtn" type="button" title="Pick From date ">
               <span class="lab">From</span>
               <span class="val" id="fromLabel">—</span>
             </button>
 
-            <button class="dateBtn" id="toBtn" type="button" title="Pick To date (UTC)">
+            <button class="dateBtn" id="toBtn" type="button" title="Pick To date ">
               <span class="lab">To</span>
               <span class="val" id="toLabel">—</span>
             </button>
 
-            <button class="btn fullRow" id="thisWeekBtn" type="button" aria-pressed="false">This week</button>
-            <button class="btn fullRow" id="lastWeekBtn" type="button" aria-pressed="true">Last week</button>
-
-            <div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
+            <button class="btn" id="lastWeekBtn" type="button" aria-pressed="false">Last week</button>
+            <button class="btn" id="thisWeekBtn" type="button" aria-pressed="true">This week</button>
+            <button class="btn" id="lastMonthBtn" type="button" aria-pressed="false">Last month</button>
+            <button class="btn" id="thisMonthBtn" type="button" aria-pressed="false">This month</button>
+<div class="toggleWrap fullRow" role="group" aria-label="Sort by tier">
               <button class="toggleBtn active" id="sort10Btn" type="button" aria-pressed="true">10s</button>
               <button class="toggleBtn" id="sort20Btn" type="button" aria-pressed="false">20s</button>
               <button class="toggleBtn" id="sortTotalBtn" type="button" aria-pressed="false">Total</button>
             </div>
 
             <div class="fullRow">
-              <input id="search" placeholder="Search by name or 0x…" />
+              <input id="search" placeholder="Search by wallet or name…" />
             </div>
+
+            <div class="fullRow" id="updateLine" style="margin-top:8px;color:var(--muted);font-size:11px;font-weight:800;"></div>
           </div>
 
           <input class="dateHidden" id="fromDate" type="date" />
           <input class="dateHidden" id="toDate" type="date" />
         </div>
+
+        <div class="bd" id="tearsTickerBd" style="display:none;">
+  <div class="tearsBox" aria-label="DFK token price ticker">
+    <div class="tearsRow">
+      <div class="tearsLabel">Tears</div>
+      <div class="tearsVal mono" id="tearsPriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">50,000 Tears</div>
+      <div class="tearsVal mono" id="tearsMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">Gold</div>
+      <div class="tearsVal mono" id="goldPriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">1,000,000 Gold</div>
+      <div class="tearsVal mono" id="goldMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">DE</div>
+      <div class="tearsVal mono" id="dePriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">100 DE</div>
+      <div class="tearsVal mono" id="deMillionCost">—</div>
+    </div>
+
+    <div class="tearsDivider"></div>
+
+    <div class="tearsRow">
+      <div class="tearsLabel">GDE</div>
+      <div class="tearsVal mono" id="gdePriceVal">—</div>
+    </div>
+    <div class="tearsRow" style="margin-top:3px;">
+      <div class="tearsAmt">10 GDE</div>
+      <div class="tearsVal mono" id="gdeMillionCost">—</div>
+    </div>
+
+    <div class="tearsNote" id="tearsStatus">—</div>
+  </div>
+</div>
       </section>
 
       <aside class="tile" id="lastWeekTile" aria-label="Last week's top winners">
         <div class="hd">
-          <span>Last week top 3</span>
-          <span class="subhd" id="lastWeekRangeLabel">—</span>
+          <div class="hdCol">
+            <span>Last week's leaders</span>
+            <span class="subhd top3Sub lastWeekSub" id="lastWeekRangeLabel">—</span>
+          </div>
+          <div class="hdMetaRight goldMeta" id="lastWeekJewelMeta">
+            <div class="v" id="lastWeekJewelTotal">—</div>
+            <div class="k2">DISBURSED</div>
+          </div>
         </div>
         <div class="bd">
           <div id="top3LastWeek" class="top3">
@@ -785,10 +1125,13 @@
 
       <aside class="tile" id="lifetimeTile" aria-label="Lifetime top winners">
         <div class="hd">
-          <span>Lifetime top 3</span>
-          <div style="display:flex;gap:8px;align-items:center;">
-            <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
-          </div>
+<div class="hdCol">
+  <span>Lifetime Leaders</span>
+  <span class="subhd top3Sub" id="lifetimeSinceLabel">Tracking since Jan 16, 2026</span>
+</div>
+<div style="display:flex;gap:8px;align-items:center;">
+  <button class="btn tiny" id="showTop10Btn" type="button" title="Show top 10 lifetime earners">Show top 10</button>
+</div>
         </div>
         <div class="bd">
           <div id="top3Lifetime" class="top3">
@@ -798,14 +1141,18 @@
       </aside>
     </div>
 
-    <section class="card">
+    <section class="card" id="winsCard">
       <div class="hd">
-        <div>
-          <div style="font-size:12px;color:var(--muted)">Leaderboard</div>
-          <div style="font-weight:700">Lvl 10 vs Lvl 20 wins</div>
+        <div class="lbLeft" id="rangeIndicator" aria-live="polite">
+          <span id="rangeText">—</span>
+          <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
         </div>
 
-        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+        <div class="lbCenter" id="lbTitle">Leaderboard</div>
+
+        <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          <button class="btn" id="leaderboardToggleBtn" type="button" title="Switch to points leaderboard">Points</button>
+          <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
           <button class="btn" id="walletsBtn" type="button" title="Show wallets">
             <span id="walletsBtnText">— wallets</span>
           </button>
@@ -832,10 +1179,42 @@
         </table>
       </div>
     </section>
+
+    <section class="card" id="pointsCard" style="margin-top:14px;display:none;">
+      <div class="hd">
+        <div class="lbLeft" aria-live="polite">
+          <span id="pointsRangeText">All tournaments • all types</span>
+        </div>
+
+        <div class="lbCenter" id="pointsTitle">Points Leaderboard</div>
+
+        <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          <button class="btn" id="leaderboardToggleBtnPoints" type="button" title="Switch to wins leaderboard">Wins</button>
+          <span id="pointsScoringText" style="color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap;">1st = 2 • 2nd = 1 • 3rd = 0.5</span>
+        </div>
+      </div>
+
+      <div class="tableWrap" id="pointsTableWrap">
+        <table id="pointsTable">
+          <thead>
+            <tr>
+              <th class="rank">Rank</th>
+              <th class="walletCol">Wallet</th>
+              <th class="right">Points</th>
+              <th class="right">1st</th>
+              <th class="right">2nd</th>
+              <th class="right">3rd</th>
+            </tr>
+          </thead>
+          <tbody id="pointsTbody">
+            <tr><td colspan="6" style="padding:14px;color:var(--muted)">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </div>
 </div>
 
-<!-- Wallets Modal (dark) -->
 <div class="modalBackdrop" id="modalBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="walletModalTitle">
     <div class="modalHd">
@@ -854,7 +1233,6 @@
   </div>
 </div>
 
-<!-- Top 10 Lifetime Modal (dark) -->
 <div class="modalBackdrop" id="top10Backdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="top10Title">
     <div class="modalHd">
@@ -868,7 +1246,6 @@
   </div>
 </div>
 
-<!-- Learn More Modal (dark) -->
 <div class="modalBackdrop" id="learnBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="learnTitle">
     <div class="modalHd">
@@ -876,12 +1253,167 @@
       <button class="modalBtn" id="learnCloseBtn" type="button">Close</button>
     </div>
     <div class="modalBd">
-      <p class="modalNote" id="learnText">(Placeholder) You’ll provide this text later.</p>
+      <div id="learnText" style="font-size:14px; line-height:1.6; color:var(--text);">
+        <p style="margin-top:0"><strong>Note:</strong> all times shown are in <strong>UTC</strong>.</p>
+
+        <p>
+          Every week, DFK players step into the arena and compete for tournament glory —
+          and the more <strong>1st place finishes</strong> you stack at
+          <strong>Level 10</strong> and <strong>Level 20</strong>, the bigger your payout.
+        </p>
+
+        <p>
+          Prizes are distributed weekly in <strong>JEWEL</strong> every
+          <strong>Sunday/Monday</strong>, based on your total win count.
+        </p>
+
+        <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
+        <ul style="margin:0 0 14px 20px;">
+          <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
+          <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
+          <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
+        </ul>
+
+        <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
+        <ul style="margin:0 0 14px 20px;">
+          <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
+        </ul>
+
+        <p>
+          Consistent winners get rewarded. The more first-place finishes you claim,
+          the more JEWEL you take home.
+        </p>
+
+        <p style="margin-top:14px;">
+          New to tournaments? Our community is active and genuinely helpful to newcomers.
+          If you have questions about builds, strategy, or how payouts work,
+          jump into our Discord and introduce yourself:
+        </p>
+
+        <p style="margin-top:6px;">
+          👉 <a href="https://discord.gg/M8pqR34W"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="color:var(--accent); font-weight:700;">
+               https://discord.gg/M8pqR34W
+             </a>
+        </p>
+
+        <div style="display:flex;justify-content:center;margin-top:12px;margin-bottom:6px;">
+          <a href="https://game.defikingdoms.com/" target="_blank" rel="noopener noreferrer" class="dfk-button dfk-playNowBtn">
+            PLAY DEFI KINGDOMS NOW
+          </a>
+        </div>
+
+        <p style="margin-top:18px; margin-bottom:10px; font-weight:900; color:rgba(233,240,255,.92); text-align:center;">
+          Check out these great DFK 3rd party tools from community developers
+        </p>
+
+        <!-- DFK Resource Buttons -->
+        <style>
+          .dfk-button-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+            margin-top: 18px;
+            justify-content: center;
+            width: 100%;
+          }
+
+          .dfk-button {
+            background: #1e1e1e;
+            color: #ffffff;
+            border: 2px solid #c9a227;
+            padding: 10px 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease-in-out;
+            font-family: Arial, sans-serif;
+          }
+
+          .dfk-playNowBtn{padding:15px 26px;font-size:18px;font-weight:900;}
+
+          .dfk-button:hover {
+            background: #c9a227;
+            color: #000000;
+            box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
+            transform: translateY(-2px);
+          }
+        
+    #tipBackdrop .modalTitle{
+      text-align:center;
+      width:100%;
+      font-size:24px;
+      font-weight:1000;
+    }
+    
+  </style>
+
+        <div class="dfk-button-container" style="justify-content:center;">
+          <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
+            dfkplayertools
+          </a>
+
+          <a class="dfk-button" href="https://dfkfoundry.com/" target="_blank" rel="noopener noreferrer">
+            DFK Foundry
+          </a>
+
+          <a class="dfk-button" href="https://dfkhelper.com/" target="_blank" rel="noopener noreferrer">
+            DFK Helper
+          </a>
+
+          <a class="dfk-button" href="https://www.adfk.app/" target="_blank" rel="noopener noreferrer">
+            Adventures in DFK
+          </a>
+
+          <a class="dfk-button" href="https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide" target="_blank" rel="noopener noreferrer">
+            Renpen&#39;s QuickStart Guide
+          </a>
+
+          <a class="dfk-button" href="https://mellowdfk.com/" target="_blank" rel="noopener noreferrer">
+            Mellow&#39;s Tools
+          </a>
+        </div>
+        <div style="margin-top:14px; display:flex; justify-content:center;">
+          <button id="openVoteWatcherBtn" type="button" class="modalBtn" style="min-width:180px;">Vote Watcher</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+
+
+<div class="modalBackdrop" id="tipBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tipTitle">
+    <div class="modalHd">
+      <div class="modalTitle" id="tipTitle">Tip</div>
+      <button class="modalBtn" id="tipCloseBtn" type="button">Close</button>
+    </div>
+    <div class="modalBd" style="text-align:center;">
+      <div id="tipMessage" style="margin:0 0 10px;color:rgba(233,240,255,.90);font-weight:800;line-height:1.55;">—</div>
+
+      <div style="display:flex;gap:10px;align-items:center;justify-content:center;flex-wrap:wrap;margin-top:10px;">
+        <div class="mono" id="tipAddress" style="padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.22);font-weight:900;">
+          —
+        </div>
+        <button class="modalBtn primary" id="tipCopyBtn" type="button">Copy</button>
+      </div>
+
+      <div style="display:flex;justify-content:center;margin-top:12px;">
+        <button class="modalBtn" id="tipNextBtn" type="button">See next community dev</button>
+      </div>
+
+      <div class="modalNote" id="tipStatus" style="margin-top:10px"></div>
     </div>
   </div>
 </div>
 
-<!-- Tournament IDs Modal (dark) -->
+
 <div class="modalBackdrop" id="tourneyBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourneyTitle">
     <div class="modalHd">
@@ -890,6 +1422,8 @@
     </div>
     <div class="modalBd">
       <p class="modalNote" id="tourneyMeta">—</p>
+      <p class="modalWarn">WARNING: Tournaments older than 7 days may have been cleared and will not open.</p>
+      <div id="tourneyLinks" class="tourneyLinks"></div>
       <textarea class="walletList" id="tourneyText" readonly></textarea>
       <div class="modalBtns">
         <button class="modalBtn" id="tourneyCopyBtn" type="button">Copy IDs</button>
@@ -897,9 +1431,27 @@
       <div class="modalNote" id="tourneyStatus" style="margin-top:10px"></div>
     </div>
   </div>
+
+<div class="modalBackdrop" id="tourneyLinksBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourneyLinksTitle">
+    <div class="modalHd">
+      <div class="modalTitle" id="tourneyLinksTitle">Tournament links</div>
+      <button class="modalBtn" id="tourneyLinksCloseBtn" type="button">Close</button>
+    </div>
+    <div class="modalBd">
+      <p class="modalNote" id="tourneyLinksMeta">—</p>
+      <p class="modalNote" id="tourneyLinksRewards" style="margin-top:6px">—</p>
+      <div id="tourneyLinksList" style="max-height:50vh;overflow:auto;padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.18);text-align:left;"></div>
+      <div class="modalBtns">
+        
+      </div>
+      <div class="modalNote" id="tourneyLinksStatus" style="margin-top:10px"></div>
+    </div>
+  </div>
 </div>
 
-<!-- Phil Collins (lightbox only, dark + same treatment) -->
+</div>
+
 <div class="pcOverlay" id="pcOverlay" aria-hidden="true">
   <div class="pcBox" id="pcBox" role="dialog" aria-modal="true" aria-label="Phil Collins player">
     <div class="pcHd">
@@ -930,20 +1482,163 @@
 <script>
   const $ = (id) => document.getElementById(id);
 
+  const APP_VERSION = "v1.0.3";
+
   const state = {
     wins: [],
     filtered: [],
-    range: { fromMs: null, toMs: null }, // UTC ms [from, to)
+    range: { fromMs: null, toMs: null },
     searchTimer: null,
-    sortMode: "10s", // "10s" | "20s" | "total"
+    sortMode: "10s",
     lifetimeSorted: [],
-    weekPreset: "last", // "this" | "last" | "custom"
-
-    // ✅ new: names + tournament ranges
-    profiles: new Map(),          // wallet(lower) -> name
-    tournamentRanges: new Map(),  // tournamentId(string) -> { minLevel, maxLevel, raw }
-    dataStats: { wins: 0, names: 0, ranges: 0 }
+    weekPreset: "this",
+    namesByAddress: {},
+    tournamentTierById: {},
+    tournamentRangeById: {},
+    pointsLeaderboard: null,
+    leaderboardView: "wins",
   };
+
+  // Discord handles (shown next to in-game names when available)
+  const DISCORD_BY_INGAME = {
+
+  "xbla": "iibla",
+  "jermcurry": "jermcurry",
+  "kkoper": "kkoper11",
+
+  "superbowl": "okulperilousscamfrog",
+  "winstonhunts": "winstonjazzhands",
+  "liumeb": "maifriendo",
+  "defi purgatory": "kurthokage",
+  "seyam sarker": "seyam123 Broken💔Heart",
+  "darthwarpath": "darthwarpath",
+  "maxgerin": "maxgerin",
+  "dragnipur": "malotru3849",
+    "dragonfly tales": "dragonflytales",
+"tunefed": "Tunefed",
+  "level.up": "level_uppp",
+  "bboynomad": "bboynomad",
+  "slick_bruss2": "dreadpiraterob1",
+  "king | zma": "kingelovolution2.0",
+  "obamastolemykfc": "swagswag696937",
+  "brionthelion": "zion3noiz",
+  "just have fun": "clash.hope"
+};
+
+// Filters collapse + token price tickers (shown when filters are hidden)
+const TOKEN_PAIRS = [
+  { key: "tears", label: "Tears", pair: "0x9c0788c0f36e60c33074f7498c8d83d7dcb6d54a", priceEl: "tearsPriceVal", costEl: "tearsMillionCost", amount: 50_000, amountLabel: "50,000 Tears" },
+  { key: "gold",  label: "GOLD", pair: "0xd2df51059ab32cc8680fd2c030e66f08b13bc9bd", priceEl: "goldPriceVal",  costEl: "goldMillionCost",  amount: 1_000_000, amountLabel: "1,000,000 Gold" },
+  { key: "de",    label: "DE",   pair: "0x32e2dcd4fb6980a917fc140d0bc65576fd2e6490", priceEl: "dePriceVal",    costEl: "deMillionCost",    amount: 100, amountLabel: "100 DE" },
+  { key: "gde",   label: "GDE",  pair: "0x3521f89e02666891f082cfc3e1e881aafb6a71df", priceEl: "gdePriceVal",   costEl: "gdeMillionCost",   amount: 10, amountLabel: "10 GDE" },
+];
+
+let _tokenTickerTimer = null;
+
+function setFiltersCollapsed(collapsed){
+  const bd = $("filtersBd");
+  const ticker = $("tearsTickerBd");
+  const toggle = $("filtersHideToggle");
+  if (!bd || !ticker || !toggle) return;
+
+  bd.style.display = collapsed ? "none" : "block";
+  ticker.style.display = collapsed ? "block" : "none";
+  toggle.textContent = collapsed ? "Show" : "Hide";
+  toggle.setAttribute("aria-label", collapsed ? "Show filters" : "Hide filters");
+
+  if (collapsed) {
+    startTokenTicker();
+  }
+}
+
+async function fetchPriceNative(pairAddress){
+  const urls = [
+    `https://api.dexscreener.com/latest/dex/pairs/avalanchedfk/${pairAddress}`,
+    `https://api.dexscreener.com/latest/dex/pairs/avalanche-dfk/${pairAddress}`,
+    `https://api.dexscreener.com/latest/dex/pairs/avalanche/${pairAddress}`,
+  ];
+
+  for (const url of urls){
+    try{
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) continue;
+      const j = await res.json();
+      const p = (j && j.pairs && j.pairs[0]) ? j.pairs[0] : null;
+      const pn = p && p.priceNative != null ? Number(p.priceNative) : NaN;
+      if (Number.isFinite(pn) && pn > 0) return pn;
+    }catch{}
+  }
+  return null;
+}
+
+function formatFixedSmart(n, decimals){
+  if (!Number.isFinite(n)) return "—";
+  return n.toFixed(decimals);
+}
+
+function renderTokenTickerRow(cfg, priceNative){
+  const priceEl = $(cfg.priceEl);
+  const costEl = $(cfg.costEl);
+  if (!priceEl || !costEl) return;
+
+  if (!Number.isFinite(priceNative)){
+    priceEl.textContent = "—";
+    costEl.textContent = "—";
+    return;
+  }
+
+  const dec = (cfg.key==="de"||cfg.key==="gde") ? 2 : 6;
+  priceEl.textContent = `${formatFixedSmart(priceNative, dec)} JEWEL / ${cfg.label}`;
+
+  const qty = Number.isFinite(cfg.amount) ? cfg.amount : 1_000_000;
+  const cost = priceNative * qty;
+  costEl.textContent = `${cost.toLocaleString(undefined, { maximumFractionDigits: 2 })} JEWEL`;
+}
+
+async function updateTokenTickerOnce(){
+  const statusEl = $("tearsStatus");
+  if (statusEl) statusEl.textContent = "Updating…";
+
+  // fetch in parallel
+  const results = await Promise.all(TOKEN_PAIRS.map(async (cfg) => {
+    const pn = await fetchPriceNative(cfg.pair);
+    return { cfg, pn };
+  }));
+
+  for (const { cfg, pn } of results){
+    renderTokenTickerRow(cfg, pn == null ? NaN : pn);
+  }
+
+  if (statusEl) statusEl.textContent = `Updated ${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' })} UTC`;
+}
+
+function startTokenTicker(){
+  if (_tokenTickerTimer) return;
+  updateTokenTickerOnce();
+  _tokenTickerTimer = setInterval(updateTokenTickerOnce, 30_000);
+}
+
+
+function escHtml(s){
+    return String(s)
+      .replaceAll('&','&amp;')
+      .replaceAll('<','&lt;')
+      .replaceAll('>','&gt;')
+      .replaceAll('"','&quot;')
+      .replaceAll("'",'&#39;');
+  }
+
+  function discordForWallet(wallet){
+    const w = (wallet || "").toLowerCase();
+    const ingame = (state.namesByAddress[w] || "").trim();
+    if (!ingame) return "";
+    return DISCORD_BY_INGAME[ingame.toLowerCase()] || "";
+  }
+
+
+  // Data availability start 
+  const DATA_START_MS = Date.UTC(2026, 0, 16, 0,0,0,0);
+  const DATA_START_ISO = "2026-01-16";
 
   function pad(n){ return String(n).padStart(2,"0"); }
   function pluralWins(n){ return n === 1 ? "win" : "wins"; }
@@ -983,23 +1678,78 @@
     $("toLabel").textContent = formatPrettyUtc(state.range.toMs);
   }
 
-  function setRange(fromMs, toMs){
-    state.range.fromMs = fromMs;
-    state.range.toMs = toMs;
+  function formatPrettyUtcInclusiveEnd(toMs){
+    if (toMs == null) return "—";
+    // show inclusive end date for ranges (toMs is exclusive midnight UTC)
+    const end = toMs - 1;
+    return formatPrettyUtc(end);
+  }
 
-    $("fromDate").value = fromMs != null ? toIsoDateUtc(fromMs) : "";
-    $("toDate").value = toMs != null ? toIsoDateUtc(toMs) : "";
+  function updateRangeIndicator(){
+    const el = $("rangeText");
+    const clearBtn = $("clearRangeBtn");
+    if (!el || !clearBtn) return;
+
+    const preset = state.weekPreset;
+    if (preset === "this"){
+      el.textContent = "Showing this week";
+      clearBtn.style.display = "none";
+      return;
+    }
+
+    const f = formatPrettyUtc(state.range.fromMs);
+    const t = formatPrettyUtcInclusiveEnd(state.range.toMs);
+    el.textContent = `Showing ${f} to ${t}`;
+    clearBtn.style.display = "inline-flex";
+  }
+
+  
+  function clampRange(fromMs, toMs){
+    let f = fromMs;
+    let t = toMs;
+
+    if (f != null && f < DATA_START_MS) f = DATA_START_MS;
+    if (f == null) f = DATA_START_MS; // always keep range within available data
+    if (t != null && t < DATA_START_MS) t = DATA_START_MS;
+
+    if (t != null && f != null && t < f) t = f;
+
+    return { fromMs: f, toMs: t };
+  }
+
+  function setRange(fromMs, toMs){
+    const clamped = clampRange(fromMs, toMs);
+    state.range.fromMs = clamped.fromMs;
+    state.range.toMs = clamped.toMs;
+
+    $("fromDate").min = DATA_START_ISO;
+    $("toDate").min = DATA_START_ISO;
+
+    $("fromDate").value = state.range.fromMs != null ? toIsoDateUtc(state.range.fromMs) : "";
+    $("toDate").value = state.range.toMs != null ? toIsoDateUtc(state.range.toMs) : "";
     updateDateLabels();
+    updateRangeIndicator();
+    updateWeekNavUI();
   }
 
   function updateWeekPresetUI(){
-    const isThis = state.weekPreset === "this";
-    const isLast = state.weekPreset === "last";
-    $("thisWeekBtn").classList.toggle("active", isThis);
-    $("lastWeekBtn").classList.toggle("active", isLast);
-    $("thisWeekBtn").setAttribute("aria-pressed", String(isThis));
-    $("lastWeekBtn").setAttribute("aria-pressed", String(isLast));
-  }
+  const isThis = state.weekPreset === "this";
+  const isLast = state.weekPreset === "last";
+  const isThisMonth = state.weekPreset === "thisMonth";
+  const isLastMonth = state.weekPreset === "lastMonth";
+
+  $("thisWeekBtn").classList.toggle("active", isThis);
+  $("lastWeekBtn").classList.toggle("active", isLast);
+  $("thisMonthBtn").classList.toggle("active", isThisMonth);
+  $("lastMonthBtn").classList.toggle("active", isLastMonth);
+
+  $("thisWeekBtn").setAttribute("aria-pressed", String(isThis));
+  $("lastWeekBtn").setAttribute("aria-pressed", String(isLast));
+  $("thisMonthBtn").setAttribute("aria-pressed", String(isThisMonth));
+  $("lastMonthBtn").setAttribute("aria-pressed", String(isLastMonth));
+
+  updateWeekNavUI();
+}
 
   function setThisWeek(){
     const now = Date.now();
@@ -1019,6 +1769,68 @@
     updateWeekPresetUI();
   }
 
+function startOfUtcMonth(ms){
+  const d = new Date(ms);
+  return Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1, 0,0,0,0);
+}
+
+function setThisMonth(){
+  const now = Date.now();
+  const start = startOfUtcMonth(now);
+  const next = Date.UTC(new Date(now).getUTCFullYear(), new Date(now).getUTCMonth()+1, 1, 0,0,0,0);
+  setRange(start, next);
+  state.weekPreset = "thisMonth";
+  updateWeekPresetUI();
+}
+
+function setLastMonth(){
+  const now = Date.now();
+  const thisStart = startOfUtcMonth(now);
+  const lastStart = Date.UTC(new Date(now).getUTCFullYear(), new Date(now).getUTCMonth()-1, 1, 0,0,0,0);
+  setRange(lastStart, thisStart);
+  state.weekPreset = "lastMonth";
+  updateWeekPresetUI();
+}
+
+function isThisWeekRange(){
+  const now = Date.now();
+  const mon = startOfUtcWeekMonday(now);
+  const nextMon = mon + 7*86400000;
+  return state.range.fromMs === mon && state.range.toMs === nextMon;
+}
+
+function updateWeekNavUI(){
+  const prev = $("prevWeekBtn");
+  const next = $("nextWeekBtn");
+  if (!prev || !next) return;
+
+  // Disable forward when viewing the current week range
+  next.disabled = isThisWeekRange();
+
+  // Disable back if moving back a week would go before our data start
+  const candidateFrom = (state.range.fromMs ?? Date.now()) - 7*86400000;
+  prev.disabled = candidateFrom < DATA_START_MS;
+}
+
+function shiftWeek(dir){
+  // dir: -1 back, +1 forward
+  const span = 7*86400000;
+  const baseFrom = state.range.fromMs ?? startOfUtcWeekMonday(Date.now());
+  const baseTo = state.range.toMs ?? (baseFrom + span);
+  const newFrom = baseFrom + dir*span;
+  const newTo = baseTo + dir*span;
+
+  // Clamp to data start on backward shifts
+  if (dir < 0 && newFrom < DATA_START_MS) return;
+
+  // Prevent shifting into the future beyond this week
+  if (dir > 0 && isThisWeekRange()) return;
+
+  setRange(newFrom, newTo);
+  state.weekPreset = "custom";
+  updateWeekPresetUI();
+}
+
   function setCustomRange(){
     state.weekPreset = "custom";
     updateWeekPresetUI();
@@ -1029,97 +1841,38 @@
     return addr.slice(0, 6) + "…" + addr.slice(-4);
   }
 
-  // ✅ name helpers
-  function getName(walletLower){
-    if (!walletLower) return "";
-    return state.profiles.get(walletLower) || "";
-  }
-  function walletLabel(walletLower){
-    const nm = getName(walletLower);
-    return nm ? nm : shortWallet(walletLower);
+  function displayName(wallet){
+    const w = (wallet || "").toLowerCase();
+    const n = state.namesByAddress[w];
+    if (n && typeof n === "string" && n.trim()) return n.trim();
+    return shortWallet(w);
   }
 
-  // Jewel rules:
-  // lvl10: 3-4 =>150, 5-9 =>300, 10+ =>700
-  // lvl20: start at 2 wins, 60 per win (so 2=>120, 3=>180, ...)
+  function normalizeTournamentId(v){
+    if (v == null) return "";
+    if (typeof v === "number") return String(v);
+    if (typeof v === "string") return v.trim();
+    try { return String(v); } catch { return ""; }
+  }
+
+  function tierOverrideForTournamentId(tournamentId){
+    const id = normalizeTournamentId(tournamentId);
+    if (!id) return null;
+    const t = state.tournamentTierById[id];
+    return (t === 10 || t === 20) ? t : null;
+  }
+
   function jewel10(w10){
-    if (w10 >= 10) return 700;
+    if (w10 >= 10) return 750;
     if (w10 >= 5) return 300;
     if (w10 >= 3) return 150;
     return 0;
   }
   function jewel20(w20){
-    if (w20 < 2) return 0;
+    if (w20 < 1) return 0;
     return 60 * w20;
   }
   function formatJewel(n){ return `${n.toLocaleString()} JEWEL`; }
-
-  // ✅ tournament range parsing / tier inference
-  function toInt(x){
-    const n = Number(x);
-    return Number.isFinite(n) ? Math.trunc(n) : null;
-  }
-
-  function normalizeTournamentId(x){
-    if (x == null) return "";
-    const s = String(x).trim();
-    return s;
-  }
-
-  function parseRangeEntry(entry){
-    // Accepts a few possible shapes:
-    // - { minLevel: 16, maxLevel: 20 }
-    // - { min: 16, max: 20 }
-    // - { allowedHeroLevelMin: 16, allowedHeroLevelMax: 20 }
-    // - { range: "16-20" } or { allowedHeroLevel: "16 to 20" }
-    const raw = entry;
-    if (!entry || typeof entry !== "object") return null;
-
-    let minLevel = toInt(entry.minLevel ?? entry.min ?? entry.allowedHeroLevelMin ?? entry.levelMin ?? entry.minLvl);
-    let maxLevel = toInt(entry.maxLevel ?? entry.max ?? entry.allowedHeroLevelMax ?? entry.levelMax ?? entry.maxLvl);
-
-    const strish =
-      entry.range ??
-      entry.allowedHeroLevel ??
-      entry.allowedHeroLevels ??
-      entry.allowedHeroLevelRange ??
-      entry.levelRange;
-
-    if ((minLevel == null || maxLevel == null) && typeof strish === "string"){
-      // pull first two ints we see
-      const nums = strish.match(/\d+/g);
-      if (nums && nums.length >= 2){
-        minLevel = minLevel ?? toInt(nums[0]);
-        maxLevel = maxLevel ?? toInt(nums[1]);
-      }
-    }
-
-    if (minLevel == null && maxLevel == null) return null;
-    // if only one present, treat as both
-    if (minLevel == null) minLevel = maxLevel;
-    if (maxLevel == null) maxLevel = minLevel;
-
-    if (!Number.isFinite(minLevel) || !Number.isFinite(maxLevel)) return null;
-
-    return { minLevel, maxLevel, raw };
-  }
-
-  function inferTierFromRange(tournamentId){
-    if (!tournamentId) return null;
-    const info = state.tournamentRanges.get(String(tournamentId));
-    if (!info) return null;
-
-    const minL = info.minLevel;
-    const maxL = info.maxLevel;
-
-    // Core goal: "16-20" must count as 20.
-    // Heuristic that matches that:
-    // - if max >= 20 OR min >= 16 => tier 20
-    // - else => tier 10
-    if (Number.isFinite(maxL) && maxL >= 20) return 20;
-    if (Number.isFinite(minL) && minL >= 16) return 20;
-    return 10;
-  }
 
   function aggregateWins(wins, fromMs, toMs){
     const by = new Map();
@@ -1130,8 +1883,6 @@
 
       const cur = by.get(w.wallet) || {
         wallet: w.wallet,
-        name: getName(w.wallet),
-        nameLower: (getName(w.wallet) || "").toLowerCase(),
         lvl10Wins: 0,
         lvl20Wins: 0,
         total: 0,
@@ -1140,14 +1891,15 @@
         idsAll: new Set(),
       };
 
-      if (w.tournamentId) cur.idsAll.add(w.tournamentId);
+      const tid = w.tournamentId ? String(w.tournamentId) : "";
+      if (tid) cur.idsAll.add(tid);
 
       if (w.tier === 10){
         cur.lvl10Wins++;
-        if (w.tournamentId) cur.ids10.add(w.tournamentId);
+        if (tid) cur.ids10.add(tid);
       } else if (w.tier === 20){
         cur.lvl20Wins++;
-        if (w.tournamentId) cur.ids20.add(w.tournamentId);
+        if (tid) cur.ids20.add(tid);
       }
 
       cur.total++;
@@ -1156,9 +1908,9 @@
 
     const rows = [...by.values()].map(r => ({
       ...r,
-      ids10: [...r.ids10].sort(),
-      ids20: [...r.ids20].sort(),
-      idsAll: [...r.idsAll].sort(),
+      ids10: [...r.ids10].sort((a,b)=>Number(a)-Number(b)),
+      ids20: [...r.ids20].sort((a,b)=>Number(a)-Number(b)),
+      idsAll: [...r.idsAll].sort((a,b)=>Number(a)-Number(b)),
     }));
 
     return { rows };
@@ -1278,21 +2030,25 @@
       const j20 = jewel20(r.lvl20Wins);
       const jT  = j10 + j20;
 
-      const nm = r.name || getName(r.wallet);
-      const nameHtml = nm ? `<div class="walletName" title="${nm}">${nm}</div>` : "";
+      const name = displayName(r.wallet);
+      const wShort = shortWallet(r.wallet);
 
       return `
         <tr>
           <td class="rank">${r.rank}</td>
           <td class="mono">
             <div class="walletCell">
-              <div class="walletNameLine">
-                ${nameHtml}
-                <div class="walletAddr">
-                  <a class="link" href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer">${shortWallet(r.wallet)}</a>
-                </div>
+              <div class="walletStack">
+                <a class="link"
+                   href="https://andromeda-explorer.metis.io/address/${r.wallet}"
+                   target="_blank"
+                   rel="noreferrer"
+                   title="${wShort}">
+                   ${name}
+                </a>
+                ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               </div>
-              <button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy</button>
+              <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
             </div>
           </td>
 
@@ -1318,16 +2074,32 @@
       });
     });
 
-    // clickable wins -> tournament IDs
-    tb.querySelectorAll(".clickWins").forEach(el => {
+    
+
+tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
+  btn.addEventListener("click", async () => {
+    const wallet = btn.getAttribute("data-discord") || "";
+    const d = discordForWallet(wallet) || "";
+    if (!d) return;
+    const ok = await copyToClipboard(d);
+    if (!ok) return;
+    btn.classList.add("copied");
+    const prev = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => {
+      btn.textContent = prev;
+      btn.classList.remove("copied");
+    }, 1200);
+  });
+});
+tb.querySelectorAll(".clickWins").forEach(el => {
       const open = () => {
         const wallet = el.getAttribute("data-wallet") || "";
-        const col = el.getAttribute("data-col") || "T";
-        const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
-        if (!idsText.trim()){
-          return;
-        }
-        openTourneyModal(wallet, col, idsText);
+        const tier = el.getAttribute("data-tier") || "all";
+        const rangeLabel = el.getAttribute("data-range") || "";
+        const fromMs = Number(el.getAttribute("data-from") || "");
+        const toMs = Number(el.getAttribute("data-to") || "");
+        openTourneyLinksModal(wallet, tier, fromMs, toMs, rangeLabel);
       };
       el.addEventListener("click", open);
       el.addEventListener("keydown", (e) => {
@@ -1345,7 +2117,11 @@
     let rows = agg.rows;
 
     if (search){
-      rows = rows.filter(r => r.wallet.includes(search) || (r.nameLower || "").includes(search));
+      rows = rows.filter(r => {
+        const w = r.wallet.toLowerCase();
+        const n = (state.namesByAddress[w] || "").toLowerCase();
+        return w.includes(search) || n.includes(search);
+      });
     }
 
     sortRows(rows);
@@ -1359,6 +2135,109 @@
     renderTable(ranked);
   }
 
+  function setLeaderboardView(view){
+    state.leaderboardView = (view === "points") ? "points" : "wins";
+
+    const showingPoints = state.leaderboardView === "points";
+    const winsCard = $("winsCard");
+    const pointsCard = $("pointsCard");
+    const winsBtn = $("leaderboardToggleBtn");
+    const pointsBtn = $("leaderboardToggleBtnPoints");
+
+    if (winsCard) winsCard.style.display = showingPoints ? "none" : "";
+    if (pointsCard) pointsCard.style.display = showingPoints ? "" : "none";
+
+    if (winsBtn){
+      winsBtn.textContent = showingPoints ? "Wins" : "Points";
+      winsBtn.title = showingPoints ? "Switch to wins leaderboard" : "Switch to points leaderboard";
+    }
+    if (pointsBtn){
+      pointsBtn.textContent = showingPoints ? "Wins" : "Points";
+      pointsBtn.title = showingPoints ? "Switch to wins leaderboard" : "Switch to points leaderboard";
+    }
+  }
+
+  function toggleLeaderboardView(){
+    setLeaderboardView(state.leaderboardView === "points" ? "wins" : "points");
+  }
+
+  function renderPointsCell(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—";
+  }
+
+  function renderPointsTable(rows){
+    const tb = $("pointsTbody");
+    if (!tb) return;
+
+    if (!Array.isArray(rows) || !rows.length){
+      tb.innerHTML = `<tr><td colspan="6" style="padding:14px;color:var(--muted)">No points results available.</td></tr>`;
+      return;
+    }
+
+    tb.innerHTML = rows.map(r => {
+      const name = displayName(r.wallet);
+      const wShort = shortWallet(r.wallet);
+
+      return `
+        <tr>
+          <td class="rank">${r.rank}</td>
+          <td class="mono">
+            <div class="walletCell">
+              <div class="walletStack">
+                <a class="link"
+                   href="https://andromeda-explorer.metis.io/address/${r.wallet}"
+                   target="_blank"
+                   rel="noreferrer"
+                   title="${wShort}">
+                   ${name}
+                </a>
+                ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
+              </div>
+              <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
+            </div>
+          </td>
+          <td class="right">${renderPointsCell(r.points)}</td>
+          <td class="right">${renderPointsCell(r.firsts)}</td>
+          <td class="right">${renderPointsCell(r.seconds)}</td>
+          <td class="right">${renderPointsCell(r.thirds)}</td>
+        </tr>
+      `;
+    }).join("");
+
+    tb.querySelectorAll(".copyBtn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const wallet = btn.getAttribute("data-copy");
+        const ok = await copyToClipboard(wallet);
+        if (!ok) return;
+        btn.classList.add("copied");
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => {
+          btn.textContent = prev;
+          btn.classList.remove("copied");
+        }, 1200);
+      });
+    });
+
+    tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const wallet = btn.getAttribute("data-discord") || "";
+        const d = discordForWallet(wallet) || "";
+        if (!d) return;
+        const ok = await copyToClipboard(d);
+        if (!ok) return;
+        btn.classList.add("copied");
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => {
+          btn.textContent = prev;
+          btn.classList.remove("copied");
+        }, 1200);
+      });
+    });
+  }
+
   function exportCsv(){
     const rows = state.filtered;
     if (!rows.length) return;
@@ -1369,7 +2248,7 @@
       const j10 = jewel10(r.lvl10Wins);
       const j20 = jewel20(r.lvl20Wins);
       const jT = j10 + j20;
-      const name = (r.name || getName(r.wallet) || "").replaceAll('"','""');
+      const name = (state.namesByAddress[r.wallet] || "").replaceAll('"','""');
       lines.push([r.rank, r.wallet, `"${name}"`, r.lvl10Wins, r.lvl20Wins, r.total, j10, j20, jT].join(","));
     }
     const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8" });
@@ -1391,8 +2270,25 @@
     return `${hh}:${mm}:${ss}`;
   }
 
+  
+  function nextUpdateUtcMs(nowMs){
+    const d = new Date(nowMs);
+    const y = d.getUTCFullYear();
+    const m = d.getUTCMonth();
+    const day = d.getUTCDate();
+    const h = d.getUTCHours();
+
+    // Next hourly boundary (top of the next UTC hour)
+    const nextH = h + 1;
+    if (nextH >= 24){
+      return Date.UTC(y, m, day + 1, 0, 0, 0, 0);
+    }
+    return Date.UTC(y, m, day, nextH, 0, 0, 0);
+  }
+
   function setUtcWidgets(){
     const now = new Date();
+    const nowMs = now.getTime();
     const clock = now.toISOString().replace("T"," ").slice(0,19) + "Z";
     $("utcNow").textContent = clock;
 
@@ -1402,22 +2298,169 @@
       now.getUTCDate() + 1,
       0,0,0,0
     );
-    $("utcCountdown").textContent = fmtCountdown(nextMidnightUtcMs - now.getTime());
+    $("utcCountdown").textContent = fmtCountdown(nextMidnightUtcMs - nowMs);
+
+    const nextUpMs = nextUpdateUtcMs(nowMs);
+    const nextUpIso = new Date(nextUpMs).toISOString().replace("T"," ").slice(0,19) + "Z";
+    $("updateLine").textContent = `Next leaderboard update: ${nextUpIso} (in ${fmtCountdown(nextUpMs - nowMs)})`;
   }
 
   function openModal(backdropId){
     const b = $(backdropId);
+    if (!b){ console.warn("[openModal] missing element", backdropId); return; }
+
+    // If the backdrop lives inside a transformed/overflow-hidden container, fixed positioning can get clipped.
+    // Move it to <body> once so it truly overlays the whole page.
+    if (b.parentElement !== document.body){
+      document.body.appendChild(b);
+    }
+
     b.classList.add("show");
     b.setAttribute("aria-hidden","false");
+
+    // Force overlay styling (bypass any CSS that might hide/clip it)
+    b.style.display = "flex";
+    b.style.position = "fixed";
+    b.style.inset = "0";
+    b.style.alignItems = "center";
+    b.style.justifyContent = "center";
+    b.style.padding = "24px";
+    b.style.background = "rgba(0,0,0,.60)";
+    b.style.zIndex = "999999";
+    b.style.visibility = "visible";
+    b.style.opacity = "1";
+    b.style.pointerEvents = "auto";
+
+    const modal = b.querySelector(".modal");
+    if (modal){
+      modal.style.display = "block";
+      modal.style.position = "relative";
+      modal.style.transform = "none";
+      modal.style.visibility = "visible";
+      modal.style.opacity = "1";
+      modal.style.pointerEvents = "auto";
+      modal.style.zIndex = "1000000";
+      modal.style.maxHeight = "90vh";
+      modal.style.overflow = "auto";
+      modal.style.width = "min(720px, calc(100vw - 48px))";
+    }
+
+    console.log("[openModal] opened", backdropId);
   }
   function closeModal(backdropId){
     const b = $(backdropId);
+    if (!b) return;
     b.classList.remove("show");
     b.setAttribute("aria-hidden","true");
+
+    // Hide, but don't remove from body (we may have moved it for clipping reasons)
+    b.style.display = "none";
+    b.style.pointerEvents = "none";
+
+    console.log("[openModal] closed", backdropId);
   }
 
-  // Wallets modal
-  function openWalletsModal(){
+  // Rotating tip button (changes every 36 hours)
+  const TIP_ROTATE_MS = 36 * 60 * 60 * 1000;
+
+  const TIP_OPTIONS = [
+    {
+      button: "TIP RENPEN",
+      title: "TIP RENPEN",
+      messageHtml: `Renpen's guide has been extremely helpful to new players <a href="https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide" target="_blank" rel="noopener noreferrer">https://defikingdoms.fandom.com/wiki/RenPen%27s_Quick_Start_Guide</a>, send her some love`,
+      address: "0x841be53e880B4E65F1D63416aDDf881FCfe51B2E",
+    },
+    {
+      button: "TIP ZELYS",
+      title: "TIP ZELYS",
+      messageHtml: `Zelys is an OG community developer and deserves a shoutout. If you've used DFK Helper tools and saved hours, Zelys made that happen. <a href="https://dfkhelper.com/" target="_blank" rel="noopener noreferrer">https://dfkhelper.com/</a>`,
+      address: "0x6495328F27fc53D344d3953b0a037Ae0f363db47",
+    },
+    {
+      button: "TIP MELLOW",
+      title: "TIP MELLOW",
+      messageHtml: `Mellow has been around forever and released a toolset recently that is SERIOUS, check it out <a href="https://mellowdfk.com/resources" target="_blank" rel="noopener noreferrer">https://mellowdfk.com/resources</a>`,
+      address: "0xEA9192c839293b3F798cfE03d7DFE3FfeB10783E",
+    },
+    {
+      button: "TIP JERMCURRY",
+      title: "TIP JERMCURRY",
+      messageHtml: `Jermcurry built <a href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">https://dfkplayertools.com/</a>, a super useful tool for hunters and tournament fighters/voters/enjoyers, also if you tip him he might unblock me`,
+      address: "0xa26b8ea40add0610d2744c815519c0d45126f86e",
+    },
+    {
+      button: "TIP TUNEFED",
+      title: "TIP TUNEFED",
+      messageHtml: `Creator or co-creator or “was in the room when it happened” of HONK and the Goose guild. Long time DFK supporter/enjoyer/vengeful discord entity. He’s worked with Bolon to get HONK into Hunt raffles and gives away weekly stuff in the Goose discord to name a few achievements. I will not utter it’s URL here, but you can find the HONK Discord info in the official DFK discord`,
+      address: "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+    },
+  ];
+
+  function currentTipIndex(nowMs){
+    return Math.floor(nowMs / TIP_ROTATE_MS) % TIP_OPTIONS.length;
+  }
+
+  function syncTipButtonUI(){
+    const t = TIP_OPTIONS[currentTipIndex(Date.now())];
+    const btn = $("tipBtn");
+    if (btn) btn.textContent = t.button;
+  }
+
+  let tipModalIndex = null;
+
+  function renderTipModalByIndex(idx){
+    const t = TIP_OPTIONS[idx];
+    const title = $("tipTitle");
+    if (title) title.textContent = t.title;
+
+    const msg = $("tipMessage");
+    if (msg) msg.innerHTML = t.messageHtml;
+
+    const addr = $("tipAddress");
+    if (addr) addr.textContent = t.address;
+
+    const status = $("tipStatus");
+    if (status) status.textContent = "";
+  }
+
+  function getActiveTip(){
+    if (tipModalIndex == null) return TIP_OPTIONS[currentTipIndex(Date.now())];
+    return TIP_OPTIONS[tipModalIndex];
+  }
+
+  function openTipModal(){
+    tipModalIndex = currentTipIndex(Date.now());
+    renderTipModalByIndex(tipModalIndex);
+    openModal("tipBackdrop");
+  }
+
+  function closeTipModal(){
+    tipModalIndex = null;
+    closeModal("tipBackdrop");
+  }
+
+  function nextTipInModal(){
+    if (tipModalIndex == null) tipModalIndex = currentTipIndex(Date.now());
+    tipModalIndex = (tipModalIndex + 1) % TIP_OPTIONS.length;
+    renderTipModalByIndex(tipModalIndex);
+  }
+
+  async function copyTipAddress(){
+    const t = getActiveTip();
+    const ok = await copyToClipboard(t.address);
+    $("tipStatus").textContent = ok ? "Copied address to clipboard." : "Copy failed (browser blocked clipboard).";
+    if (ok){
+      const btn = $("tipCopyBtn");
+      const prev = btn.textContent;
+      btn.textContent = "Copied!";
+      setTimeout(()=> btn.textContent = prev, 1100);
+    }
+  }
+
+  // Keep the rotating button label fresh if the page stays open
+  syncTipButtonUI();
+  setInterval(syncTipButtonUI, 60 * 1000);
+function openWalletsModal(){
     const wallets = state.filtered.map(r => r.wallet);
     $("walletsText").value = wallets.join("\n");
     $("modalStatus").textContent = "";
@@ -1435,7 +2478,6 @@
     $("modalStatus").textContent = ok ? "Copied sorted wallets to clipboard." : "Copy failed (browser blocked clipboard).";
   }
 
-  // Tournament IDs modal
   function colLabel(col){
     if (col === "10") return "Lvl 10";
     if (col === "20") return "Lvl 20";
@@ -1443,11 +2485,224 @@
   }
   function openTourneyModal(wallet, col, idsText){
     $("tourneyTitle").textContent = `${colLabel(col)} tournament IDs`;
-    $("tourneyMeta").textContent = `${walletLabel(wallet)} • Range: ${formatPrettyUtc(state.range.fromMs)} → ${formatPrettyUtc(state.range.toMs)}`;
+    $("tourneyMeta").textContent = `${displayName(wallet)} • Range: ${formatPrettyUtc(state.range.fromMs)} → ${formatPrettyUtc(state.range.toMs)}`;
     $("tourneyText").value = idsText || "";
     $("tourneyStatus").textContent = "";
     openModal("tourneyBackdrop");
     setTimeout(() => $("tourneyText").focus(), 0);
+  }
+
+  function tourneyUrl(id){
+    const tid = normalizeTournamentId(id);
+    if (!tid) return "";
+    return `https://game.defikingdoms.com/registry/tournaments/${tid}`;
+  }
+
+  function openTourneyLinksModal(wallet, tier, fromMs, toMs, rangeLabel){
+    const tierKey = String(tier || "all").toLowerCase();
+    const tierNum = (tierKey === "all") ? null : Number(tierKey);
+    const label = (tierNum == null) ? "All wins" : (tierNum === 20 ? "Lvl 20" : "Lvl 10");
+    const labelTitle = (tierNum == null) ? "Total" : (tierNum === 20 ? "Lvl 20" : "Lvl 10");
+
+    const w = (wallet || "").toLowerCase();
+    const name = displayName(wallet);
+
+    // Gather wins for this wallet + range + tier
+    const items = [];
+    for (const win of state.wins){
+      if ((win.wallet || "").toLowerCase() !== w) continue;
+      const tMs = (win.timestamp || 0) * 1000;
+      if (Number.isFinite(fromMs) && fromMs && tMs < fromMs) continue;
+      if (Number.isFinite(toMs) && toMs && tMs >= toMs) continue;
+      if (tierNum != null && win.tier !== tierNum) continue;
+      const tid = normalizeTournamentId(win.tournamentId);
+      if (!tid) continue;
+      items.push({ tMs, tid, tier: win.tier });
+    }
+
+    // Group by UTC week (Monday start)
+    const byWeek = new Map(); // weekStartMs -> { weekStartMs, w10, w20, ids10, ids20, idsAll }
+    for (const it of items){
+      const wk = startOfUtcWeekMonday(it.tMs);
+      const cur = byWeek.get(wk) || {
+        weekStartMs: wk,
+        w10: 0,
+        w20: 0,
+        ids10: new Set(),
+        ids20: new Set(),
+        idsAll: new Set(),
+      };
+      cur.idsAll.add(it.tid);
+      if (it.tier === 10){
+        cur.w10++;
+        cur.ids10.add(it.tid);
+      } else if (it.tier === 20){
+        cur.w20++;
+        cur.ids20.add(it.tid);
+      }
+      byWeek.set(wk, cur);
+    }
+
+    const weeks = [...byWeek.values()].sort((a,b)=>b.weekStartMs - a.weekStartMs);
+
+    // Title + meta
+    $("tourneyLinksTitle").textContent = `Lifetime Rewards Details`;
+    $("tourneyLinksMeta").textContent = "";
+        $("tourneyLinksRewards").textContent = "";
+    $("tourneyLinksStatus").textContent = "";
+
+    // Render
+    if (!weeks.length){
+      $("tourneyLinksList").innerHTML = `<div style="color:var(--muted);font-size:12px;">No wins found in this range.</div>`;
+      $("tourneyLinksList").setAttribute("data-copy", "");
+      openModal("tourneyLinksBackdrop");
+      setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
+      return;
+    }
+
+    // Compute per-week jewel based on selected tier
+    function jewelForWeek(w10, w20){
+      if (tierNum === 10) return jewel10(w10);
+      if (tierNum === 20) return jewel20(w20);
+      return jewel10(w10) + jewel20(w20);
+    }
+
+    function fmtDateUtc(ms){
+      return new Intl.DateTimeFormat("en-US", { timeZone:"UTC", month:"short", day:"numeric", year:"numeric" }).format(new Date(ms));
+    }
+
+    function weekLabel(wkStartMs){
+      const start = fmtDateUtc(wkStartMs);
+      const end = fmtDateUtc(wkStartMs + 6*86400000);
+      return `${start} → ${end}`;
+    }
+
+    const controlsHtml = `
+      <div class="wkControls">
+        <div class="wkControlsLeft"><input id="wkSearchInput" class="wkSearch" type="text" placeholder="Search date or tournament ID…" autocomplete="off" /></div>
+        <div class="wkControlsRight">
+          <button class="btn tiny" id="wkOpenAllBtn" type="button">Open all</button>
+          <button class="btn tiny" id="wkCloseAllBtn" type="button">Close all</button>
+        </div>
+      </div>
+    `;
+
+    const rowsHtml = weeks.map((wk, i) => {
+      const idsAll = [...wk.idsAll].sort((a,b)=>Number(a)-Number(b));
+      const ids10 = [...wk.ids10].sort((a,b)=>Number(a)-Number(b));
+      const ids20 = [...wk.ids20].sort((a,b)=>Number(a)-Number(b));
+
+      const jewel = jewelForWeek(wk.w10, wk.w20);
+      const wkId = `wk_${wk.weekStartMs}`;
+
+      const joinIds = (arr) => arr.map(x => escHtml(x)).join(", ");
+      const idsToShow = (tierNum === 10) ? ids10 : (tierNum === 20) ? ids20 : idsAll;
+
+      let list = "";
+      if (tierNum == null){
+        const line10 = ids10.length ? `<div class="wkLine"><span class="wkLbl">Lvl 10 (${wk.w10}):</span> <span class="wkIds">${joinIds(ids10)}</span></div>` : "";
+        const line20 = ids20.length ? `<div class="wkLine"><span class="wkLbl">Lvl 20 (${wk.w20}):</span> <span class="wkIds">${joinIds(ids20)}</span></div>` : "";
+        list = (line10 || line20) ? `${line10}${line20}` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      } else if (tierNum === 10){
+        list = ids10.length ? `<div class="wkLine"><span class="wkLbl">Lvl 10 (${wk.w10}):</span> <span class="wkIds">${joinIds(ids10)}</span></div>` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      } else {
+        list = ids20.length ? `<div class="wkLine"><span class="wkLbl">Lvl 20 (${wk.w20}):</span> <span class="wkIds">${joinIds(ids20)}</span></div>` : `<div style="color:var(--muted);font-size:12px;">No tournaments.</div>`;
+      }
+
+      const subline = (tierNum == null)
+        ? `${wk.w10}×10s • ${wk.w20}×20s`
+        : (tierNum === 10) ? `${wk.w10}×10s`
+        : `${wk.w20}×20s`;
+
+      return `
+        <div class="wkCard" data-week="${wk.weekStartMs}">
+          <button class="wkHdr" type="button" data-wkbtn="${wkId}" aria-expanded="${i===0 ? "true":"false"}">
+            <div class="wkLeft">
+              <div class="wkTitle">${weekLabel(wk.weekStartMs)}</div>
+              <div class="wkSub">${subline}</div>
+            </div>
+            <div class="wkRight">
+              <div class="wkJewel">${formatJewel(jewel)}</div>
+              <div class="wkCaret">${i===0 ? "▾":"▸"}</div>
+            </div>
+          </button>
+          <div class="wkBody" id="${wkId}" style="display:${i===0 ? "block":"none"};">
+            ${list}
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    $("tourneyLinksList").innerHTML = controlsHtml + rowsHtml;
+
+    // Store for copy: just IDs (not urls), grouped by week
+    const copyText = weeks.map(wk => {
+      const ids = [...wk.idsAll].sort((a,b)=>Number(a)-Number(b));
+      return `${weekLabel(wk.weekStartMs)}\n${ids.join("\n")}`;
+    }).join("\n\n");
+    $("tourneyLinksList").setAttribute("data-copy", copyText);
+
+    // Wire buttons + accordion (inside modal)
+    const listHost = $("tourneyLinksList");
+
+    const openAll = () => {
+      listHost.querySelectorAll(".wkBody").forEach(b => b.style.display = "block");
+      listHost.querySelectorAll(".wkHdr").forEach(h => { h.setAttribute("aria-expanded","true"); const c=h.querySelector(".wkCaret"); if(c) c.textContent="▾"; });
+    };
+    const closeAll = () => {
+      listHost.querySelectorAll(".wkBody").forEach(b => b.style.display = "none");
+      listHost.querySelectorAll(".wkHdr").forEach(h => { h.setAttribute("aria-expanded","false"); const c=h.querySelector(".wkCaret"); if(c) c.textContent="▸"; });
+    };
+
+    // Ensure old listeners don't stack: replace buttons by cloning
+    const openBtn = $("wkOpenAllBtn");
+    const closeBtn = $("wkCloseAllBtn");
+    if (openBtn){
+      const nb = openBtn.cloneNode(true);
+      openBtn.replaceWith(nb);
+      nb.addEventListener("click", openAll);
+    }
+    if (closeBtn){
+      const nb = closeBtn.cloneNode(true);
+      closeBtn.replaceWith(nb);
+      nb.addEventListener("click", closeAll);
+    }
+
+    // Week search (date or tournament ID)
+    const searchEl0 = $("wkSearchInput");
+    if (searchEl0){
+      const searchEl = searchEl0.cloneNode(true);
+      searchEl0.replaceWith(searchEl);
+      searchEl.addEventListener("input", () => {
+        const q = (searchEl.value || "").trim().toLowerCase();
+        const cards = Array.from($("tourneyLinksList").querySelectorAll(".wkCard"));
+        if (!q){
+          cards.forEach(c => c.style.display = "");
+          return;
+        }
+        cards.forEach(c => {
+          const hay = (c.innerText || "").toLowerCase();
+          c.style.display = hay.includes(q) ? "" : "none";
+        });
+      });
+    }
+
+
+    listHost.querySelectorAll(".wkHdr").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-wkbtn");
+        const body = id ? $(id) : null;
+        if (!body) return;
+        const isOpen = body.style.display !== "none";
+        body.style.display = isOpen ? "none" : "block";
+        btn.setAttribute("aria-expanded", isOpen ? "false" : "true");
+        const caret = btn.querySelector(".wkCaret");
+        if (caret) caret.textContent = isOpen ? "▸" : "▾";
+      });
+    });
+
+    openModal("tourneyLinksBackdrop");
+    setTimeout(() => $("tourneyLinksCloseBtn").focus(), 0);
   }
 
   function sizeTilesToFilters(){
@@ -1467,17 +2722,6 @@
     const h = Math.round(rect.height) + "px";
     last.style.setProperty("--filtersH", h);
     life.style.setProperty("--filtersH", h);
-  }
-
-  function openDatePicker(inputId){
-    const el = $(inputId);
-    try{
-      if (el.showPicker) el.showPicker();
-      else { el.focus(); el.click(); }
-    }catch{
-      el.focus();
-      el.click();
-    }
   }
 
   function lastWeekRangeMs(){
@@ -1501,11 +2745,19 @@
       (b.lvl20Wins - a.lvl20Wins) ||
       a.wallet.localeCompare(b.wallet)
     );
+
+
+    // Total JEWEL distributed last week (sum of per-wallet rewards)
+    const totalJewel = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lwEl = $("lastWeekJewelTotal");
+    if (lwEl) lwEl.textContent = formatJewel(totalJewel);
+
     return enriched;
   }
 
   function renderTopList(containerId, rows, takeN){
     const host = $(containerId);
+    const isLastWeek = containerId === "top3LastWeek";
     const top = rows.filter(x => x.jT > 0).slice(0, takeN);
 
     if (!top.length){
@@ -1515,21 +2767,30 @@
 
     host.innerHTML = top.map((r, idx) => {
       const place = idx + 1;
-      const nm = r.name || getName(r.wallet);
-      const walletLine = nm ? nm : shortWallet(r.wallet);
-      const winsLine = `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
+      const name = displayName(r.wallet);
+
+      const rangeLabel = isLastWeek ? "Last week" : "Lifetime";
+      const fromMs = isLastWeek ? lastWeekRangeMs().fromMs : DATA_START_MS;
+      const toMs = isLastWeek ? lastWeekRangeMs().toMs : Date.now();
+      const winsLine = `
+        <span class="clickBreakdown" role="button" tabindex="0"
+          data-wallet="${r.wallet}" data-tier="all" data-range="${rangeLabel}" data-from="${fromMs}" data-to="${toMs}">
+          ${r.total.toLocaleString()} ${pluralWins(r.total)}
+        </span>
+        • 10s: <span>${r.lvl10Wins}</span> • 20s: <span>${r.lvl20Wins}</span>`;
+
       return `
         <div class="topItem">
           <div class="topLeft">
             <span class="place">${place}</span>
             <div class="topWallet">
-              <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer">${walletLine}</a>
+              <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
+              ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
               <div class="topMeta">${winsLine}</div>
             </div>
           </div>
           <div class="topRight">
             <div class="topReward">${r.jT.toLocaleString()} JEWEL</div>
-            <div class="topRewardLabel">Jewel reward</div>
           </div>
         </div>
       `;
@@ -1537,8 +2798,42 @@
   }
 
   function computeLifetimeTop(){
-    const rows = aggregateWins(state.wins, null, null).rows;
-    const enriched = enrichWithJewel(rows);
+    // Always compute lifetime earned from wins[] by summing WEEKLY payouts over time.
+    // (Required because L10 rewards are weekly threshold payouts, not additive per win.)
+    const weekly = new Map(); // wallet -> weekStartMs -> {l10,l20}
+
+    for (const w of state.wins){
+      const tMs = w.timestamp * 1000;
+      if (tMs < DATA_START_MS) continue;
+
+      const wk = startOfUtcWeekMonday(tMs);
+      let byWeek = weekly.get(w.wallet);
+      if (!byWeek){ byWeek = new Map(); weekly.set(w.wallet, byWeek); }
+
+      let c = byWeek.get(wk);
+      if (!c){ c = { l10: 0, l20: 0, total: 0 }; byWeek.set(wk, c); }
+
+      if (w.tier === 10) c.l10++;
+      else if (w.tier === 20) c.l20++;
+      c.total++;
+    }
+
+    // Also keep basic win totals for display
+    const agg = aggregateWins(state.wins, DATA_START_MS, null).rows;
+
+    const earnedByWallet = new Map();
+    for (const [wallet, byWeek] of weekly.entries()){
+      let sum = 0;
+      for (const c of byWeek.values()){
+        sum += jewel10(c.l10) + jewel20(c.l20);
+      }
+      earnedByWallet.set(wallet, sum);
+    }
+
+    let enriched = agg.map(r => ({
+      ...r,
+      jT: earnedByWallet.get(r.wallet) || 0
+    }));
 
     enriched.sort((a,b)=>
       (b.jT - a.jT) ||
@@ -1548,9 +2843,17 @@
       a.wallet.localeCompare(b.wallet)
     );
 
+    // Lifetime JEWEL disbursed since Jan 16, 2026 (sum of per-wallet rewards)
+    const lifeTotal = enriched.reduce((s, r) => s + (Number(r.jT) || 0), 0);
+    const lifeEl = $("lifetimeJewelVal");
+    const walletCount = new Set(enriched.filter(r => (Number(r.jT) || 0) > 0).map(r => r.wallet)).size;
+    if (lifeEl) lifeEl.textContent = `${formatJewel(lifeTotal)} DISBURSED TO ${walletCount.toLocaleString()} ${walletCount === 1 ? "WALLET" : "WALLETS"}`;
+
     state.lifetimeSorted = enriched;
     return enriched;
   }
+
+
 
   function openTop10Modal(){
     const list = state.lifetimeSorted.filter(x => x.jT > 0).slice(0, 10);
@@ -1561,21 +2864,20 @@
     } else {
       host.innerHTML = list.map((r, idx) => {
         const place = idx + 1;
-        const nm = r.name || getName(r.wallet);
-        const walletLine = nm ? nm : shortWallet(r.wallet);
+        const name = displayName(r.wallet);
         const winsLine = `${r.total.toLocaleString()} ${pluralWins(r.total)} • 10s: ${r.lvl10Wins} • 20s: ${r.lvl20Wins}`;
         return `
           <div class="top10Item">
             <div class="top10Left">
               <span class="top10Place">${place}</span>
               <div class="top10Wallet">
-                <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer">${walletLine}</a>
+                <a href="https://andromeda-explorer.metis.io/address/${r.wallet}" target="_blank" rel="noreferrer" title="${shortWallet(r.wallet)}">${name}</a>
                 <div class="top10Meta">${winsLine}</div>
               </div>
             </div>
             <div class="top10Right">
               <div class="top10Reward">${r.jT.toLocaleString()} JEWEL</div>
-              <div class="top10RewardLabel">Jewel reward</div>
+              
             </div>
           </div>
         `;
@@ -1585,7 +2887,6 @@
     openModal("top10Backdrop");
   }
 
-  /* Phil Collins (LIGHTBOX ONLY) */
   const philCollinsSongs = [
     { title: "In the Air Tonight", id: "YkADj0TPrJA" },
     { title: "Against All Odds (Take a Look at Me Now)", id: "CkBfT7ZQy9Q" },
@@ -1661,11 +2962,21 @@
     openPhil(pick);
   }
 
-  /* Learn more pulse stop (persist) */
   function initLearnPulse(){
     const btn = $("learnMoreBtn");
     const stopped = localStorage.getItem("learn_pulse_stopped") === "1";
     if (stopped) btn.classList.add("noPulse");
+
+    // One-time attention pulse after the page has been open for a bit.
+    if (!stopped){
+      setTimeout(() => {
+        // If they already opened Learn More, don't pulse.
+        if (localStorage.getItem("learn_pulse_stopped") === "1") return;
+        btn.classList.remove("noPulse");
+        btn.classList.add("pulseOnce");
+        setTimeout(() => btn.classList.remove("pulseOnce"), 1800);
+      }, 15000);
+    }
 
     btn.addEventListener("click", () => {
       openModal("learnBackdrop");
@@ -1674,8 +2985,8 @@
     });
   }
 
-  // ✅ robust JSON loaders (names + ranges)
-  async function safeFetchJson(url){
+
+  async function fetchJsonMaybe(url){
     try{
       const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) return null;
@@ -1685,132 +2996,123 @@
     }
   }
 
-  function loadProfilesIntoState(json){
-    state.profiles.clear();
+  function buildTierOverridesFromRangesJson(rangesJson){
+    const map = {};
+    if (!rangesJson) return map;
 
-    // Accept:
-    // - { "0xabc...": "Name" }
-    // - { "0xabc...": { name: "Name" } }
-    // - [ { wallet, name } ... ]
-    if (!json) return 0;
-
-    if (Array.isArray(json)){
-      for (const row of json){
-        const w = (row && row.wallet ? String(row.wallet) : "").toLowerCase();
-        const n = row && (row.name ?? row.username ?? row.profileName);
-        const name = (n == null ? "" : String(n)).trim();
-        if (w && name) state.profiles.set(w, name);
+    const obj = rangesJson.rangesByTournamentId || rangesJson.tournamentRangesById || null;
+    if (obj && typeof obj === "object"){
+      for (const [k,v] of Object.entries(obj)){
+        const tier = Number(v?.tier);
+        if (tier === 10 || tier === 20) map[String(k)] = tier;
       }
-      return state.profiles.size;
+      return map;
     }
 
-    if (typeof json === "object"){
-      for (const [k, v] of Object.entries(json)){
-        const w = String(k).toLowerCase();
-        let name = "";
-        if (typeof v === "string") name = v.trim();
-        else if (v && typeof v === "object"){
-          const n = v.name ?? v.username ?? v.profileName ?? v.displayName;
-          name = (n == null ? "" : String(n)).trim();
-        }
-        if (w.startsWith("0x") && w.length >= 10 && name) state.profiles.set(w, name);
+    if (Array.isArray(rangesJson)){
+      for (const row of rangesJson){
+        const id = normalizeTournamentId(row?.tournamentId ?? row?.id);
+        if (!id) continue;
+        const maxL = Number(row?.maxLevel);
+        const minL = Number(row?.minLevel);
+        const tier = Number(row?.tier) || ((Number.isFinite(maxL) && maxL >= 16) || (Number.isFinite(minL) && minL >= 11) ? 20 : 10);
+        if (tier === 10 || tier === 20) map[id] = tier;
       }
-      return state.profiles.size;
+      return map;
     }
 
-    return 0;
-  }
-
-  function loadRangesIntoState(json){
-    state.tournamentRanges.clear();
-
-    // Accept:
-    // - { "1941": { minLevel: 16, maxLevel: 20 } }
-    // - { "1941": { range: "16-20" } }
-    // - [ { tournamentId: "1941", minLevel: 16, maxLevel: 20 } ... ]
-    if (!json) return 0;
-
-    if (Array.isArray(json)){
-      for (const row of json){
-        const id = normalizeTournamentId(row && (row.tournamentId ?? row.id ?? row.tourneyId));
-        const parsed = parseRangeEntry(row);
-        if (id && parsed) state.tournamentRanges.set(id, parsed);
+    if (typeof rangesJson === "object"){
+      for (const [k,v] of Object.entries(rangesJson)){
+        if (k === "updatedAtUtc" || k === "source" || k === "meta") continue;
+        const tier = Number(v?.tier);
+        if (tier === 10 || tier === 20) map[String(k)] = tier;
       }
-      return state.tournamentRanges.size;
     }
-
-    if (typeof json === "object"){
-      for (const [k, v] of Object.entries(json)){
-        const id = normalizeTournamentId(k);
-        const parsed = parseRangeEntry(v);
-        if (id && parsed) state.tournamentRanges.set(id, parsed);
-      }
-      return state.tournamentRanges.size;
-    }
-
-    return 0;
-  }
-
-  function setSubline(){
-    const { wins, names, ranges } = state.dataStats;
-    $("subline").textContent =
-      `Loaded: ${wins.toLocaleString()} wins • names: ${names.toLocaleString()} • ranges: ${ranges.toLocaleString()}`;
+    return map;
   }
 
   async function load(){
     try{
-      // ✅ load all data sources (leaderboard is required; profiles/ranges are optional but used if present)
-      const [leaderJson, profilesJson, rangesJson] = await Promise.all([
-        safeFetchJson("./leaderboard.json"),
-        safeFetchJson("./profiles.json"),
-        safeFetchJson("./tournamentRanges.json"),
-      ]);
+      const json = await fetchJsonMaybe("./leaderboard.json");
+      if (!json) throw new Error("Failed to load leaderboard.json");
 
-      if (!leaderJson) throw new Error("Failed to load leaderboard.json");
+      const profilesJson = await fetchJsonMaybe("./profiles.json");
+      if (profilesJson && profilesJson.namesByAddress && typeof profilesJson.namesByAddress === "object"){
+        state.namesByAddress = {};
+        for (const [addr, name] of Object.entries(profilesJson.namesByAddress)){
+          const a = (addr || "").toLowerCase();
+          if (!a) continue;
+          if (typeof name === "string" && name.trim()) state.namesByAddress[a] = name.trim();
+        }
+      } else {
+        state.namesByAddress = {};
+      }
 
-      const namesCount = loadProfilesIntoState(profilesJson);
-      const rangesCount = loadRangesIntoState(rangesJson);
+      const rangesJson = await fetchJsonMaybe("./tournamentRanges.json");
+      state.tournamentTierById = buildTierOverridesFromRangesJson(rangesJson);
 
-      const winsRaw = Array.isArray(leaderJson.wins) ? leaderJson.wins : [];
-      const wins = winsRaw
+      const pointsJson = await fetchJsonMaybe("./points-leaderboard.json");
+      state.pointsLeaderboard = pointsJson && Array.isArray(pointsJson.players) ? pointsJson : null;
+
+      const wins = Array.isArray(json.wins) ? json.wins : [];
+      state.serverLeaderboard = Array.isArray(json.leaderboard) ? json.leaderboard : [];
+
+      state.wins = wins
         .map(w => {
           const wallet = (w.wallet || "").toLowerCase();
           const timestamp = Number(w.timestamp);
           const tournamentId = normalizeTournamentId(w.tournamentId ?? w.tourneyId ?? w.id ?? "");
-
-          // First: trust range-based tier if we can infer it.
-          // Else: fall back to existing tier field if present.
-          const inferred = inferTierFromRange(tournamentId);
-          const tierRaw =
-            w.tier === 10 ? 10 :
-            w.tier === 20 ? 20 :
-            (w.tier === "10" ? 10 : (w.tier === "20" ? 20 : null));
-
-          const tier = (inferred === 10 || inferred === 20) ? inferred : tierRaw;
-
-          return { wallet, timestamp, tournamentId, tier };
+          const overrideTier = tierOverrideForTournamentId(tournamentId);
+          const baseTier = (w.tier === 10 ? 10 : (w.tier === 20 ? 20 : null));
+          const tier = overrideTier ?? baseTier;
+          return { wallet, timestamp, tier, tournamentId };
         })
-        .filter(w => w.wallet && Number.isFinite(w.timestamp));
+        .filter(w => w.wallet && Number.isFinite(w.timestamp) && (w.timestamp * 1000) >= DATA_START_MS);
 
-      state.wins = wins;
+      if (!Object.keys(state.tournamentTierById || {}).length){
+        $("subline").textContent = "Note: tournamentRanges.json not found (tier overrides not applied yet). Run the tier builder script.";
+      } else {
+        $("subline").textContent = "";
+      }
 
-      state.dataStats = {
-        wins: state.wins.length,
-        names: namesCount,
-        ranges: rangesCount
-      };
-      setSubline();
-
-      setLastWeek();
+      setThisWeek();
       setToggleUI();
       setColumnHighlight();
       apply();
 
       const lastWeekSorted = computeLastWeekTop();
-      renderTopList("top3LastWeek", lastWeekSorted, 3);
+      renderTopList("top3LastWeek", lastWeekSorted, 4);
 
       const lifetimeSorted = computeLifetimeTop();
-      renderTopList("top3Lifetime", lifetimeSorted, 3);
+      renderTopList("top3Lifetime", lifetimeSorted, 4);
+
+      if (state.pointsLeaderboard){
+        const pts = state.pointsLeaderboard.players.map(p => ({
+          rank: Number(p.rank),
+          wallet: (p.wallet || "").toLowerCase(),
+          points: Number(p.points) || 0,
+          firsts: Number(p.firsts) || 0,
+          seconds: Number(p.seconds) || 0,
+          thirds: Number(p.thirds) || 0,
+        }));
+        renderPointsTable(pts);
+
+        const s = state.pointsLeaderboard.scoring || {};
+        const first = Number(s.first);
+        const second = Number(s.second);
+        const third = Number(s.third);
+        if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third)){
+          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third}`;
+        }
+
+        const used = Number(state.pointsLeaderboard.summary?.tournamentsUsed);
+        const seen = Number(state.pointsLeaderboard.summary?.tournamentsSeen);
+        if (Number.isFinite(used) && Number.isFinite(seen)){
+          $("pointsRangeText").textContent = `${used.toLocaleString()} complete tournaments used • ${seen.toLocaleString()} seen`;
+        }
+      } else {
+        renderPointsTable([]);
+      }
 
       requestAnimationFrame(() => sizeTilesToFilters());
     } catch (e){
@@ -1819,11 +3121,13 @@
       $("subline").textContent = "";
       $("top3LastWeek").innerHTML = `<div class="topEmpty" style="color:var(--bad)">Error loading data.</div>`;
       $("top3Lifetime").innerHTML = `<div class="topEmpty" style="color:var(--bad)">Error loading data.</div>`;
+      renderPointsTable([]);
+      const ptb = $("pointsTbody");
+      if (ptb) ptb.innerHTML = `<tr><td colspan="6" style="padding:14px;color:var(--bad)">Error loading points data.</td></tr>`;
       requestAnimationFrame(() => sizeTilesToFilters());
     }
   }
 
-  /* Wire up */
   $("csvBtn").addEventListener("click", exportCsv);
   $("walletsBtn").addEventListener("click", openWalletsModal);
 
@@ -1847,19 +3151,60 @@
     $("tourneyStatus").textContent = ok ? "Copied tournament IDs to clipboard." : "Copy failed (browser blocked clipboard).";
   });
 
+
+  $("tourneyLinksCloseBtn").addEventListener("click", () => closeModal("tourneyLinksBackdrop"));
+  $("tourneyLinksBackdrop").addEventListener("click", (e) => { if (e.target === $("tourneyLinksBackdrop")) closeModal("tourneyLinksBackdrop"); });
+    const copyBtn = $("tourneyLinksCopyBtn");
+  if (copyBtn) copyBtn.addEventListener("click", async () => {
+    const text = $("tourneyLinksList").getAttribute("data-copy") || "";
+    const ok = await navigator.clipboard.writeText(text).then(()=>true).catch(()=>false);
+    $("tourneyLinksStatus").textContent = ok ? "Copied tournament IDs to clipboard." : "Copy failed (browser blocked clipboard).";
+  });
+
   $("thisWeekBtn").addEventListener("click", () => {
     setThisWeek(); apply();
-    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
     requestAnimationFrame(() => sizeTilesToFilters());
   });
   $("lastWeekBtn").addEventListener("click", () => {
     setLastWeek(); apply();
-    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 3);
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
     requestAnimationFrame(() => sizeTilesToFilters());
   });
 
-  $("fromBtn").addEventListener("click", () => openDatePicker("fromDate"));
-  $("toBtn").addEventListener("click", () => openDatePicker("toDate"));
+
+  $("thisMonthBtn").addEventListener("click", () => {
+    setThisMonth(); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+  $("lastMonthBtn").addEventListener("click", () => {
+    setLastMonth(); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+  $("prevWeekBtn").addEventListener("click", () => {
+    shiftWeek(-1); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+  $("nextWeekBtn").addEventListener("click", () => {
+    shiftWeek(1); apply();
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+  $("clearRangeBtn").addEventListener("click", () => {
+    setThisWeek(); apply();
+    const lastWeekSorted = computeLastWeekTop(); renderTopList("top3LastWeek", lastWeekSorted, 4);
+    requestAnimationFrame(() => sizeTilesToFilters());
+  });
+
+  $("fromBtn").addEventListener("click", () => {
+    const el = $("fromDate");
+    try{ el.showPicker ? el.showPicker() : (el.focus(), el.click()); }catch{ el.focus(); el.click(); }
+  });
+  $("toBtn").addEventListener("click", () => {
+    const el = $("toDate");
+    try{ el.showPicker ? el.showPicker() : (el.focus(), el.click()); }catch{ el.focus(); el.click(); }
+  });
 
   $("fromDate").addEventListener("change", () => {
     const fMs = fromIsoDateUtc($("fromDate").value);
@@ -1896,11 +3241,48 @@
   window.addEventListener("resize", () => sizeTilesToFilters());
 
   $("philBtn").addEventListener("click", playPhil);
+
+  $("tipBtn").addEventListener("click", openTipModal);
+  $("tipCloseBtn").addEventListener("click", closeTipModal);
+  $("tipCopyBtn").addEventListener("click", copyTipAddress);
+  $("tipNextBtn").addEventListener("click", nextTipInModal);
+  $("tipBackdrop").addEventListener("click", (e)=>{ if (e.target === $("tipBackdrop")) closeTipModal(); });
+
   $("pcTryAgain").addEventListener("click", tryAgainPhil);
   $("pcClose").addEventListener("click", closePhil);
   $("pcOverlay").addEventListener("click", (e)=>{ if (e.target === $("pcOverlay")) closePhil(); });
   document.querySelectorAll("[data-pc-size]").forEach(btn => {
     btn.addEventListener("click", () => setPhilSize(btn.dataset.pcSize));
+  });
+
+
+  // Ensure Last-week Top 3 breakdown links always work (10s/20s)
+  document.addEventListener("click", (e) => {
+    const el = (e.target && e.target.closest) ? e.target.closest(".clickBreakdown") : null;
+    if (!el) return;
+
+    const wallet = el.getAttribute("data-wallet") || "";
+    const tierAttr = (el.getAttribute("data-tier") || "10").toLowerCase();
+    const tier = (tierAttr === "20") ? 20 : (tierAttr === "all" ? "all" : 10);
+
+    const idsText = decodeURIComponent(el.getAttribute("data-ids") || "");
+    const rangeLabel = el.getAttribute("data-range") || "";
+
+    openTourneyLinksModal(wallet, tier, idsText, rangeLabel);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    const t = e.target;
+    if (!t || !t.classList || !t.classList.contains("clickBreakdown")) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      const wallet = t.getAttribute("data-wallet") || "";
+      const tierAttr = (t.getAttribute("data-tier") || "10").toLowerCase();
+      const tier = (tierAttr === "20") ? 20 : (tierAttr === "all" ? "all" : 10);
+      const idsText = decodeURIComponent(t.getAttribute("data-ids") || "");
+      const rangeLabel = t.getAttribute("data-range") || "";
+      openTourneyLinksModal(wallet, tier, idsText, rangeLabel);
+    }
   });
 
   document.addEventListener("keydown", (e) => {
@@ -1910,6 +3292,7 @@
     if ($("top10Backdrop").classList.contains("show")) closeModal("top10Backdrop");
     if ($("modalBackdrop").classList.contains("show")) closeModal("modalBackdrop");
     if ($("tourneyBackdrop").classList.contains("show")) closeModal("tourneyBackdrop");
+    if ($("tourneyLinksBackdrop").classList.contains("show")) closeModal("tourneyLinksBackdrop");
   });
 
   window.addEventListener("resize", () => {
@@ -1923,13 +3306,604 @@
     box.style.height = Math.min(curH, maxH) + "px";
   });
 
-  /* Init */
+  // Back to top (appears in the Leaderboard header after you scroll down)
+  (function initBackToTop(){
+    const btn = $("backToTopBtn");
+    const wrap = $("tableWrap");
+    if (!btn || !wrap) return;
+
+    const refresh = () => {
+      const show = wrap.scrollTop > 220;
+      btn.classList.toggle("show", show);
+      btn.setAttribute("aria-hidden", String(!show));
+    };
+
+    btn.addEventListener("click", () => {
+      wrap.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    wrap.addEventListener("scroll", refresh, { passive: true });
+    refresh();
+  })();
+
+
+// Filters hide/show toggle
+(function initFiltersHide(){
+  const t = $("filtersHideToggle");
+  if (!t) return;
+  const toggle = () => {
+    const collapsed = ($("filtersBd") && $("filtersBd").style.display !== "none") ? true : false;
+    setFiltersCollapsed(collapsed);
+  };
+  t.addEventListener("click", toggle);
+  t.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); }
+  });
+})();
+
   initLearnPulse();
   setToggleUI();
   updateWeekPresetUI();
   setUtcWidgets();
   setInterval(setUtcWidgets, 1000);
+
+  const leaderboardToggleBtn = $("leaderboardToggleBtn");
+  if (leaderboardToggleBtn) leaderboardToggleBtn.addEventListener("click", toggleLeaderboardView);
+
+  const leaderboardToggleBtnPoints = $("leaderboardToggleBtnPoints");
+  if (leaderboardToggleBtnPoints) leaderboardToggleBtnPoints.addEventListener("click", toggleLeaderboardView);
+
+  setLeaderboardView("wins");
   load();
+
+/* =========================
+   Vote Watcher (UI-only)
+   Opens in a light window using the site's existing openModal/closeModal helpers.
+   Reads: public/votes.json (preferred) or votes.json fallback
+   Requires votes.json rows: { tournamentId, fightIndex, side, votes, voter, timestamp, txHash, blockNumber }
+   ========================= */
+(function(){
+  // Use the site's $ helper if present, otherwise fallback
+  const $id = (id) => (typeof window.$ === "function" ? window.$(id) : document.getElementById(id));
+
+  const backdropId = "vwBackdrop";
+
+  function openVW(){
+    if (typeof window.openModal === "function") window.openModal(backdropId);
+    else {
+      const b = $id(backdropId);
+      if (b) { b.style.display = "flex"; b.classList.add("show"); b.setAttribute("aria-hidden","false"); }
+    }
+    if (!state.loaded) loadAll();
+    setMode("tournament");
+  }
+
+  function closeVW(){
+    if (typeof window.closeModal === "function") window.closeModal(backdropId);
+    else {
+      const b = $id(backdropId);
+      if (b) { b.style.display = "none"; b.classList.remove("show"); b.setAttribute("aria-hidden","true"); }
+    }
+  }
+
+  // Event delegation so it works even if Learn More content is re-rendered
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!t) return;
+
+    if (t.id === "openVoteWatcherBtn") {
+      e.preventDefault();
+      openVW();
+      return;
+    }
+    if (t.id === "vwCloseBtn") {
+      e.preventDefault();
+      closeVW();
+      return;
+    }
+    if (t.id === "vwTabTournament") {
+      e.preventDefault();
+      setMode("tournament");
+      return;
+    }
+    if (t.id === "vwTabIndividual") {
+      e.preventDefault();
+      setMode("individual");
+      return;
+    }
+    if (t.id === "vwBackBtn") {
+      e.preventDefault();
+      if (state.lastTournament) renderTournament(state.lastTournament);
+      return;
+    }
+  });
+
+  // Close when clicking backdrop
+  document.addEventListener("click", (e) => {
+    const b = $id(backdropId);
+    if (!b) return;
+    if (e.target === b) closeVW();
+  });
+
+  const state = {
+    loaded:false,
+    mode:"tournament",
+    votes: [],
+    byTournament: new Map(),
+    byWallet: new Map(),
+    boutKeyToMatchKey: null,
+    lastTournament: null,
+    lastFight: null
+  };
+
+  const statusEl = () => $id("vwStatus");
+  const leftEl = () => $id("vwLeftList");
+  const rightEl = () => $id("vwRightList");
+  const searchEl = () => $id("vwSearch");
+  const tabTEl = () => $id("vwTabTournament");
+  const tabIEl = () => $id("vwTabIndividual");
+
+  function resolveUrl(u){
+    return new URL(u, window.location.href).toString();
+  }
+  async function fetchJsonStrict(url){
+    const full = resolveUrl(url) + (url.includes("?") ? "&" : "?") + "v=" + Date.now();
+    const res = await fetch(full, { cache: "no-store" });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    return await res.json();
+  }
+  async function fetchFirstOk(urls){
+    for (const u of urls){
+      try{ return await fetchJsonStrict(u); }catch{}
+    }
+    return null;
+  }
+
+  const VOTE_SCALE = 100n; // votes are stored in on-chain "centivotes" (e.g., 10000 => 100)
+  const DISPLAY_TID_OFFSET = 825; // UI-facing tournament numbers appear to be (rawTournamentId - 815)
+  function tidDisplay(rawTid){
+    const n = Number(rawTid);
+    return Number.isFinite(n) ? String(n - DISPLAY_TID_OFFSET) : String(rawTid);
+  }
+
+  function fmtInt(n){
+    try { return Number(n).toLocaleString(); } catch { return String(n); }
+  }
+  function fmtVotes(rawBigInt){
+    try{
+      const x = BigInt(rawBigInt);
+      const whole = x / VOTE_SCALE;
+      const frac = x % VOTE_SCALE;
+      // Most values are exact multiples of 100; show decimals only if needed.
+      if (frac === 0n) return Number(whole).toLocaleString();
+      const fracStr = frac.toString().padStart(2,"0").replace(/0+$/,"");
+      return Number(whole).toLocaleString() + "." + fracStr;
+    }catch{
+      return String(rawBigInt);
+    }
+  }
+
+  function shortAddr(a){
+    if (!a) return "";
+    return a.slice(0,6) + "…" + a.slice(-4);
+  }
+
+  function setMode(m){
+    state.mode = m;
+    const t = tabTEl(); const i = tabIEl();
+    if (t) t.classList.toggle("active", m==="tournament");
+    if (i) i.classList.toggle("active", m==="individual");
+    const s = searchEl();
+    if (s) s.value = "";
+    renderLeft();
+    renderRightIntro();
+  }
+
+  // search input handler
+  document.addEventListener("input", (e) => {
+    if (e.target && e.target.id === "vwSearch") {
+      renderLeft();
+    }
+  });
+
+  function renderRightIntro(){
+    const r = rightEl();
+    if (!r) return;
+    if (state.mode === "tournament"){
+      r.innerHTML = `<div style="color:var(--muted);">Select a tournament to see fights and voters.</div>`;
+    } else {
+      r.innerHTML = `<div style="color:var(--muted);">Select a wallet to see tournaments and votes spent.</div>`;
+    }
+  }
+
+  async function loadAll(){
+    const st = statusEl();
+    if (st) st.textContent = "Loading votes…";
+
+    const data = await fetchFirstOk(["public/votes.json","votes.json"]);
+    if (!Array.isArray(data)){
+      if (st) st.textContent = "Failed to load votes data";
+      return;
+    }
+
+    state.votes = data;
+
+    // load boutKey → matchKey join map (prevents exploding "fights" per round)
+    const map = await fetchFirstOk(["public/boutKeyToMatchKey.json","boutKeyToMatchKey.json"]);
+    state.boutKeyToMatchKey = (map && typeof map === "object") ? map : null;
+
+    buildIndexes();
+    state.loaded = true;
+
+    if (st) st.textContent = `${fmtInt(state.votes.length)} votes (tournamentId-only)`;
+    renderLeft();
+    renderRightIntro();
+  }
+
+  function buildIndexes(){
+    state.byTournament.clear();
+    state.byWallet.clear();
+
+    for (const v of state.votes){
+      const tid = String(v.tournamentId ?? "");
+      if (!tid) continue;
+
+      const fight = v.fightIndex == null ? null : Number(v.fightIndex);
+      const side = v.side == null ? null : String(v.side);
+      const voter = (v.voter || "").toLowerCase();
+      const amt = BigInt(String(v.votes || "0"));
+
+      if (!state.byTournament.has(tid)){
+        state.byTournament.set(tid, { totalVotes: 0n, voters: new Set(), fights: new Map() });
+      }
+      const t = state.byTournament.get(tid);
+      t.totalVotes += amt;
+      if (voter) t.voters.add(voter);
+
+      // Build a stable fight key:
+// - fightIndex is the round bucket (0,1,2..)
+// - boutKey is often too granular; join to matchKey when possible to collapse to the actual fight
+const boutKey = v.boutKey == null ? null : String(v.boutKey);
+const joined = (state.boutKeyToMatchKey && boutKey && state.boutKeyToMatchKey[boutKey] != null)
+  ? String(state.boutKeyToMatchKey[boutKey])
+  : null;
+
+// IMPORTANT: do NOT fall back to boutKey (it is too granular and creates fake fights)
+const matchKey = joined ?? (v.matchKey != null ? String(v.matchKey) : null);
+if (!matchKey) continue;
+
+v.matchKey = matchKey;
+
+const fightKey = (fight == null ? "unknown" : (String(fight) + ":" + String(matchKey || "unknown")));
+if (!t.fights.has(fightKey)){
+        t.fights.set(fightKey, { totalVotes: 0n, bySide: new Map(), voters: new Set(), rows: [], round: (fight==null?null: fight), matchKey });
+      }
+      const f = t.fights.get(fightKey);
+      f.totalVotes += amt;
+      if (voter) f.voters.add(voter);
+      if (side != null){
+        f.bySide.set(side, (f.bySide.get(side) || 0n) + amt);
+      }
+      f.rows.push(v);
+
+      if (voter){
+        if (!state.byWallet.has(voter)){
+          state.byWallet.set(voter, { totalVotes: 0n, tournaments: new Map(), rows: [] });
+        }
+        const w = state.byWallet.get(voter);
+        w.totalVotes += amt;
+        w.tournaments.set(tid, (w.tournaments.get(tid) || 0n) + amt);
+        w.rows.push(v);
+      }
+    }
+  }
+
+  function getTournamentList(){
+    const s = searchEl();
+    const q = (s ? s.value.trim().toLowerCase() : "");
+    let arr = [...state.byTournament.entries()].map(([tid, obj])=>({
+      tid,
+      totalVotes: obj.totalVotes,
+      voters: obj.voters.size,
+      fights: obj.fights.size
+    }));
+
+    arr.sort((a,b)=>Number(b.tid)-Number(a.tid));
+
+    if (q) arr = arr.filter(x => x.tid.includes(q) || tidDisplay(x.tid).includes(q));
+    if (!q) arr = arr.slice(0, 10);
+
+    return arr;
+  }
+
+  function getWalletList(){
+    const s = searchEl();
+    const q = (s ? s.value.trim().toLowerCase() : "");
+    let arr = [...state.byWallet.entries()].map(([wallet, obj])=>({
+      wallet,
+      totalVotes: obj.totalVotes,
+      tournaments: obj.tournaments.size
+    }));
+
+    arr.sort((a,b)=> (b.totalVotes > a.totalVotes ? 1 : -1));
+    if (q) arr = arr.filter(x => x.wallet.includes(q));
+    else arr = arr.slice(0, 20);
+
+    return arr;
+  }
+
+  function renderLeft(){
+    const l = leftEl();
+    if (!l) return;
+    l.innerHTML = "";
+
+    if (!state.loaded){
+      l.innerHTML = `<div style="color:var(--muted);">Loading…</div>`;
+      return;
+    }
+
+    if (state.mode === "tournament"){
+      const list = getTournamentList();
+      if (!list.length){
+        l.innerHTML = `<div style="color:var(--muted);">No tournaments found.</div>`;
+        return;
+      }
+      for (const t of list){
+        const el = document.createElement("div");
+        el.className = "vwRow";
+        el.innerHTML = `
+          <div>
+            <div style="font-weight:900;">Tournament ${tidDisplay(t.tid)} <span style="opacity:.55; font-weight:700;">(raw ${t.tid})</span></div>
+            <div class="sub">${fmtInt(t.voters)} voters • ${fmtInt(t.fights)} fights</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(t.totalVotes)} votes</div>
+        `;
+        el.addEventListener("click", ()=>renderTournament(t.tid));
+        l.appendChild(el);
+      }
+    } else {
+      const list = getWalletList();
+      if (!list.length){
+        l.innerHTML = `<div style="color:var(--muted);">No wallets found.</div>`;
+        return;
+      }
+      for (const w of list){
+        const el = document.createElement("div");
+        el.className = "vwRow";
+        el.innerHTML = `
+          <div>
+            <div style="font-weight:900;">${shortAddr(w.wallet)}</div>
+            <div class="sub">${w.tournaments} tournaments</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(w.totalVotes)} votes</div>
+        `;
+        el.addEventListener("click", ()=>renderWallet(w.wallet));
+        l.appendChild(el);
+      }
+    }
+  }
+
+  function renderTournament(tid){
+    state.lastTournament = tid;
+    state.lastFight = null;
+
+    const r = rightEl();
+    if (!r) return;
+
+    const t = state.byTournament.get(tid);
+    if (!t){
+      r.innerHTML = `<div style="color:var(--muted);">Tournament not found.</div>`;
+      return;
+    }
+
+    const fights = [...t.fights.entries()].map(([k, f])=>({ k, f }));
+// Sort by round then matchKey when available
+fights.sort((a,b)=>{
+  if (a.k==="unknown") return 1;
+  if (b.k==="unknown") return -1;
+  const [ar] = String(a.k).split(":");
+  const [br] = String(b.k).split(":");
+  const rA = Number(ar), rB = Number(br);
+  if (rA !== rB) return rA - rB;
+  const aMk = a.f?.matchKey ?? "";
+  const bMk = b.f?.matchKey ?? "";
+  return Number(aMk) - Number(bMk);
+});
+
+// Assign "Fight 1..N" within each round for display
+const roundCounters = new Map();
+for (const it of fights){
+  const r = (it.f && it.f.round!=null) ? Number(it.f.round) : null;
+  if (r==null || !Number.isFinite(r)) { it.f._ordinal = null; continue; }
+  const next = (roundCounters.get(r) || 0) + 1;
+  roundCounters.set(r, next);
+  it.f._ordinal = next;
+}
+
+const rows = fights.map(({k,f})=>{
+      const label = (k==="unknown")
+  ? "Fight ?"
+  : (() => {
+      const r = (f && f.round!=null) ? Number(f.round) : null;
+      const ord = f?._ordinal;
+      const base = (r==null || !Number.isFinite(r)) ? "Round ?" : (r<=0 ? "Round 1" : (r===1 ? "Round 2" : "Final"));
+      if (base==="Final") return "Final";
+      return base + (ord ? ` — Fight ${ord}` : "");
+    })();
+      const sideSorted = [...f.bySide.entries()].sort((a,b)=> (b[1] > a[1] ? 1 : -1));
+      const aVotes = sideSorted[0]?.[1] ?? 0n;
+      const bVotes = sideSorted[1]?.[1] ?? 0n;
+
+      return `
+        <div class="vwRow" data-fight="${k}">
+          <div>
+            <div style="font-weight:900;">${label}</div>
+            <div class="sub">${fmtInt(f.voters.size)} voters • A ${fmtVotes(aVotes)} / B ${fmtVotes(bVotes)}</div>
+          </div>
+          <div class="vwBadge">${fmtVotes(f.totalVotes)} votes</div>
+        </div>
+      `;
+    }).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:10px;">
+        <div style="font-weight:900;">Tournament ${tidDisplay(tid)} <span style="opacity:.55; font-weight:700;">(raw ${tid})</span></div>
+        <div class="vwBadge">${fmtVotes(t.totalVotes)} votes</div>
+      </div>
+      ${rows}
+      <div style="margin-top:10px; color:var(--muted); font-size:12px;">
+        Click a fight to see voters.
+      </div>
+    `;
+
+    r.querySelectorAll(".vwRow").forEach(el=>{
+      el.addEventListener("click", ()=>{
+        const fk = el.getAttribute("data-fight");
+        renderFightVoters(tid, fk);
+      });
+    });
+  }
+
+  function renderFightVoters(tid, fightKey){
+    state.lastTournament = tid;
+    state.lastFight = fightKey;
+
+    const r = rightEl();
+    if (!r) return;
+
+    const t = state.byTournament.get(tid);
+    if (!t) return;
+    const f = t.fights.get(fightKey);
+    if (!f) return;
+
+    const label = (fightKey==="unknown")
+  ? "Fight ?"
+  : (() => {
+      const fobj = f;
+      const rN = (fobj && fobj.round!=null) ? Number(fobj.round) : null;
+      const ord = fobj?._ordinal;
+      const base = (rN==null || !Number.isFinite(rN)) ? "Round ?" : (rN<=0 ? "Round 1" : (rN===1 ? "Round 2" : "Final"));
+      if (base==="Final") return "Final";
+      return base + (ord ? ` — Fight ${ord}` : "");
+    })();
+    const sideSorted = [...f.bySide.entries()].sort((a,b)=> (b[1] > a[1] ? 1 : -1));
+    const aSide = sideSorted[0]?.[0] ?? null;
+    const bSide = sideSorted[1]?.[0] ?? null;
+
+    const voterSums = new Map();
+    for (const row of f.rows){
+      const voter = (row.voter || "").toLowerCase();
+      if (!voter) continue;
+      const amt = BigInt(String(row.votes||"0"));
+      if (!voterSums.has(voter)) voterSums.set(voter, { total:0n, a:0n, b:0n });
+      const obj = voterSums.get(voter);
+      obj.total += amt;
+      if (aSide!=null && String(row.side)===String(aSide)) obj.a += amt;
+      else if (bSide!=null && String(row.side)===String(bSide)) obj.b += amt;
+    }
+
+    const list = [...voterSums.entries()].map(([wallet, o])=>({ wallet, ...o }));
+    list.sort((x,y)=> (y.total > x.total ? 1 : -1));
+
+    const rows = list.map(v=>`
+      <div class="vwRow" style="cursor:default;">
+        <div>
+          <div style="font-weight:900;">${shortAddr(v.wallet)}</div>
+          <div class="sub">A ${fmtVotes(v.a)} • B ${fmtVotes(v.b)}</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(v.total)} votes</div>
+      </div>
+    `).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+        <div>
+          <div style="font-weight:900;">Tournament ${tidDisplay(tid)} <span style="opacity:.55; font-weight:700;">(raw ${tid})</span> — ${label}</div>
+          <div style="color:var(--muted); font-size:12px;">A side = ${aSide ?? "?"} • B side = ${bSide ?? "?"}</div>
+        </div>
+        <button class="modalBtn" type="button" id="vwBackBtn">Back</button>
+      </div>
+      <div style="margin-bottom:8px; color:var(--muted); font-size:12px;">
+        ${fmtInt(list.length)} voters • ${fmtVotes(f.totalVotes)} total votes
+      </div>
+      ${rows || `<div style="color:var(--muted);">No voters found.</div>`}
+    `;
+  }
+
+  function renderWallet(wallet){
+    const r = rightEl();
+    if (!r) return;
+    const w = state.byWallet.get(wallet);
+    if (!w){
+      r.innerHTML = `<div style="color:var(--muted);">Wallet not found.</div>`;
+      return;
+    }
+
+    const tourneys = [...w.tournaments.entries()].map(([tid, amt])=>({ tid, amt }));
+    tourneys.sort((a,b)=>Number(b.tid)-Number(a.tid));
+
+    const rows = tourneys.map(t=>`
+      <div class="vwRow" style="cursor:default;">
+        <div>
+          <div style="font-weight:900;">Tournament ${tidDisplay(t.tid)} <span style="opacity:.55; font-weight:700;">(raw ${t.tid})</span></div>
+          <div class="sub">Spent votes</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(t.amt)} votes</div>
+      </div>
+    `).join("");
+
+    r.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;">
+        <div>
+          <div style="font-weight:900;">${wallet}</div>
+          <div style="color:var(--muted); font-size:12px;">${tourneys.length} tournaments</div>
+        </div>
+        <div class="vwBadge">${fmtVotes(w.totalVotes)} votes</div>
+      </div>
+      ${rows || `<div style="color:var(--muted);">No tournaments.</div>`}
+    `;
+  }
+})();;
 </script>
+
+<!-- Vote Watcher Modal -->
+<div class="modalBackdrop" id="vwBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="vwTitle" style="width:min(980px, 96vw);">
+    <div class="modalHd">
+      <div class="modalTitle" id="vwTitle">Vote Watcher</div>
+      <button class="modalBtn" id="vwCloseBtn" type="button">Close</button>
+    </div>
+
+    <div class="modalBd" style="padding:12px;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:10px; flex-wrap:wrap;">
+        <button class="chip" id="vwTabTournament" type="button">By Tournament</button>
+        <button class="chip" id="vwTabIndividual" type="button">By Individual</button>
+
+        <input id="vwSearch" type="text" placeholder="Search by tournament ID or wallet…" style="flex:1; min-width:260px;"
+          class="searchInput" />
+        <div id="vwStatus" style="font-size:12px; color:var(--muted);"></div>
+      </div>
+
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+        <div class="panel" style="min-height:420px;">
+          <div class="panelHd">Tournaments</div>
+          <div class="panelBd" id="vwLeftList" style="max-height:390px; overflow:auto;"></div>
+        </div>
+
+        <div class="panel" style="min-height:420px;">
+          <div class="panelHd">Voters</div>
+          <div class="panelBd" id="vwRightList" style="max-height:390px; overflow:auto;">
+            <div style="color:var(--muted);">Select a tournament to see fights and voters.</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:10px; font-size:12px; color:var(--muted);">
+        Showing only entries with a tournament ID.
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>

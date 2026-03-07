@@ -579,6 +579,18 @@
     }
 
     .clickBreakdown{cursor:pointer;color:var(--accent);font-weight:900;}
+    .clickPoints{
+      cursor:pointer;
+      color: var(--accent);
+      font-weight:900;
+      text-decoration:none;
+    }
+    .clickPoints:hover{text-decoration:underline;}
+    .clickPoints:focus-visible{
+      outline:none;
+      box-shadow: 0 0 0 3px rgba(78,161,255,.14);
+      border-radius: 10px;
+    }
     .clickBreakdown:hover{text-decoration:underline;}
 
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
@@ -1141,7 +1153,7 @@
       </aside>
     </div>
 
-    <section class="card">
+    <section class="card" id="winsCard">
       <div class="hd">
         <div class="lbLeft" id="rangeIndicator" aria-live="polite">
           <span id="rangeText">—</span>
@@ -1151,6 +1163,7 @@
         <div class="lbCenter" id="lbTitle">Leaderboard</div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          <button class="btn" id="leaderboardToggleBtn" type="button" title="Switch to points leaderboard">Points</button>
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
           <button class="btn" id="walletsBtn" type="button" title="Show wallets">
             <span id="walletsBtnText">— wallets</span>
@@ -1174,6 +1187,41 @@
           </thead>
           <tbody id="tbody">
             <tr><td colspan="5" style="padding:14px;color:var(--muted)">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="pointsCard" style="margin-top:14px;display:none;">
+      <div class="hd">
+        <div class="lbLeft" aria-live="polite">
+          <span id="pointsRangeText"></span>
+        </div>
+
+        <div class="lbCenter"><div id="pointsTitle">March League Points</div><div id="pointsBlockRange" style="font-size:11px;color:var(--muted);margin-top:2px;"></div></div>
+
+        <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+          
+          <button class="btn" id="leaderboardToggleBtnPoints" type="button" title="Switch to wins leaderboard">Wins</button>
+          <span id="pointsScoringText" style="color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap;">1st = 3 • 2nd = 2 • 3rd = 1 • 4th = 0.5</span>
+        </div>
+      </div>
+
+      <div class="tableWrap" id="pointsTableWrap">
+        <table id="pointsTable">
+          <thead>
+            <tr>
+              <th class="rank">Rank</th>
+              <th class="walletCol">Wallet</th>
+              <th class="right">Points</th>
+              <th class="right">1st</th>
+              <th class="right">2nd</th>
+              <th class="right">3rd</th>
+              <th class="right">4th</th>
+            </tr>
+          </thead>
+          <tbody id="pointsTbody">
+            <tr><td colspan="7" style="padding:14px;color:var(--muted)">Loading…</td></tr>
           </tbody>
         </table>
       </div>
@@ -1445,8 +1493,57 @@
   </div>
 </div>
 
+
+<div class="modalBackdrop" id="pointsIdsBackdrop" aria-hidden="true">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pointsIdsTitle">
+    <div class="modalHd" style="padding:8px 12px;">
+      <div class="modalTitle" id="pointsIdsTitle">Points tournaments</div>
+      <button class="modalBtn" id="pointsIdsCloseBtn" type="button" style="padding:7px 10px;line-height:1;">Close</button>
+    </div>
+    <div class="modalBd">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+        <p class="modalNote" id="pointsIdsMeta" style="margin:0;display:none;">—</p>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <label style="display:flex;align-items:center;gap:8px;color:var(--muted);font-size:12px;font-weight:800;">
+            Sort
+            <select id="pointsIdsSort" style="padding:6px 10px;border-radius:10px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.20);color:var(--text);">
+              <option value="asc">Oldest to newest</option>
+              <option value="desc" selected>Newest to oldest</option>
+            </select>
+          </label>
+        </div>
+      </div>
+      <div id="pointsIdsList" style="max-height:50vh;overflow:auto;padding:10px 12px;border-radius:12px;border:1px solid var(--modalBorder);background:rgba(0,0,0,.18);text-align:left;"></div>
+      <div class="modalNote" id="pointsIdsStatus" style="margin-top:10px"></div>
+    </div>
+  </div>
+</div>
+
 <script>
   const $ = (id) => document.getElementById(id);
+
+  async function fetchJsonMaybeMulti(paths){
+    for (const path of paths){
+      try{
+        const res = await fetch(path, { cache: "no-store" });
+        if (!res.ok) continue;
+        return await res.json();
+      }catch{}
+    }
+    return null;
+  }
+
+  async function loadPreviousMonthPoints(){
+    const prevJson = await fetchJsonMaybeMulti([
+      "public/points-leaderboard.previous.json",
+      "/public/points-leaderboard.previous.json",
+      "./public/points-leaderboard.previous.json",
+      "./points-leaderboard.previous.json"
+    ]);
+    if (!prevJson) return null;
+    const pointRows = prevJson?.players || prevJson?.leaderboard || prevJson?.rows || [];
+    return Array.isArray(pointRows) ? { ...prevJson, players: pointRows } : null;
+  }
 
   const APP_VERSION = "v1.0.3";
 
@@ -1461,6 +1558,10 @@
     namesByAddress: {},
     tournamentTierById: {},
     tournamentRangeById: {},
+    pointsLeaderboard: null,
+    leaderboardView: "wins",
+    tournamentResultsById: {},
+    pointsModal: { wallet: "", type: "first", sort: "desc" },
   };
 
   // Discord handles (shown next to in-game names when available)
@@ -2097,6 +2198,277 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     setToggleUI();
     setColumnHighlight();
     renderTable(ranked);
+  }
+
+  function setLeaderboardView(view){
+    state.leaderboardView = (view === "points") ? "points" : "wins";
+
+    const showingPoints = state.leaderboardView === "points";
+    const winsCard = $("winsCard");
+    const pointsCard = $("pointsCard");
+    const winsBtn = $("leaderboardToggleBtn");
+    const pointsBtn = $("leaderboardToggleBtnPoints");
+
+    if (winsCard) winsCard.style.display = showingPoints ? "none" : "";
+    if (pointsCard) pointsCard.style.display = showingPoints ? "" : "none";
+
+    if (winsBtn){
+      winsBtn.textContent = showingPoints ? "Wins" : "Points";
+      winsBtn.title = showingPoints ? "Switch to wins leaderboard" : "Switch to points leaderboard";
+    }
+    if (pointsBtn){
+      pointsBtn.textContent = showingPoints ? "Wins" : "Points";
+      pointsBtn.title = showingPoints ? "Switch to wins leaderboard" : "Switch to points leaderboard";
+    }
+  }
+
+  function toggleLeaderboardView(){
+    setLeaderboardView(state.leaderboardView === "points" ? "wins" : "points");
+  }
+
+  function renderPointsCell(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—";
+  }
+
+  function getPointsBucketLabel(type){
+    if (type === "first") return "1st-place tournaments";
+    if (type === "second") return "2nd-place tournaments";
+    if (type === "third") return "3rd-place tournaments";
+    if (type === "fourth") return "4th-place tournaments";
+    return "Point tournaments";
+  }
+
+  function getPointsBucketIds(player, type){
+    if (!player) return [];
+    if (type === "first") return Array.isArray(player.firstIds) ? player.firstIds : [];
+    if (type === "second") return Array.isArray(player.secondIds) ? player.secondIds : [];
+    if (type === "third") return Array.isArray(player.thirdIds) ? player.thirdIds : [];
+    if (type === "fourth") return Array.isArray(player.fourthIds) ? player.fourthIds : [];
+    return [];
+  }
+
+  function pointsTournamentUrl(id){
+    return `https://game.defikingdoms.com/registry/tournaments/${id}`;
+  }
+
+  function formatPointsModalDateUtcFromBlockish(row){
+    const ts = Number(row?.final?.blockTimestamp || row?.final?.timestamp || row?.timestamp || 0);
+    if (Number.isFinite(ts) && ts > 0){
+      const d = new Date(ts > 1e12 ? ts : ts * 1000);
+      return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" });
+    }
+    return null;
+  }
+
+  function pointsTournamentMeta(id){
+    const row = state.tournamentResultsById?.[String(id)] || state.tournamentResultsById?.[Number(id)] || null;
+    if (!row) return null;
+
+    const parts = [];
+    const dateText = formatPointsModalDateUtcFromBlockish(row);
+    if (dateText) parts.push(dateText);
+    const first = row?.placements?.first ? displayName(row.placements.first) : null;
+    const second = row?.placements?.second ? displayName(row.placements.second) : null;
+    if (first && second) {
+      parts.push(`${first} vs ${second}`);
+    } else if (first) {
+      parts.push(`Winner: ${first}`);
+    }
+
+    return parts.join(" • ");
+  }
+
+  function renderPointsIdsModal(){
+    const backdrop = $("pointsIdsBackdrop");
+    const title = $("pointsIdsTitle");
+    const meta = $("pointsIdsMeta");
+    const list = $("pointsIdsList");
+    const status = $("pointsIdsStatus");
+    const sortSel = $("pointsIdsSort");
+    if (!backdrop || !title || !meta || !list || !status || !sortSel || !state.pointsLeaderboard || !Array.isArray(state.pointsLeaderboard.players)) return;
+
+    const target = (state.pointsModal.wallet || "").toLowerCase();
+    const type = state.pointsModal.type || "first";
+    const player = state.pointsLeaderboard.players.find(p => ((p.wallet || "").toLowerCase() === target));
+    const baseIds = getPointsBucketIds(player, type).map(Number).filter(Number.isFinite);
+    const label = getPointsBucketLabel(type);
+    const display = displayName(target) || shortWallet(target);
+
+    title.textContent = `${display} — ${label}`;
+    meta.textContent = "";
+
+    const recentClickableSet = new Set([...baseIds].sort((a, b) => b - a).slice(0, 5));
+    const sortedIds = [...baseIds].sort((a, b) => state.pointsModal.sort === "desc" ? b - a : a - b);
+
+    if (!sortedIds.length) {
+      list.innerHTML = '<div class="topEmpty">No tournament IDs available for this bucket.</div>';
+      status.textContent = "";
+    } else {
+      list.innerHTML = sortedIds.map((id) => {
+        const details = pointsTournamentMeta(id);
+        const isClickable = recentClickableSet.has(id);
+        const inner = `
+          <div style="font-weight:900;">Tournament ${id}</div>
+          ${details ? `<div style="margin-top:3px;color:var(--muted);font-size:11px;">${escHtml(details)}</div>` : ""}
+        `;
+        if (isClickable) {
+          return `
+            <a href="${pointsTournamentUrl(id)}"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="display:block;margin:0 0 8px;padding:9px 11px;border-radius:12px;border:1px solid rgba(78,161,255,.38);background:linear-gradient(135deg, rgba(78,161,255,.12), rgba(110,231,255,.06));text-decoration:none;box-shadow:0 0 0 1px rgba(78,161,255,.10) inset;">
+              ${inner}
+            </a>
+          `;
+        }
+        return `
+          <div style="display:block;margin:0 0 8px;padding:8px 10px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.02);">
+            ${inner}
+          </div>
+        `;
+      }).join("");
+
+      status.textContent = "Only the most recent 5 tournaments are clickable. Older entries are shown as text.";
+    }
+  }
+
+  function openPointsIdsModal(wallet, type){
+    const backdrop = $("pointsIdsBackdrop");
+    const sortSel = $("pointsIdsSort");
+    if (!backdrop || !sortSel) return;
+
+    state.pointsModal.wallet = (wallet || "").toLowerCase();
+    state.pointsModal.type = type || "first";
+    state.pointsModal.sort = sortSel.value || "asc";
+
+    renderPointsIdsModal();
+    backdrop.classList.add("show");
+    backdrop.setAttribute("aria-hidden", "false");
+  }
+
+  function closePointsIdsModal(){
+    const backdrop = $("pointsIdsBackdrop");
+    if (!backdrop) return;
+    backdrop.classList.remove("show");
+    backdrop.setAttribute("aria-hidden", "true");
+  }
+
+  function setupPointsIdsModalEvents(){
+    const closeBtn = $("pointsIdsCloseBtn");
+    const backdrop = $("pointsIdsBackdrop");
+    const sortSel = $("pointsIdsSort");
+
+    closeBtn?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closePointsIdsModal();
+    });
+
+    backdrop?.addEventListener("click", (e) => {
+      if (e.target === backdrop) closePointsIdsModal();
+    });
+
+    sortSel?.addEventListener("change", (e) => {
+      state.pointsModal.sort = e.target.value || "desc";
+      renderPointsIdsModal();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      const isOpen = $("pointsIdsBackdrop")?.classList.contains("show");
+      if (!isOpen) return;
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closePointsIdsModal();
+      }
+    });
+  }
+
+  function renderPointsTable(rows){
+    const tb = $("pointsTbody");
+    if (!tb) return;
+
+    if (!Array.isArray(rows) || !rows.length){
+      tb.innerHTML = `<tr><td colspan="7" style="padding:14px;color:var(--muted)">No points results available.</td></tr>`;
+      return;
+    }
+
+    tb.innerHTML = rows.map(r => {
+      const name = displayName(r.wallet);
+      const wShort = shortWallet(r.wallet);
+
+      return `
+        <tr>
+          <td class="rank">${r.rank}</td>
+          <td class="mono">
+            <div class="walletCell">
+              <div class="walletStack">
+                <a class="link"
+                   href="https://andromeda-explorer.metis.io/address/${r.wallet}"
+                   target="_blank"
+                   rel="noreferrer"
+                   title="${wShort}">
+                   ${name}
+                </a>
+                ${(() => { const d = discordForWallet(r.wallet); return d ? '<div class="discordTag">' + escHtml(d) + '</div>' : ''; })()}
+              </div>
+              <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
+            </div>
+          </td>
+          <td class="right">${renderPointsCell(r.points)}</td>
+          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="first">${renderPointsCell(r.firsts)}</span></td>
+          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="second">${renderPointsCell(r.seconds)}</span></td>
+          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="third">${renderPointsCell(r.thirds)}</span></td>
+          <td class="right"><span class="clickPoints" tabindex="0" role="button" data-points-wallet="${r.wallet}" data-points-type="fourth">${renderPointsCell(r.fourthPoints)}</span></td>
+        </tr>
+      `;
+    }).join("");
+
+    tb.querySelectorAll(".copyBtn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const wallet = btn.getAttribute("data-copy");
+        const ok = await copyToClipboard(wallet);
+        if (!ok) return;
+        btn.classList.add("copied");
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => {
+          btn.textContent = prev;
+          btn.classList.remove("copied");
+        }, 1200);
+      });
+    });
+
+    tb.querySelectorAll(".discordCopyBtn").forEach(btn => {
+      btn.addEventListener("click", async () => {
+        const wallet = btn.getAttribute("data-discord") || "";
+        const d = discordForWallet(wallet) || "";
+        if (!d) return;
+        const ok = await copyToClipboard(d);
+        if (!ok) return;
+        btn.classList.add("copied");
+        const prev = btn.textContent;
+        btn.textContent = "Copied!";
+        setTimeout(() => {
+          btn.textContent = prev;
+          btn.classList.remove("copied");
+        }, 1200);
+      });
+    });
+
+    tb.querySelectorAll(".clickPoints").forEach(el => {
+      const handler = () => openPointsIdsModal(
+        el.getAttribute("data-points-wallet"),
+        el.getAttribute("data-points-type")
+      );
+      el.addEventListener("click", handler);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          handler();
+        }
+      });
+    });
   }
 
   function exportCsv(){
@@ -2912,6 +3284,28 @@ function openWalletsModal(){
       const rangesJson = await fetchJsonMaybe("./tournamentRanges.json");
       state.tournamentTierById = buildTierOverridesFromRangesJson(rangesJson);
 
+      const pointsJson = await fetchJsonMaybeMulti([
+        "public/points-leaderboard.json",
+        "/public/points-leaderboard.json",
+        "./public/points-leaderboard.json",
+        "./points-leaderboard.json"
+      ]);
+      const pointRows = pointsJson?.players || pointsJson?.leaderboard || pointsJson?.rows || [];
+      state.pointsLeaderboard = Array.isArray(pointRows) ? { ...pointsJson, players: pointRows } : null;
+
+      const tournamentResultsJson = await fetchJsonMaybeMulti([
+        "public/tournament-results.json",
+        "/public/tournament-results.json",
+        "./public/tournament-results.json",
+        "./tournament-results.json"
+      ]);
+      const tournamentRows = Array.isArray(tournamentResultsJson?.tournaments) ? tournamentResultsJson.tournaments : [];
+      state.tournamentResultsById = Object.fromEntries(
+        tournamentRows
+          .filter(r => r && r.tournamentId != null)
+          .map(r => [String(r.tournamentId), r])
+      );
+
       const wins = Array.isArray(json.wins) ? json.wins : [];
       state.serverLeaderboard = Array.isArray(json.leaderboard) ? json.leaderboard : [];
 
@@ -2944,6 +3338,50 @@ function openWalletsModal(){
       const lifetimeSorted = computeLifetimeTop();
       renderTopList("top3Lifetime", lifetimeSorted, 4);
 
+      if (state.pointsLeaderboard){
+        const pts = state.pointsLeaderboard.players.map(p => ({
+          rank: Number(p.rank),
+          wallet: (p.wallet || "").toLowerCase(),
+          points: Number(p.points) || 0,
+          firsts: Number(p.firsts) || 0,
+          seconds: Number(p.seconds) || 0,
+          thirds: Number(p.thirds) || 0,
+          round1Exits: Number(p.round1Exits) || 0,
+          fourthPoints: Number.isFinite(Number(p.fourthPoints))
+            ? Number(p.fourthPoints)
+            : ((Number(p.round1Exits) || 0) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
+          firstIds: Array.isArray(p.firstIds) ? p.firstIds : [],
+          secondIds: Array.isArray(p.secondIds) ? p.secondIds : [],
+          thirdIds: Array.isArray(p.thirdIds) ? p.thirdIds : [],
+          fourthIds: Array.isArray(p.fourthIds) ? p.fourthIds : [],
+        }));
+        renderPointsTable(pts);
+
+        const s = state.pointsLeaderboard.scoring || {};
+        const first = Number(s.first);
+        const second = Number(s.second);
+        const third = Number(s.third);
+        const round1Exit = Number(s.round1Exit);
+        if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third) && Number.isFinite(round1Exit)){
+          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third} • 4th = ${round1Exit}`;
+        } else if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third)){
+          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third}`;
+        }
+
+        $("pointsRangeText").textContent = "";
+        const leagueLabel = state.pointsLeaderboard.summary?.leagueLabel;
+        if (leagueLabel) $("pointsTitle").textContent = leagueLabel;
+        const startBlock = state.pointsLeaderboard.summary?.startBlock;
+        if (startBlock){
+          const formatted = Number(startBlock).toLocaleString();
+          $("pointsBlockRange").textContent = `Block ${formatted} →`;
+        }
+
+        
+      } else {
+        renderPointsTable([]);
+      }
+
       requestAnimationFrame(() => sizeTilesToFilters());
     } catch (e){
       $("tbody").innerHTML =
@@ -2951,6 +3389,9 @@ function openWalletsModal(){
       $("subline").textContent = "";
       $("top3LastWeek").innerHTML = `<div class="topEmpty" style="color:var(--bad)">Error loading data.</div>`;
       $("top3Lifetime").innerHTML = `<div class="topEmpty" style="color:var(--bad)">Error loading data.</div>`;
+      renderPointsTable([]);
+      const ptb = $("pointsTbody");
+      if (ptb) ptb.innerHTML = `<tr><td colspan="7" style="padding:14px;color:var(--bad)">Error loading points data.</td></tr>`;
       requestAnimationFrame(() => sizeTilesToFilters());
     }
   }
@@ -3173,6 +3614,43 @@ function openWalletsModal(){
   updateWeekPresetUI();
   setUtcWidgets();
   setInterval(setUtcWidgets, 1000);
+
+  const leaderboardToggleBtn = $("leaderboardToggleBtn");
+  if (leaderboardToggleBtn) leaderboardToggleBtn.addEventListener("click", toggleLeaderboardView);
+
+  const leaderboardToggleBtnPoints = $("leaderboardToggleBtnPoints");
+  if (leaderboardToggleBtnPoints) leaderboardToggleBtnPoints.addEventListener("click", toggleLeaderboardView);
+
+  setLeaderboardView("wins");
+
+  $("pointsPrevMonthBtn")?.addEventListener("click", async () => {
+    const prevBtn = $("pointsPrevMonthBtn");
+    if (!prevBtn || prevBtn.disabled) return;
+
+    const isShowingPrevious = prevBtn.getAttribute("data-showing") === "previous";
+
+    if (!isShowingPrevious) {
+      const prevData = await loadPreviousMonthPoints();
+      if (!prevData) return;
+      state.pointsLeaderboard = prevData;
+      prevBtn.setAttribute("data-showing", "previous");
+      prevBtn.textContent = "Current month";
+      apply();
+    } else {
+      const currentJson = await fetchJsonMaybeMulti([
+        "public/points-leaderboard.json",
+        "/public/points-leaderboard.json",
+        "./public/points-leaderboard.json",
+        "./points-leaderboard.json"
+      ]);
+      const currentRows = currentJson?.players || currentJson?.leaderboard || currentJson?.rows || [];
+      state.pointsLeaderboard = Array.isArray(currentRows) ? { ...currentJson, players: currentRows } : null;
+      prevBtn.setAttribute("data-showing", "");
+      apply();
+    }
+  });
+
+  setupPointsIdsModalEvents();
   load();
 
 /* =========================

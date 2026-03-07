@@ -1,0 +1,112 @@
+[
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772495308,
+    "txHash": "0x16e2fe962707f9469024e6db0c88688764669496f38d169f6f9ff3db48d40606",
+    "blockNumber": 22276197
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772495224,
+    "txHash": "0xea02e74b9f009d7860d1bcb693fd07385b3436c8c818450826f75b85552172ef",
+    "blockNumber": 22276190
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772428041,
+    "txHash": "0x54a341cab3ab0770985b5ea77804b2561f20bba6869abaa24883e12a2b9768cb",
+    "blockNumber": 22271497
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772421689,
+    "txHash": "0xd2ea3c71392887ae21466f46f467b8539d9d2cf7b96c8e52be317b5a7df80e6e",
+    "blockNumber": 22271072
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772410827,
+    "txHash": "0x0de6fdfe7adbbcb46d5d25234055fcda8e14d3384573372255a74d4e3d768b40",
+    "blockNumber": 22270296
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x75Dc432500FF609162eF3d3B56ec9B9682188Dbb",
+    "timestamp": 1772410827,
+    "txHash": "0x0de6fdfe7adbbcb46d5d25234055fcda8e14d3384573372255a74d4e3d768b40",
+    "blockNumber": 22270296
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "1",
+    "votes": "93300",
+    "voter": "0x75Dc432500FF609162eF3d3B56ec9B9682188Dbb",
+    "timestamp": 1772409889,
+    "txHash": "0x739ebe11517cdc6f4e00391b6d161e903e0dc9431b8027119414996fcec5a2c8",
+    "blockNumber": 22270235
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "1",
+    "votes": "40848",
+    "voter": "0x0a2a63762cd424AEAB8f12F2c81CA69e5CeCE259",
+    "timestamp": 1772409865,
+    "txHash": "0x4f7a1134c09b22c528c94537e8309d902c76d54163589e84ab0859fb1c7edc42",
+    "blockNumber": 22270233
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x8776f0Bec83a07CCD0Bf1628963614C5aBFa7C47",
+    "timestamp": 1772362717,
+    "txHash": "0xf920fb1279dc9528030c175304f1e2f23f608c613ca8a7b34a95bc6957ebba94",
+    "blockNumber": 22266865
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x53cD26E8Ef03D5Bc734AafDE8763563906c5cAE7",
+    "timestamp": 1772361194,
+    "txHash": "0xbf29e33c4fa2d45c707eff76d248ba07234a8bb1a00d99f9899a41e911af6e38",
+    "blockNumber": 22266758
+  },
+  {
+    "tournamentId": "4",
+    "matchKey": "0",
+    "side": "0",
+    "votes": "0",
+    "voter": "0x6CFd553D2fA3856a9571c9Cfaf58fcb6b896EEF3",
+    "timestamp": 1772359521,
+    "txHash": "0x455d5228a545d53acb504b4d22c88b89b6b16d13be8ac23b70da7100223c7ad0",
+    "blockNumber": 22266625
+  }
+]
