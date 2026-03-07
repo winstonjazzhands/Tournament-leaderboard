@@ -593,6 +593,12 @@
     }
     .clickBreakdown:hover{text-decoration:underline;}
 
+    .sortableHeader{
+      cursor:pointer;
+      user-select:none;
+    }
+    .sortableHeader:hover{text-decoration:underline;}
+
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
 
@@ -981,6 +987,15 @@
       border-radius:999px;
       white-space:nowrap;
     }
+
+/* Collapse the 3 top tiles when Points view is active */
+body.points-mode .topRow{
+  display:none;
+}
+body.points-mode #pointsCard{
+  margin-top:0 !important;
+}
+
 </style>
 </head>
 
@@ -1180,9 +1195,9 @@
             <tr>
               <th class="rank">Rank</th>
               <th class="walletCol">Wallet</th>
-              <th class="right col10">Lvl 10</th>
-              <th class="right col20">Lvl 20</th>
-              <th class="right colT">Total</th>
+              <th class="right col10 sortableHeader" id="winsHdr10" tabindex="0" role="button">Lvl 10</th>
+              <th class="right col20 sortableHeader" id="winsHdr20" tabindex="0" role="button">Lvl 20</th>
+              <th class="right colT sortableHeader" id="winsHdrTotal" tabindex="0" role="button">Total</th>
             </tr>
           </thead>
           <tbody id="tbody">
@@ -1213,11 +1228,11 @@
             <tr>
               <th class="rank">Rank</th>
               <th class="walletCol">Wallet</th>
-              <th class="right">Points</th>
-              <th class="right">1st</th>
-              <th class="right">2nd</th>
-              <th class="right">3rd</th>
-              <th class="right">4th</th>
+              <th class="right sortableHeader" id="pointsHdrPoints" tabindex="0" role="button">Points</th>
+              <th class="right sortableHeader" id="pointsHdrFirst" tabindex="0" role="button">1st</th>
+              <th class="right sortableHeader" id="pointsHdrSecond" tabindex="0" role="button">2nd</th>
+              <th class="right sortableHeader" id="pointsHdrThird" tabindex="0" role="button">3rd</th>
+              <th class="right sortableHeader" id="pointsHdrFourth" tabindex="0" role="button">4th</th>
             </tr>
           </thead>
           <tbody id="pointsTbody">
@@ -1363,7 +1378,16 @@
       font-weight:1000;
     }
     
-  </style>
+  
+/* Collapse the 3 top tiles when Points view is active */
+body.points-mode .topRow{
+  display:none;
+}
+body.points-mode #pointsCard{
+  margin-top:0 !important;
+}
+
+</style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
@@ -1562,6 +1586,10 @@
     leaderboardView: "wins",
     tournamentResultsById: {},
     pointsModal: { wallet: "", type: "first", sort: "desc" },
+    sortDir: "desc",
+    pointsRows: [],
+    pointsSortKey: "points",
+    pointsSortDir: "desc",
   };
 
   // Discord handles (shown next to in-game names when available)
@@ -1992,13 +2020,61 @@ function shiftWeek(dir){
 
   function sortRows(rows){
     const mode = state.sortMode;
-    const cmp =
+    const dir = state.sortDir === "asc" ? 1 : -1;
+    const cmpBase =
       mode === "20s"
         ? (a,b)=> (b.lvl20Wins - a.lvl20Wins) || (b.total - a.total) || a.wallet.localeCompare(b.wallet)
         : mode === "total"
           ? (a,b)=> (b.total - a.total) || (b.lvl10Wins - a.lvl10Wins) || (b.lvl20Wins - a.lvl20Wins) || a.wallet.localeCompare(b.wallet)
           : (a,b)=> (b.lvl10Wins - a.lvl10Wins) || (b.total - a.total) || a.wallet.localeCompare(b.wallet);
-    return rows.sort(cmp);
+    return rows.sort((a,b) => {
+      const v = cmpBase(a,b);
+      return dir === -1 ? v : -v;
+    });
+  }
+
+  function setWinsHeaderSort(mode){
+    if (state.sortMode === mode){
+      state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
+    } else {
+      state.sortMode = mode;
+      state.sortDir = "desc";
+    }
+    apply();
+  }
+
+  function sortPointsRows(rows){
+    const key = state.pointsSortKey || "points";
+    const dir = state.pointsSortDir === "asc" ? 1 : -1;
+    const sorted = [...(Array.isArray(rows) ? rows : [])];
+    sorted.sort((a,b) => {
+      const av = Number(a?.[key]) || 0;
+      const bv = Number(b?.[key]) || 0;
+      if (bv !== av) return dir === -1 ? (bv - av) : (av - bv);
+
+      const tie = (Number(b?.points) || 0) - (Number(a?.points) || 0)
+        || (Number(b?.firsts) || 0) - (Number(a?.firsts) || 0)
+        || (Number(b?.seconds) || 0) - (Number(a?.seconds) || 0)
+        || (Number(b?.thirds) || 0) - (Number(a?.thirds) || 0)
+        || (Number(b?.round1Exits) || 0) - (Number(a?.round1Exits) || 0)
+        || String(a?.wallet || "").localeCompare(String(b?.wallet || ""));
+      return dir === -1 ? tie : -tie;
+    });
+    return sorted.map((r, i) => ({ ...r, rank: i + 1 }));
+  }
+
+  function applyPointsSort(){
+    renderPointsTable(sortPointsRows(state.pointsRows));
+  }
+
+  function setPointsHeaderSort(key){
+    if (state.pointsSortKey === key){
+      state.pointsSortDir = state.pointsSortDir === "desc" ? "asc" : "desc";
+    } else {
+      state.pointsSortKey = key;
+      state.pointsSortDir = "desc";
+    }
+    applyPointsSort();
   }
 
   async function copyToClipboard(text){
@@ -2204,6 +2280,7 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     state.leaderboardView = (view === "points") ? "points" : "wins";
 
     const showingPoints = state.leaderboardView === "points";
+    document.body.classList.toggle("points-mode", showingPoints);
     const winsCard = $("winsCard");
     const pointsCard = $("pointsCard");
     const winsBtn = $("leaderboardToggleBtn");
@@ -3355,7 +3432,8 @@ function openWalletsModal(){
           thirdIds: Array.isArray(p.thirdIds) ? p.thirdIds : [],
           fourthIds: Array.isArray(p.fourthIds) ? p.fourthIds : [],
         }));
-        renderPointsTable(pts);
+        state.pointsRows = pts;
+        applyPointsSort();
 
         const s = state.pointsLeaderboard.scoring || {};
         const first = Number(s.first);
@@ -3502,9 +3580,30 @@ function openWalletsModal(){
     }
   });
 
-  $("sort10Btn").addEventListener("click", () => { state.sortMode = "10s"; apply(); });
-  $("sort20Btn").addEventListener("click", () => { state.sortMode = "20s"; apply(); });
-  $("sortTotalBtn").addEventListener("click", () => { state.sortMode = "total"; apply(); });
+  $("sort10Btn").addEventListener("click", () => { state.sortMode = "10s"; state.sortDir = "desc"; apply(); });
+  $("sort20Btn").addEventListener("click", () => { state.sortMode = "20s"; state.sortDir = "desc"; apply(); });
+  $("sortTotalBtn").addEventListener("click", () => { state.sortMode = "total"; state.sortDir = "desc"; apply(); });
+
+  const bindHeaderToggle = (id, fn) => {
+    const el = $(id);
+    if (!el) return;
+    el.addEventListener("click", fn);
+    el.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        fn();
+      }
+    });
+  };
+
+  bindHeaderToggle("winsHdr10", () => setWinsHeaderSort("10s"));
+  bindHeaderToggle("winsHdr20", () => setWinsHeaderSort("20s"));
+  bindHeaderToggle("winsHdrTotal", () => setWinsHeaderSort("total"));
+  bindHeaderToggle("pointsHdrPoints", () => setPointsHeaderSort("points"));
+  bindHeaderToggle("pointsHdrFirst", () => setPointsHeaderSort("firsts"));
+  bindHeaderToggle("pointsHdrSecond", () => setPointsHeaderSort("seconds"));
+  bindHeaderToggle("pointsHdrThird", () => setPointsHeaderSort("thirds"));
+  bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1Exits"));
 
   window.addEventListener("resize", () => sizeTilesToFilters());
 
