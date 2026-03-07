@@ -195,7 +195,7 @@
       100% { background: rgba(255,255,255,.04); }
     }
     .learnMini{
-      font-size:13px;
+      font-size:8px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
@@ -275,11 +275,11 @@
       gap: 8px;
     }
 
-        .winsLabel{font-size:13px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
+        .winsLabel{font-size:8px;font-weight:1000;color:rgba(233,240,255,.92);margin-top:2px;margin-bottom:-2px;}
 /* Filters fit + tighter controls */
-    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:13px; }
+    #filtersCard .btn{ width:100%; padding:7px 9px; font-size:8px; }
     /* Week nav arrows */
-    #filtersCard .navBtn{ width:100%; padding:5px 9px; font-size:16px; line-height:1; height:auto; }
+    #filtersCard .navBtn{ width:100%; padding:5px 9px; font-size:8px; line-height:1; height:auto; }
     #filtersCard .btn:disabled{ opacity:.45; cursor:not-allowed; }
 
     
@@ -468,7 +468,7 @@
       width:100%;
       border-collapse:separate;
       border-spacing:0;
-      font-size:16px;
+      font-size:8px;
       line-height:1.25;
       table-layout: fixed;
     }
@@ -736,7 +736,7 @@
       width:100%;min-height:240px;max-height:50vh;resize:vertical;
       padding:12px;border-radius:12px;border:1px solid var(--modalBorder);
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-size:13px;line-height:1.35;outline:none;
+      font-size:8px;line-height:1.35;outline:none;
       background: rgba(0,0,0,.25);
       color: var(--text);
     }
@@ -867,14 +867,14 @@
       .miniTile,.topMiniBtn{height:54px;}
 
       table{font-size:15px}
-      thead th{font-size:13px;padding:9px 10px}
+      thead th{font-size:8px;padding:9px 10px}
       tbody td{padding:9px 10px}
       .rank{width:56px}
       .tableWrap{max-height:65vh}
       .filterGrid{gap:8px;}
       .dateBtn{min-height:38px;padding:8px 10px}
 
-      .winsInline,.winsInline .winsWord,.rewardWins{font-size:16px;}
+      .winsInline,.winsInline .winsWord,.rewardWins{font-size:8px;}
       .rewardJewel{font-size:9px;}
 
       .pcBox{width: 92vw; height: 54vh;}
@@ -947,7 +947,7 @@
     .wkSub{font-size:12px;color:var(--muted)}
     .wkRight{display:flex;align-items:center;gap:12px}
     .wkJewel{font-weight:1000;color:#facc15;white-space:nowrap;letter-spacing:.2px}
-    .wkCaret{font-size:16px;color:var(--muted);min-width:14px;text-align:right}
+    .wkCaret{font-size:8px;color:var(--muted);min-width:14px;text-align:right}
     .wkBody{padding:12px 16px}
 
     /* Weekly breakdown lines */
@@ -1029,6 +1029,85 @@ body.points-mode .topRow{
 }
 body.points-mode #pointsCard{
   margin-top:0 !important;
+}
+
+
+.walletCell a{font-size:16px;line-height:1.15;}
+
+
+/* Align points leaderboard columns perfectly */
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+}
+.pointsStack div{
+  width:100%;
+  text-align:center;
+}
+
+
+/* Points table alignment fixes */
+#pointsTable{
+  table-layout: fixed;
+}
+#pointsTable th,
+#pointsTable td{
+  text-align: center;
+  vertical-align: middle;
+}
+#pointsTable th.rank,
+#pointsTable td.rank{
+  text-align:left;
+  width:70px;
+}
+#pointsTable th.walletCol,
+#pointsTable td.mono{
+  text-align:left;
+}
+#pointsTable th.walletCol{
+  width:46%;
+}
+#pointsTable thead th:nth-child(3){width:11%;}
+#pointsTable thead th:nth-child(4),
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7){width:10.75%;}
+
+#pointsTable td .walletCell{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+#pointsTable td .walletStack{
+  min-width:0;
+}
+#pointsTable td .copyBtnRow{
+  margin-left:auto;
+}
+
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+  font-variant-numeric: tabular-nums;
+}
+.pointsStack > div{
+  width:100%;
+  text-align:center;
+}
+.pointsWins,
+.pointsPts{
+  display:block;
+  width:100%;
+  text-align:center;
 }
 
 </style>
@@ -1322,7 +1401,7 @@ body.points-mode #pointsCard{
 
         <p>
           Every week, DFK players step into the arena and compete for tournament glory —
-          and the more <strong>1st place finishes</strong> you stack at
+          and the more <strong>1st place </strong> you stack at
           <strong>Level 10</strong> and <strong>Level 20</strong>, the bigger your payout.
         </p>
 
@@ -1344,7 +1423,7 @@ body.points-mode #pointsCard{
         </ul>
 
         <p>
-          Consistent winners get rewarded. The more first-place finishes you claim,
+          Consistent winners get rewarded. The more first-place  you claim,
           the more JEWEL you take home.
         </p>
 
@@ -1420,6 +1499,85 @@ body.points-mode .topRow{
 }
 body.points-mode #pointsCard{
   margin-top:0 !important;
+}
+
+
+.walletCell a{font-size:16px;line-height:1.15;}
+
+
+/* Align points leaderboard columns perfectly */
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+}
+.pointsStack div{
+  width:100%;
+  text-align:center;
+}
+
+
+/* Points table alignment fixes */
+#pointsTable{
+  table-layout: fixed;
+}
+#pointsTable th,
+#pointsTable td{
+  text-align: center;
+  vertical-align: middle;
+}
+#pointsTable th.rank,
+#pointsTable td.rank{
+  text-align:left;
+  width:70px;
+}
+#pointsTable th.walletCol,
+#pointsTable td.mono{
+  text-align:left;
+}
+#pointsTable th.walletCol{
+  width:46%;
+}
+#pointsTable thead th:nth-child(3){width:11%;}
+#pointsTable thead th:nth-child(4),
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7){width:10.75%;}
+
+#pointsTable td .walletCell{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+#pointsTable td .walletStack{
+  min-width:0;
+}
+#pointsTable td .copyBtnRow{
+  margin-left:auto;
+}
+
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+  font-variant-numeric: tabular-nums;
+}
+.pointsStack > div{
+  width:100%;
+  text-align:center;
+}
+.pointsWins,
+.pointsPts{
+  display:block;
+  width:100%;
+  text-align:center;
 }
 
 </style>
@@ -2091,7 +2249,7 @@ function shiftWeek(dir){
         || (Number(b?.firsts) || 0) - (Number(a?.firsts) || 0)
         || (Number(b?.seconds) || 0) - (Number(a?.seconds) || 0)
         || (Number(b?.thirds) || 0) - (Number(a?.thirds) || 0)
-        || (Number(b?.round1Exits) || 0) - (Number(a?.round1Exits) || 0)
+        || (Number(b?.round1) || 0) - (Number(a?.round1) || 0)
         || String(a?.wallet || "").localeCompare(String(b?.wallet || ""));
       return dir === -1 ? tie : -tie;
     });
@@ -2345,7 +2503,7 @@ tb.querySelectorAll(".clickWins").forEach(el => {
 
   function renderPointsFinishCell(wallet, type, wins, pointsPerWin){
     const earned = Number(wins || 0) * Number(pointsPerWin || 0);
-    return `<span class="clickPoints" tabindex="0" role="button" data-points-wallet="${wallet}" data-points-type="${type}"><span class="pointsFinishStack"><span class="pointsFinishWinsLine"><span class="pointsFinishWinsNum">${renderPointsCell(wins)}</span><span class="pointsFinishWinsWord">Wins</span></span><span class="pointsFinishPts">${renderPointsCell(earned)} pts</span></span></span>`;
+    return `<span class="clickPoints" tabindex="0" role="button" data-points-wallet="${wallet}" data-points-type="${type}"><span class="pointsFinishStack"><span class="pointsFinishWinsLine"><span class="pointsFinishWinsNum">${renderPointsCell(wins)}</span><span class="pointsFinishWinsWord"></span></span><span class="pointsFinishPts">${renderPointsCell(earned)} pts</span></span></span>`;
   }
 
   function getPointsBucketLabel(type){
@@ -2532,11 +2690,11 @@ tb.querySelectorAll(".clickWins").forEach(el => {
               <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
             </div>
           </td>
-          <td class="right">${renderPointsCell(r.points)}</td>
+          <td class="right"><span style="font-size:200%">${renderPointsCell(r.points)}</span></td>
           <td class="right">${renderPointsFinishCell(r.wallet, "first", r.firsts, 3)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1)}</td>
-          <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1Exits, 0.5)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1, 0.5)}</td>
         </tr>
       `;
     }).join("");
@@ -3463,10 +3621,10 @@ function openWalletsModal(){
           firsts: Number(p.firsts) || 0,
           seconds: Number(p.seconds) || 0,
           thirds: Number(p.thirds) || 0,
-          round1Exits: Number(p.round1Exits) || 0,
+          round1: Number(p.round1) || 0,
           fourthPoints: Number.isFinite(Number(p.fourthPoints))
             ? Number(p.fourthPoints)
-            : ((Number(p.round1Exits) || 0) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
+            : ((Number(p.round1) || 0) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
           firstIds: Array.isArray(p.firstIds) ? p.firstIds : [],
           secondIds: Array.isArray(p.secondIds) ? p.secondIds : [],
           thirdIds: Array.isArray(p.thirdIds) ? p.thirdIds : [],
@@ -3643,7 +3801,7 @@ function openWalletsModal(){
   bindHeaderToggle("pointsHdrFirst", () => setPointsHeaderSort("firsts"));
   bindHeaderToggle("pointsHdrSecond", () => setPointsHeaderSort("seconds"));
   bindHeaderToggle("pointsHdrThird", () => setPointsHeaderSort("thirds"));
-  bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1Exits"));
+  bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1"));
 
   window.addEventListener("resize", () => sizeTilesToFilters());
 
