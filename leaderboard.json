@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-03-08T19:14:28.132Z",
+  "updatedAtUtc": "2026-03-08T20:12:05.644Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
@@ -2875,6 +2875,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-08T19:14:29.371Z",
+  "tiersUpdatedAtUtc": "2026-03-08T20:12:06.746Z",
   "tiersChanges": 110
 }
