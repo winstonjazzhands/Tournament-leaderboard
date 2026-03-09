@@ -1,129 +1,148 @@
 name: Update leaderboard data
 
 on:
-  schedule:
-    - cron: "0 * * * *"
-  workflow_dispatch:
+schedule:
+- cron: "0 * * * *"
+workflow_dispatch:
 
 permissions:
-  contents: write
+contents: write
 
 concurrency:
-  group: update-leaderboard-data
-  cancel-in-progress: true
+group: update-leaderboard-data
+cancel-in-progress: true
 
 jobs:
-  update:
-    runs-on: ubuntu-latest
+update:
+runs-on: ubuntu-latest
 
-    env:
-      RPC_URL: ${{ vars.RPC_URL }}
-      SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
-      TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
-      SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
-      SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
+```
+env:
+  RPC_URL: ${{ vars.RPC_URL }}
+  SUBGRAPH_ENDPOINT: ${{ vars.SUBGRAPH_ENDPOINT }}
+  TOURNAMENT_DIAMOND: ${{ vars.TOURNAMENT_DIAMOND }}
+  SEED_TX_L10: ${{ vars.SEED_TX_L10 }}
+  SEED_TX_L20: ${{ vars.SEED_TX_L20 }}
 
-      START_BLOCK: "22000000"
-      LOOKBACK_BLOCKS: "3000000"
-      LOG_CHUNK_BLOCKS: "60000"
-      USE_CACHE: "1"
+  START_BLOCK: "22000000"
+  LOOKBACK_BLOCKS: "3000000"
+  LOG_CHUNK_BLOCKS: "60000"
+  USE_CACHE: "1"
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+steps:
+  - name: Checkout
+    uses: actions/checkout@v4
+    with:
+      fetch-depth: 0
 
-      - name: Sync with latest main
-        shell: bash
-        run: |
-          set -euo pipefail
-          git fetch origin main
-          git checkout main
-          git reset --hard origin/main
+  - name: Sync with latest main
+    shell: bash
+    run: |
+      set -euo pipefail
+      git fetch origin main
+      git checkout main
+      git reset --hard origin/main
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: npm
+  - name: Setup Node
+    uses: actions/setup-node@v4
+    with:
+      node-version: 20
+      cache: npm
 
-      - name: Preflight - verify required GitHub Variables exist
-        shell: bash
-        run: |
-          set -euo pipefail
+  - name: Preflight - verify required GitHub Variables exist
+    shell: bash
+    run: |
+      set -euo pipefail
 
-          missing=0
+      missing=0
 
-          check() {
-            local name="$1"
-            local value="${!name:-}"
-            if [ -z "$value" ]; then
-              echo "Missing required variable: $name"
-              missing=1
-            else
-              echo "Found variable: $name"
-            fi
-          }
+      check() {
+        local name="$1"
+        local value="${!name:-}"
+        if [ -z "$value" ]; then
+          echo "Missing required variable: $name"
+          missing=1
+        else
+          echo "Found variable: $name"
+        fi
+      }
 
-          check RPC_URL
-          check SUBGRAPH_ENDPOINT
-          check TOURNAMENT_DIAMOND
-          check SEED_TX_L10
-          check SEED_TX_L20
+      check RPC_URL
+      check SUBGRAPH_ENDPOINT
+      check TOURNAMENT_DIAMOND
+      check SEED_TX_L10
+      check SEED_TX_L20
 
-          if [ "$missing" -ne 0 ]; then
-            echo ""
-            echo "Fix: Repo -> Settings -> Secrets and variables -> Actions -> Variables"
-            echo "Add the missing variable(s) exactly as named above."
-            exit 1
-          fi
+      if [ "$missing" -ne 0 ]; then
+        echo ""
+        echo "Fix: Repo -> Settings -> Secrets and variables -> Actions -> Variables"
+        echo "Add the missing variable(s) exactly as named above."
+        exit 1
+      fi
 
-      - name: Install dependencies
-        run: npm ci
+  - name: Install dependencies
+    run: npm ci
 
-      - name: Update ALL data
-        run: npm run update:all
+  - name: Update ALL data
+    run: npm run update:all
 
-      - name: Copy public outputs to repo root
-        shell: bash
-        run: |
-          set -euo pipefail
-          cp -f public/leaderboard.json leaderboard.json
-          cp -f public/profiles.json profiles.json
-          if [ -f public/tournamentRanges.json ]; then
-            cp -f public/tournamentRanges.json tournamentRanges.json
-          fi
+  - name: Copy public outputs to repo root
+    shell: bash
+    run: |
+      set -euo pipefail
+      cp -f public/leaderboard.json leaderboard.json
+      cp -f public/profiles.json profiles.json
 
-      - name: Configure git author
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      if [ -f public/tournamentRanges.json ]; then
+        cp -f public/tournamentRanges.json tournamentRanges.json
+      fi
 
-      - name: Commit updated data if changed
-        id: commit
-        shell: bash
-        run: |
-          set -euo pipefail
+      if [ -f public/points-leaderboard.json ]; then
+        cp -f public/points-leaderboard.json points-leaderboard.json
+      fi
 
-          git add -A public
-          git add -A leaderboard.json profiles.json tournamentRanges.json || true
-          git add -A scripts/.cache || true
+      if [ -f public/points-leaderboard.previous.json ]; then
+        cp -f public/points-leaderboard.previous.json points-leaderboard.previous.json
+      fi
 
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            echo "changed=false" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
+      if [ -f public/matches.json ]; then
+        cp -f public/matches.json matches.json
+      fi
 
-          git commit -m "Update leaderboard data"
-          echo "changed=true" >> "$GITHUB_OUTPUT"
+      if [ -f public/tournament-results.json ]; then
+        cp -f public/tournament-results.json tournament-results.json
+      fi
 
-      - name: Push changes
-        if: steps.commit.outputs.changed == 'true'
-        shell: bash
-        run: |
-          set -euo pipefail
-          git push origin HEAD:main
+  - name: Configure git author
+    shell: bash
+    run: |
+      set -euo pipefail
+      git config user.name "github-actions[bot]"
+      git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+  - name: Commit updated data if changed
+    id: commit
+    shell: bash
+    run: |
+      set -euo pipefail
+
+      git add -A public
+      git add -A *.json || true
+      git add -A scripts/.cache || true
+
+      if git diff --cached --quiet; then
+        echo "No changes to commit"
+        echo "changed=false" >> "$GITHUB_OUTPUT"
+        exit 0
+      fi
+
+      git commit -m "Update leaderboard data"
+      echo "changed=true" >> "$GITHUB_OUTPUT"
+
+  - name: Push changes
+    if: steps.commit.outputs.changed == 'true'
+    shell: bash
+    run: |
+      set -euo pipefail
+      git push origin HEAD:main
+```
