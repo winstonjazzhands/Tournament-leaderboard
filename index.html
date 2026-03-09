@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.3" />
+  <meta name="app-version" content="v1.0.8" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -454,6 +454,7 @@
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
     .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
+#pointsCard .lbCenter{text-align:left;}
 .lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; align-self:flex-end;}
 
 .lbRight{flex:0 0 auto;}
@@ -1061,8 +1062,8 @@ body.points-mode #pointsCard{
 }
 #pointsTable th.rank,
 #pointsTable td.rank{
-  text-align:left;
-  width:70px;
+  font-size:17px;
+  font-weight:900;
 }
 #pointsTable th.walletCol,
 #pointsTable td.mono{
@@ -1108,13 +1109,20 @@ body.points-mode #pointsCard{
   display:block;
   width:100%;
   text-align:center;
+  font-size:17px;
+  font-weight:900;
+  font-variant-numeric: tabular-nums;
 }
 
+
+#pointsTable .walletCell{
+  align-items:center;
+}
 </style>
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.3 -->
+<!-- DFK Tournament Leaderboard • version v1.0.8 -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -1762,7 +1770,7 @@ body.points-mode #pointsCard{
     return Array.isArray(pointRows) ? { ...prevJson, players: pointRows } : null;
   }
 
-  const APP_VERSION = "v1.0.3";
+  const APP_VERSION = "v1.0.8";
 
   const state = {
     wins: [],
@@ -3621,10 +3629,12 @@ function openWalletsModal(){
           firsts: Number(p.firsts) || 0,
           seconds: Number(p.seconds) || 0,
           thirds: Number(p.thirds) || 0,
-          round1: Number(p.round1) || 0,
+          round1: Number.isFinite(Number(p.round1Exits))
+            ? Number(p.round1Exits)
+            : (Number(p.round1) || 0),
           fourthPoints: Number.isFinite(Number(p.fourthPoints))
             ? Number(p.fourthPoints)
-            : ((Number(p.round1) || 0) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
+            : (((Number.isFinite(Number(p.round1Exits)) ? Number(p.round1Exits) : (Number(p.round1) || 0))) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
           firstIds: Array.isArray(p.firstIds) ? p.firstIds : [],
           secondIds: Array.isArray(p.secondIds) ? p.secondIds : [],
           thirdIds: Array.isArray(p.thirdIds) ? p.thirdIds : [],
