@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.8" />
+  <meta name="app-version" content="v1.0.9" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -182,7 +182,10 @@
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      
+      4%   { background: rgba(255,255,255,.062); }
+      8%   { background: rgba(255,255,255,.04); }
+      100% { background: rgba(255,255,255,.04); }
+    }
     @keyframes learnPulse {
       0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
       15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
@@ -195,7 +198,7 @@
       100% { background: rgba(255,255,255,.04); }
     }
     .learnMini{
-      font-size:8px;
+      font-size:14px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
@@ -661,6 +664,7 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
+    }
 
     /* Tip (community dev) modal: ~70% width and capped */
     #tipBackdrop .modal{
@@ -671,7 +675,6 @@
       color: var(--accent);
       text-decoration: underline;
       font-weight: 900;
-    }
     }
     .modalHd{
       padding:10px 12px;
@@ -1062,6 +1065,8 @@ body.points-mode #pointsCard{
 }
 #pointsTable th.rank,
 #pointsTable td.rank{
+  text-align:left;
+  width:70px;
   font-size:17px;
   font-weight:900;
 }
@@ -1083,6 +1088,9 @@ body.points-mode #pointsCard{
   align-items:center;
   gap:10px;
   min-width:0;
+}
+#pointsTable .walletCell{
+  align-items:center;
 }
 #pointsTable td .walletStack{
   min-width:0;
@@ -1114,15 +1122,11 @@ body.points-mode #pointsCard{
   font-variant-numeric: tabular-nums;
 }
 
-
-#pointsTable .walletCell{
-  align-items:center;
-}
 </style>
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.8 -->
+<!-- DFK Tournament Leaderboard • version v1.0.9 -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -1407,33 +1411,65 @@ body.points-mode #pointsCard{
       <div id="learnText" style="font-size:14px; line-height:1.6; color:var(--text);">
         <p style="margin-top:0"><strong>Note:</strong> all times shown are in <strong>UTC</strong>.</p>
 
-        <p>
-          Every week, DFK players step into the arena and compete for tournament glory —
-          and the more <strong>1st place </strong> you stack at
-          <strong>Level 10</strong> and <strong>Level 20</strong>, the bigger your payout.
-        </p>
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:18px;align-items:start;margin:14px 0 16px;">
+          <div style="min-width:0;">
+            <h3 style="margin:0 0 8px;">🏆 Wins Leaderboard</h3>
 
-        <p>
-          Prizes are distributed weekly in <strong>JEWEL</strong> every
-          <strong>Sunday/Monday</strong>, based on your total win count.
-        </p>
+            <p style="margin:0 0 10px;">
+              Weekly wins determine your JEWEL rewards.
+            </p>
 
-        <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
-        <ul style="margin:0 0 14px 20px;">
-          <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
-          <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
-          <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
-        </ul>
+            <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
+            <ul style="margin:0 0 14px 20px;">
+              <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
+              <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
+              <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
+            </ul>
 
-        <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
-        <ul style="margin:0 0 14px 20px;">
-          <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
-        </ul>
+            <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
+            <ul style="margin:0 0 0 20px;">
+              <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
+            </ul>
+          </div>
 
-        <p>
-          Consistent winners get rewarded. The more first-place  you claim,
-          the more JEWEL you take home.
-        </p>
+          <div style="width:1px;align-self:stretch;background:rgba(255,255,255,.12);border-radius:999px;"></div>
+
+          <div style="min-width:0;">
+            <h3 style="margin:0 0 8px;">📊 Points Leaderboard</h3>
+
+            <p style="margin:0 0 10px;">
+              Monthly league standings are based on tournament finishes:
+            </p>
+
+            <ul style="margin:0 0 14px 20px;">
+              <li><strong>1st</strong> = <strong>3 points</strong></li>
+              <li><strong>2nd</strong> = <strong>2 points</strong></li>
+              <li><strong>3rd</strong> = <strong>1 point</strong></li>
+              <li><strong>4th</strong> = <strong>0.5 points</strong></li>
+            </ul>
+
+            <p style="margin:0 0 10px;">
+              Points accumulate throughout the month and determine the final league standings.
+              Rewards are distributed to the <strong>top 20 wallets</strong>.
+            </p>
+
+            <ul style="margin:0 0 14px 20px;">
+              <li><strong>1st</strong> – ???? JEWEL</li>
+              <li><strong>2nd</strong> – ???? JEWEL</li>
+              <li><strong>3rd</strong> – ???? JEWEL</li>
+              <li><strong>4th–20th</strong> – ???? JEWEL each</li>
+            </ul>
+
+            <p style="margin:0 0 10px;">
+              Players who reach a minimum points threshold during the month will also receive rewards.
+              The exact requirement will be revealed at the start of the next league month.
+            </p>
+
+            <p style="margin:0;color:var(--muted);font-size:13px;">
+              The Points Leaderboard is currently in <strong>beta</strong> while the scoring system and rewards structure continue to be refined.
+            </p>
+          </div>
+        </div>
 
         <p style="margin-top:14px;">
           New to tournaments? Our community is active and genuinely helpful to newcomers.
@@ -1770,7 +1806,7 @@ body.points-mode #pointsCard{
     return Array.isArray(pointRows) ? { ...prevJson, players: pointRows } : null;
   }
 
-  const APP_VERSION = "v1.0.8";
+  const APP_VERSION = "v1.0.3";
 
   const state = {
     wins: [],
