@@ -13,14 +13,22 @@ function sleepSync(ms) {
   }
 }
 
+function childOpts() {
+  return {
+    stdio: "inherit",
+    shell: process.platform === "win32",
+    env: { ...process.env },
+  };
+}
+
 function run(cmd, args) {
-  const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
+  const r = spawnSync(cmd, args, childOpts());
   if (r.status !== 0) process.exit(r.status ?? 1);
 }
 
 function runWithRetry(cmd, args, { attempts = 5, baseDelayMs = 1500 } = {}) {
   for (let i = 1; i <= attempts; i++) {
-    const r = spawnSync(cmd, args, { stdio: "inherit", shell: process.platform === "win32" });
+    const r = spawnSync(cmd, args, childOpts());
 
     if (r.status === 0) return;
 
@@ -28,7 +36,7 @@ function runWithRetry(cmd, args, { attempts = 5, baseDelayMs = 1500 } = {}) {
       process.exit(r.status ?? 1);
     }
 
-    const delay = baseDelayMs * Math.pow(2, i - 1); // 1.5s, 3s, 6s, 12s, ...
+    const delay = baseDelayMs * Math.pow(2, i - 1);
     console.log(`Step failed (attempt ${i}/${attempts}). Retrying in ${Math.round(delay)}ms...`);
     sleepSync(delay);
   }
@@ -44,7 +52,8 @@ function copyIfExists(src, dst) {
 }
 
 function main() {
-  // Retry the flaky subgraph-dependent step
+  console.log("update-all RPC_URL exists:", !!process.env.RPC_URL);
+
   runWithRetry("node", ["scripts/pull-wins-tier-from-logs-post22m-lookback.js"], {
     attempts: 6,
     baseDelayMs: 2000,
