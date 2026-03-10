@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="app-version" content="v1.0.9" />
+  <meta name="app-version" content="v1.2.9" />
   <title>DFK Tournament Leaderboard</title>
   <style>
     :root{
@@ -179,13 +179,33 @@
         linear-gradient(135deg, rgba(78,161,255,.22), rgba(110,231,255,.10)),
         rgba(255,255,255,.03);
     }
+    #philBtn{
+      flex-direction:column;
+      gap:1px;
+      white-space:normal;
+      line-height:1.02;
+      padding-top:5px;
+      padding-bottom:5px;
+    }
+    #philBtn .main{
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.4px;
+    }
+    #philBtn .sub{
+      display:block;
+      min-height:auto;
+      margin-top:1px;
+      font-size:8px;
+      font-weight:700;
+      color:var(--muted);
+      line-height:1;
+      white-space:nowrap;
+    }
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      4%   { background: rgba(255,255,255,.062); }
-      8%   { background: rgba(255,255,255,.04); }
-      100% { background: rgba(255,255,255,.04); }
-    }
+      
     @keyframes learnPulse {
       0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
       15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
@@ -198,7 +218,7 @@
       100% { background: rgba(255,255,255,.04); }
     }
     .learnMini{
-      font-size:14px;
+      font-size:11px;
       font-weight:900;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(255,255,255,.04);
@@ -457,7 +477,6 @@
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
     .lbCenter{flex:1; text-align:center; color:rgba(233,240,255,.92); font-weight:1000; font-size:20px; letter-spacing:-.2px; white-space:nowrap; overflow:visible;}
-#pointsCard .lbCenter{text-align:left;}
 .lbLeft{flex:0 0 auto; color:rgba(233,240,255,.85); font-weight:900; font-size:12px; white-space:nowrap; align-self:flex-end;}
 
 .lbRight{flex:0 0 auto;}
@@ -664,7 +683,6 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
-    }
 
     /* Tip (community dev) modal: ~70% width and capped */
     #tipBackdrop .modal{
@@ -675,6 +693,7 @@
       color: var(--accent);
       text-decoration: underline;
       font-weight: 900;
+    }
     }
     .modalHd{
       padding:10px 12px;
@@ -1067,8 +1086,6 @@ body.points-mode #pointsCard{
 #pointsTable td.rank{
   text-align:left;
   width:70px;
-  font-size:17px;
-  font-weight:900;
 }
 #pointsTable th.walletCol,
 #pointsTable td.mono{
@@ -1088,9 +1105,6 @@ body.points-mode #pointsCard{
   align-items:center;
   gap:10px;
   min-width:0;
-}
-#pointsTable .walletCell{
-  align-items:center;
 }
 #pointsTable td .walletStack{
   min-width:0;
@@ -1117,16 +1131,151 @@ body.points-mode #pointsCard{
   display:block;
   width:100%;
   text-align:center;
+}
+
+
+/* consolidated points/phil fixes */
+#pointsCard .lbCenter{text-align:left;}
+#pointsTable th.rank,
+#pointsTable td.rank{
+  text-align:left;
+  width:64px;
+  font-size:17px;
+  font-weight:900;
+}
+#pointsTable th.walletCol{width:33%;}
+#pointsTable thead th:nth-child(3){width:7%;}
+#pointsTable thead th:nth-child(4){width:8.5%;}
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7),
+#pointsTable thead th:nth-child(8){width:8.25%;}
+#pointsTable tbody td{
+  padding-top:9px;
+  padding-bottom:9px;
+}
+#pointsTable .pointsMainVal,
+#pointsTable .pointsPlayedVal{
+  display:inline-block;
+  font-size:17px;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+.pointsWins,
+.pointsPts{
+  display:block;
+  width:100%;
+  text-align:center;
+  font-size:17px;
+  font-weight:900;
+  font-variant-numeric:tabular-nums;
+}
+.pointsLegend{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  line-height:1.15;
+  text-align:right;
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  white-space:nowrap;
+}
+
+
+.pointsPlayedSub{
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:2px;
+}
+
+
+/* cleaner points-table spacing / right-side stats block */
+#pointsTable th.walletCol{width:38% !important;}
+#pointsTable thead th:nth-child(3){width:9.5% !important;}
+#pointsTable thead th:nth-child(4),
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7){width:8.8% !important;}
+
+#pointsTable th:nth-child(n+3),
+#pointsTable td:nth-child(n+3){
+  text-align:right !important;
+}
+
+#pointsTable thead th:nth-child(3),
+#pointsTable tbody td:nth-child(3){
+  padding-left:30px !important;
+}
+
+#pointsTable thead th:nth-child(n+3),
+#pointsTable tbody td:nth-child(n+3){
+  padding-right:8px !important;
+}
+
+#pointsTable .pointsLegend{
+  text-align:right !important;
+}
+
+
+/* straight points columns override */
+#pointsTable{
+  table-layout: fixed !important;
+}
+#pointsTable th.walletCol{
+  width: 40% !important;
+}
+#pointsTable th:nth-child(n+3),
+#pointsTable td:nth-child(n+3){
+  text-align: center !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+#pointsTable thead th:nth-child(3){ width: 12% !important; }
+#pointsTable thead th:nth-child(4),
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7){ width: 9% !important; }
+
+#pointsTable .pointsMainCell{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+  line-height:1.05;
+}
+#pointsTable .pointsMainVal{
+  display:block;
+  width:100%;
+  text-align:center;
   font-size:17px;
   font-weight:900;
   font-variant-numeric: tabular-nums;
+}
+#pointsTable .pointsPlayedSub{
+  display:block;
+  width:100%;
+  text-align:center;
+  font-size:11px;
+  font-weight:700;
+  color:var(--muted);
+  margin-top:3px;
+}
+#pointsTable .pointsFinishStack,
+#pointsTable .pointsFinishWinsLine,
+#pointsTable .pointsFinishPts{
+  width:100%;
+  text-align:center;
 }
 
 </style>
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.0.9 -->
+<!-- DFK Tournament Leaderboard • version v1.2.9 -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -1165,7 +1314,7 @@ body.points-mode #pointsCard{
             </div>
           </div>
 
-          <button class="topMiniBtn" id="philBtn" type="button">PHIL COLLINS</button>
+          <button class="topMiniBtn philMini" id="philBtn" type="button"><span class="main">PHIL COLLINS</span><span class="sub">maybe Sting</span></button>
     </div>
   </div>
 
@@ -1344,7 +1493,12 @@ body.points-mode #pointsCard{
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           
           <button class="btn" id="leaderboardToggleBtnPoints" type="button" title="Switch to wins leaderboard">Wins</button>
-          <span id="pointsScoringText" style="color:var(--muted);font-size:12px;font-weight:800;white-space:nowrap;">1st = 3 • 2nd = 2 • 3rd = 1 • 4th = 0.5</span>
+          <div id="pointsScoringText" class="pointsLegend">
+            <div>1st = 3</div>
+            <div>2nd = 2</div>
+            <div>3rd = 1</div>
+            <div>4th = 0.5</div>
+          </div>
         </div>
       </div>
 
@@ -1411,65 +1565,33 @@ body.points-mode #pointsCard{
       <div id="learnText" style="font-size:14px; line-height:1.6; color:var(--text);">
         <p style="margin-top:0"><strong>Note:</strong> all times shown are in <strong>UTC</strong>.</p>
 
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:18px;align-items:start;margin:14px 0 16px;">
-          <div style="min-width:0;">
-            <h3 style="margin:0 0 8px;">🏆 Wins Leaderboard</h3>
+        <p>
+          Every week, DFK players step into the arena and compete for tournament glory —
+          and the more <strong>1st place </strong> you stack at
+          <strong>Level 10</strong> and <strong>Level 20</strong>, the bigger your payout.
+        </p>
 
-            <p style="margin:0 0 10px;">
-              Weekly wins determine your JEWEL rewards.
-            </p>
+        <p>
+          Prizes are distributed weekly in <strong>JEWEL</strong> every
+          <strong>Sunday/Monday</strong>, based on your total win count.
+        </p>
 
-            <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
-            <ul style="margin:0 0 14px 20px;">
-              <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
-              <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
-              <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
-            </ul>
+        <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
+        <ul style="margin:0 0 14px 20px;">
+          <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
+          <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
+          <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
+        </ul>
 
-            <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
-            <ul style="margin:0 0 0 20px;">
-              <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
-            </ul>
-          </div>
+        <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
+        <ul style="margin:0 0 14px 20px;">
+          <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
+        </ul>
 
-          <div style="width:1px;align-self:stretch;background:rgba(255,255,255,.12);border-radius:999px;"></div>
-
-          <div style="min-width:0;">
-            <h3 style="margin:0 0 8px;">📊 Points Leaderboard</h3>
-
-            <p style="margin:0 0 10px;">
-              Monthly league standings are based on tournament finishes:
-            </p>
-
-            <ul style="margin:0 0 14px 20px;">
-              <li><strong>1st</strong> = <strong>3 points</strong></li>
-              <li><strong>2nd</strong> = <strong>2 points</strong></li>
-              <li><strong>3rd</strong> = <strong>1 point</strong></li>
-              <li><strong>4th</strong> = <strong>0.5 points</strong></li>
-            </ul>
-
-            <p style="margin:0 0 10px;">
-              Points accumulate throughout the month and determine the final league standings.
-              Rewards are distributed to the <strong>top 20 wallets</strong>.
-            </p>
-
-            <ul style="margin:0 0 14px 20px;">
-              <li><strong>1st</strong> – ???? JEWEL</li>
-              <li><strong>2nd</strong> – ???? JEWEL</li>
-              <li><strong>3rd</strong> – ???? JEWEL</li>
-              <li><strong>4th–20th</strong> – ???? JEWEL each</li>
-            </ul>
-
-            <p style="margin:0 0 10px;">
-              Players who reach a minimum points threshold during the month will also receive rewards.
-              The exact requirement will be revealed at the start of the next league month.
-            </p>
-
-            <p style="margin:0;color:var(--muted);font-size:13px;">
-              The Points Leaderboard is currently in <strong>beta</strong> while the scoring system and rewards structure continue to be refined.
-            </p>
-          </div>
-        </div>
+        <p>
+          Consistent winners get rewarded. The more first-place  you claim,
+          the more JEWEL you take home.
+        </p>
 
         <p style="margin-top:14px;">
           New to tournaments? Our community is active and genuinely helpful to newcomers.
@@ -2734,7 +2856,12 @@ tb.querySelectorAll(".clickWins").forEach(el => {
               <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
             </div>
           </td>
-          <td class="right"><span style="font-size:200%">${renderPointsCell(r.points)}</span></td>
+          <td class="right">
+            <span class="pointsMainCell">
+              <span class="pointsMainVal">${renderPointsCell(r.points)}</span>
+              <span class="pointsPlayedSub">${renderPointsCell(r.tournamentsPlayed)} Played</span>
+            </span>
+          </td>
           <td class="right">${renderPointsFinishCell(r.wallet, "first", r.firsts, 3)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1)}</td>
@@ -3440,23 +3567,31 @@ function openWalletsModal(){
   }
 
   const philCollinsSongs = [
-    { title: "In the Air Tonight", id: "YkADj0TPrJA" },
-    { title: "Against All Odds (Take a Look at Me Now)", id: "CkBfT7ZQy9Q" },
-    { title: "Another Day in Paradise", id: "Qt2mbGP6vFI" },
-    { title: "One More Night", id: "zKVq-P3z5Vg" },
-    { title: "Sussudio", id: "r0qBaBb1Y-U" },
-    { title: "Easy Lover (with Philip Bailey)", id: "JkRKT6T0QLg" },
-    { title: "Two Hearts", id: "SidxJz94Svs" },
-    { title: "I Don't Care Anymore", id: "C6PNc9KN50M" },
-    { title: "You Can't Hurry Love", id: "C9IWXj4R6Y8" },
-    { title: "A Groovy Kind of Love", id: "HsC_SARyPzk" },
-    { title: "Take Me Home", id: "sRY1NG1P_kw" },
-    { title: "I Wish It Would Rain Down", id: "YcY3FH208l8" },
-    { title: "Separate Lives", id: "k9olaIio3l8" },
-    { title: "Both Sides of the Story", id: "8uDgWv7z2xU" },
-    { title: "Dance Into the Light", id: "xODK_OxzR8I" },
-    { title: "Something Happened on the Way to Heaven", id: "qW7tR2eE9G8" },
-    { title: "Do You Remember?", id: "uWb6X0qVZ2A" }
+    { title: "Phil Collins - In the Air Tonight", id: "YkADj0TPrJA" },
+    { title: "Phil Collins - Against All Odds (Take a Look at Me Now)", id: "CkBfT7ZQy9Q" },
+    { title: "Phil Collins - Another Day in Paradise", id: "Qt2mbGP6vFI" },
+    { title: "Phil Collins - One More Night", id: "zKVq-P3z5Vg" },
+    { title: "Phil Collins - Sussudio", id: "r0qBaBb1Y-U" },
+    { title: "Phil Collins - Easy Lover (with Philip Bailey)", id: "JkRKT6T0QLg" },
+    { title: "Phil Collins - Two Hearts", id: "SidxJz94Svs" },
+    { title: "Phil Collins - I Don't Care Anymore", id: "C6PNc9KN50M" },
+    { title: "Phil Collins - You Can't Hurry Love", id: "C9IWXj4R6Y8" },
+    { title: "Phil Collins - A Groovy Kind of Love", id: "HsC_SARyPzk" },
+    { title: "Phil Collins - Take Me Home", id: "sRY1NG1P_kw" },
+    { title: "Phil Collins - I Wish It Would Rain Down", id: "YcY3FH208l8" },
+    { title: "Phil Collins - Separate Lives", id: "k9olaIio3l8" },
+    { title: "Phil Collins - Both Sides of the Story", id: "8uDgWv7z2xU" },
+    { title: "Phil Collins - Dance Into the Light", id: "xODK_OxzR8I" },
+    { title: "Phil Collins - Something Happened on the Way to Heaven", id: "qW7tR2eE9G8" },
+    { title: "Phil Collins - Do You Remember?", id: "uWb6X0qVZ2A" },
+    { title: "Sting - Englishman In New York", id: "d27gTrPPAyk" },
+    { title: "Sting - Fields Of Gold", id: "KLVq0IAzh1A" },
+    { title: "Sting - Desert Rose", id: "C3lWwBslWqg" },
+    { title: "Sting - Shape of My Heart", id: "NlwIDxCjL-8" },
+    { title: "The Police - Every Breath You Take", id: "OMOGaugKpzs" },
+    { title: "The Police - Roxanne", id: "3T1c7GkzRQQ" },
+    { title: "The Police - Message In A Bottle", id: "MbXWrmQW-OE" },
+    { title: "The Police - So Lonely", id: "MX6MvV8cbh8" }
   ];
 
   let lastPhil = null;
@@ -3665,12 +3800,24 @@ function openWalletsModal(){
           firsts: Number(p.firsts) || 0,
           seconds: Number(p.seconds) || 0,
           thirds: Number(p.thirds) || 0,
-          round1: Number.isFinite(Number(p.round1Exits))
-            ? Number(p.round1Exits)
-            : (Number(p.round1) || 0),
+          fourthIds: Array.isArray(p.fourthIds) ? p.fourthIds : [],
+          round1: Math.max(
+            Number(p.round1) || 0,
+            Array.isArray(p.fourthIds) ? p.fourthIds.length : 0
+          ),
+          tournamentsPlayed: (Number(p.firsts) || 0)
+            + (Number(p.seconds) || 0)
+            + (Number(p.thirds) || 0)
+            + Math.max(
+                Number(p.round1) || 0,
+                Array.isArray(p.fourthIds) ? p.fourthIds.length : 0
+              ),
           fourthPoints: Number.isFinite(Number(p.fourthPoints))
             ? Number(p.fourthPoints)
-            : (((Number.isFinite(Number(p.round1Exits)) ? Number(p.round1Exits) : (Number(p.round1) || 0))) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
+            : (Math.max(
+                Number(p.round1) || 0,
+                Array.isArray(p.fourthIds) ? p.fourthIds.length : 0
+              ) * (Number(state.pointsLeaderboard?.scoring?.round1Exit) || 0.5)),
           firstIds: Array.isArray(p.firstIds) ? p.firstIds : [],
           secondIds: Array.isArray(p.secondIds) ? p.secondIds : [],
           thirdIds: Array.isArray(p.thirdIds) ? p.thirdIds : [],
@@ -3685,9 +3832,9 @@ function openWalletsModal(){
         const third = Number(s.third);
         const round1Exit = Number(s.round1Exit);
         if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third) && Number.isFinite(round1Exit)){
-          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third} • 4th = ${round1Exit}`;
+          $("pointsScoringText").innerHTML = `<div>1st = ${first}</div><div>2nd = ${second}</div><div>3rd = ${third}</div><div>4th = ${round1Exit}</div>`;
         } else if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third)){
-          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third}`;
+          $("pointsScoringText").innerHTML = `<div>1st = ${first}</div><div>2nd = ${second}</div><div>3rd = ${third}</div>`;
         }
 
         $("pointsRangeText").textContent = "";
@@ -3848,6 +3995,7 @@ function openWalletsModal(){
   bindHeaderToggle("pointsHdrSecond", () => setPointsHeaderSort("seconds"));
   bindHeaderToggle("pointsHdrThird", () => setPointsHeaderSort("thirds"));
   bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1"));
+  bindHeaderToggle("pointsHdrPlayed", () => setPointsHeaderSort("tournamentsPlayed"));
 
   window.addEventListener("resize", () => sizeTilesToFilters());
 
