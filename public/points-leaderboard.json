@@ -1,16 +1,16 @@
 {
-  "updatedAtUtc": "2026-03-10T11:41:58.259Z",
+  "updatedAtUtc": "2026-03-10T11:55:20.068Z",
   "sourceFiles": [
     "public/tournament-results.json",
     "public/matches.json"
   ],
   "sourceSummary": {
-    "generatedAtUtc": "2026-03-10T11:41:57.920Z",
+    "generatedAtUtc": "2026-03-10T11:55:19.972Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-10T11:41:57.820Z",
+    "sourceUpdatedAtUtc": "2026-03-10T11:55:19.870Z",
     "totalTournaments": 1151,
-    "completeTournaments": 935,
-    "incompleteTournaments": 216,
+    "completeTournaments": 936,
+    "incompleteTournaments": 215,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -31,14 +31,14 @@
     "startBlock": 22266000,
     "endBlockExclusive": null,
     "tournamentsSeen": 1151,
-    "tournamentsUsed": 63,
-    "tournamentsSkipped": 1088,
+    "tournamentsUsed": 64,
+    "tournamentsSkipped": 1087,
     "skippedBeforeLeagueStart": 908,
     "skippedAtOrAfterLeagueEnd": 0,
-    "skippedIncomplete": 180,
+    "skippedIncomplete": 179,
     "skippedMissingPlacements": 0,
-    "round1EligibleTournaments": 49,
-    "round1Awards": 49,
+    "round1EligibleTournaments": 50,
+    "round1Awards": 50,
     "playersRanked": 29,
     "scoringRule": "1st=3, 2nd=2, tied 3rd=1 each, 4th=0.5 for tournaments with 5+ players",
     "fourthDefinition": "4th is shown as exact points earned from round-1 exits (count × 0.5)."
@@ -47,13 +47,13 @@
     {
       "rank": 1,
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
-      "points": 64.5,
-      "firsts": 15,
+      "points": 67.5,
+      "firsts": 16,
       "seconds": 7,
       "thirds": 5,
       "round1Exits": 1,
       "fourthPoints": 0.5,
-      "tournamentsCounted": 28,
+      "tournamentsCounted": 29,
       "tournamentIds": [
         1981,
         1982,
@@ -82,7 +82,8 @@
         2133,
         2134,
         2135,
-        2139
+        2139,
+        2142
       ],
       "firstIds": [
         1991,
@@ -99,7 +100,8 @@
         2127,
         2128,
         2133,
-        2139
+        2139,
+        2142
       ],
       "secondIds": [
         1981,
@@ -124,13 +126,13 @@
     {
       "rank": 2,
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
-      "points": 59.5,
+      "points": 60.5,
       "firsts": 10,
       "seconds": 9,
-      "thirds": 10,
+      "thirds": 11,
       "round1Exits": 3,
       "fourthPoints": 1.5,
-      "tournamentsCounted": 32,
+      "tournamentsCounted": 33,
       "tournamentIds": [
         1974,
         1975,
@@ -163,7 +165,8 @@
         2124,
         2125,
         2134,
-        2140
+        2140,
+        2142
       ],
       "firstIds": [
         1980,
@@ -198,7 +201,8 @@
         2000,
         2109,
         2113,
-        2125
+        2125,
+        2142
       ],
       "fourthIds": [
         1983,
@@ -401,13 +405,13 @@
     {
       "rank": 5,
       "wallet": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
-      "points": 43.5,
+      "points": 44.5,
       "firsts": 3,
       "seconds": 7,
-      "thirds": 16,
+      "thirds": 17,
       "round1Exits": 9,
       "fourthPoints": 4.5,
-      "tournamentsCounted": 35,
+      "tournamentsCounted": 36,
       "tournamentIds": [
         1973,
         1974,
@@ -443,6 +447,7 @@
         2128,
         2132,
         2139,
+        2142,
         2145
       ],
       "firstIds": [
@@ -475,6 +480,7 @@
         2115,
         2132,
         2139,
+        2142,
         2145
       ],
       "fourthIds": [
@@ -555,13 +561,13 @@
     {
       "rank": 7,
       "wallet": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
-      "points": 26.5,
+      "points": 28.5,
       "firsts": 2,
-      "seconds": 4,
+      "seconds": 5,
       "thirds": 9,
       "round1Exits": 7,
       "fourthPoints": 3.5,
-      "tournamentsCounted": 22,
+      "tournamentsCounted": 23,
       "tournamentIds": [
         1978,
         1979,
@@ -584,7 +590,8 @@
         2127,
         2130,
         2135,
-        2140
+        2140,
+        2142
       ],
       "firstIds": [
         2005,
@@ -594,7 +601,8 @@
         1979,
         2124,
         2130,
-        2140
+        2140,
+        2142
       ],
       "thirdIds": [
         1980,
@@ -619,6 +627,49 @@
     },
     {
       "rank": 8,
+      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
+      "points": 17.5,
+      "firsts": 2,
+      "seconds": 3,
+      "thirds": 5,
+      "round1Exits": 1,
+      "fourthPoints": 0.5,
+      "tournamentsCounted": 11,
+      "tournamentIds": [
+        1984,
+        1985,
+        2103,
+        2106,
+        2110,
+        2113,
+        2114,
+        2132,
+        2134,
+        2140,
+        2142
+      ],
+      "firstIds": [
+        1984,
+        2132
+      ],
+      "secondIds": [
+        1985,
+        2103,
+        2106
+      ],
+      "thirdIds": [
+        2110,
+        2113,
+        2114,
+        2134,
+        2140
+      ],
+      "fourthIds": [
+        2142
+      ]
+    },
+    {
+      "rank": 9,
       "wallet": "0xb851aab224602b802d0706208a31be5807605c7f",
       "points": 17,
       "firsts": 4,
@@ -648,46 +699,6 @@
       ],
       "thirdIds": [
         1995
-      ],
-      "fourthIds": []
-    },
-    {
-      "rank": 9,
-      "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
-      "points": 17,
-      "firsts": 2,
-      "seconds": 3,
-      "thirds": 5,
-      "round1Exits": 0,
-      "fourthPoints": 0,
-      "tournamentsCounted": 10,
-      "tournamentIds": [
-        1984,
-        1985,
-        2103,
-        2106,
-        2110,
-        2113,
-        2114,
-        2132,
-        2134,
-        2140
-      ],
-      "firstIds": [
-        1984,
-        2132
-      ],
-      "secondIds": [
-        1985,
-        2103,
-        2106
-      ],
-      "thirdIds": [
-        2110,
-        2113,
-        2114,
-        2134,
-        2140
       ],
       "fourthIds": []
     },
