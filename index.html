@@ -1256,6 +1256,35 @@ button.learnMoreBtn,
   min-width:88px !important;
 }
 #winsCard #csvBtn span{ font-size:11px !important; }
+
+/* Header alignment fix */
+#pointsCard .hd{
+  position:relative;
+}
+#pointsCard .pointsHeaderRow{
+  position:static;
+  display:block;
+  width:100%;
+  text-align:left !important;
+}
+#pointsCard #pointsTitle{
+  text-align:left !important;
+}
+#pointsCard #pointsBlockRange{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%, -50%);
+  white-space:nowrap;
+  text-align:center;
+  pointer-events:none;
+}
+
+/* Wins leaderboard rank size fix */
+#table td.rank{
+  font-size:17px !important;
+  font-weight:900 !important;
+}
 #pointsTable .pointsMetaSub{
   display:block;
   width:100%;
@@ -1484,7 +1513,7 @@ button.learnMoreBtn,
           <span id="pointsRangeText"></span>
         </div>
 
-        <div class="lbCenter"><div id="pointsTitle">March League Points</div><div id="pointsBlockRange" style="font-size:11px;color:var(--muted);margin-top:2px;"></div></div>
+        <div class="lbCenter pointsHeaderRow"><div id="pointsTitle">March League Points</div><div id="pointsBlockRange" style="font-size:11px;color:var(--muted);"></div></div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
           
@@ -1935,6 +1964,18 @@ body.points-mode #pointsCard{
      ========================================================= */
   function deriveFourthCount(player, scoring) {
     if (!player) return 0;
+
+    const directFourth = Number(
+      player.fourth
+      ?? player.fourths
+      ?? player.round1
+      ?? player.round1s
+      ?? player.fourthCount
+      ?? player.round1Count
+      ?? ((Array.isArray(player.fourthIds) && player.fourthIds.length) ? player.fourthIds.length : NaN)
+    );
+    if (Number.isFinite(directFourth) && directFourth >= 0) return directFourth;
+
     const first = Number(player.first || player.firsts || 0);
     const second = Number(player.second || player.seconds || 0);
     const third = Number(player.third || player.thirds || 0);
