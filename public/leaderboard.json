@@ -1,11 +1,11 @@
 {
-  "updatedAtUtc": "2026-03-11T20:42:07.414Z",
+  "updatedAtUtc": "2026-03-11T21:04:34.436Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 332,
-  "uniqueTournaments": 332,
+  "totalWins": 333,
+  "uniqueTournaments": 333,
   "unknownTierWins": 0,
   "rewards": {
     "lvl10Brackets": [
@@ -2682,6 +2682,14 @@
       "timestamp": 1773255509,
       "blockNumber": 22334164,
       "tier": 10
+    },
+    {
+      "id": "0x70d05ee5205662ad0e07e81b083879071389e9d404049eb7073248f30036e5d3-1",
+      "tournamentId": 2015,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "timestamp": 1773262911,
+      "blockNumber": 22334731,
+      "tier": 10
     }
   ],
   "leaderboard": [
@@ -2863,6 +2871,17 @@
     },
     {
       "rank": 17,
+      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "lvl10Wins": 3,
+      "lvl20Wins": 1,
+      "totalWins": 4,
+      "lastWin": 1773262911,
+      "lifetimeEarned": 60,
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 0
+    },
+    {
+      "rank": 18,
       "wallet": "0xa26b8ea40add0610d2744c815519c0d45126f86e",
       "lvl10Wins": 3,
       "lvl20Wins": 1,
@@ -2873,7 +2892,7 @@
       "lastWeekEarned": 0
     },
     {
-      "rank": 18,
+      "rank": 19,
       "wallet": "0xf6e64ae0cfe857f64376eb76cb18d4f7f3d5e408",
       "lvl10Wins": 4,
       "lvl20Wins": 0,
@@ -2884,24 +2903,13 @@
       "lastWeekEarned": 0
     },
     {
-      "rank": 19,
+      "rank": 20,
       "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
       "lvl10Wins": 3,
       "lvl20Wins": 0,
       "totalWins": 3,
       "lastWin": 1773014561,
       "lifetimeEarned": 0,
-      "thisWeekEarned": 0,
-      "lastWeekEarned": 0
-    },
-    {
-      "rank": 20,
-      "wallet": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
-      "lvl10Wins": 2,
-      "lvl20Wins": 1,
-      "totalWins": 3,
-      "lastWin": 1771369420,
-      "lifetimeEarned": 60,
       "thisWeekEarned": 0,
       "lastWeekEarned": 0
     },
@@ -3027,6 +3035,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-11T20:42:08.725Z",
+  "tiersUpdatedAtUtc": "2026-03-11T21:04:36.098Z",
   "tiersChanges": 114
 }
