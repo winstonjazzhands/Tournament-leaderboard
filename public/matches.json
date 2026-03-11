@@ -1,14 +1,14 @@
 {
-  "updatedAtUtc": "2026-03-11T14:33:50.830Z",
+  "updatedAtUtc": "2026-03-11T15:32:40.844Z",
   "diamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
   "matchTopic0": "0x2b93f4474a262323163bea734586863c91186f8230b05f68ba8018bac0a65897",
   "winnerHintTopic0": "0x9ed8f9aac14f45bbc703fe9922e91c5db62b94877aeb6384e861d8d8c75db032",
   "lookbackBlocks": 3000000,
-  "totalMatchLogs": 6761,
+  "totalMatchLogs": 6764,
   "totalHintLogs": 192814,
   "hintAccepted": 188334,
-  "winnersFound": 6761,
-  "winnersFromMatchData": 6761,
+  "winnersFound": 6764,
+  "winnersFromMatchData": 6764,
   "winnersFromHintFallback": 0,
   "matchDataWinnerInvalid": 0,
   "hintFallbackInvalid": 0,
@@ -74399,6 +74399,39 @@
       "blockNumber": 22332820,
       "txHash": "0xd2b53259749644b23655da35ea8e74f79b9dc1f22a34a18cfe931e6487325235",
       "logIndex": 2
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "playerB": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "resultCode": 5,
+      "winner": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332904,
+      "txHash": "0x4f5f1bd716791747ff6f697bbbf494fb0dacf92efd13a41fb86d7eddb04f1bff",
+      "logIndex": 8
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "playerB": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "resultCode": 6,
+      "winner": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332934,
+      "txHash": "0x0cd58a4ea54b0158efe400ab51fc21b46f7342c5504cad599bc9782d2e86bda5",
+      "logIndex": 6
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "playerB": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "resultCode": 7,
+      "winner": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22333002,
+      "txHash": "0xef86e709cbc73635b490fd15ecad23b21e0af65887d1b6b7732ab043410e24f8",
+      "logIndex": 3
     }
   ]
 }
