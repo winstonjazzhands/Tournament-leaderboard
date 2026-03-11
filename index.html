@@ -528,6 +528,9 @@
     .rank{font-weight:700;width:70px}
     th.rank{width:70px}
 
+    #table th.rank,
+    #table td.rank{font-size:17px;font-weight:900;}
+
     th.walletCol{width:44%;}
     th.col10{width:14%;}
     th.col20{width:14%;}
@@ -2736,9 +2739,11 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     return Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—";
   }
 
-  function renderPointsFinishCell(wallet, type, wins, pointsPerWin){
+  function renderPointsFinishCell(wallet, type, wins, pointsPerWin, totalPlayed){
     const earned = Number(wins || 0) * Number(pointsPerWin || 0);
-    return `<span class="clickPoints" tabindex="0" role="button" data-points-wallet="${wallet}" data-points-type="${type}"><span class="pointsFinishStack"><span class="pointsFinishWinsLine"><span class="pointsFinishWinsNum">${renderPointsCell(wins)}</span><span class="pointsFinishWinsWord"></span></span><span class="pointsFinishPts">${renderPointsCell(earned)} pts</span></span></span>`;
+    const played = Number(totalPlayed || 0);
+    const pct = played > 0 ? ((Number(wins || 0) / played) * 100) : 0;
+    return `<span class="clickPoints" tabindex="0" role="button" data-points-wallet="${wallet}" data-points-type="${type}"><span class="pointsFinishStack"><span class="pointsFinishWinsLine"><span class="pointsFinishWinsNum">${renderPointsCell(wins)}</span><span class="pointsFinishWinsWord"></span></span><span class="pointsFinishPts">${pct.toFixed(1)}%</span></span></span>`;
   }
 
   function getPointsBucketLabel(type){
@@ -2925,11 +2930,11 @@ tb.querySelectorAll(".clickWins").forEach(el => {
               <div class="copyBtnRow"><button class="discordCopyBtn" type="button" data-discord="${r.wallet}" title="Copy Discord">Discord</button><button class="copyBtn" type="button" data-copy="${r.wallet}" title="Copy wallet">Copy 0x</button></div>
             </div>
           </td>
-          <td class="right"><span style="font-size:200%">${renderPointsCell(r.points)}</span></td>
-          <td class="right">${renderPointsFinishCell(r.wallet, "first", r.firsts, 3)}</td>
-          <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2)}</td>
-          <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1)}</td>
-          <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1, 0.5)}</td>
+          <td class="right"><span class="pointsMainVal">${renderPointsCell(r.points)}</span><span class="pointsPlayedSub">${renderPointsCell(r.tournamentsPlayed)} played</span></td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "first", r.firsts, 3, r.tournamentsPlayed)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2, r.tournamentsPlayed)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1, r.tournamentsPlayed)}</td>
+          <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1, 0.5, r.tournamentsPlayed)}</td>
         </tr>
       `;
     }).join("");
@@ -3887,9 +3892,9 @@ function openWalletsModal(){
         const third = Number(s.third);
         const round1Exit = Number(s.round1Exit);
         if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third) && Number.isFinite(round1Exit)){
-          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third} • 4th = ${round1Exit}`;
+          $("pointsScoringText").textContent = "";
         } else if (Number.isFinite(first) && Number.isFinite(second) && Number.isFinite(third)){
-          $("pointsScoringText").textContent = `1st = ${first} • 2nd = ${second} • 3rd = ${third}`;
+          $("pointsScoringText").textContent = "";
         }
 
         $("pointsRangeText").textContent = "";
