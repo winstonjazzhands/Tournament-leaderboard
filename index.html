@@ -139,6 +139,7 @@
     }
 
     .topMiniBtn{
+      font-family: inherit;
       font-weight:900;
       letter-spacing:.2px;
       padding:8px 10px;
@@ -205,7 +206,11 @@
 
     @keyframes subtlePulse {
       0%   { background: rgba(255,255,255,.04); }
-      
+      4%   { background: rgba(255,255,255,.062); }
+      8%   { background: rgba(255,255,255,.04); }
+      100% { background: rgba(255,255,255,.04); }
+    }
+
     @keyframes learnPulse {
       0%   { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
       15%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
@@ -213,14 +218,12 @@
       55%  { transform: scale(1.03); background: rgba(255,255,255,.09); border-color: rgba(110,231,255,.35); box-shadow: 0 0 0 4px rgba(78,161,255,.18), 0 14px 30px rgba(0,0,0,.22); }
       100% { transform: scale(1); background: rgba(255,255,255,.04); border-color: rgba(255,255,255,.14); box-shadow: none; }
     }
-4%   { background: rgba(255,255,255,.062); }
-      8%   { background: rgba(255,255,255,.04); }
-      100% { background: rgba(255,255,255,.04); }
-    }
     .learnMini{
-      font-size:8px;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.14);
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      letter-spacing: inherit;
+      border:1px solid var(--border);
       background: rgba(255,255,255,.04);
       color:#ffffff;
       animation: none;
@@ -229,7 +232,9 @@
         .learnMini.pulseOnce{ animation: learnPulse 1.6s ease-in-out 0s 1; }
 .learnMini:hover{
       background: rgba(255,255,255,.07);
-      border-color: rgba(255,255,255,.20);
+      border-color: rgba(255,255,255,.18);
+      box-shadow: 0 12px 28px rgba(0,0,0,.28);
+      filter: brightness(1.03);
     }
 
     input{
@@ -684,6 +689,7 @@
       overflow:hidden;
       border:1px solid var(--modalBorder);
       backdrop-filter: blur(10px);
+    }
 
     /* Tip (community dev) modal: ~70% width and capped */
     #tipBackdrop .modal{
@@ -694,7 +700,6 @@
       color: var(--accent);
       text-decoration: underline;
       font-weight: 900;
-    }
     }
     .modalHd{
       padding:10px 12px;
@@ -739,6 +744,16 @@
     #backToTopBtn.show{ display:inline-flex; }
     #walletsBtn, #csvBtn{ padding:5px 7px; font-size:9px; border-radius:10px; }
     #csvBtn span{ font-size:9px; }
+#winsCard .lbCenter{ text-align:left !important; }
+#winsCard #leaderboardToggleBtn,
+#winsCard #walletsBtn,
+#winsCard #csvBtn{
+  padding:4px 6px;
+  font-size:8px;
+  border-radius:9px;
+  min-height:24px;
+}
+#winsCard #csvBtn span{ font-size:8px; }
 
     .modalNote{font-size:12px;color: var(--muted);margin:0 0 10px 0}
         .modalWarn{margin:0 0 10px;color:var(--warn);font-weight:900;}
@@ -917,7 +932,7 @@
 /* Lifetime disbursed (top-right, aligned with header) */
 .headerRightLifetime{display:flex;flex-direction:column;align-items:flex-end;justify-content:flex-start;text-align:right;line-height:1.05;min-width:160px}
 .headerRightLifetime .lifeNum{color:var(--gold);font-weight:1000;font-size:18px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25)}
-.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25) display:none;
+.headerRightLifetime .lifeLbl{color:var(--gold);font-weight:1000;font-size:12px;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.25);display:none;
     }
 
 
@@ -1211,14 +1226,15 @@ body.points-mode #pointsCard{
 }
 
 
-/* Force Learn More button text to normal size */
+/* Match LEARN MORE to PLAY DFK NOW exactly */
 button#learnMoreBtn,
 #learnMoreBtn,
 button.learnMoreBtn,
 .learn-more-btn{
-  font-size:16px !important;
-  font-weight:600 !important;
-  letter-spacing:0.02em;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: 900 !important;
+  letter-spacing: .2px !important;
 }
 
 
@@ -1227,7 +1243,7 @@ button.learnMoreBtn,
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.1.0 -->
+<!-- DFK Tournament Leaderboard • version v1.2.9-learnmore-match -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -1304,6 +1320,8 @@ button.learnMoreBtn,
             </div>
 
             <div class="fullRow" id="updateLine" style="margin-top:8px;color:var(--muted);font-size:11px;font-weight:800;"></div>
+
+            <div class="fullRow" id="rangeSummaryLine" style="margin-top:6px;color:var(--muted);font-size:11px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;"><span id="rangeSummaryText"></span><button class="btn tiny" id="clearRangeBtnBottom" type="button" style="display:none;">Clear</button></div>
           </div>
 
           <input class="dateHidden" id="fromDate" type="date" />
@@ -1402,10 +1420,9 @@ button.learnMoreBtn,
           <button class="btn tiny" id="clearRangeBtn" type="button" style="margin-left:8px;display:none;">Clear</button>
         </div>
 
-        <div class="lbCenter" id="lbTitle">Leaderboard</div>
+        <div class="lbCenter" id="lbTitle">Wins Leaderboard</div>
 
         <div class="lbRight" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
-          <button class="btn" id="leaderboardToggleBtn" type="button" title="Switch to points leaderboard">Points</button>
           <button class="btn tiny" id="backToTopBtn" type="button" title="Back to top">Back to top</button>
           <button class="btn" id="walletsBtn" type="button" title="Show wallets">
             <span id="walletsBtnText">— wallets</span>
@@ -1413,6 +1430,7 @@ button.learnMoreBtn,
           <button class="btn primary" id="csvBtn" type="button">
             <span>⬇️</span> Export CSV
           </button>
+          <button class="btn" id="leaderboardToggleBtn" type="button" title="Switch to points leaderboard">Points</button>
         </div>
       </div>
 
@@ -1621,11 +1639,7 @@ button.learnMoreBtn,
             font-family: Arial, sans-serif;
           }
 
-          .dfk-playNowBtn {
-            padding: 15px 26px;
-            font-size: 18px;
-            font-weight: 900;
-          }
+          .dfk-playNowBtn{padding:15px 26px;font-size:18px;font-weight:900;}
 
           .dfk-button:hover {
             background: #c9a227;
@@ -1633,7 +1647,103 @@ button.learnMoreBtn,
             box-shadow: 0 0 8px rgba(201, 162, 39, 0.6);
             transform: translateY(-2px);
           }
-        </style>
+        
+    #tipBackdrop .modalTitle{
+      text-align:center;
+      width:100%;
+      font-size:24px;
+      font-weight:1000;
+    }
+    
+  
+/* Collapse the 3 top tiles when Points view is active */
+body.points-mode .topRow{
+  display:none;
+}
+body.points-mode #pointsCard{
+  margin-top:0 !important;
+}
+
+
+.walletCell a{font-size:16px;line-height:1.15;}
+
+
+/* Align points leaderboard columns perfectly */
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+}
+.pointsStack div{
+  width:100%;
+  text-align:center;
+}
+
+
+/* Points table alignment fixes */
+#pointsTable{
+  table-layout: fixed;
+}
+#pointsTable th,
+#pointsTable td{
+  text-align: center;
+  vertical-align: middle;
+}
+#pointsTable th.rank,
+#pointsTable td.rank{
+  text-align:left;
+  width:70px;
+}
+#pointsTable th.walletCol,
+#pointsTable td.mono{
+  text-align:left;
+}
+#pointsTable th.walletCol{
+  width:46%;
+}
+#pointsTable thead th:nth-child(3){width:11%;}
+#pointsTable thead th:nth-child(4),
+#pointsTable thead th:nth-child(5),
+#pointsTable thead th:nth-child(6),
+#pointsTable thead th:nth-child(7){width:10.75%;}
+
+#pointsTable td .walletCell{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+#pointsTable td .walletStack{
+  min-width:0;
+}
+#pointsTable td .copyBtnRow{
+  margin-left:auto;
+}
+
+.pointsStack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  text-align:center;
+  font-variant-numeric: tabular-nums;
+}
+.pointsStack > div{
+  width:100%;
+  text-align:center;
+}
+.pointsWins,
+.pointsPts{
+  display:block;
+  width:100%;
+  text-align:center;
+}
+
+</style>
 
         <div class="dfk-button-container" style="justify-content:center;">
           <a class="dfk-button" href="https://dfkplayertools.com/" target="_blank" rel="noopener noreferrer">
@@ -1667,6 +1777,10 @@ button.learnMoreBtn,
     </div>
   </div>
 </div>
+  </div>
+</div>
+
+
 
 <div class="modalBackdrop" id="tipBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tipTitle">
@@ -1711,7 +1825,6 @@ button.learnMoreBtn,
       <div class="modalNote" id="tourneyStatus" style="margin-top:10px"></div>
     </div>
   </div>
-</div>
 
 <div class="modalBackdrop" id="tourneyLinksBackdrop" aria-hidden="true">
   <div class="modal" role="dialog" aria-modal="true" aria-labelledby="tourneyLinksTitle">
@@ -1812,7 +1925,7 @@ button.learnMoreBtn,
     return Array.isArray(pointRows) ? { ...prevJson, players: pointRows } : null;
   }
 
-  const APP_VERSION = "v1.1.3-streamfix3";
+  const APP_VERSION = "v1.0.3";
 
   const state = {
     wins: [],
@@ -1979,6 +2092,33 @@ function escHtml(s){
   function pad(n){ return String(n).padStart(2,"0"); }
   function pluralWins(n){ return n === 1 ? "win" : "wins"; }
 
+  /* =========================================================
+   REQUIRED HELPER SAFEGUARD
+   The points leaderboard depends on deriveFourthCount().
+   If it is missing or defined later, the page throws
+   "deriveFourthCount is not defined" and the data stream dies.
+   DO NOT REMOVE THIS.
+   ========================================================= */
+  function deriveFourthCount(player, scoring) {
+    if (!player) return 0;
+
+    const explicit = Number(
+      player.fourths ?? player.fourth ?? player.round1 ?? player.round1Exits ?? player.fourthCount ?? NaN
+    );
+    if (Number.isFinite(explicit)) return Math.max(explicit, 0);
+
+    const first = Number(player.first || player.firsts || 0);
+    const second = Number(player.second || player.seconds || 0);
+    const third = Number(player.third || player.thirds || 0);
+    const played = Number(player.played || player.tournamentsPlayed || 0);
+    const used = first + second + third;
+    return Math.max(played - used, 0);
+  }
+
+  if (typeof globalThis !== "undefined" && typeof globalThis.deriveFourthCount !== "function") {
+    globalThis.deriveFourthCount = deriveFourthCount;
+  }
+
   function toIsoDateUtc(ms){
     const d = new Date(ms);
     return `${d.getUTCFullYear()}-${pad(d.getUTCMonth()+1)}-${pad(d.getUTCDate())}`;
@@ -2024,19 +2164,29 @@ function escHtml(s){
   function updateRangeIndicator(){
     const el = $("rangeText");
     const clearBtn = $("clearRangeBtn");
+    const clearBtnBottom = $("clearRangeBtnBottom");
+    const filtersNote = $("filtersNote");
+    const summaryText = $("rangeSummaryText");
     if (!el || !clearBtn) return;
 
     const preset = state.weekPreset;
-    if (preset === "this"){
-      el.textContent = "Showing this week";
+    let text = "";
+
+    if (preset === "this") {
+      text = "Showing this week";
       clearBtn.style.display = "none";
-      return;
+      if (clearBtnBottom) clearBtnBottom.style.display = "none";
+    } else {
+      const f = formatPrettyUtc(state.range.fromMs);
+      const t = formatPrettyUtcInclusiveEnd(state.range.toMs);
+      text = `Showing ${f} to ${t}`;
+      clearBtn.style.display = "none";
+      if (clearBtnBottom) clearBtnBottom.style.display = "inline-flex";
     }
 
-    const f = formatPrettyUtc(state.range.fromMs);
-    const t = formatPrettyUtcInclusiveEnd(state.range.toMs);
-    el.textContent = `Showing ${f} to ${t}`;
-    clearBtn.style.display = "inline-flex";
+    el.textContent = "";
+    if (filtersNote) filtersNote.textContent = "";
+    if (summaryText) summaryText.textContent = text;
   }
 
   
@@ -2276,6 +2426,39 @@ function shiftWeek(dir){
     });
   }
 
+  function updateWinsHeaderUI(){
+    const map = {
+      winsHdr10: ["Lvl 10", state.sortMode === "10s"],
+      winsHdr20: ["Lvl 20", state.sortMode === "20s"],
+      winsHdrTotal: ["Total", state.sortMode === "total"]
+    };
+    const dir = state.sortDir === "asc" ? "▴" : "▾";
+    Object.entries(map).forEach(([id, [label, active]]) => {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = active ? `${label} ${dir}` : `${label} ▾`;
+      el.setAttribute("aria-sort", active ? (state.sortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
+  function updatePointsHeaderUI(){
+    const key = state.pointsSortKey || "points";
+    const dir = state.pointsSortDir === "asc" ? "▴" : "▾";
+    const map = {
+      pointsHdrPoints: ["Points", key === "points"],
+      pointsHdrFirst: ["1st", key === "firsts"],
+      pointsHdrSecond: ["2nd", key === "seconds"],
+      pointsHdrThird: ["3rd", key === "thirds"],
+      pointsHdrFourth: ["4th", key === "round1"]
+    };
+    Object.entries(map).forEach(([id, [label, active]]) => {
+      const el = $(id);
+      if (!el) return;
+      el.textContent = active ? `${label} ${dir}` : `${label} ▾`;
+      el.setAttribute("aria-sort", active ? (state.pointsSortDir === "asc" ? "ascending" : "descending") : "none");
+    });
+  }
+
   function setWinsHeaderSort(mode){
     if (state.sortMode === mode){
       state.sortDir = state.sortDir === "desc" ? "asc" : "desc";
@@ -2307,6 +2490,7 @@ function shiftWeek(dir){
   }
 
   function applyPointsSort(){
+    updatePointsHeaderUI();
     renderPointsTable(sortPointsRows(state.pointsRows));
   }
 
@@ -2515,6 +2699,7 @@ tb.querySelectorAll(".clickWins").forEach(el => {
 
     updateWalletsButton(ranked.length);
     setToggleUI();
+    updateWinsHeaderUI();
     setColumnHighlight();
     renderTable(ranked);
   }
@@ -2571,29 +2756,6 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     if (type === "third") return Array.isArray(player.thirdIds) ? player.thirdIds : [];
     if (type === "fourth") return Array.isArray(player.fourthIds) ? player.fourthIds : [];
     return [];
-  }
-
-
-  function deriveFourthCount(player, scoring){
-    if (!player || typeof player !== "object") return 0;
-
-    const directKeys = ["round1", "round1ExitCount", "round1Exits", "fourth", "fourths", "fourthCount"];
-    for (const key of directKeys){
-      const n = Number(player[key]);
-      if (Number.isFinite(n) && n >= 0) return n;
-    }
-
-    if (Array.isArray(player.fourthIds)) return player.fourthIds.length;
-
-    const fourthPoints = Number(player.fourthPoints);
-    const round1Exit = Number(scoring?.round1Exit);
-    if (Number.isFinite(fourthPoints) && Number.isFinite(round1Exit) && round1Exit > 0){
-      const ratio = fourthPoints / round1Exit;
-      const rounded = Math.round(ratio);
-      return Math.abs(ratio - rounded) < 1e-9 ? rounded : ratio;
-    }
-
-    return 0;
   }
 
   function pointsTournamentUrl(id){
@@ -3621,24 +3783,10 @@ function openWalletsModal(){
 
   async function load(){
     try{
-      const json = await fetchJsonMaybeMulti([
-        "leaderboard.json",
-        "/leaderboard.json",
-        "./leaderboard.json",
-        "public/leaderboard.json",
-        "/public/leaderboard.json",
-        "./public/leaderboard.json"
-      ]);
+      const json = await fetchJsonMaybe("./leaderboard.json");
       if (!json) throw new Error("Failed to load leaderboard.json");
 
-      const profilesJson = await fetchJsonMaybeMulti([
-        "profiles.json",
-        "/profiles.json",
-        "./profiles.json",
-        "public/profiles.json",
-        "/public/profiles.json",
-        "./public/profiles.json"
-      ]);
+      const profilesJson = await fetchJsonMaybe("./profiles.json");
       if (profilesJson && profilesJson.namesByAddress && typeof profilesJson.namesByAddress === "object"){
         state.namesByAddress = {};
         for (const [addr, name] of Object.entries(profilesJson.namesByAddress)){
@@ -3650,14 +3798,7 @@ function openWalletsModal(){
         state.namesByAddress = {};
       }
 
-      const rangesJson = await fetchJsonMaybeMulti([
-        "tournamentRanges.json",
-        "/tournamentRanges.json",
-        "./tournamentRanges.json",
-        "public/tournamentRanges.json",
-        "/public/tournamentRanges.json",
-        "./public/tournamentRanges.json"
-      ]);
+      const rangesJson = await fetchJsonMaybe("./tournamentRanges.json");
       state.tournamentTierById = buildTierOverridesFromRangesJson(rangesJson);
 
       const pointsJson = await fetchJsonMaybeMulti([
@@ -3705,6 +3846,7 @@ function openWalletsModal(){
 
       setThisWeek();
       setToggleUI();
+      updateWinsHeaderUI();
       setColumnHighlight();
       apply();
 
