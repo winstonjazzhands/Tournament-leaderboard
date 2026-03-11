@@ -1,14 +1,14 @@
 {
-  "updatedAtUtc": "2026-03-11T13:58:59.625Z",
+  "updatedAtUtc": "2026-03-11T14:33:50.830Z",
   "diamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
   "matchTopic0": "0x2b93f4474a262323163bea734586863c91186f8230b05f68ba8018bac0a65897",
   "winnerHintTopic0": "0x9ed8f9aac14f45bbc703fe9922e91c5db62b94877aeb6384e861d8d8c75db032",
   "lookbackBlocks": 3000000,
-  "totalMatchLogs": 6757,
+  "totalMatchLogs": 6761,
   "totalHintLogs": 192814,
   "hintAccepted": 188334,
-  "winnersFound": 6757,
-  "winnersFromMatchData": 6757,
+  "winnersFound": 6761,
+  "winnersFromMatchData": 6761,
   "winnersFromHintFallback": 0,
   "matchDataWinnerInvalid": 0,
   "hintFallbackInvalid": 0,
@@ -74355,6 +74355,50 @@
       "blockNumber": 22332467,
       "txHash": "0xc6cb9ed24564a6a38b80fd11a645be82d4a457aa2046c8cf7781c8b5bff52ab0",
       "logIndex": 13
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x491ea4b304515c693deb31f5969f18a9fe782a63",
+      "playerB": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "resultCode": 1,
+      "winner": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332768,
+      "txHash": "0xaade77e17c9454372444eca25813d69bb3d194e7e1a5dac2dadb5fd9532d3e38",
+      "logIndex": 8
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "playerB": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "resultCode": 2,
+      "winner": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332776,
+      "txHash": "0x65fdab3942e8a13103b9fa6e3f1c64c95dd3ad8dba6a55e8594578f936b19516",
+      "logIndex": 17
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "playerB": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+      "resultCode": 3,
+      "winner": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332794,
+      "txHash": "0x4c04d99d26ae7a4857d35efb4f24e8a0884dde5391e0c6a2aa5d13116c4514e4",
+      "logIndex": 2
+    },
+    {
+      "matchId": 2013,
+      "playerA": "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601",
+      "playerB": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "resultCode": 4,
+      "winner": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22332820,
+      "txHash": "0xd2b53259749644b23655da35ea8e74f79b9dc1f22a34a18cfe931e6487325235",
+      "logIndex": 2
     }
   ]
 }
