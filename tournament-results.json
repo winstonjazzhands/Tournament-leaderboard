@@ -1,8 +1,8 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-12T14:13:09.453Z",
+    "generatedAtUtc": "2026-03-12T15:10:10.318Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-12T14:13:09.354Z",
+    "sourceUpdatedAtUtc": "2026-03-12T15:10:10.219Z",
     "totalTournaments": 1161,
     "completeTournaments": 945,
     "incompleteTournaments": 216,
@@ -43551,20 +43551,41 @@
     },
     {
       "tournamentId": 2017,
-      "bracketSize": 4,
-      "totalMatches": 2,
+      "bracketSize": 8,
+      "totalMatches": 6,
       "placements": {
         "first": null,
         "second": null,
-        "thirds": [],
+        "thirds": [
+          "0xb851aab224602b802d0706208a31be5807605c7f",
+          "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e"
+        ],
         "hasUniqueThird": false
       },
       "final": null,
-      "semifinals": [],
+      "semifinals": [
+        {
+          "resultCode": 5,
+          "winner": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+          "loser": "0xb851aab224602b802d0706208a31be5807605c7f",
+          "playerA": "0xb851aab224602b802d0706208a31be5807605c7f",
+          "playerB": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+          "blockNumber": 22339595,
+          "txHash": "0xa2c587b33b91dfcbc52978dde16832bcde17edaa81649943738414a3a102edb5"
+        },
+        {
+          "resultCode": 6,
+          "winner": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+          "loser": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+          "playerA": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+          "playerB": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+          "blockNumber": 22339603,
+          "txHash": "0x3b688d6d5425e511113e3471f79a035409b721d740ee60bda9e150e3941ee68b"
+        }
+      ],
       "status": "incomplete",
       "issues": [
-        "Missing final match (resultCode 7).",
-        "No semifinal matches found (resultCode 5/6)."
+        "Missing final match (resultCode 7)."
       ]
     },
     {
