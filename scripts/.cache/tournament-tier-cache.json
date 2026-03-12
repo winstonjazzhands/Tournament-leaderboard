@@ -6912,6 +6912,14 @@
       "resolvedAtUtc": "2026-03-12T19:52:46.702Z",
       "decodeVersion": "post22m-v1-flexpair"
     },
+    "2019": {
+      "tier": 10,
+      "matchedBlock": 22341397,
+      "anchorWinBlock": 22341397,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-12T21:01:49.181Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
     "2022": {
       "tier": 10,
       "matchedBlock": 22161435,
