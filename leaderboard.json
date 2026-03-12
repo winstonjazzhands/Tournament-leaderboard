@@ -1,11 +1,11 @@
 {
-  "updatedAtUtc": "2026-03-12T16:14:41.892Z",
+  "updatedAtUtc": "2026-03-12T17:12:24.198Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 334,
-  "uniqueTournaments": 334,
+  "totalWins": 335,
+  "uniqueTournaments": 335,
   "unknownTierWins": 0,
   "rewards": {
     "lvl10Brackets": [
@@ -2698,6 +2698,14 @@
       "timestamp": 1773328215,
       "blockNumber": 22339766,
       "tier": 10
+    },
+    {
+      "id": "0xb61f33a77475c8f3759c78cf571cb941fd3bf2dbc277e09bd4b60bd001a2022c-1",
+      "tournamentId": 2155,
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "timestamp": 1773333695,
+      "blockNumber": 22340215,
+      "tier": 10
     }
   ],
   "leaderboard": [
@@ -2912,6 +2920,17 @@
     },
     {
       "rank": 20,
+      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
+      "lvl10Wins": 3,
+      "lvl20Wins": 0,
+      "totalWins": 3,
+      "lastWin": 1773333695,
+      "lifetimeEarned": 0,
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 0
+    },
+    {
+      "rank": 21,
       "wallet": "0xb0b3c842d26c255252ef0993094ba0f73c33231a",
       "lvl10Wins": 3,
       "lvl20Wins": 0,
@@ -2922,23 +2941,12 @@
       "lastWeekEarned": 0
     },
     {
-      "rank": 21,
+      "rank": 22,
       "wallet": "0xefba6f4352a4c8162dd789ab3788d5e287ca80cb",
       "lvl10Wins": 2,
       "lvl20Wins": 0,
       "totalWins": 2,
       "lastWin": 1772658254,
-      "lifetimeEarned": 0,
-      "thisWeekEarned": 0,
-      "lastWeekEarned": 0
-    },
-    {
-      "rank": 22,
-      "wallet": "0x951a89ed8c133684ba63d0932ebcb39d4692900c",
-      "lvl10Wins": 2,
-      "lvl20Wins": 0,
-      "totalWins": 2,
-      "lastWin": 1771378109,
       "lifetimeEarned": 0,
       "thisWeekEarned": 0,
       "lastWeekEarned": 0
@@ -3043,6 +3051,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-12T16:14:43.459Z",
+  "tiersUpdatedAtUtc": "2026-03-12T17:12:26.102Z",
   "tiersChanges": 114
 }
