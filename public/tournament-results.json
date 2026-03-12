@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-12T22:23:50.134Z",
+    "generatedAtUtc": "2026-03-12T22:53:42.896Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-12T22:23:50.033Z",
+    "sourceUpdatedAtUtc": "2026-03-12T22:53:42.785Z",
     "totalTournaments": 1165,
-    "completeTournaments": 949,
-    "incompleteTournaments": 216,
+    "completeTournaments": 950,
+    "incompleteTournaments": 215,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -43687,17 +43687,25 @@
     {
       "tournamentId": 2020,
       "bracketSize": 4,
-      "totalMatches": 2,
+      "totalMatches": 3,
       "placements": {
-        "first": null,
-        "second": null,
+        "first": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "second": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
         "thirds": [
           "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
           "0x7e13b4bcfcf935614640f948211bfd9f1a5b5601"
         ],
         "hasUniqueThird": false
       },
-      "final": null,
+      "final": {
+        "resultCode": 7,
+        "winner": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "loser": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+        "playerA": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+        "playerB": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "blockNumber": 22341859,
+        "txHash": "0xbe2fbff9e4214083e8d4ed2c6b1da74b84f3c80d4f2e644c1c2410e030e49094"
+      },
       "semifinals": [
         {
           "resultCode": 6,
@@ -43718,10 +43726,8 @@
           "txHash": "0x1238a8a0e3baf4d002e742655144ca7e3f5e611144f6702ebdd3e9d3d398a5e6"
         }
       ],
-      "status": "incomplete",
-      "issues": [
-        "Missing final match (resultCode 7)."
-      ]
+      "status": "complete",
+      "issues": []
     },
     {
       "tournamentId": 2022,
