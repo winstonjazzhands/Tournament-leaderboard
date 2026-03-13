@@ -1,13 +1,13 @@
 {
-  "updatedAtUtc": "2026-03-13T16:43:45.444Z",
+  "updatedAtUtc": "2026-03-13T17:24:19.286Z",
   "sourceFiles": [
     "public/tournament-results.json",
     "public/matches.json"
   ],
   "sourceSummary": {
-    "generatedAtUtc": "2026-03-13T16:43:45.335Z",
+    "generatedAtUtc": "2026-03-13T17:24:19.189Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-13T16:43:45.226Z",
+    "sourceUpdatedAtUtc": "2026-03-13T17:24:19.089Z",
     "totalTournaments": 1167,
     "completeTournaments": 952,
     "incompleteTournaments": 215,
