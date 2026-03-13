@@ -1,10 +1,10 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-13T15:59:23.117Z",
+    "generatedAtUtc": "2026-03-13T16:43:45.335Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-13T15:59:23.013Z",
-    "totalTournaments": 1166,
-    "completeTournaments": 951,
+    "sourceUpdatedAtUtc": "2026-03-13T16:43:45.226Z",
+    "totalTournaments": 1167,
+    "completeTournaments": 952,
     "incompleteTournaments": 215,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
@@ -47594,6 +47594,51 @@
           "playerB": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
           "blockNumber": 22346248,
           "txHash": "0x279fb5a40c31a6997bbac96074ed17e9be89e3dc0d461156d204dcc242b870c2"
+        }
+      ],
+      "status": "complete",
+      "issues": []
+    },
+    {
+      "tournamentId": 2158,
+      "bracketSize": 4,
+      "totalMatches": 3,
+      "placements": {
+        "first": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "second": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+        "thirds": [
+          "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb"
+        ],
+        "hasUniqueThird": false
+      },
+      "final": {
+        "resultCode": 7,
+        "winner": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "loser": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+        "playerA": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+        "playerB": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+        "blockNumber": 22346794,
+        "txHash": "0xd084d412702756f9a6a80d5f15148a74cb6bab42a3e72fbaa95ffc45a4b19ce3"
+      },
+      "semifinals": [
+        {
+          "resultCode": 6,
+          "winner": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+          "loser": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "playerA": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "playerB": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+          "blockNumber": 22346672,
+          "txHash": "0xfb07f3d9203a15e8aae182e8b808005ce0c459f6ef1b4175a1b019e60ee4f507"
+        },
+        {
+          "resultCode": 5,
+          "winner": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+          "loser": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+          "playerA": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+          "playerB": "0xba42e89b2f69c68e79898ba73d9a4eb13d25c70e",
+          "blockNumber": 22346699,
+          "txHash": "0x4fd335b98368ae41c2d3dd39ee82ae0f5dec8a2b368cc6925a60844724a9a1b0"
         }
       ],
       "status": "complete",
