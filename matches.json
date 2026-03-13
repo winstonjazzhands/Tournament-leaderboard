@@ -1,14 +1,14 @@
 {
-  "updatedAtUtc": "2026-03-13T18:00:41.560Z",
+  "updatedAtUtc": "2026-03-13T18:51:56.444Z",
   "diamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
   "matchTopic0": "0x2b93f4474a262323163bea734586863c91186f8230b05f68ba8018bac0a65897",
   "winnerHintTopic0": "0x9ed8f9aac14f45bbc703fe9922e91c5db62b94877aeb6384e861d8d8c75db032",
   "lookbackBlocks": 3000000,
-  "totalMatchLogs": 6806,
-  "totalHintLogs": 192828,
-  "hintAccepted": 188348,
-  "winnersFound": 6806,
-  "winnersFromMatchData": 6806,
+  "totalMatchLogs": 6809,
+  "totalHintLogs": 192832,
+  "hintAccepted": 188352,
+  "winnersFound": 6809,
+  "winnersFromMatchData": 6809,
   "winnersFromHintFallback": 0,
   "matchDataWinnerInvalid": 0,
   "hintFallbackInvalid": 0,
@@ -74894,6 +74894,39 @@
       "blockNumber": 22346794,
       "txHash": "0xd084d412702756f9a6a80d5f15148a74cb6bab42a3e72fbaa95ffc45a4b19ce3",
       "logIndex": 12
+    },
+    {
+      "matchId": 2268,
+      "playerA": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "playerB": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+      "resultCode": 4,
+      "winner": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22347232,
+      "txHash": "0xf4e9edb506a51392465e8fbce4251fa95d706aebd31931c83e1f4d06e6b3515f",
+      "logIndex": 11
+    },
+    {
+      "matchId": 2268,
+      "playerA": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "playerB": "0x3fb5281fe5845efcc43a106e91dc85e5b8e18e22",
+      "resultCode": 6,
+      "winner": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22347310,
+      "txHash": "0xd896aa24aab506c021566b566e7dade99502a3f1b7e2ffb4d8deb1a2f36e2f01",
+      "logIndex": 6
+    },
+    {
+      "matchId": 2268,
+      "playerA": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "playerB": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "resultCode": 5,
+      "winner": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22347310,
+      "txHash": "0x9cf19907d5e3746ca5942d52d60566b9ac631c9645abbd49201bb0242cfe2a11",
+      "logIndex": 22
     }
   ]
 }
