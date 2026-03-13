@@ -493,6 +493,13 @@
       padding-right: var(--tableGutter);
       scrollbar-gutter: stable;
     }
+
+/* Remove side gutter so both leaderboards reach card edges */
+#pointsTableWrap,
+#tableWrap{
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
     table{
       width:100%;
       border-collapse:separate;
@@ -673,13 +680,19 @@
     #pointsTable.pointsColHiThird thead th:nth-child(6),
     #pointsTable.pointsColHiThird tbody td:nth-child(6),
     #pointsTable.pointsColHiFourth thead th:nth-child(7),
-    #pointsTable.pointsColHiFourth tbody td:nth-child(7) { background: var(--colHi); }
+    #pointsTable.pointsColHiFourth tbody td:nth-child(7),
+    #pointsTable.pointsColHiRaw thead th:nth-child(8),
+    #pointsTable.pointsColHiRaw tbody td:nth-child(8),
+    #pointsTable.pointsColHiTrue thead th:nth-child(9),
+    #pointsTable.pointsColHiTrue tbody td:nth-child(9) { background: var(--colHi); }
 
     #pointsTable.pointsColHiPoints thead th:nth-child(3),
     #pointsTable.pointsColHiFirst thead th:nth-child(4),
     #pointsTable.pointsColHiSecond thead th:nth-child(5),
     #pointsTable.pointsColHiThird thead th:nth-child(6),
-    #pointsTable.pointsColHiFourth thead th:nth-child(7) { background: var(--colHiHead); }
+    #pointsTable.pointsColHiFourth thead th:nth-child(7),
+    #pointsTable.pointsColHiRaw thead th:nth-child(8),
+    #pointsTable.pointsColHiTrue thead th:nth-child(9) { background: var(--colHiHead); }
 
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
@@ -1120,6 +1133,8 @@ body.points-mode #pointsCard{
 #pointsTable thead th:nth-child(5),
 #pointsTable thead th:nth-child(6),
 #pointsTable thead th:nth-child(7){width:10.75%;}
+#pointsTable thead th:nth-child(8),
+#pointsTable thead th:nth-child(9){width:9.5%;}
 
 #pointsTable td .walletCell{
   display:flex;
@@ -1178,6 +1193,8 @@ body.points-mode #pointsCard{
 #pointsTable thead th:nth-child(5),
 #pointsTable thead th:nth-child(6),
 #pointsTable thead th:nth-child(7){ width:9% !important; }
+#pointsTable thead th:nth-child(8),
+#pointsTable thead th:nth-child(9){ width:10% !important; }
 
 #pointsTable thead th:nth-child(n+3),
 #pointsTable tbody td:nth-child(n+3){
@@ -1284,6 +1301,13 @@ button.learnMoreBtn,
 #table td.rank{
   font-size:17px !important;
   font-weight:900 !important;
+}
+#pointsTable .rank.disqualified{
+  color: var(--bad) !important;
+  font-size: 11px !important;
+  font-weight: 1000 !important;
+  text-transform: uppercase;
+  letter-spacing: .3px;
 }
 #pointsTable .pointsMetaSub{
   display:block;
@@ -1533,10 +1557,12 @@ button.learnMoreBtn,
               <th class="right sortableHeader" id="pointsHdrSecond" tabindex="0" role="button">2nd</th>
               <th class="right sortableHeader" id="pointsHdrThird" tabindex="0" role="button">3rd</th>
               <th class="right sortableHeader" id="pointsHdrFourth" tabindex="0" role="button">4th</th>
+              <th class="right sortableHeader" id="pointsHdrRawSkill" tabindex="0" role="button">Raw Skill</th>
+              <th class="right sortableHeader" id="pointsHdrTrueSkill" tabindex="0" role="button">True Skill</th>
             </tr>
           </thead>
           <tbody id="pointsTbody">
-            <tr><td colspan="7" style="padding:14px;color:var(--muted)">Loading…</td></tr>
+            <tr><td colspan="9" style="padding:14px;color:var(--muted)">Loading…</td></tr>
           </tbody>
         </table>
       </div>
@@ -2010,7 +2036,199 @@ body.points-mode #pointsCard{
     return Array.isArray(pointRows) ? { ...prevJson, players: pointRows } : null;
   }
 
-  const APP_VERSION = "v1.0.3";
+  function pointsRangeBlocks(leaderboard){
+    const summary = leaderboard?.summary || {};
+    const startBlock = Number(summary?.startBlock);
+    const endBlock = Number(summary?.endBlock);
+    return {
+      startBlock: Number.isFinite(startBlock) && startBlock > 0 ? startBlock : null,
+      endBlock: Number.isFinite(endBlock) && endBlock > 0 ? endBlock : null,
+    };
+  }
+
+  function tournamentResultBlockNumber(row){
+    const candidates = [
+      row?.final?.blockNumber,
+      row?.finalBlockNumber,
+      row?.completedBlockNumber,
+      row?.endBlock,
+      row?.blockNumber,
+      row?.finalizedBlockNumber,
+      row?.completionBlockNumber,
+    ];
+    for (const value of candidates){
+      const n = Number(value);
+      if (Number.isFinite(n) && n > 0) return n;
+    }
+    return null;
+  }
+
+  function normalizePlacementWallet(value){
+    if (typeof value !== "string") return "";
+    const v = value.trim().toLowerCase();
+    return /^0x[a-f0-9]{40}$/.test(v) ? v : "";
+  }
+
+  function collectPlacementWalletsDeep(node, out, seen){
+    if (!node) return;
+    if (!out) return;
+    if (!seen) seen = new WeakSet();
+
+    if (typeof node === "string"){
+      const wallet = normalizePlacementWallet(node);
+      if (wallet) out.push(wallet);
+      return;
+    }
+
+    if (Array.isArray(node)){
+      for (const item of node) collectPlacementWalletsDeep(item, out, seen);
+      return;
+    }
+
+    if (typeof node !== "object") return;
+    if (seen.has(node)) return;
+    seen.add(node);
+
+    const priorityKeys = ["wallet", "address", "owner", "player", "account", "entrant", "user", "winner", "loser"];
+    for (const key of priorityKeys){
+      if (key in node) collectPlacementWalletsDeep(node[key], out, seen);
+    }
+    for (const value of Object.values(node)){
+      collectPlacementWalletsDeep(value, out, seen);
+    }
+  }
+
+  function firstPlacementWallet(node){
+    const wallets = [];
+    collectPlacementWalletsDeep(node, wallets);
+    return wallets[0] || "";
+  }
+
+  function placementWalletByRankish(node, targetRank){
+    if (!node) return "";
+    const entries = Array.isArray(node)
+      ? node
+      : (typeof node === "object" ? Object.values(node) : []);
+
+    for (const entry of entries){
+      if (!entry || typeof entry !== "object") continue;
+      const rank = Number(entry.rank ?? entry.place ?? entry.position ?? entry.finish ?? entry.placement);
+      if (rank !== targetRank) continue;
+      const wallet = firstPlacementWallet(entry);
+      if (wallet) return wallet;
+    }
+
+    if (!Array.isArray(node) && typeof node === "object"){
+      const direct = node[String(targetRank)] ?? node[targetRank];
+      const wallet = firstPlacementWallet(direct);
+      if (wallet) return wallet;
+    }
+
+    return "";
+  }
+
+  function derivePlacementWalletsFromTournamentRow(row){
+    const placements = row?.placements || row?.results?.placements || row?.results || {};
+    const consolation = placements?.consolation || placements?.bronzeMatch || row?.consolation || row?.bronzeMatch || null;
+    const semifinalLosers = placements?.semifinalLosers || placements?.semiFinalLosers || row?.semifinalLosers || row?.semiFinalLosers || [];
+    const standings = row?.standings || row?.finalStandings || row?.placementsByRank || placements?.standings || placements?.ranking || placements?.rankings || null;
+
+    const first = firstPlacementWallet(
+      placements?.first ?? placements?.winner ?? placements?.firstPlace ?? placements?.champion ?? row?.winner
+    ) || placementWalletByRankish(standings, 1);
+
+    const second = firstPlacementWallet(
+      placements?.second ?? placements?.runnerUp ?? placements?.secondPlace ?? placements?.finalist ?? row?.runnerUp
+    ) || placementWalletByRankish(standings, 2);
+
+    let third = firstPlacementWallet(
+      placements?.third ?? placements?.thirdPlace ?? placements?.bronzeWinner ?? placements?.consolationWinner ?? consolation?.winner
+    ) || placementWalletByRankish(standings, 3);
+
+    let fourth = firstPlacementWallet(
+      placements?.fourth ?? placements?.fourthPlace ?? placements?.round1 ?? placements?.round1Exit ?? placements?.bronzeLoser ?? placements?.consolationLoser ?? consolation?.loser
+    ) || placementWalletByRankish(standings, 4);
+
+    if ((!third || !fourth) && Array.isArray(semifinalLosers) && semifinalLosers.length){
+      const losers = [];
+      collectPlacementWalletsDeep(semifinalLosers, losers);
+      const uniqLosers = [...new Set(losers)].filter(Boolean);
+      if (!third && uniqLosers.length === 2 && fourth){
+        third = uniqLosers.find(w => w !== fourth) || third;
+      }
+      if (!fourth && uniqLosers.length === 2 && third){
+        fourth = uniqLosers.find(w => w !== third) || fourth;
+      }
+    }
+
+    return { first, second, third, fourth };
+  }
+
+  function mergeDerivedPointsPlacements(leaderboard){
+    if (!leaderboard || !Array.isArray(leaderboard.players) || !Object.keys(state.tournamentResultsById || {}).length) return leaderboard;
+
+    const { startBlock, endBlock } = pointsRangeBlocks(leaderboard);
+    if (!startBlock && !endBlock) return leaderboard;
+
+    const derived = new Map();
+    const ensureDerived = (wallet) => {
+      const key = (wallet || "").toLowerCase();
+      if (!key) return null;
+      if (!derived.has(key)) derived.set(key, { thirds: 0, round1: 0, thirdIds: [], fourthIds: [] });
+      return derived.get(key);
+    };
+
+    for (const row of Object.values(state.tournamentResultsById || {})){
+      const blockNumber = tournamentResultBlockNumber(row);
+      if (!blockNumber) continue;
+      if (startBlock && blockNumber < startBlock) continue;
+      if (endBlock && blockNumber > endBlock) continue;
+
+      const tournamentId = normalizeTournamentId(row?.tournamentId ?? row?.id ?? row?.tourneyId ?? "");
+      const placements = derivePlacementWalletsFromTournamentRow(row);
+
+      if (placements.third){
+        const target = ensureDerived(placements.third);
+        if (target){
+          target.thirds += 1;
+          if (tournamentId && !target.thirdIds.includes(tournamentId)) target.thirdIds.push(tournamentId);
+        }
+      }
+
+      if (placements.fourth){
+        const target = ensureDerived(placements.fourth);
+        if (target){
+          target.round1 += 1;
+          if (tournamentId && !target.fourthIds.includes(tournamentId)) target.fourthIds.push(tournamentId);
+        }
+      }
+    }
+
+    return {
+      ...leaderboard,
+      players: leaderboard.players.map((player) => {
+        const wallet = (player?.wallet || "").toLowerCase();
+        const add = derived.get(wallet);
+        if (!add) return player;
+
+        const currentThirds = Number(player?.thirds ?? player?.third ?? 0) || 0;
+        const currentFourths = deriveFourthCount(player, leaderboard?.scoring);
+        const next = { ...player };
+
+        if (currentThirds === 0 && add.thirds > 0) next.thirds = add.thirds;
+        if (currentFourths === 0 && add.round1 > 0) {
+          next.round1 = add.round1;
+          next.fourth = add.round1;
+        }
+        if ((!Array.isArray(player?.thirdIds) || !player.thirdIds.length) && add.thirdIds.length) next.thirdIds = add.thirdIds.slice();
+        if ((!Array.isArray(player?.fourthIds) || !player.fourthIds.length) && add.fourthIds.length) next.fourthIds = add.fourthIds.slice();
+
+        return next;
+      })
+    };
+  }
+
+  const APP_VERSION = "v1.0.4";
 
   const state = {
     wins: [],
@@ -2058,6 +2276,25 @@ body.points-mode #pointsCard{
   "brionthelion": "zion3noiz",
   "just have fun": "clash.hope"
 };
+
+// Points-board-only disqualification controls.
+// mode: "hold" keeps the wallet in its sorted spot with no rank number.
+// mode: "bottom" moves the wallet to the bottom of the points board with no rank number.
+// Edit this list only when you want to disqualify or restore a wallet.
+const POINTS_DISQUALIFICATIONS = {
+     "0xbA42e89b2f69C68E79898ba73D9A4Eb13D25c70e": { mode: "hold", label: "Disqualified"
+ }
+  // "0x0000000000000000000000000000000000000000": { mode: "hold", label: "Disqualified" },
+};
+
+function getPointsDisqualification(wallet){
+  const key = String(wallet || "").toLowerCase();
+  const entry = POINTS_DISQUALIFICATIONS[key];
+  if (!entry || typeof entry !== "object") return null;
+  const mode = entry.mode === "bottom" ? "bottom" : "hold";
+  const label = String(entry.label || "Disqualified");
+  return { ...entry, mode, label };
+}
 
 // Filters collapse + token price tickers (shown when filters are hidden)
 const TOKEN_PAIRS = [
@@ -2502,13 +2739,19 @@ function shiftWeek(dir){
     });
   }
 
+  function getPointsSortMetric(row, key){
+    if (key === "rawSkill") return getRawSkill(row);
+    if (key === "trueSkill") return getTrueSkill(row);
+    return Number(row?.[key]) || 0;
+  }
+
   function sortPointsRows(rows){
     const key = state.pointsSortKey || "points";
     const dir = state.pointsSortDir === "asc" ? 1 : -1;
     const sorted = [...(Array.isArray(rows) ? rows : [])];
     sorted.sort((a,b) => {
-      const av = Number(a?.[key]) || 0;
-      const bv = Number(b?.[key]) || 0;
+      const av = getPointsSortMetric(a, key);
+      const bv = getPointsSortMetric(b, key);
       if (bv !== av) return dir === -1 ? (bv - av) : (av - bv);
 
       const tie = (Number(b?.points) || 0) - (Number(a?.points) || 0)
@@ -2519,7 +2762,34 @@ function shiftWeek(dir){
         || String(a?.wallet || "").localeCompare(String(b?.wallet || ""));
       return dir === -1 ? tie : -tie;
     });
-    return sorted.map((r, i) => ({ ...r, rank: i + 1 }));
+
+    const annotated = sorted.map((r, i) => {
+      const dq = getPointsDisqualification(r?.wallet);
+      return { ...r, baseRank: i + 1, disqualification: dq };
+    });
+
+    const inPlace = annotated.filter(r => !(r.disqualification && r.disqualification.mode === "bottom"));
+    const pushedBottom = annotated.filter(r => r.disqualification && r.disqualification.mode === "bottom");
+    const displayRows = [...inPlace, ...pushedBottom];
+
+    let visibleRank = 0;
+    return displayRows.map((r) => {
+      if (r.disqualification){
+        return {
+          ...r,
+          rank: null,
+          rankLabel: r.disqualification.label || "Disqualified",
+          isDisqualified: true,
+        };
+      }
+      visibleRank += 1;
+      return {
+        ...r,
+        rank: visibleRank,
+        rankLabel: String(visibleRank),
+        isDisqualified: false,
+      };
+    });
   }
 
   function updatePointsHeaderUI(){
@@ -2528,7 +2798,9 @@ function shiftWeek(dir){
       ["pointsHdrFirst", "1st", "firsts"],
       ["pointsHdrSecond", "2nd", "seconds"],
       ["pointsHdrThird", "3rd", "thirds"],
-      ["pointsHdrFourth", "4th", "round1"]
+      ["pointsHdrFourth", "4th", "round1"],
+      ["pointsHdrRawSkill", "Raw Skill", "rawSkill"],
+      ["pointsHdrTrueSkill", "True Skill", "trueSkill"]
     ];
     const activeKey = state.pointsSortKey || "points";
     const dir = state.pointsSortDir === "asc" ? "asc" : "desc";
@@ -2545,11 +2817,13 @@ function shiftWeek(dir){
   function setPointsColumnHighlight(){
     const tbl = $("pointsTable");
     if (!tbl) return;
-    tbl.classList.remove("pointsColHiPoints","pointsColHiFirst","pointsColHiSecond","pointsColHiThird","pointsColHiFourth");
+    tbl.classList.remove("pointsColHiPoints","pointsColHiFirst","pointsColHiSecond","pointsColHiThird","pointsColHiFourth","pointsColHiRaw","pointsColHiTrue");
     if (state.pointsSortKey === "firsts") tbl.classList.add("pointsColHiFirst");
     else if (state.pointsSortKey === "seconds") tbl.classList.add("pointsColHiSecond");
     else if (state.pointsSortKey === "thirds") tbl.classList.add("pointsColHiThird");
     else if (state.pointsSortKey === "round1") tbl.classList.add("pointsColHiFourth");
+    else if (state.pointsSortKey === "rawSkill") tbl.classList.add("pointsColHiRaw");
+    else if (state.pointsSortKey === "trueSkill") tbl.classList.add("pointsColHiTrue");
     else tbl.classList.add("pointsColHiPoints");
   }
 
@@ -2668,7 +2942,7 @@ function shiftWeek(dir){
 
       return `
         <tr>
-          <td class="rank">${r.rank}</td>
+          <td class="rank${r.isDisqualified ? " disqualified" : ""}">${r.isDisqualified ? escHtml(r.rankLabel || "Disqualified") : r.rank}</td>
           <td class="mono">
             <div class="walletCell">
               <div class="walletStack">
@@ -2799,6 +3073,32 @@ tb.querySelectorAll(".clickWins").forEach(el => {
   function renderPointsCell(value){
     const n = Number(value);
     return Number.isFinite(n) ? n.toLocaleString(undefined, { maximumFractionDigits: 1 }) : "—";
+  }
+
+  function getPointsPlayedForSkill(row){
+    return Number(row?.tournamentsPlayed || (Number(row?.firsts || 0) + Number(row?.seconds || 0) + Number(row?.thirds || 0) + Number(row?.round1 || 0)) || 0);
+  }
+
+  function getRawSkill(row){
+    const played = getPointsPlayedForSkill(row);
+    if (!played) return 0;
+    const first = Number(row?.firsts || 0);
+    const second = Number(row?.seconds || 0);
+    const third = Number(row?.thirds || 0);
+    const fourth = Number(row?.round1 || 0);
+    return ((3.6 * first) + (2.7 * second) + (1.4 * third) - (0.7 * fourth)) / played;
+  }
+
+  function getTrueSkill(row){
+    const played = getPointsPlayedForSkill(row);
+    if (!played) return 0;
+    const raw = getRawSkill(row);
+    return raw * played / (played + 18);
+  }
+
+  function formatSkill(value){
+    const n = Number(value);
+    return Number.isFinite(n) ? n.toFixed(3) : "—";
   }
 
   function renderPointsFinishCell(wallet, type, wins, pointsPerWin, played){
@@ -2967,7 +3267,7 @@ tb.querySelectorAll(".clickWins").forEach(el => {
     if (!tb) return;
 
     if (!Array.isArray(rows) || !rows.length){
-      tb.innerHTML = `<tr><td colspan="7" style="padding:14px;color:var(--muted)">No points results available.</td></tr>`;
+      tb.innerHTML = `<tr><td colspan="9" style="padding:14px;color:var(--muted)">No points results available.</td></tr>`;
       return;
     }
 
@@ -2975,11 +3275,13 @@ tb.querySelectorAll(".clickWins").forEach(el => {
       const name = displayName(r.wallet);
       const wShort = shortWallet(r.wallet);
 
-      const played = Number(r.tournamentsPlayed || (Number(r.firsts || 0) + Number(r.seconds || 0) + Number(r.thirds || 0) + Number(r.round1 || 0)) || 0);
+      const played = getPointsPlayedForSkill(r);
+      const rawSkill = getRawSkill(r);
+      const trueSkill = getTrueSkill(r);
 
       return `
         <tr>
-          <td class="rank">${r.rank}</td>
+          <td class="rank${r.isDisqualified ? " disqualified" : ""}">${r.isDisqualified ? escHtml(r.rankLabel || "Disqualified") : r.rank}</td>
           <td class="mono">
             <div class="walletCell">
               <div class="walletStack">
@@ -3000,6 +3302,8 @@ tb.querySelectorAll(".clickWins").forEach(el => {
           <td class="right">${renderPointsFinishCell(r.wallet, "second", r.seconds, 2, played)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "third", r.thirds, 1, played)}</td>
           <td class="right">${renderPointsFinishCell(r.wallet, "fourth", r.round1, 0.5, played)}</td>
+          <td class="right"><span class="pointsMainVal">${formatSkill(rawSkill)}</span><span class="pointsPlayedSub">Raw</span></td>
+          <td class="right"><span class="pointsMainVal">${formatSkill(trueSkill)}</span><span class="pointsPlayedSub">True</span></td>
         </tr>
       `;
     }).join("");
@@ -3892,6 +4196,8 @@ function openWalletsModal(){
           .map(r => [String(r.tournamentId), r])
       );
 
+      state.pointsLeaderboard = mergeDerivedPointsPlacements(state.pointsLeaderboard);
+
       const wins = Array.isArray(json.wins) ? json.wins : [];
       state.serverLeaderboard = Array.isArray(json.leaderboard) ? json.leaderboard : [];
 
@@ -3979,7 +4285,7 @@ function openWalletsModal(){
       $("top3Lifetime").innerHTML = `<div class="topEmpty" style="color:var(--bad)">Error loading data.</div>`;
       renderPointsTable([]);
       const ptb = $("pointsTbody");
-      if (ptb) ptb.innerHTML = `<tr><td colspan="7" style="padding:14px;color:var(--bad)">Error loading points data.</td></tr>`;
+      if (ptb) ptb.innerHTML = `<tr><td colspan="9" style="padding:14px;color:var(--bad)">Error loading points data.</td></tr>`;
       requestAnimationFrame(() => sizeTilesToFilters());
     }
   }
@@ -4114,6 +4420,8 @@ function openWalletsModal(){
   bindHeaderToggle("pointsHdrSecond", () => setPointsHeaderSort("seconds"));
   bindHeaderToggle("pointsHdrThird", () => setPointsHeaderSort("thirds"));
   bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1"));
+  bindHeaderToggle("pointsHdrRawSkill", () => setPointsHeaderSort("rawSkill"));
+  bindHeaderToggle("pointsHdrTrueSkill", () => setPointsHeaderSort("trueSkill"));
 
   window.addEventListener("resize", () => sizeTilesToFilters());
 
@@ -4241,7 +4549,7 @@ function openWalletsModal(){
     if (!isShowingPrevious) {
       const prevData = await loadPreviousMonthPoints();
       if (!prevData) return;
-      state.pointsLeaderboard = prevData;
+      state.pointsLeaderboard = mergeDerivedPointsPlacements(prevData);
       prevBtn.setAttribute("data-showing", "previous");
       prevBtn.textContent = "Current month";
       apply();
