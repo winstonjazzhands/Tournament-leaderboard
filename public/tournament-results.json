@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-14T15:51:32.932Z",
+    "generatedAtUtc": "2026-03-14T16:27:39.801Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-14T15:51:32.841Z",
-    "totalTournaments": 1173,
+    "sourceUpdatedAtUtc": "2026-03-14T16:27:39.700Z",
+    "totalTournaments": 1174,
     "completeTournaments": 958,
-    "incompleteTournaments": 215,
+    "incompleteTournaments": 216,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -47778,6 +47778,24 @@
       ],
       "status": "complete",
       "issues": []
+    },
+    {
+      "tournamentId": 2162,
+      "bracketSize": 2,
+      "totalMatches": 1,
+      "placements": {
+        "first": null,
+        "second": null,
+        "thirds": [],
+        "hasUniqueThird": false
+      },
+      "final": null,
+      "semifinals": [],
+      "status": "incomplete",
+      "issues": [
+        "Missing final match (resultCode 7).",
+        "No semifinal matches found (resultCode 5/6)."
+      ]
     },
     {
       "tournamentId": 2268,
