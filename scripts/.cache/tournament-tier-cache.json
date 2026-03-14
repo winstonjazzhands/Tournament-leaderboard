@@ -7679,6 +7679,22 @@
       "method": "logs/lookback",
       "resolvedAtUtc": "2026-03-14T15:49:26.233Z",
       "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2273": {
+      "tier": 10,
+      "matchedBlock": 22353628,
+      "anchorWinBlock": 22353806,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-14T18:31:50.086Z",
+      "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2274": {
+      "tier": 10,
+      "matchedBlock": 22353577,
+      "anchorWinBlock": 22353794,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-14T18:31:57.586Z",
+      "decodeVersion": "post22m-v1-flexpair"
     }
   }
 }
