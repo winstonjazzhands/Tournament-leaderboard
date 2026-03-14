@@ -1,10 +1,10 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-14T19:57:46.093Z",
+    "generatedAtUtc": "2026-03-14T20:28:33.063Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-14T19:57:45.992Z",
-    "totalTournaments": 1177,
-    "completeTournaments": 961,
+    "sourceUpdatedAtUtc": "2026-03-14T20:28:32.961Z",
+    "totalTournaments": 1178,
+    "completeTournaments": 962,
     "incompleteTournaments": 216,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
@@ -47825,6 +47825,24 @@
       "issues": []
     },
     {
+      "tournamentId": 2163,
+      "bracketSize": 2,
+      "totalMatches": 1,
+      "placements": {
+        "first": null,
+        "second": null,
+        "thirds": [],
+        "hasUniqueThird": false
+      },
+      "final": null,
+      "semifinals": [],
+      "status": "incomplete",
+      "issues": [
+        "Missing final match (resultCode 7).",
+        "No semifinal matches found (resultCode 5/6)."
+      ]
+    },
+    {
       "tournamentId": 2268,
       "bracketSize": 5,
       "totalMatches": 4,
@@ -48052,17 +48070,25 @@
     {
       "tournamentId": 2275,
       "bracketSize": 4,
-      "totalMatches": 2,
+      "totalMatches": 3,
       "placements": {
-        "first": null,
-        "second": null,
+        "first": "0xa81599eac76045fce181ae0d83a5843c39867ad4",
+        "second": "0x8ebbd338cd03f2218eeb5533deed9a628c7aaf84",
         "thirds": [
           "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
           "0x585d9c9b5c8c31d22e80d48d66880f9f9e180276"
         ],
         "hasUniqueThird": false
       },
-      "final": null,
+      "final": {
+        "resultCode": 7,
+        "winner": "0xa81599eac76045fce181ae0d83a5843c39867ad4",
+        "loser": "0x8ebbd338cd03f2218eeb5533deed9a628c7aaf84",
+        "playerA": "0x8ebbd338cd03f2218eeb5533deed9a628c7aaf84",
+        "playerB": "0xa81599eac76045fce181ae0d83a5843c39867ad4",
+        "blockNumber": 22354259,
+        "txHash": "0xabe339681c687b109c72fe3d26268b6b61a055a3440a86c78310d8ea2a929895"
+      },
       "semifinals": [
         {
           "resultCode": 6,
@@ -48083,10 +48109,8 @@
           "txHash": "0x865377d2389ba0b7df3b9fef8cb3873c440088241f77e5b39c0012bb57765907"
         }
       ],
-      "status": "incomplete",
-      "issues": [
-        "Missing final match (resultCode 7)."
-      ]
+      "status": "complete",
+      "issues": []
     }
   ]
 }
