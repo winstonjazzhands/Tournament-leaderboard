@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "updatedAtUtc": "2026-03-15T21:49:47.320Z",
-=======
-  "updatedAtUtc": "2026-03-15T18:32:19.020Z",
->>>>>>> be2bb93 (exclude bullshit tournaments)
+  "updatedAtUtc": "2026-03-15T22:23:19.138Z",
   "source": "event-logs-two-seeds-with-maxLevel-fallback",
   "rpcUrl": "https://andromeda.metis.io/?owner=1088\r\n",
   "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
@@ -38,11 +34,7 @@
   },
   "scan": {
     "startBlock": 22000000,
-<<<<<<< HEAD
-    "endBlock": 22361154,
-=======
-    "endBlock": 22360263,
->>>>>>> be2bb93 (exclude bullshit tournaments)
+    "endBlock": 22361303,
     "blockChunk": 50000
   },
   "rangesByTournamentId": {
@@ -439,7 +431,7 @@
     "1824": {
       "minLevel": 20,
       "maxLevel": 25,
-      "tier": null
+      "tier": 20
     },
     "1825": {
       "minLevel": 16,
@@ -1759,12 +1751,12 @@
     "2271": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2273": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2274": {
       "minLevel": 10,
@@ -1774,25 +1766,24 @@
     "2275": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2277": {
       "minLevel": 60,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2279": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2280": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2281": {
-<<<<<<< HEAD
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
@@ -1806,19 +1797,11 @@
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
-=======
-      "minLevel": 5,
-      "maxLevel": 8,
-      "tier": null
-<<<<<<< HEAD
->>>>>>> be2bb93 (exclude bullshit tournaments)
-=======
     },
-    "2283": {
-      "minLevel": 5,
-      "maxLevel": 8,
-      "tier": null
->>>>>>> a92f0c5 (excluding low level tournaments)
+    "2284": {
+      "minLevel": 10,
+      "maxLevel": 10,
+      "tier": 10
     }
   },
   "missingTournamentIds": [
