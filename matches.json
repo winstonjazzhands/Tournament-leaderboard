@@ -1,14 +1,14 @@
 {
-  "updatedAtUtc": "2026-03-15T14:51:31.147Z",
+  "updatedAtUtc": "2026-03-15T15:26:49.429Z",
   "diamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
   "matchTopic0": "0x2b93f4474a262323163bea734586863c91186f8230b05f68ba8018bac0a65897",
   "winnerHintTopic0": "0x9ed8f9aac14f45bbc703fe9922e91c5db62b94877aeb6384e861d8d8c75db032",
   "lookbackBlocks": 3000000,
-  "totalMatchLogs": 6868,
+  "totalMatchLogs": 6870,
   "totalHintLogs": 192840,
   "hintAccepted": 188359,
-  "winnersFound": 6868,
-  "winnersFromMatchData": 6868,
+  "winnersFound": 6870,
+  "winnersFromMatchData": 6870,
   "winnersFromHintFallback": 0,
   "matchDataWinnerInvalid": 0,
   "hintFallbackInvalid": 0,
@@ -75576,6 +75576,28 @@
       "blockNumber": 22359182,
       "txHash": "0x4760f548abd0e926e9307e865c401097776a131bbca619324986cd4d94638d69",
       "logIndex": 6
+    },
+    {
+      "matchId": 2165,
+      "playerA": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "playerB": "0xdb33d4b4775396d5b40db9365638e337b4533d9f",
+      "resultCode": 7,
+      "winner": "0xb851aab224602b802d0706208a31be5807605c7f",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22359306,
+      "txHash": "0x95cc50ab25498325c2e3fb72d1ab581fec1ac9710068245b4fd172ae3d25a33b",
+      "logIndex": 3
+    },
+    {
+      "matchId": 2279,
+      "playerA": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+      "playerB": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "resultCode": 1,
+      "winner": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "winnerSource": "matchDataWord1",
+      "blockNumber": 22359342,
+      "txHash": "0x003ae9e1f7e80d9e5429ab57efea2b79a13420a52e46babaa0a410aca9beb336",
+      "logIndex": 7
     }
   ]
 }

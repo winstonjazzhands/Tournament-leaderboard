@@ -1,15 +1,15 @@
 {
-  "updatedAtUtc": "2026-03-15T14:51:31.373Z",
+  "updatedAtUtc": "2026-03-15T15:26:49.649Z",
   "sourceFiles": [
     "public/tournament-results.json",
     "public/matches.json"
   ],
   "sourceSummary": {
-    "generatedAtUtc": "2026-03-15T14:51:31.248Z",
+    "generatedAtUtc": "2026-03-15T15:26:49.543Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-15T14:51:31.147Z",
-    "totalTournaments": 1181,
-    "completeTournaments": 965,
+    "sourceUpdatedAtUtc": "2026-03-15T15:26:49.429Z",
+    "totalTournaments": 1182,
+    "completeTournaments": 966,
     "incompleteTournaments": 216,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
@@ -30,11 +30,11 @@
     "previousAvailable": false,
     "startBlock": 22080000,
     "endBlockExclusive": 22266000,
-    "tournamentsSeen": 1181,
+    "tournamentsSeen": 1182,
     "tournamentsUsed": 190,
-    "tournamentsSkipped": 991,
+    "tournamentsSkipped": 992,
     "skippedBeforeLeagueStart": 718,
-    "skippedAtOrAfterLeagueEnd": 93,
+    "skippedAtOrAfterLeagueEnd": 94,
     "skippedIncomplete": 180,
     "skippedMissingPlacements": 0,
     "round1EligibleTournaments": 144,
