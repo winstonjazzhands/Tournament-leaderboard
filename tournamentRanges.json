@@ -431,7 +431,7 @@
     "1824": {
       "minLevel": 20,
       "maxLevel": 25,
-      "tier": 20
+      "tier": null
     },
     "1825": {
       "minLevel": 16,
@@ -1746,12 +1746,12 @@
     "2271": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2273": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2274": {
       "minLevel": 10,
@@ -1761,27 +1761,31 @@
     "2275": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2277": {
       "minLevel": 60,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2279": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2280": {
       "minLevel": 20,
       "maxLevel": 60,
+<<<<<<< Updated upstream
       "tier": 20
     },
     "2281": {
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
+=======
+      "tier": null
+>>>>>>> Stashed changes
     }
   },
   "missingTournamentIds": [
