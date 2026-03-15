@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-03-15T19:16:29.075Z",
+  "updatedAtUtc": "2026-03-15T20:23:29.571Z",
   "source": "event-logs-two-seeds-with-maxLevel-fallback",
   "rpcUrl": "https://andromeda.metis.io/?owner=1088\r\n",
   "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
@@ -34,7 +34,7 @@
   },
   "scan": {
     "startBlock": 22000000,
-    "endBlock": 22360469,
+    "endBlock": 22360761,
     "blockChunk": 50000
   },
   "rangesByTournamentId": {
@@ -431,7 +431,7 @@
     "1824": {
       "minLevel": 20,
       "maxLevel": 25,
-      "tier": null
+      "tier": 20
     },
     "1825": {
       "minLevel": 16,
@@ -1746,12 +1746,12 @@
     "2271": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2273": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2274": {
       "minLevel": 10,
@@ -1761,31 +1761,32 @@
     "2275": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2277": {
       "minLevel": 60,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2279": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": null
+      "tier": 20
     },
     "2280": {
       "minLevel": 20,
       "maxLevel": 60,
-<<<<<<< Updated upstream
       "tier": 20
     },
     "2281": {
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
-=======
-      "tier": null
->>>>>>> Stashed changes
+    },
+    "2282": {
+      "minLevel": 20,
+      "maxLevel": 60,
+      "tier": 20
     }
   },
   "missingTournamentIds": [
