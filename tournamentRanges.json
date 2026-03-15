@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "updatedAtUtc": "2026-03-15T21:49:47.320Z",
+=======
+  "updatedAtUtc": "2026-03-15T18:32:19.020Z",
+>>>>>>> be2bb93 (exclude bullshit tournaments)
   "source": "event-logs-two-seeds-with-maxLevel-fallback",
   "rpcUrl": "https://andromeda.metis.io/?owner=1088\r\n",
   "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
@@ -34,7 +38,11 @@
   },
   "scan": {
     "startBlock": 22000000,
+<<<<<<< HEAD
     "endBlock": 22361154,
+=======
+    "endBlock": 22360263,
+>>>>>>> be2bb93 (exclude bullshit tournaments)
     "blockChunk": 50000
   },
   "rangesByTournamentId": {
@@ -431,7 +439,7 @@
     "1824": {
       "minLevel": 20,
       "maxLevel": 25,
-      "tier": 20
+      "tier": null
     },
     "1825": {
       "minLevel": 16,
@@ -1751,12 +1759,12 @@
     "2271": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2273": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2274": {
       "minLevel": 10,
@@ -1766,24 +1774,25 @@
     "2275": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2277": {
       "minLevel": 60,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2279": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2280": {
       "minLevel": 20,
       "maxLevel": 60,
-      "tier": 20
+      "tier": null
     },
     "2281": {
+<<<<<<< HEAD
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
@@ -1797,6 +1806,11 @@
       "minLevel": 20,
       "maxLevel": 60,
       "tier": 20
+=======
+      "minLevel": 5,
+      "maxLevel": 8,
+      "tier": null
+>>>>>>> be2bb93 (exclude bullshit tournaments)
     }
   },
   "missingTournamentIds": [
