@@ -1810,7 +1810,15 @@
       "minLevel": 5,
       "maxLevel": 8,
       "tier": null
+<<<<<<< HEAD
 >>>>>>> be2bb93 (exclude bullshit tournaments)
+=======
+    },
+    "2283": {
+      "minLevel": 5,
+      "maxLevel": 8,
+      "tier": null
+>>>>>>> a92f0c5 (excluding low level tournaments)
     }
   },
   "missingTournamentIds": [

@@ -1310,7 +1310,7 @@ button.learnMoreBtn,
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.3.0-strict-tier-filter -->
+<!-- DFK Tournament Leaderboard • version v1.3.1-maxlevel-tier-rule -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -4108,30 +4108,14 @@ function openWalletsModal(){
     if (!rangesJson) return map;
 
     function exactTierFromRangeLike(v){
-      const explicitTier = Number(v?.tier);
-      if (explicitTier === 10 || explicitTier === 20) return explicitTier;
-
-      const minL = Number(v?.minLevel ?? v?.min ?? v?.levelMin ?? v?.startLevel);
+      // Strict leaderboard rule: determine bracket tier from maxLevel only.
+      // maxLevel 10 => L10, maxLevel 20 => L20, everything else is excluded.
       const maxL = Number(v?.maxLevel ?? v?.max ?? v?.levelMax ?? v?.endLevel);
-
-      if (Number.isFinite(minL) && Number.isFinite(maxL)){
-        if (minL === 10 && maxL === 10) return 10;
-        if (minL === 20 && maxL === 20) return 20;
-        return 0;
-      }
-
-      if (Number.isFinite(minL)){
-        if (minL === 10) return 10;
-        if (minL === 20) return 20;
-        return 0;
-      }
-
       if (Number.isFinite(maxL)){
         if (maxL === 10) return 10;
         if (maxL === 20) return 20;
         return 0;
       }
-
       return null;
     }
 
