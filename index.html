@@ -493,13 +493,6 @@
       padding-right: var(--tableGutter);
       scrollbar-gutter: stable;
     }
-
-/* Remove side gutter so both leaderboards reach card edges */
-#pointsTableWrap,
-#tableWrap{
-  padding-left:0 !important;
-  padding-right:0 !important;
-}
     table{
       width:100%;
       border-collapse:separate;
@@ -680,19 +673,13 @@
     #pointsTable.pointsColHiThird thead th:nth-child(6),
     #pointsTable.pointsColHiThird tbody td:nth-child(6),
     #pointsTable.pointsColHiFourth thead th:nth-child(7),
-    #pointsTable.pointsColHiFourth tbody td:nth-child(7),
-    #pointsTable.pointsColHiRaw thead th:nth-child(8),
-    #pointsTable.pointsColHiRaw tbody td:nth-child(8),
-    #pointsTable.pointsColHiTrue thead th:nth-child(9),
-    #pointsTable.pointsColHiTrue tbody td:nth-child(9) { background: var(--colHi); }
+    #pointsTable.pointsColHiFourth tbody td:nth-child(7) { background: var(--colHi); }
 
     #pointsTable.pointsColHiPoints thead th:nth-child(3),
     #pointsTable.pointsColHiFirst thead th:nth-child(4),
     #pointsTable.pointsColHiSecond thead th:nth-child(5),
     #pointsTable.pointsColHiThird thead th:nth-child(6),
-    #pointsTable.pointsColHiFourth thead th:nth-child(7),
-    #pointsTable.pointsColHiRaw thead th:nth-child(8),
-    #pointsTable.pointsColHiTrue thead th:nth-child(9) { background: var(--colHiHead); }
+    #pointsTable.pointsColHiFourth thead th:nth-child(7) { background: var(--colHiHead); }
 
     .colHi10 thead th.col10, .colHi10 tbody td.col10 { background: var(--colHi); }
     .colHi10 thead th.col10 { background: var(--colHiHead); }
@@ -1323,7 +1310,7 @@ button.learnMoreBtn,
 </head>
 
 <body>
-<!-- DFK Tournament Leaderboard • version v1.2.9-learnmore-match -->
+<!-- DFK Tournament Leaderboard • version v1.3.0-strict-tier-filter -->
 <div class="wrap" id="app">
     <div class="headerInner">
     <header>
@@ -1557,8 +1544,8 @@ button.learnMoreBtn,
               <th class="right sortableHeader" id="pointsHdrSecond" tabindex="0" role="button">2nd</th>
               <th class="right sortableHeader" id="pointsHdrThird" tabindex="0" role="button">3rd</th>
               <th class="right sortableHeader" id="pointsHdrFourth" tabindex="0" role="button">4th</th>
-              <th class="right sortableHeader" id="pointsHdrRawSkill" tabindex="0" role="button">Raw Skill</th>
-              <th class="right sortableHeader" id="pointsHdrTrueSkill" tabindex="0" role="button">True Skill</th>
+              <th class="right">Raw Skill</th>
+              <th class="right">True Skill</th>
             </tr>
           </thead>
           <tbody id="pointsTbody">
@@ -1611,37 +1598,28 @@ button.learnMoreBtn,
       <div id="learnText" style="font-size:14px; line-height:1.6; color:var(--text);">
         <p style="margin-top:0"><strong>Note:</strong> all times shown are in <strong>UTC</strong>.</p>
 
-        <div style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:18px;align-items:start;margin:14px 0 16px;">
+        <div style="display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr);gap:18px;align-items:start;margin:14px 0 16px; text-align:left;">
           <div style="min-width:0;">
-            <h3 style="margin:0 0 8px;">🏆 Wins Leaderboard</h3>
+            <h3 style="margin:0 0 8px;">🏆 Wins &amp; Points Leaderboards</h3>
 
             <p style="margin:0 0 10px;">
-              Weekly wins determine your JEWEL rewards.
+              Weekly wins determine your JEWEL rewards, while monthly finishes drive the league standings.
             </p>
 
-            <h3 style="margin:14px 0 6px;">🏆 Level 10 Rewards</h3>
-            <ul style="margin:0 0 14px 20px;">
+            <p style="margin:0 0 6px;"><strong>Level 10 Rewards</strong></p>
+            <ul style="margin:0 0 12px 20px;">
               <li><strong>3 wins</strong> = <strong>150 JEWEL</strong></li>
               <li><strong>5 wins</strong> = <strong>300 JEWEL</strong></li>
               <li><strong>10 wins</strong> = <strong>750 JEWEL</strong></li>
             </ul>
 
-            <h3 style="margin:14px 0 6px;">⚔️ Level 20 Rewards</h3>
-            <ul style="margin:0 0 0 20px;">
+            <p style="margin:0 0 6px;"><strong>Level 20 Rewards</strong></p>
+            <ul style="margin:0 0 12px 20px;">
               <li><strong>Each win</strong> = <strong>60 JEWEL</strong></li>
             </ul>
-          </div>
 
-          <div style="width:1px;align-self:stretch;background:rgba(255,255,255,.12);border-radius:999px;"></div>
-
-          <div style="min-width:0;">
-            <h3 style="margin:0 0 8px;">📊 Points Leaderboard</h3>
-
-            <p style="margin:0 0 10px;">
-              Monthly league standings are based on tournament finishes:
-            </p>
-
-            <ul style="margin:0 0 14px 20px;">
+            <p style="margin:0 0 6px;"><strong>Points Scoring</strong></p>
+            <ul style="margin:0 0 12px 20px;">
               <li><strong>1st</strong> = <strong>3 points</strong></li>
               <li><strong>2nd</strong> = <strong>2 points</strong></li>
               <li><strong>3rd</strong> = <strong>1 point</strong></li>
@@ -1649,25 +1627,40 @@ button.learnMoreBtn,
             </ul>
 
             <p style="margin:0 0 10px;">
-              Points accumulate throughout the month and determine the final league standings.
-              Rewards are distributed to the top six wallets:
-            </p>
-
-            <ul style="margin:0 0 14px 20px;">
-              <li><strong>1st</strong> – ???? JEWEL</li>
-              <li><strong>2nd</strong> – ???? JEWEL</li>
-              <li><strong>3rd</strong> – ???? JEWEL</li>
-              <li><strong>4th–10th</strong> – ???? JEWEL each</li>
-              <li><strong>11th–20th</strong> – ???? JEWEL each</li>
-            </ul>
-
-            <p style="margin:0 0 10px;">
-              Players who reach a minimum points threshold during the month will also receive rewards.
-              The exact requirement will be revealed at the start of the next league month.
+              Points build across the month and determine the final league standings. Reward amounts and minimum point requirements may change as the system is refined.
             </p>
 
             <p style="margin:0;color:var(--muted);font-size:13px;">
-              The Points Leaderboard is currently in <strong>beta</strong> while the scoring system and rewards structure continue to be refined.
+              The Points Leaderboard is currently in <strong>beta</strong> while scoring and payouts continue to be tuned.
+            </p>
+          </div>
+
+          <div style="width:1px;align-self:stretch;background:rgba(255,255,255,.12);border-radius:999px;"></div>
+
+          <div style="min-width:0;">
+            <h3 style="margin:0 0 8px;">📈 Skill Metrics</h3>
+
+            <p style="margin:0 0 10px;">
+              The leaderboard also shows two performance metrics designed to measure how efficiently players turn tournament entries into strong finishes.
+            </p>
+
+            <p style="margin:0 0 6px;"><strong>Raw Skill</strong></p>
+            <p style="margin:0 0 10px;">
+              Raw Skill is the weighted result per tournament played:
+            </p>
+            <p style="margin:0 0 10px;font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, &quot;Liberation Mono&quot;, monospace;color:var(--accent);">
+              Raw Skill = (3.6 × 1st + 2.7 × 2nd + 1.4 × 3rd − 0.7 × 4th) ÷ played
+            </p>
+            <p style="margin:0 0 12px;">
+              Higher finishes add more value, lower finishes add less, and 4th place slightly drags the score down. Because the formula is divided by tournaments played, Raw Skill reflects performance quality rather than simple volume.
+            </p>
+
+            <p style="margin:0 0 6px;"><strong>True Skill</strong></p>
+            <p style="margin:0 0 10px;">
+              True Skill starts from Raw Skill, then applies a confidence adjustment based on tournament history. Players with only a few events are rated more conservatively, while players with larger samples move closer to their full measured performance.
+            </p>
+            <p style="margin:0;color:var(--muted);font-size:13px;">
+              In practice, Raw Skill shows efficiency, while True Skill helps show how proven that efficiency is.
             </p>
           </div>
         </div>
@@ -2629,8 +2622,9 @@ function shiftWeek(dir){
   function tierOverrideForTournamentId(tournamentId){
     const id = normalizeTournamentId(tournamentId);
     if (!id) return null;
+    if (!Object.prototype.hasOwnProperty.call(state.tournamentTierById || {}, id)) return null;
     const t = state.tournamentTierById[id];
-    return (t === 10 || t === 20) ? t : null;
+    return (t === 10 || t === 20 || t === 0) ? t : null;
   }
 
   function jewel10(w10){
@@ -2739,19 +2733,13 @@ function shiftWeek(dir){
     });
   }
 
-  function getPointsSortMetric(row, key){
-    if (key === "rawSkill") return getRawSkill(row);
-    if (key === "trueSkill") return getTrueSkill(row);
-    return Number(row?.[key]) || 0;
-  }
-
   function sortPointsRows(rows){
     const key = state.pointsSortKey || "points";
     const dir = state.pointsSortDir === "asc" ? 1 : -1;
     const sorted = [...(Array.isArray(rows) ? rows : [])];
     sorted.sort((a,b) => {
-      const av = getPointsSortMetric(a, key);
-      const bv = getPointsSortMetric(b, key);
+      const av = Number(a?.[key]) || 0;
+      const bv = Number(b?.[key]) || 0;
       if (bv !== av) return dir === -1 ? (bv - av) : (av - bv);
 
       const tie = (Number(b?.points) || 0) - (Number(a?.points) || 0)
@@ -2798,9 +2786,7 @@ function shiftWeek(dir){
       ["pointsHdrFirst", "1st", "firsts"],
       ["pointsHdrSecond", "2nd", "seconds"],
       ["pointsHdrThird", "3rd", "thirds"],
-      ["pointsHdrFourth", "4th", "round1"],
-      ["pointsHdrRawSkill", "Raw Skill", "rawSkill"],
-      ["pointsHdrTrueSkill", "True Skill", "trueSkill"]
+      ["pointsHdrFourth", "4th", "round1"]
     ];
     const activeKey = state.pointsSortKey || "points";
     const dir = state.pointsSortDir === "asc" ? "asc" : "desc";
@@ -2817,13 +2803,11 @@ function shiftWeek(dir){
   function setPointsColumnHighlight(){
     const tbl = $("pointsTable");
     if (!tbl) return;
-    tbl.classList.remove("pointsColHiPoints","pointsColHiFirst","pointsColHiSecond","pointsColHiThird","pointsColHiFourth","pointsColHiRaw","pointsColHiTrue");
+    tbl.classList.remove("pointsColHiPoints","pointsColHiFirst","pointsColHiSecond","pointsColHiThird","pointsColHiFourth");
     if (state.pointsSortKey === "firsts") tbl.classList.add("pointsColHiFirst");
     else if (state.pointsSortKey === "seconds") tbl.classList.add("pointsColHiSecond");
     else if (state.pointsSortKey === "thirds") tbl.classList.add("pointsColHiThird");
     else if (state.pointsSortKey === "round1") tbl.classList.add("pointsColHiFourth");
-    else if (state.pointsSortKey === "rawSkill") tbl.classList.add("pointsColHiRaw");
-    else if (state.pointsSortKey === "trueSkill") tbl.classList.add("pointsColHiTrue");
     else tbl.classList.add("pointsColHiPoints");
   }
 
@@ -4123,11 +4107,41 @@ function openWalletsModal(){
     const map = {};
     if (!rangesJson) return map;
 
+    function exactTierFromRangeLike(v){
+      const explicitTier = Number(v?.tier);
+      if (explicitTier === 10 || explicitTier === 20) return explicitTier;
+
+      const minL = Number(v?.minLevel ?? v?.min ?? v?.levelMin ?? v?.startLevel);
+      const maxL = Number(v?.maxLevel ?? v?.max ?? v?.levelMax ?? v?.endLevel);
+
+      if (Number.isFinite(minL) && Number.isFinite(maxL)){
+        if (minL === 10 && maxL === 10) return 10;
+        if (minL === 20 && maxL === 20) return 20;
+        return 0;
+      }
+
+      if (Number.isFinite(minL)){
+        if (minL === 10) return 10;
+        if (minL === 20) return 20;
+        return 0;
+      }
+
+      if (Number.isFinite(maxL)){
+        if (maxL === 10) return 10;
+        if (maxL === 20) return 20;
+        return 0;
+      }
+
+      return null;
+    }
+
     const obj = rangesJson.rangesByTournamentId || rangesJson.tournamentRangesById || null;
     if (obj && typeof obj === "object"){
       for (const [k,v] of Object.entries(obj)){
-        const tier = Number(v?.tier);
-        if (tier === 10 || tier === 20) map[String(k)] = tier;
+        const id = normalizeTournamentId(k);
+        if (!id) continue;
+        const tier = exactTierFromRangeLike(v);
+        if (tier === 10 || tier === 20 || tier === 0) map[id] = tier;
       }
       return map;
     }
@@ -4136,10 +4150,8 @@ function openWalletsModal(){
       for (const row of rangesJson){
         const id = normalizeTournamentId(row?.tournamentId ?? row?.id);
         if (!id) continue;
-        const maxL = Number(row?.maxLevel);
-        const minL = Number(row?.minLevel);
-        const tier = Number(row?.tier) || ((Number.isFinite(maxL) && maxL >= 16) || (Number.isFinite(minL) && minL >= 11) ? 20 : 10);
-        if (tier === 10 || tier === 20) map[id] = tier;
+        const tier = exactTierFromRangeLike(row);
+        if (tier === 10 || tier === 20 || tier === 0) map[id] = tier;
       }
       return map;
     }
@@ -4147,8 +4159,10 @@ function openWalletsModal(){
     if (typeof rangesJson === "object"){
       for (const [k,v] of Object.entries(rangesJson)){
         if (k === "updatedAtUtc" || k === "source" || k === "meta") continue;
-        const tier = Number(v?.tier);
-        if (tier === 10 || tier === 20) map[String(k)] = tier;
+        const id = normalizeTournamentId(k);
+        if (!id) continue;
+        const tier = exactTierFromRangeLike(v);
+        if (tier === 10 || tier === 20 || tier === 0) map[id] = tier;
       }
     }
     return map;
@@ -4211,7 +4225,8 @@ function openWalletsModal(){
           const tier = overrideTier ?? baseTier;
           return { wallet, timestamp, tier, tournamentId };
         })
-        .filter(w => w.wallet && Number.isFinite(w.timestamp) && (w.timestamp * 1000) >= DATA_START_MS);
+        .filter(w => w.wallet && Number.isFinite(w.timestamp) && (w.timestamp * 1000) >= DATA_START_MS)
+        .filter(w => w.tier === 10 || w.tier === 20);
 
       if (!Object.keys(state.tournamentTierById || {}).length){
         $("subline").textContent = "Note: tournamentRanges.json not found (tier overrides not applied yet). Run the tier builder script.";
@@ -4420,8 +4435,6 @@ function openWalletsModal(){
   bindHeaderToggle("pointsHdrSecond", () => setPointsHeaderSort("seconds"));
   bindHeaderToggle("pointsHdrThird", () => setPointsHeaderSort("thirds"));
   bindHeaderToggle("pointsHdrFourth", () => setPointsHeaderSort("round1"));
-  bindHeaderToggle("pointsHdrRawSkill", () => setPointsHeaderSort("rawSkill"));
-  bindHeaderToggle("pointsHdrTrueSkill", () => setPointsHeaderSort("trueSkill"));
 
   window.addEventListener("resize", () => sizeTilesToFilters());
 
