@@ -1,16 +1,16 @@
 {
-  "updatedAtUtc": "2026-03-16T19:54:03.404Z",
+  "updatedAtUtc": "2026-03-16T20:36:17.059Z",
   "sourceFiles": [
     "public/tournament-results.json",
     "public/matches.json"
   ],
   "sourceSummary": {
-    "generatedAtUtc": "2026-03-16T19:54:03.083Z",
+    "generatedAtUtc": "2026-03-16T20:36:16.687Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-16T19:54:02.984Z",
-    "totalTournaments": 1198,
+    "sourceUpdatedAtUtc": "2026-03-16T20:36:16.582Z",
+    "totalTournaments": 1199,
     "completeTournaments": 983,
-    "incompleteTournaments": 215,
+    "incompleteTournaments": 216,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -30,12 +30,12 @@
     "previousAvailable": true,
     "startBlock": 22266000,
     "endBlockExclusive": null,
-    "tournamentsSeen": 1198,
+    "tournamentsSeen": 1199,
     "tournamentsUsed": 111,
-    "tournamentsSkipped": 1087,
+    "tournamentsSkipped": 1088,
     "skippedBeforeLeagueStart": 908,
     "skippedAtOrAfterLeagueEnd": 0,
-    "skippedIncomplete": 179,
+    "skippedIncomplete": 180,
     "skippedMissingPlacements": 0,
     "round1EligibleTournaments": 85,
     "round1Awards": 85,
