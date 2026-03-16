@@ -1,15 +1,15 @@
 {
-  "updatedAtUtc": "2026-03-16T12:00:38.893Z",
+  "updatedAtUtc": "2026-03-16T13:15:48.666Z",
   "sourceFiles": [
     "public/tournament-results.json",
     "public/matches.json"
   ],
   "sourceSummary": {
-    "generatedAtUtc": "2026-03-16T12:00:38.488Z",
+    "generatedAtUtc": "2026-03-16T13:15:48.569Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-16T12:00:38.374Z",
-    "totalTournaments": 1193,
-    "completeTournaments": 978,
+    "sourceUpdatedAtUtc": "2026-03-16T13:15:48.468Z",
+    "totalTournaments": 1194,
+    "completeTournaments": 979,
     "incompleteTournaments": 215,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
@@ -30,16 +30,16 @@
     "previousAvailable": true,
     "startBlock": 22266000,
     "endBlockExclusive": null,
-    "tournamentsSeen": 1193,
-    "tournamentsUsed": 106,
+    "tournamentsSeen": 1194,
+    "tournamentsUsed": 107,
     "tournamentsSkipped": 1087,
     "skippedBeforeLeagueStart": 908,
     "skippedAtOrAfterLeagueEnd": 0,
     "skippedIncomplete": 179,
     "skippedMissingPlacements": 0,
-    "round1EligibleTournaments": 80,
-    "round1Awards": 80,
-    "playersRanked": 35,
+    "round1EligibleTournaments": 81,
+    "round1Awards": 81,
+    "playersRanked": 36,
     "scoringRule": "1st=3, 2nd=2, tied 3rd=1 each, 4th=0.5 for tournaments with 5+ players",
     "fourthDefinition": "4th is shown as exact points earned from round-1 exits (count × 0.5)."
   },
@@ -47,13 +47,13 @@
     {
       "rank": 1,
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
-      "points": 108.5,
-      "firsts": 26,
+      "points": 111.5,
+      "firsts": 27,
       "seconds": 11,
       "thirds": 8,
       "round1Exits": 1,
       "fourthPoints": 0.5,
-      "tournamentsCounted": 46,
+      "tournamentsCounted": 47,
       "tournamentIds": [
         1981,
         1982,
@@ -95,6 +95,7 @@
         2160,
         2166,
         2167,
+        2168,
         2268,
         2269,
         2282,
@@ -126,6 +127,7 @@
         2158,
         2159,
         2160,
+        2168,
         2269,
         2284,
         2285
@@ -275,13 +277,13 @@
     {
       "rank": 3,
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
-      "points": 84.5,
+      "points": 85,
       "firsts": 14,
       "seconds": 13,
       "thirds": 15,
-      "round1Exits": 3,
-      "fourthPoints": 1.5,
-      "tournamentsCounted": 45,
+      "round1Exits": 4,
+      "fourthPoints": 2,
+      "tournamentsCounted": 46,
       "tournamentIds": [
         1974,
         1975,
@@ -326,6 +328,7 @@
         2151,
         2159,
         2167,
+        2168,
         2268,
         2284
       ],
@@ -380,7 +383,8 @@
       "fourthIds": [
         1983,
         1999,
-        2134
+        2134,
+        2168
       ]
     },
     {
@@ -930,13 +934,13 @@
     {
       "rank": 10,
       "wallet": "0x9fa2a4c6f26022b998e17dd1e56a0f23d2b9cbab",
-      "points": 20.5,
+      "points": 21.5,
       "firsts": 2,
       "seconds": 4,
-      "thirds": 6,
+      "thirds": 7,
       "round1Exits": 1,
       "fourthPoints": 0.5,
-      "tournamentsCounted": 13,
+      "tournamentsCounted": 14,
       "tournamentIds": [
         1984,
         1985,
@@ -950,7 +954,8 @@
         2140,
         2142,
         2150,
-        2151
+        2151,
+        2168
       ],
       "firstIds": [
         1984,
@@ -968,7 +973,8 @@
         2114,
         2134,
         2140,
-        2150
+        2150,
+        2168
       ],
       "fourthIds": [
         2142
@@ -1031,6 +1037,59 @@
     },
     {
       "rank": 12,
+      "wallet": "0xd59b2a2acea9704121598c5fd942f9fbea4dfa47",
+      "points": 18.5,
+      "firsts": 1,
+      "seconds": 3,
+      "thirds": 7,
+      "round1Exits": 5,
+      "fourthPoints": 2.5,
+      "tournamentsCounted": 16,
+      "tournamentIds": [
+        1973,
+        1974,
+        1995,
+        1996,
+        1998,
+        2014,
+        2015,
+        2019,
+        2157,
+        2160,
+        2161,
+        2162,
+        2163,
+        2165,
+        2166,
+        2168
+      ],
+      "firstIds": [
+        1973
+      ],
+      "secondIds": [
+        2015,
+        2157,
+        2168
+      ],
+      "thirdIds": [
+        1974,
+        1995,
+        1996,
+        1998,
+        2014,
+        2162,
+        2163
+      ],
+      "fourthIds": [
+        2019,
+        2160,
+        2161,
+        2165,
+        2166
+      ]
+    },
+    {
+      "rank": 13,
       "wallet": "0xa81599eac76045fce181ae0d83a5843c39867ad4",
       "points": 17,
       "firsts": 5,
@@ -1063,7 +1122,7 @@
       "fourthIds": []
     },
     {
-      "rank": 13,
+      "rank": 14,
       "wallet": "0x8ebbd338cd03f2218eeb5533deed9a628c7aaf84",
       "points": 17,
       "firsts": 4,
@@ -1095,57 +1154,6 @@
         2277
       ],
       "fourthIds": []
-    },
-    {
-      "rank": 14,
-      "wallet": "0xd59b2a2acea9704121598c5fd942f9fbea4dfa47",
-      "points": 16.5,
-      "firsts": 1,
-      "seconds": 2,
-      "thirds": 7,
-      "round1Exits": 5,
-      "fourthPoints": 2.5,
-      "tournamentsCounted": 15,
-      "tournamentIds": [
-        1973,
-        1974,
-        1995,
-        1996,
-        1998,
-        2014,
-        2015,
-        2019,
-        2157,
-        2160,
-        2161,
-        2162,
-        2163,
-        2165,
-        2166
-      ],
-      "firstIds": [
-        1973
-      ],
-      "secondIds": [
-        2015,
-        2157
-      ],
-      "thirdIds": [
-        1974,
-        1995,
-        1996,
-        1998,
-        2014,
-        2162,
-        2163
-      ],
-      "fourthIds": [
-        2019,
-        2160,
-        2161,
-        2165,
-        2166
-      ]
     },
     {
       "rank": 15,
@@ -1709,6 +1717,26 @@
     },
     {
       "rank": 34,
+      "wallet": "0x11111405e05270d241c8185c95915d42f95de755",
+      "points": 1,
+      "firsts": 0,
+      "seconds": 0,
+      "thirds": 1,
+      "round1Exits": 0,
+      "fourthPoints": 0,
+      "tournamentsCounted": 1,
+      "tournamentIds": [
+        2168
+      ],
+      "firstIds": [],
+      "secondIds": [],
+      "thirdIds": [
+        2168
+      ],
+      "fourthIds": []
+    },
+    {
+      "rank": 35,
       "wallet": "0xc95f7c102f61b70594c37c7165ac63eefc149ac2",
       "points": 1,
       "firsts": 0,
@@ -1728,7 +1756,7 @@
       "fourthIds": []
     },
     {
-      "rank": 35,
+      "rank": 36,
       "wallet": "0xce618efa03023d3157d86a7f3d8bc56f7f56ba63",
       "points": 0.5,
       "firsts": 0,
