@@ -1,11 +1,11 @@
 {
-  "updatedAtUtc": "2026-03-15T23:52:10.887Z",
+  "updatedAtUtc": "2026-03-16T00:27:45.987Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 362,
-  "uniqueTournaments": 362,
+  "totalWins": 363,
+  "uniqueTournaments": 363,
   "unknownTierWins": 0,
   "rewards": {
     "lvl10Brackets": [
@@ -2922,18 +2922,26 @@
       "timestamp": 1773613186,
       "blockNumber": 22361286,
       "tier": 10
+    },
+    {
+      "id": "0x9a09dc5121dfb5efb94a78ad11c1dd7e2b1026a94de87a37201e0a8d6c2d48f6-6",
+      "tournamentId": 2285,
+      "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
+      "timestamp": 1773618935,
+      "blockNumber": 22361720,
+      "tier": 10
     }
   ],
   "leaderboard": [
     {
       "rank": 1,
       "wallet": "0x00ce8d6ddde58819f3a0979ab7fa93b79626bd7c",
-      "lvl10Wins": 77,
+      "lvl10Wins": 78,
       "lvl20Wins": 0,
-      "totalWins": 77,
-      "lastWin": 1773613186,
+      "totalWins": 78,
+      "lastWin": 1773618935,
       "lifetimeEarned": 4200,
-      "thisWeekEarned": 750,
+      "thisWeekEarned": 0,
       "lastWeekEarned": 750
     },
     {
@@ -2944,7 +2952,7 @@
       "totalWins": 41,
       "lastWin": 1773512776,
       "lifetimeEarned": 1620,
-      "thisWeekEarned": 300,
+      "thisWeekEarned": 0,
       "lastWeekEarned": 300
     },
     {
@@ -2955,8 +2963,8 @@
       "totalWins": 28,
       "lastWin": 1773183909,
       "lifetimeEarned": 1200,
-      "thisWeekEarned": 150,
-      "lastWeekEarned": 0
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 150
     },
     {
       "rank": 4,
@@ -2978,7 +2986,7 @@
       "lastWin": 1773503186,
       "lifetimeEarned": 810,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 210
+      "lastWeekEarned": 0
     },
     {
       "rank": 6,
@@ -2988,7 +2996,7 @@
       "totalWins": 20,
       "lastWin": 1773609136,
       "lifetimeEarned": 750,
-      "thisWeekEarned": 300,
+      "thisWeekEarned": 0,
       "lastWeekEarned": 300
     },
     {
@@ -3010,8 +3018,8 @@
       "totalWins": 16,
       "lastWin": 1773602401,
       "lifetimeEarned": 600,
-      "thisWeekEarned": 150,
-      "lastWeekEarned": 0
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 150
     },
     {
       "rank": 9,
@@ -3022,7 +3030,7 @@
       "lastWin": 1773010786,
       "lifetimeEarned": 360,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 150
+      "lastWeekEarned": 0
     },
     {
       "rank": 10,
@@ -3044,7 +3052,7 @@
       "lastWin": 1773586943,
       "lifetimeEarned": 150,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 150
+      "lastWeekEarned": 0
     },
     {
       "rank": 12,
@@ -3087,8 +3095,8 @@
       "totalWins": 5,
       "lastWin": 1773607052,
       "lifetimeEarned": 150,
-      "thisWeekEarned": 150,
-      "lastWeekEarned": 0
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 150
     },
     {
       "rank": 16,
@@ -3175,8 +3183,8 @@
       "totalWins": 3,
       "lastWin": 1773600951,
       "lifetimeEarned": 60,
-      "thisWeekEarned": 60,
-      "lastWeekEarned": 0
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 60
     },
     {
       "rank": 24,
@@ -3289,6 +3297,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-15T23:52:12.401Z",
+  "tiersUpdatedAtUtc": "2026-03-16T00:27:47.894Z",
   "tiersChanges": 131
 }
