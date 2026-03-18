@@ -1,11 +1,11 @@
 {
-  "updatedAtUtc": "2026-03-18T20:57:27.538Z",
+  "updatedAtUtc": "2026-03-18T21:32:28.920Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
   "logChunkBlocks": 60000,
-  "totalWins": 386,
-  "uniqueTournaments": 386,
+  "totalWins": 387,
+  "uniqueTournaments": 387,
   "unknownTierWins": 0,
   "rewards": {
     "lvl10Brackets": [
@@ -3114,6 +3114,14 @@
       "timestamp": 1773856209,
       "blockNumber": 22379069,
       "tier": 20
+    },
+    {
+      "id": "0xfdc0fc7500f61252d66a0912f83329c856f10cf27fcd33aa083650e7a4640235-5",
+      "tournamentId": 2179,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "timestamp": 1773867437,
+      "blockNumber": 22379854,
+      "tier": 10
     }
   ],
   "leaderboard": [
@@ -3174,6 +3182,17 @@
     },
     {
       "rank": 6,
+      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
+      "lvl10Wins": 20,
+      "lvl20Wins": 0,
+      "totalWins": 20,
+      "lastWin": 1773867437,
+      "lifetimeEarned": 750,
+      "thisWeekEarned": 150,
+      "lastWeekEarned": 150
+    },
+    {
+      "rank": 7,
       "wallet": "0x90979e494f1450c6010b82ecf89e6b26caf53980",
       "lvl10Wins": 20,
       "lvl20Wins": 0,
@@ -3184,7 +3203,7 @@
       "lastWeekEarned": 300
     },
     {
-      "rank": 7,
+      "rank": 8,
       "wallet": "0x327d0c6686a3fe84f5dcdffb670ffab87dcd44a6",
       "lvl10Wins": 19,
       "lvl20Wins": 1,
@@ -3193,17 +3212,6 @@
       "lifetimeEarned": 660,
       "thisWeekEarned": 0,
       "lastWeekEarned": 0
-    },
-    {
-      "rank": 8,
-      "wallet": "0xf0a1b29453f025460c9827435949271547ca93ab",
-      "lvl10Wins": 19,
-      "lvl20Wins": 0,
-      "totalWins": 19,
-      "lastWin": 1773773484,
-      "lifetimeEarned": 750,
-      "thisWeekEarned": 150,
-      "lastWeekEarned": 150
     },
     {
       "rank": 9,
@@ -3514,6 +3522,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-18T20:57:29.285Z",
+  "tiersUpdatedAtUtc": "2026-03-18T21:32:30.101Z",
   "tiersChanges": 145
 }
