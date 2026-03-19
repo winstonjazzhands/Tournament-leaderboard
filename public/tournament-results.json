@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-19T17:16:17.689Z",
+    "generatedAtUtc": "2026-03-19T18:06:59.159Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-19T17:16:17.580Z",
+    "sourceUpdatedAtUtc": "2026-03-19T18:06:59.053Z",
     "totalTournaments": 1220,
-    "completeTournaments": 1004,
-    "incompleteTournaments": 216,
+    "completeTournaments": 1005,
+    "incompleteTournaments": 215,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -49986,21 +49986,48 @@
     },
     {
       "tournamentId": 2304,
-      "bracketSize": 4,
-      "totalMatches": 2,
+      "bracketSize": 6,
+      "totalMatches": 5,
       "placements": {
-        "first": null,
-        "second": null,
-        "thirds": [],
+        "first": "0xf10a0711dbd91bd97ab755c82258830b29f7c53a",
+        "second": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+        "thirds": [
+          "0xf0a1b29453f025460c9827435949271547ca93ab",
+          "0x29dc0b8a6e09c82fe708588888bc2c5e22db413f"
+        ],
         "hasUniqueThird": false
       },
-      "final": null,
-      "semifinals": [],
-      "status": "incomplete",
-      "issues": [
-        "Missing final match (resultCode 7).",
-        "No semifinal matches found (resultCode 5/6)."
-      ]
+      "final": {
+        "resultCode": 7,
+        "winner": "0xf10a0711dbd91bd97ab755c82258830b29f7c53a",
+        "loser": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+        "playerA": "0xf10a0711dbd91bd97ab755c82258830b29f7c53a",
+        "playerB": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+        "blockNumber": 22384259,
+        "txHash": "0xf21f866c34252795de13ad00cace15a8a206bbe899bbc1b7f3714102c1ccfd5f"
+      },
+      "semifinals": [
+        {
+          "resultCode": 5,
+          "winner": "0xf10a0711dbd91bd97ab755c82258830b29f7c53a",
+          "loser": "0xf0a1b29453f025460c9827435949271547ca93ab",
+          "playerA": "0xf10a0711dbd91bd97ab755c82258830b29f7c53a",
+          "playerB": "0xf0a1b29453f025460c9827435949271547ca93ab",
+          "blockNumber": 22384179,
+          "txHash": "0xe579e418cdf5e23523aecdb26874c92ebd00a4a9cba5ef1d43001ba12cfc9249"
+        },
+        {
+          "resultCode": 6,
+          "winner": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+          "loser": "0x29dc0b8a6e09c82fe708588888bc2c5e22db413f",
+          "playerA": "0x971bdacd04ef40141ddb6ba175d4f76665103c81",
+          "playerB": "0x29dc0b8a6e09c82fe708588888bc2c5e22db413f",
+          "blockNumber": 22384185,
+          "txHash": "0xaf58098a8d41a8ff7e4fe4e6dc25627ffdd44e17991e2bdccd6ef3616899401d"
+        }
+      ],
+      "status": "complete",
+      "issues": []
     }
   ]
 }
