@@ -8063,6 +8063,14 @@
       "method": "logs/lookback",
       "resolvedAtUtc": "2026-03-19T19:13:58.426Z",
       "decodeVersion": "post22m-v1-flexpair"
+    },
+    "2306": {
+      "tier": 10,
+      "matchedBlock": 22385695,
+      "anchorWinBlock": 22385860,
+      "method": "logs/lookback",
+      "resolvedAtUtc": "2026-03-19T23:52:48.786Z",
+      "decodeVersion": "post22m-v1-flexpair"
     }
   }
 }
