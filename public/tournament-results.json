@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generatedAtUtc": "2026-03-20T19:51:03.237Z",
+    "generatedAtUtc": "2026-03-20T20:28:50.493Z",
     "sourceFile": "public/matches.json",
-    "sourceUpdatedAtUtc": "2026-03-20T19:51:03.131Z",
-    "totalTournaments": 1225,
+    "sourceUpdatedAtUtc": "2026-03-20T20:28:50.386Z",
+    "totalTournaments": 1226,
     "completeTournaments": 1010,
-    "incompleteTournaments": 215,
+    "incompleteTournaments": 216,
     "notes": [
       "This file reconstructs tournament placements from matches.json.",
       "Current match data appears to use resultCode 7 as final and 5/6 as semifinals.",
@@ -48768,6 +48768,45 @@
       ],
       "status": "complete",
       "issues": []
+    },
+    {
+      "tournamentId": 2187,
+      "bracketSize": 4,
+      "totalMatches": 2,
+      "placements": {
+        "first": null,
+        "second": null,
+        "thirds": [
+          "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb"
+        ],
+        "hasUniqueThird": false
+      },
+      "final": null,
+      "semifinals": [
+        {
+          "resultCode": 6,
+          "winner": "0xb851aab224602b802d0706208a31be5807605c7f",
+          "loser": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "playerA": "0xb851aab224602b802d0706208a31be5807605c7f",
+          "playerB": "0xb3eadfcb689d2d5f154e1d9e8c11348b3f599185",
+          "blockNumber": 22391147,
+          "txHash": "0xbba72467fe936e685c39727c110729e8581fd5ab3f18e13b29dd8ef7a9105605"
+        },
+        {
+          "resultCode": 5,
+          "winner": "0xea9192c839293b3f798cfe03d7dfe3ffeb10783e",
+          "loser": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+          "playerA": "0xea9192c839293b3f798cfe03d7dfe3ffeb10783e",
+          "playerB": "0x740d3c9a075a2fabe64ab01f9c6875ce97fa0ecb",
+          "blockNumber": 22391180,
+          "txHash": "0x53f54cb520ffb089d2a61d2bcb6e84b6260b9d21c8532be57e7aa86073b70f7e"
+        }
+      ],
+      "status": "incomplete",
+      "issues": [
+        "Missing final match (resultCode 7)."
+      ]
     },
     {
       "tournamentId": 2268,
