@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-03-20T07:55:48.719Z",
+  "updatedAtUtc": "2026-03-20T08:36:57.469Z",
   "source": "event-logs-two-seeds-with-maxLevel-fallback",
   "rpcUrl": "https://andromeda.metis.io/?owner=1088\r\n",
   "tournamentDiamond": "0xc7681698b14a2381d9f1ed69fc3d27f33965b53b",
@@ -34,7 +34,7 @@
   },
   "scan": {
     "startBlock": 22000000,
-    "endBlock": 22387944,
+    "endBlock": 22388115,
     "blockChunk": 50000
   },
   "rangesByTournamentId": {
