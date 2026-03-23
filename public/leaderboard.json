@@ -1,5 +1,5 @@
 {
-  "updatedAtUtc": "2026-03-22T23:50:18.015Z",
+  "updatedAtUtc": "2026-03-23T01:53:16.068Z",
   "decodeVersion": "post22m-v1-flexpair",
   "startBlock": 22000000,
   "lookbackBlocks": 3000000,
@@ -3253,7 +3253,7 @@
       "totalWins": 92,
       "lastWin": 1774126632,
       "lifetimeEarned": 4950,
-      "thisWeekEarned": 750,
+      "thisWeekEarned": 0,
       "lastWeekEarned": 750
     },
     {
@@ -3265,7 +3265,7 @@
       "lastWin": 1773701619,
       "lifetimeEarned": 1620,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 300
+      "lastWeekEarned": 0
     },
     {
       "rank": 3,
@@ -3276,7 +3276,7 @@
       "lastWin": 1773766651,
       "lifetimeEarned": 1200,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 150
+      "lastWeekEarned": 0
     },
     {
       "rank": 4,
@@ -3308,8 +3308,8 @@
       "totalWins": 21,
       "lastWin": 1774045311,
       "lifetimeEarned": 900,
-      "thisWeekEarned": 300,
-      "lastWeekEarned": 150
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 300
     },
     {
       "rank": 7,
@@ -3320,7 +3320,7 @@
       "lastWin": 1773609136,
       "lifetimeEarned": 750,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 300
+      "lastWeekEarned": 0
     },
     {
       "rank": 8,
@@ -3408,7 +3408,7 @@
       "lastWin": 1773880578,
       "lifetimeEarned": 150,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 150
+      "lastWeekEarned": 0
     },
     {
       "rank": 16,
@@ -3419,7 +3419,7 @@
       "lastWin": 1773767861,
       "lifetimeEarned": 60,
       "thisWeekEarned": 0,
-      "lastWeekEarned": 60
+      "lastWeekEarned": 0
     },
     {
       "rank": 17,
@@ -3506,8 +3506,8 @@
       "totalWins": 3,
       "lastWin": 1774133318,
       "lifetimeEarned": 150,
-      "thisWeekEarned": 150,
-      "lastWeekEarned": 0
+      "thisWeekEarned": 0,
+      "lastWeekEarned": 150
     },
     {
       "rank": 25,
@@ -3653,6 +3653,6 @@
       "lastWeekEarned": 0
     }
   ],
-  "tiersUpdatedAtUtc": "2026-03-22T23:50:19.263Z",
+  "tiersUpdatedAtUtc": "2026-03-23T01:53:17.472Z",
   "tiersChanges": 152
 }
